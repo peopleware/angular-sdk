@@ -1,0 +1,39 @@
+name: Publish New Release to NPM
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '18.x'
+            - run: npm install
+            - run: npm run ci:lint
+            - run: npm run ci:build-libs
+            - run: npm run ci:test-libs
+            - run: npm publish dist/ppwcode/ng-async --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-common --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-common-components --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-dialogs --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-forms --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-router --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: npm publish dist/ppwcode/ng-wireframe --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

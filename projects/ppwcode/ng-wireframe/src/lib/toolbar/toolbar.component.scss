@@ -1,0 +1,39 @@
+.toolbar-button {
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: transparent;
+    gap: 5px;
+}
+
+.toolbar-button:hover {
+    cursor: pointer;
+    background-color: rgba(black, 4%); /* same as #F5F5F5 */
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(black, 12%);
+    box-shadow: rgba(100, 100, 111, 20%) 0 7px 29px 0;
+
+    .left-section,
+    .right-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+
+        .page-title {
+            padding: 16px 8px;
+            font-size: 1.15em;
+            text-shadow: 1px 1px 1px rgba(black, 0.2);
+        }
+    }
+
+    .right-section {
+        margin-right: 8px;
+    }
+}

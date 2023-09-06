@@ -34,6 +34,7 @@ yarn-error.log
 /connect.lock
 /coverage
 /libpeerconnection.log
+/test-results
 testem.log
 /typings
 

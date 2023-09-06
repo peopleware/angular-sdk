@@ -1,0 +1,14 @@
+<div class="toolbar">
+    <div class="left-section align-items-center">
+        <button class="toolbar-button" *ngIf="showMenuToggle" (click)="toggleSidebar.emit()">
+            <mat-icon *ngIf="!isSidenavOpen; else closeIcon">menu</mat-icon>
+            <ng-template #closeIcon>
+                <mat-icon>close</mat-icon>
+            </ng-template>
+        </button>
+        <span *ngIf="title" class="page-title">{{ title }}</span>
+    </div>
+    <div class="right-section padding-8">
+        <ng-content></ng-content>
+    </div>
+</div>

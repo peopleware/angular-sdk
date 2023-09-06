@@ -1,0 +1,22 @@
+<mat-drawer-container class="app-wireframe-container">
+    <mat-drawer
+        [mode]="isXSmallDevice ? 'over' : 'side'"
+        [ngClass]="isXSmallDevice ? 'drawer-full-width' : 'drawer'"
+        [opened]="!isSmallDevice && !isXSmallDevice"
+        class="drawer-color">
+        <ppw-left-sidenav
+            (closeSidebar)="closeSidebar()"
+            [navigationItems]="navigationItems"
+            [showMenuCloseButton]="isXSmallDevice">
+        </ppw-left-sidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <ppw-toolbar
+            (toggleSidebar)="toggleSidebar()"
+            [isSidenavOpen]="isSidenavOpen"
+            [showMenuToggle]="isSmallDevice || (!isSidenavOpen && !isLargerDevice)">
+            <ng-content></ng-content>
+        </ppw-toolbar>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

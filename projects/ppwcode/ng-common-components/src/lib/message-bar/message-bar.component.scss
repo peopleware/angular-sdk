@@ -1,0 +1,25 @@
+.message-bar-content {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.message-severity-info {
+    background-color: #63c0df;
+}
+
+.message-severity-success {
+    background-color: #009944;
+}
+
+.message-severity-error {
+    background-color: #cf000f;
+    color: white;
+}
+
+.message-severity-warning {
+    background-color: #f89406;
+    color: white;
+}

@@ -1,0 +1,42 @@
+<button class="sidenav-close-button" *ngIf="showMenuCloseButton" (click)="closeSidebar.emit()">
+    <mat-icon>close</mat-icon>
+</button>
+
+<div class="flex-column gap-8 padding-8">
+    <div class="flex-column align-items-center" *ngIf="logoUrl">
+        <img ngSrc="{{ logoUrl }}" alt="Logo" width="80" height="120" />
+    </div>
+    <div class="navigation-wrapper flex-column">
+        <ng-container *ngFor="let navigationItem of navigationItems">
+            <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #navigationItemTemplate let-navigationItem="navigationItem" let-level="level">
+    <button
+        type="button"
+        class="navigation-item"
+        [class.navigation-item-disabled]="navigationItem.isEnabled === false"
+        [style.margin-left]="level * 12 + 'px'"
+        (click)="onClickNavigationItem(navigationItem)">
+        <span class="navigation-item-link">
+            <i [class]="navigationItem.icon"></i>
+            <span>{{ navigationItem.label | translate }}</span>
+        </span>
+        <i
+            *ngIf="(navigationItem.children?.length ?? 0) > 0"
+            class="fa-solid"
+            [class.fa-angle-down]="navigationItemIsOpened(navigationItem)"
+            [class.fa-angle-left]="!navigationItemIsOpened(navigationItem)"></i>
+    </button>
+    <ng-container *ngIf="navigationItemIsOpened(navigationItem) && navigationItem.children">
+        <ng-container *ngFor="let child of navigationItem.children">
+            <ng-container
+                *ngTemplateOutlet="
+                    navigationItemTemplate;
+                    context: { navigationItem: child, level: level ?? 1 }
+                "></ng-container>
+        </ng-container>
+    </ng-container>
+</ng-template>

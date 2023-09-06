@@ -1,0 +1,8 @@
+<mat-paginator
+    #paginator
+    (page)="handlePageEvent($event)"
+    [length]="pagedList.entity.totalCount"
+    [pageSize]="pagedList.entity.pageSize"
+    [pageIndex]="pagedList.entity.pageIndex - 1"
+    [hidePageSize]="hidePageSize">
+</mat-paginator>

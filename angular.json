@@ -1,104 +1,411 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "ppwcode": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/ppwcode",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "ppwcode": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
                 }
-              ],
-              "outputHashing": "all"
             },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "ppw",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ppwcode",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                          "@angular/material/prebuilt-themes/purple-green.css",
+                          "src/styles.scss"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ppwcode:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "ppwcode:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ppwcode:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "tsconfig.spec.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                          "@angular/material/prebuilt-themes/purple-green.css",
+                          "src/styles.scss"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "src/**/*.ts",
+                            "src/**/*.html"
+                        ]
+                    }
+                }
             }
-          },
-          "defaultConfiguration": "production"
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "ppwcode:build:production"
+        "@ppwcode/ng-async": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-async",
+            "sourceRoot": "projects/ppwcode/ng-async/src",
+            "prefix": "ppw",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-async/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-async/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-async/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-async/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-async/**/*.ts",
+                            "projects/ppwcode/ng-async/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-common": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-common",
+            "sourceRoot": "projects/ppwcode/ng-common/src",
+            "prefix": "ppw",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-common/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-common/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-common/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-common/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-common/**/*.ts",
+                            "projects/ppwcode/ng-common/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-wireframe": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-wireframe",
+            "sourceRoot": "projects/ppwcode/ng-wireframe/src",
+            "prefix": "ppw",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-wireframe/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-wireframe/**/*.ts",
+                            "projects/ppwcode/ng-wireframe/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-router": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-router",
+            "sourceRoot": "projects/ppwcode/ng-router/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-router/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-router/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-router/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-router/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-router/**/*.ts",
+                            "projects/ppwcode/ng-router/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-dialogs": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-dialogs",
+            "sourceRoot": "projects/ppwcode/ng-dialogs/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-dialogs/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-dialogs/**/*.ts",
+                            "projects/ppwcode/ng-dialogs/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-forms": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-forms",
+            "sourceRoot": "projects/ppwcode/ng-forms/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-forms/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-forms/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-forms/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-forms/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-forms/**/*.ts",
+                            "projects/ppwcode/ng-forms/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
+        "@ppwcode/ng-common-components": {
+          "projectType": "library",
+          "root": "projects/ppwcode/ng-common-components",
+          "sourceRoot": "projects/ppwcode/ng-common-components/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular-devkit/build-angular:ng-packagr",
+              "options": {
+                "project": "projects/ppwcode/ng-common-components/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
             },
-            "development": {
-              "browserTarget": "ppwcode:build:development"
+            "test": {
+              "builder": "@angular-devkit/build-angular:karma",
+              "options": {
+                  "karmaConfig": "karma.conf.js",
+                "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json",
+                "polyfills": [
+                  "zone.js",
+                  "zone.js/testing"
+                ]
+              }
             }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ppwcode:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
           }
         }
-      }
+    },
+    "cli": {
+      "analytics": false
     }
-  }
 }

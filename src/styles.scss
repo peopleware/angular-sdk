@@ -1,1 +1,152 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use '@ng-matero/extensions' as mtx;
+@use '../projects/ppwcode/ng-wireframe/src/lib/wireframe/wireframe.theme' as appWireframe;
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$ppw-primary-palette: (
+    50: #e0eff2,
+    100: #b3d8df,
+    200: #80beca,
+    300: #4da4b5,
+    400: #2691a5,
+    500: #007d95,
+    600: #00758d,
+    700: #006a82,
+    800: #006078,
+    900: #004d67,
+    A100: #96e0ff,
+    A200: #63d1ff,
+    A400: #30c1ff,
+    A700: #17baff,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ppw-ui-primary: mat.define-palette($ppw-primary-palette);
+$ppw-ui-accent: mat.define-palette(mat.$blue-palette, 200, 100, 400);
+
+// The warn palette is optional (defaults to red).
+$ppw-ui-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ppw-ui-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $ppw-ui-primary,
+            accent: $ppw-ui-accent,
+            warn: $ppw-ui-warn
+        ),
+        typography: mat.define-typography-config()
+    )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ppw-ui-theme);
+@include mtx.all-component-themes($ppw-ui-theme);
+@include appWireframe.theme($ppw-ui-theme);
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    .mat-mdc-card-title {
+        --mat-card-title-text-size: 16px;
+    }
+}
+
+.no-margins {
+    margin: 0;
+}
+
+.in-page-title {
+    margin: 8px 0;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 1px rgba(black, 0.2);
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.flex-basis-50 {
+    flex-basis: 50%;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.gap-8 {
+    gap: 8px;
+}
+
+.gap-16 {
+    gap: 16px;
+}
+
+.padding-top-8 {
+    padding: 8px;
+}
+
+.padding-8 {
+    padding: 8px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.clickable-list-item {
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        @include mat.elevation(4);
+    }
+}
+
+mat-card.highlighted-card {
+    background-color: mat.get-color-from-palette($ppw-ui-accent);
+}
