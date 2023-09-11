@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core'
 import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { TranslateService } from '@ngx-translate/core'
 import { getRelativeNavigator } from '@ppwcode/ng-router'
+import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
 
 @Component({
     selector: 'ppw-root',
@@ -11,17 +12,21 @@ import { getRelativeNavigator } from '@ppwcode/ng-router'
 export class AppComponent {
     private translate: TranslateService = inject(TranslateService)
     title = 'ppwcode'
+    sidebarOptions: SidebarOptions = {
+        logoUrl: './assets/ppwcode_logo.png',
+        centerLogo: false
+    }
 
     public getNavigationItems(): NavigationItem[] {
         return [
             {
                 label: this.translate.instant('navigation.home'),
-                icon: 'fa-solid fa-hand-holding-dollar',
+                icon: 'fa-solid fa-house',
                 fullRouterPath: '/home'
             },
             {
                 label: this.translate.instant('navigation.demo'),
-                icon: 'fa-solid fa-hand-holding-dollar',
+                icon: 'fa-solid fa-laptop-code',
                 fullRouterPath: '/demo'
             }
         ]

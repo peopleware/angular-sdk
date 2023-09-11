@@ -9,20 +9,20 @@
 @include mat.core();
 
 $ppw-primary-palette: (
-    50: #e0eff2,
-    100: #b3d8df,
-    200: #80beca,
-    300: #4da4b5,
-    400: #2691a5,
-    500: #007d95,
-    600: #00758d,
-    700: #006a82,
-    800: #006078,
-    900: #004d67,
-    A100: #96e0ff,
-    A200: #63d1ff,
-    A400: #30c1ff,
-    A700: #17baff,
+    50: #e0f3e8,
+    100: #b3e1c5,
+    200: #80cd9f,
+    300: #4db978,
+    400: #26aa5b,
+    500: #009b3e,
+    600: #009338,
+    700: #008930,
+    800: #007f28,
+    900: #006d1b,
+    A100: #9cffac,
+    A200: #69ff81,
+    A400: #36ff56,
+    A700: #1dff41,
     contrast: (
         50: #000000,
         100: #000000,
@@ -73,10 +73,22 @@ $ppw-ui-theme: mat.define-light-theme(
 html,
 body {
     height: 100%;
+
+    .mat-drawer.drawer-color {
+        --ppw-sidenav-background-color: #18428c;
+    }
+
+    .navigation-item {
+        i.ppw-navigation-icon {
+            --ppw-sidenav-icon-color: #6eb343;
+        }
+    }
 }
+
 body {
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
+
     .mat-mdc-card-title {
         --mat-card-title-text-size: 16px;
     }
