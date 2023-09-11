@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs'
 import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 import { ToolbarComponent } from '../toolbar/toolbar.component'
+import { SidebarOptions } from '../model/sidebar-options'
 
 @Component({
     selector: 'ppw-wireframe',
@@ -21,6 +22,7 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
     private destroy$: Subject<void> = new Subject<void>()
 
     @Input() public navigationItems: Array<NavigationItem> | null = []
+    @Input() public sidebarOptions?: SidebarOptions
     @ViewChild(MatDrawer) public matDrawer!: MatDrawer
 
     public get isSmallDevice(): boolean {

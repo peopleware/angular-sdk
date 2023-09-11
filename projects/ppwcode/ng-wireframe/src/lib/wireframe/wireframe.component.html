@@ -7,7 +7,10 @@
         <ppw-left-sidenav
             (closeSidebar)="closeSidebar()"
             [navigationItems]="navigationItems"
+            [centerLogo]="!!sidebarOptions?.centerLogo"
+            [logoUrl]="sidebarOptions?.logoUrl"
             [showMenuCloseButton]="isXSmallDevice">
+            <ng-container ppw-sidebar-bottom>test</ng-container>
         </ppw-left-sidenav>
     </mat-drawer>
     <mat-drawer-content>
@@ -15,7 +18,7 @@
             (toggleSidebar)="toggleSidebar()"
             [isSidenavOpen]="isSidenavOpen"
             [showMenuToggle]="isSmallDevice || (!isSidenavOpen && !isLargerDevice)">
-            <ng-content></ng-content>
+            <ng-content select="[ppw-toolbar-content]"></ng-content>
         </ppw-toolbar>
         <router-outlet></router-outlet>
     </mat-drawer-content>

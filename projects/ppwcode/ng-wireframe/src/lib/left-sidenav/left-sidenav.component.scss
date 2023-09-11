@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .sidenav-close-button {
     border: none;
     padding: 1rem;
@@ -36,6 +38,10 @@
 
     i {
         width: 32px;
+
+        &.ppw-navigation-icon {
+            color: var(--ppw-sidenav-icon-color);
+        }
     }
 
     &:hover {
@@ -46,4 +52,9 @@
     .navigation-item {
         margin-left: 16px;
     }
+}
+
+.bottom-content {
+    position: absolute;
+    bottom: 0;
 }
