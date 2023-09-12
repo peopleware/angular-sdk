@@ -1,0 +1,13 @@
+<mat-accordion class="ppw-expandable-card-accordion">
+    <mat-expansion-panel
+        class="ppw-expandable-panel"
+        [expanded]="openAsExpanded"
+        [disabled]="!canBeCollapsed"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = canBeCollapsed">
+        <mat-expansion-panel-header class="ppw-expandable-panel-header">
+            <mat-panel-title *ngIf="cardTitle">{{ cardTitle }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-content></ng-content>
+    </mat-expansion-panel>
+</mat-accordion>
