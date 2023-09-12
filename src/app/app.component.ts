@@ -3,6 +3,7 @@ import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { TranslateService } from '@ngx-translate/core'
 import { getRelativeNavigator } from '@ppwcode/ng-router'
 import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
+import { ToolbarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/toolbar-options'
 
 @Component({
     selector: 'ppw-root',
@@ -15,6 +16,10 @@ export class AppComponent {
     sidebarOptions: SidebarOptions = {
         logoUrl: './assets/ppwcode_logo.png',
         centerLogo: false
+    }
+
+    toolbarOptions: ToolbarOptions = {
+        appTitle: 'Peopleware Code'
     }
 
     public getNavigationItems(): NavigationItem[] {

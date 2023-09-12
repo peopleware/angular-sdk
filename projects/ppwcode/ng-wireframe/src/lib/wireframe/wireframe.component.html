@@ -24,6 +24,7 @@
         <ppw-toolbar
             (toggleSidebar)="toggleSidebar()"
             [isSidenavOpen]="isSidenavOpen"
+            [appTitle]="toolbarOptions?.appTitle"
             [showMenuToggle]="isSmallDevice || (!isSidenavOpen && !isLargerDevice)">
             <ng-content select="[ppw-toolbar-content]"></ng-content>
         </ppw-toolbar>
