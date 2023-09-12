@@ -3,5 +3,9 @@ mat-drawer-container {
 
     mat-drawer {
         width: 300px;
+
+        &.drawer-color {
+            background-color: var(--ppw-sidenav-background-color);
+        }
     }
 }
