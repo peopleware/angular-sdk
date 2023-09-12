@@ -6,7 +6,12 @@
     <div class="flex-column">
         <ng-container *ngIf="logoUrl">
             <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo }">
-                <img ngSrc="{{ logoUrl }}" alt="Logo" height="{{ logoHeight }}" width="{{ logoWidth }}" />
+                <img
+                    ngSrc="{{ logoUrl }}"
+                    alt="Logo"
+                    height="{{ logoHeight }}"
+                    width="{{ logoWidth }}"
+                    priority="eager" />
             </div>
         </ng-container>
         <div class="top-content">
