@@ -17,6 +17,8 @@ export class LeftSidenavComponent {
     @Input({ required: true }) public navigationItems: Array<NavigationItem> | null = []
     @Input() public showMenuCloseButton = true
     @Input() public logoUrl?: string
+    @Input() public logoHeight = 100
+    @Input() public logoWidth = 100
     @Input() public centerLogo = true
     @Output() public closeSidebar: EventEmitter<void> = new EventEmitter()
 

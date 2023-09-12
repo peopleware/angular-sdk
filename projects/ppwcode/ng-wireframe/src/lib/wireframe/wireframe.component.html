@@ -10,7 +10,12 @@
             [centerLogo]="!!sidebarOptions?.centerLogo"
             [logoUrl]="sidebarOptions?.logoUrl"
             [showMenuCloseButton]="isXSmallDevice">
-            <ng-container ppw-sidebar-bottom>test</ng-container>
+            <div ppw-sidebar-top>
+                <ng-content select="[ppw-sidebar-top-content]"></ng-content>
+            </div>
+            <div ppw-sidebar-bottom>
+                <ng-content select="[ppw-sidebar-bottom-content]"></ng-content>
+            </div>
         </ppw-left-sidenav>
     </mat-drawer>
     <mat-drawer-content>

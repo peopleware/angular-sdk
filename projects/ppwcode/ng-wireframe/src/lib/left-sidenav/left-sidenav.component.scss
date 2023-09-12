@@ -1,5 +1,19 @@
 @use '@angular/material' as mat;
 
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .sidenav-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px;
+        height: calc(100vh - 16px);
+    }
+}
+
 .sidenav-close-button {
     border: none;
     padding: 1rem;
@@ -52,9 +66,4 @@
     .navigation-item {
         margin-left: 16px;
     }
-}
-
-.bottom-content {
-    position: absolute;
-    bottom: 0;
 }

@@ -2,18 +2,23 @@
     <mat-icon>close</mat-icon>
 </button>
 
-<div class="flex-column gap-8 padding-8">
-    <ng-container *ngIf="logoUrl">
-        <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo }">
-            <img ngSrc="{{ logoUrl }}" alt="Logo" height="100" width="100" />
-        </div>
-    </ng-container>
-    <div class="navigation-wrapper flex-column">
-        <ng-container *ngFor="let navigationItem of navigationItems">
-            <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
+<div class="sidenav-content-wrapper">
+    <div class="flex-column">
+        <ng-container *ngIf="logoUrl">
+            <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo }">
+                <img ngSrc="{{ logoUrl }}" alt="Logo" height="{{ logoHeight }}" width="{{ logoWidth }}" />
+            </div>
         </ng-container>
+        <div class="top-content">
+            <ng-content select="[ppw-sidebar-top]"></ng-content>
+        </div>
+        <div class="navigation-wrapper flex-column">
+            <ng-container *ngFor="let navigationItem of navigationItems">
+                <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
+            </ng-container>
+        </div>
     </div>
-    <div class="bottom-content">
+    <div class="flex-column bottom-content">
         <ng-content select="[ppw-sidebar-bottom]"></ng-content>
     </div>
 </div>
