@@ -13,7 +13,6 @@ import { DemoComponent } from './demo/demo.component'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
-import { ExpandableCardComponent } from '@ppwcode/ng-common-components'
 
 registerLocaleData(localeBe)
 
@@ -39,7 +38,6 @@ export function createTranslateLoader(http: HttpClient) {
         BrowserModule,
         AppRoutingModule,
         WireframeComponent,
-        ExpandableCardComponent,
         HttpClientModule,
         MatIconModule,
         TranslateModule.forRoot({

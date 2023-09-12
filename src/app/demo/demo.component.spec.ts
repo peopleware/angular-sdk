@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { DemoComponent } from './demo.component'
+import { ExpandableCardComponent } from '@ppwcode/ng-common-components'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { TranslateModule } from '@ngx-translate/core'
 
 describe('DemoComponent', () => {
     let component: DemoComponent
@@ -8,6 +11,7 @@ describe('DemoComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableCardComponent],
             declarations: [DemoComponent]
         })
         fixture = TestBed.createComponent(DemoComponent)
