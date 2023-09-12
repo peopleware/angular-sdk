@@ -9,6 +9,8 @@
             [navigationItems]="navigationItems"
             [centerLogo]="!!sidebarOptions?.centerLogo"
             [logoUrl]="sidebarOptions?.logoUrl"
+            [logoHeight]="sidebarOptions?.logoHeight ?? 100"
+            [logoWidth]="sidebarOptions?.logoWidth ?? 100"
             [showMenuCloseButton]="isXSmallDevice">
             <div ppw-sidebar-top>
                 <ng-content select="[ppw-sidebar-top-content]"></ng-content>
