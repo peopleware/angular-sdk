@@ -9,7 +9,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HomeComponent } from './home/home.component'
-import { DemoComponent } from './demo/demo.component'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
@@ -32,12 +31,13 @@ export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http)
 }
 
+const ppwcodeComponents = [WireframeComponent]
+
 @NgModule({
-    declarations: [AppComponent, HomeComponent, DemoComponent],
+    declarations: [AppComponent, HomeComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        WireframeComponent,
         HttpClientModule,
         MatIconModule,
         TranslateModule.forRoot({
@@ -48,7 +48,8 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ...ppwcodeComponents
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'nl-BE' },

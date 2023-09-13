@@ -12,7 +12,7 @@ describe('DemoComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableCardComponent],
-            declarations: [DemoComponent]
+            declarations: []
         })
         fixture = TestBed.createComponent(DemoComponent)
         component = fixture.componentInstance
