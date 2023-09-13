@@ -8,7 +8,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HomeComponent } from './home/home.component'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
@@ -34,7 +33,7 @@ export function createTranslateLoader(http: HttpClient) {
 const ppwcodeComponents = [WireframeComponent]
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

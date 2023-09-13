@@ -4,8 +4,8 @@ import { HomeComponent } from './home/home.component'
 import { DemoComponent } from './demo/demo.component'
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, data: { title: 'Home' } },
+    { path: '', redirectTo: 'expandable-card', pathMatch: 'full' },
+    { path: 'expandable-card', component: ExpandableCardDemoComponent, title: 'navigation.expandable_card' },
     { path: 'demo', component: DemoComponent, data: { title: 'Demo' } }
 ]
 

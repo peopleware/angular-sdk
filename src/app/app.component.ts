@@ -30,9 +30,9 @@ export class AppComponent {
     public getNavigationItems(): NavigationItem[] {
         return [
             {
-                label: this.translate.instant('navigation.home'),
+                label: this.translate.instant('navigation.expandable_card'),
                 icon: 'fa-solid fa-house',
-                fullRouterPath: '/home'
+                fullRouterPath: '/expandable-card'
             },
             {
                 label: this.translate.instant('navigation.demo'),
