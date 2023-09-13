@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core'
 import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { TranslateService } from '@ngx-translate/core'
-import { getRelativeNavigator } from '@ppwcode/ng-router'
 import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
-import { ToolbarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/toolbar-options'
 
 @Component({
     selector: 'ppw-root',
@@ -17,8 +15,6 @@ export class AppComponent {
         logoUrl: './assets/ppwcode_logo.png',
         centerLogo: false
     }
-
-    toolbarOptions: ToolbarOptions = {}
 
     constructor() {
         this.translate.setDefaultLang('en')

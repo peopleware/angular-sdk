@@ -8,7 +8,6 @@ import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 import { ToolbarComponent } from '../toolbar/toolbar.component'
 import { SidebarOptions } from '../model/sidebar-options'
-import { ToolbarOptions } from '../model/toolbar-options'
 
 @Component({
     selector: 'ppw-wireframe',
@@ -24,7 +23,6 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
 
     @Input() public navigationItems: Array<NavigationItem> | null = []
     @Input() public sidebarOptions?: SidebarOptions
-    @Input() public toolbarOptions?: ToolbarOptions
     @ViewChild(MatDrawer) public matDrawer!: MatDrawer
 
     public get isSmallDevice(): boolean {

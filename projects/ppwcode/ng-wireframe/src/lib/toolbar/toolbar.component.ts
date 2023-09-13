@@ -3,7 +3,6 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatMenuModule } from '@angular/material/menu'
-import { Title } from '@angular/platform-browser'
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { combineLatest, filter, map, startWith } from 'rxjs'
