@@ -5,6 +5,7 @@
 export * from './lib/enum/severity'
 export * from './lib/message-bar/message-bar.component'
 export * from './lib/expandable-card/expandable-card.component'
+export * from './lib/search-filter/search-filter.component'
 export * from './lib/table/table.component'
 export * from './lib/table/columns/column'
 export * from './lib/table/columns/text-column'

@@ -1,0 +1,16 @@
+import { Component, EventEmitter, Output } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
+
+@Component({
+    selector: 'ppw-search-filter',
+    templateUrl: './search-filter.component.html',
+    styleUrls: ['./search-filter.component.scss'],
+    imports: [CommonModule, MatCardModule, MatButtonModule],
+    standalone: true
+})
+export class SearchFilterComponent {
+    @Output() public search: EventEmitter<void> = new EventEmitter<void>()
+    @Output() public reset: EventEmitter<void> = new EventEmitter<void>()
+}
