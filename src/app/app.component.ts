@@ -22,6 +22,11 @@ export class AppComponent {
         appTitle: 'Peopleware Code'
     }
 
+    constructor() {
+        this.translate.setDefaultLang('en')
+        this.translate.use('en')
+    }
+
     public getNavigationItems(): NavigationItem[] {
         return [
             {

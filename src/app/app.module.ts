@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import localeBe from '@angular/common/locales/nl-BE'
+import localeEn from '@angular/common/locales/en-BE'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
@@ -13,7 +13,7 @@ import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angu
 import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 
-registerLocaleData(localeBe)
+registerLocaleData(localeEn)
 
 export const DATE_FORMATS: MatDateFormats = {
     ...MAT_NATIVE_DATE_FORMATS,
@@ -41,7 +41,7 @@ const ppwcodeComponents = [WireframeComponent]
         HttpClientModule,
         MatIconModule,
         TranslateModule.forRoot({
-            defaultLanguage: 'nl',
+            defaultLanguage: 'en',
             loader: {
                 provide: TranslateLoader,
                 useFactory: createTranslateLoader,
@@ -52,7 +52,7 @@ const ppwcodeComponents = [WireframeComponent]
         ...ppwcodeComponents
     ],
     providers: [
-        { provide: LOCALE_ID, useValue: 'nl-BE' },
+        { provide: LOCALE_ID, useValue: 'en-US' },
         { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
     ],
     bootstrap: [AppComponent]
