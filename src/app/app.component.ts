@@ -33,13 +33,10 @@ export class AppComponent {
                 fullRouterPath: '/expandable-card'
             },
             {
-                label: this.translate.instant('navigation.demo'),
+                label: this.translate.instant('navigation.filter_table'),
                 icon: 'fa-solid fa-laptop-code',
-                fullRouterPath: '/demo'
+                fullRouterPath: '/filter-table'
             }
         ]
     }
-
-    protected readonly navigator = navigator
-    protected readonly getRelativeNavigator = getRelativeNavigator
 }

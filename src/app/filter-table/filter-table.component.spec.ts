@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { DemoComponent } from './demo.component'
-import { ExpandableCardComponent } from '@ppwcode/ng-common-components'
+import { FilterTableComponent } from './filter-table.component'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { TranslateModule } from '@ngx-translate/core'
+import { TableComponent } from '../../../projects/ppwcode/ng-common-components/src/lib/table/table.component'
 
 describe('DemoComponent', () => {
-    let component: DemoComponent
-    let fixture: ComponentFixture<DemoComponent>
+    let component: FilterTableComponent
+    let fixture: ComponentFixture<FilterTableComponent>
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableCardComponent],
+            imports: [NoopAnimationsModule, TranslateModule.forRoot(), TableComponent],
             declarations: []
         })
-        fixture = TestBed.createComponent(DemoComponent)
+        fixture = TestBed.createComponent(FilterTableComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
     })

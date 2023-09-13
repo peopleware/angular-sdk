@@ -67,13 +67,13 @@ export function getLuxonFormatter(format: string): (value: DateTime) => string {
 }
 
 @Component({
-    selector: 'ppw-demo',
-    templateUrl: './demo.component.html',
-    styleUrls: ['./demo.component.scss'],
+    selector: 'ppw-filter-table',
+    templateUrl: './filter-table.component.html',
+    styleUrls: ['./filter-table.component.scss'],
     standalone: true,
     imports: [ExpandableCardComponent, TableComponent]
 })
-export class DemoComponent {
+export class FilterTableComponent {
     public columns: Array<Column<Player, unknown>> = [
         new TextColumn('firstName', 'First name', 'firstName'),
         new TextColumn('lastName', 'First name', 'lastName'),
