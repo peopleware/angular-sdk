@@ -284,6 +284,49 @@
                 }
             }
         },
+        "@ppwcode/ng-state-management": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-state-management",
+            "sourceRoot": "projects/ppwcode/ng-state-management/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-state-management/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-state-management/**/*.ts",
+                            "projects/ppwcode/ng-state-management/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
         "@ppwcode/ng-dialogs": {
             "projectType": "library",
             "root": "projects/ppwcode/ng-dialogs",

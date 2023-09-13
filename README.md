@@ -17,11 +17,13 @@ Run `ng g lib ng-<lib-name>` to generate a new library in the `projects` directo
 
 After generating the new library make sure to:
 
--   Update the ./tsconfig.json file in the root of the repository.
+-   Update the `./tsconfig.json` file in the root of the repository.
 -   Update the path of the newly generated library to point to the projects folder instead of the dist.
 -   Also delete the library contents and add in you own components or files.
 -   Make sure to expose the public components/classes/... by adding an export in the `public-api.ts` file of the library.
--   Also add the new library in the scripts/ci/build-libs.sh to the LIBRARIES_LIST at line 4 in the file.
+-   Also add the new library in the `scripts/ci/build-libs.sh` to the LIBRARIES_LIST at line 4 in the file.
+-   Make sure the new lib is added to the `projects` in `angular.json`.
+-   Add `.eslintrc` to the library.
 
 ## Build
 

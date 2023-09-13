@@ -9,6 +9,7 @@
             "@ppwcode/ng-dialogs": ["dist/ppwcode/ng-dialogs"],
             "@ppwcode/ng-forms": ["dist/ppwcode/ng-forms"],
             "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
+            "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
             "@ppwcode/ng-wireframe": ["dist/ppwcode/ng-wireframe"]
         },
         "baseUrl": "./",
