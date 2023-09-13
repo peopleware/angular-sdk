@@ -16,14 +16,12 @@ import { combineLatest, filter, map, startWith } from 'rxjs'
     styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-    @Input() public appTitle?: string
     @Input() public showMenuToggle = true
     @Input() public isSidenavOpen = true
     @Output() public toggleSidebar: EventEmitter<void> = new EventEmitter<void>()
 
     public title: string | null = null
 
-    private titleService: Title = inject(Title)
     private translateService: TranslateService = inject(TranslateService)
     private router: Router = inject(Router)
 
@@ -38,18 +36,12 @@ export class ToolbarComponent implements OnInit {
                     while (child.firstChild) {
                         child = child.firstChild
                     }
-                    return child.data['title'] ?? null
+                    return child.title ?? null
                 }),
                 map((title: string | null) => (title ? this.translateService.instant(title) : null))
             )
             .subscribe((title: string | null) => {
                 this.title = title
-
-                if (title) {
-                    this.titleService.setTitle(`${this.appTitle ?? ''} - ${title}`)
-                } else {
-                    this.titleService.setTitle(`${this.appTitle ?? ''}`)
-                }
             })
     }
 }

@@ -1,3 +1,1 @@
-export interface ToolbarOptions {
-    appTitle?: string
-}
+export interface ToolbarOptions {}

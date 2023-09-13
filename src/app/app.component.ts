@@ -18,9 +18,7 @@ export class AppComponent {
         centerLogo: false
     }
 
-    toolbarOptions: ToolbarOptions = {
-        appTitle: 'Peopleware Code'
-    }
+    toolbarOptions: ToolbarOptions = {}
 
     constructor() {
         this.translate.setDefaultLang('en')
