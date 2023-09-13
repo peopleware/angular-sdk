@@ -1,13 +1,18 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
     Column,
     DateColumn,
     ExpandableCardComponent,
     NumberColumn,
+    SearchFilterComponent,
     TableComponent,
     TextColumn
 } from '@ppwcode/ng-common-components'
 import { DateTime } from 'luxon'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { MatInputModule } from '@angular/material/input'
+import { NgIf } from '@angular/common'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -66,14 +71,28 @@ export function getLuxonFormatter(format: string): (value: DateTime) => string {
     return (value: DateTime) => value.toFormat(format)
 }
 
+type SearchPlayersForm = {
+    firstName: FormControl<string>
+    lastName: FormControl<string>
+}
+
 @Component({
     selector: 'ppw-filter-table',
     templateUrl: './filter-table.component.html',
     styleUrls: ['./filter-table.component.scss'],
     standalone: true,
-    imports: [ExpandableCardComponent, TableComponent]
+    imports: [
+        ExpandableCardComponent,
+        TableComponent,
+        SearchFilterComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        NgIf
+    ]
 })
-export class FilterTableComponent {
+export class FilterTableComponent implements OnInit {
+    public searchForm!: FormGroup
     public columns: Array<Column<Player, unknown>> = [
         new TextColumn('firstName', 'First name', 'firstName'),
         new TextColumn('lastName', 'First name', 'lastName'),
@@ -81,4 +100,27 @@ export class FilterTableComponent {
         new NumberColumn('income', 'Income', 'income')
     ]
     public data = PLAYERS_DATA
+
+    public ngOnInit(): void {
+        this.searchForm = new FormGroup<SearchPlayersForm>({
+            firstName: new FormControl('', { nonNullable: true }),
+            lastName: new FormControl('', { nonNullable: true })
+        })
+    }
+
+    public performReset(): void {
+        this.searchForm.reset()
+        this.performSearch()
+    }
+
+    public performSearch(): void {
+        const filters = this.searchForm.getRawValue() as { firstName: string; lastName: string }
+        this.data = PLAYERS_DATA.filter((value: Player) => {
+            return (
+                (!filters.firstName ||
+                    value.firstName.toLowerCase().startsWith(filters.firstName?.toLowerCase() ?? '')) &&
+                (!filters.lastName || value.lastName.toLowerCase().startsWith(filters.lastName?.toLowerCase() ?? ''))
+            )
+        })
+    }
 }

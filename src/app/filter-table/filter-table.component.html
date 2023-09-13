@@ -1,1 +1,13 @@
+<ppw-search-filter *ngIf="searchForm" (search)="performSearch()" (reset)="performReset()">
+    <form [formGroup]="searchForm" class="flex-row gap-8">
+        <mat-form-field>
+            <mat-label>firstName</mat-label>
+            <input matInput formControlName="firstName" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>lastName</mat-label>
+            <input matInput formControlName="lastName" />
+        </mat-form-field>
+    </form>
+</ppw-search-filter>
 <ppw-table [columns]="columns" [data]="data"></ppw-table>
