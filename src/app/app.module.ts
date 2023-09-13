@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
+import { TitleStrategy } from '@angular/router'
+import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 
 registerLocaleData(localeEn)
 
@@ -52,6 +54,7 @@ const ppwcodeComponents = [WireframeComponent]
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },
+        { provide: TitleStrategy, useClass: TranslatedPageTitleStrategy },
         { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
     ],
     bootstrap: [AppComponent]

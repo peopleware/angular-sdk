@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { HomeComponent } from './home/home.component'
+import { ExpandableCardDemoComponent } from './expandable-card/expandable-card-demo.component'
 import { DemoComponent } from './demo/demo.component'
 
 const routes: Routes = [
     { path: '', redirectTo: 'expandable-card', pathMatch: 'full' },
     { path: 'expandable-card', component: ExpandableCardDemoComponent, title: 'navigation.expandable_card' },
-    { path: 'demo', component: DemoComponent, data: { title: 'Demo' } }
+    { path: 'demo', component: DemoComponent, title: 'navigation.demo' }
 ]
 
 @NgModule({
