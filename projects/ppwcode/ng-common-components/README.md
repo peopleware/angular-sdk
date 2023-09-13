@@ -23,3 +23,13 @@ Run `ng test ng-common-components` to execute the unit tests via [Karma](https:/
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Optional dependencies
+
+    "@js-joda/core": "^5.5.3",
+    "@js-joda/extra": "^0.11.3",
+    "@js-joda/locale": "^4.8.10",
+    "@js-joda/timezone": "^2.18.0",
+    "@types/luxon": "^3.3.2",
+    "date-fns": "^2.30.0",
+    "luxon": "^3.4.3"

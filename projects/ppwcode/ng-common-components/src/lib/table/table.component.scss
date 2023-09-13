@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+.table-2 {
+    @include mat.table-density(-2);
+}
+
+mat-card {
+    margin: 8px;
+
+    table {
+        width: 100%;
+    }
+    .column-type-number {
+        text-align: right;
+    }
+}
