@@ -10,4 +10,17 @@
         </mat-form-field>
     </form>
 </ppw-search-filter>
-<ppw-table [columns]="columns" [data]="data"></ppw-table>
+<ppw-table
+    [columns]="columns"
+    [data]="data"
+    [enableRowSelection]="true"
+    (selectionChanged)="updateSelected($event)"></ppw-table>
+<mat-card *ngIf="selectedPlayersSignal().length">
+    <mat-card-header><mat-card-title>Selected ID's</mat-card-title></mat-card-header>
+    <mat-card-content>
+        <span *ngFor="let item of selectedPlayersSignal(); let last = last">
+            <span>{{ item.id }}</span>
+            <span *ngIf="!last">, </span>
+        </span>
+    </mat-card-content>
+</mat-card>

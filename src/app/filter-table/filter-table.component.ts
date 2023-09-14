@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, signal, WritableSignal } from '@angular/core'
 import {
     Column,
     DateColumn,
@@ -6,13 +6,15 @@ import {
     NumberColumn,
     SearchFilterComponent,
     TableComponent,
+    TableRecord,
     TextColumn
 } from '@ppwcode/ng-common-components'
 import { DateTime } from 'luxon'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
-import { NgIf } from '@angular/common'
+import { CommonModule, NgIf } from '@angular/common'
+import { MatCardModule } from '@angular/material/card'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -82,9 +84,11 @@ type SearchPlayersForm = {
     styleUrls: ['./filter-table.component.scss'],
     standalone: true,
     imports: [
+        CommonModule,
         ExpandableCardComponent,
         TableComponent,
         SearchFilterComponent,
+        MatCardModule,
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
@@ -100,6 +104,8 @@ export class FilterTableComponent implements OnInit {
         new NumberColumn('income', 'Income', 'income')
     ]
     public data = PLAYERS_DATA
+    public selected: Player[] = []
+    public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
 
     public ngOnInit(): void {
         this.searchForm = new FormGroup<SearchPlayersForm>({
@@ -122,5 +128,9 @@ export class FilterTableComponent implements OnInit {
                 (!filters.lastName || value.lastName.toLowerCase().startsWith(filters.lastName?.toLowerCase() ?? ''))
             )
         })
+    }
+
+    public updateSelected(selected: TableRecord<Player>[]): void {
+        this.selectedPlayersSignal.set(selected.map((record: TableRecord<Player>) => record.initialRecord))
     }
 }
