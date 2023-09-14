@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core'
+import { Component, Inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
 import {
     Column,
     DateColumn,
@@ -13,7 +13,7 @@ import { DateTime } from 'luxon'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
-import { CommonModule, NgIf } from '@angular/common'
+import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol, NgIf } from '@angular/common'
 import { MatCardModule } from '@angular/material/card'
 
 export interface Player extends Record<string, unknown> {
@@ -21,7 +21,9 @@ export interface Player extends Record<string, unknown> {
     firstName: string
     lastName: string
     birthDate: DateTime
+    age: number
     income: number
+    bonus: number
 }
 
 const PLAYERS_DATA: Array<Player> = [
@@ -30,42 +32,54 @@ const PLAYERS_DATA: Array<Player> = [
         firstName: 'Lionel',
         lastName: 'Messi',
         birthDate: DateTime.fromObject({ year: 1988, month: 7, day: 23 }),
-        income: 35000
+        age: 35,
+        income: 35000,
+        bonus: 10
     },
     {
         id: 2,
         firstName: 'Christiano',
         lastName: 'Ronaldo',
         birthDate: DateTime.fromObject({ year: 1989, month: 4, day: 2 }),
-        income: 37000
+        age: 34,
+        income: 37000,
+        bonus: 2
     },
     {
         id: 3,
         firstName: 'Kevin',
         lastName: 'De Bruyne',
         birthDate: DateTime.fromObject({ year: 1992, month: 10, day: 18 }),
-        income: 26000
+        age: 31,
+        income: 26000,
+        bonus: 5
     },
     {
         id: 4,
         firstName: 'Eden',
         lastName: 'Hazard',
         birthDate: DateTime.fromObject({ year: 1991, month: 6, day: 28 }),
-        income: 23000
+        age: 32,
+        income: 23000,
+        bonus: 40
     },
     {
         id: 5,
         firstName: 'Roberto',
         lastName: 'Carlos',
         birthDate: DateTime.fromObject({ year: 1975, month: 3, day: 22 }),
-        income: 23000
+        age: 48,
+        income: 23000,
+        bonus: 30
     },
     {
         id: 6,
         firstName: 'Romelu',
         lastName: 'Lukaku',
         birthDate: DateTime.fromObject({ year: 1993, month: 7, day: 1 }),
-        income: 24000
+        age: 30,
+        income: 24000,
+        bonus: 20
     }
 ]
 
@@ -101,11 +115,16 @@ export class FilterTableComponent implements OnInit {
         new TextColumn('firstName', 'First name', 'firstName'),
         new TextColumn('lastName', 'First name', 'lastName'),
         new DateColumn<DateTime, Player>('birthDate', 'Birth date', getLuxonFormatter('dd/MM/yyyy'), 'birthDate'),
-        new NumberColumn('income', 'Income', 'income')
+        new NumberColumn('age', 'Age', 'age'),
+        new NumberColumn('income', 'Income', 'income', (income: number) =>
+            formatCurrency(income, this.locale, getCurrencySymbol('EUR', 'wide'), 'EUR', '3.2-2')
+        ),
+        new NumberColumn('bonus', 'Bonus', 'bonus', (bonus: number) => formatPercent(bonus / 100, this.locale, '1.2-2'))
     ]
     public data = PLAYERS_DATA
-    public selected: Player[] = []
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
+
+    constructor(@Inject(LOCALE_ID) public locale: string) {}
 
     public ngOnInit(): void {
         this.searchForm = new FormGroup<SearchPlayersForm>({
