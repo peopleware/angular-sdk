@@ -1,4 +1,8 @@
-<ppw-search-filter *ngIf="searchForm" (search)="performSearch()" (reset)="performReset()">
+<ppw-search-filter
+    *ngIf="searchForm"
+    (search)="performSearch()"
+    (reset)="performReset()"
+    [submitDisabled]="searchForm.invalid">
     <form [formGroup]="searchForm" class="flex-row gap-8">
         <mat-form-field>
             <mat-label>firstName</mat-label>
@@ -16,7 +20,9 @@
     [enableRowSelection]="true"
     (selectionChanged)="updateSelected($event)"></ppw-table>
 <mat-card *ngIf="selectedPlayersSignal().length">
-    <mat-card-header><mat-card-title>Selected ID's</mat-card-title></mat-card-header>
+    <mat-card-header>
+        <mat-card-title>Selected ID's</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
         <span *ngFor="let item of selectedPlayersSignal(); let last = last">
             <span>{{ item.id }}</span>
@@ -24,3 +30,10 @@
         </span>
     </mat-card-content>
 </mat-card>
+
+<ng-template #playerStatusTemplate let-record>
+    <ng-container [ngSwitch]="record.active">
+        <mat-icon *ngSwitchCase="true">check</mat-icon>
+        <mat-icon *ngSwitchCase="false">close</mat-icon>
+    </ng-container>
+</ng-template>
