@@ -19,6 +19,7 @@ import { TextColumn } from './columns/text-column'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { SelectionModel } from '@angular/cdk/collections'
+import { NumberColumn } from './columns/number-column'
 
 @Component({
     selector: 'ppw-table',
@@ -116,6 +117,17 @@ export class TableComponent<TRecord> implements OnChanges {
                         mappedValues[dateColumn.name] = mappedDateValue
                             ? dateColumn.formatFn(mappedDateValue)
                             : undefined
+                        break
+                    case ColumnType.Number:
+                        const numberColumn = column as NumberColumn<unknown>
+                        const mappedNumberValue: unknown | undefined = getColumnValue(numberColumn, record)
+
+                        mappedValues[numberColumn.name] =
+                            numberColumn.formatFn && mappedNumberValue !== null && mappedNumberValue !== undefined
+                                ? numberColumn.formatFn(mappedNumberValue as number)
+                                : mappedNumberValue !== null && mappedNumberValue !== undefined
+                                ? mappedNumberValue
+                                : undefined
                         break
                     case ColumnType.Text:
                     default:

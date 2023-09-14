@@ -21,6 +21,11 @@ export class NumberColumn<TRecord> implements Column<TRecord, number> {
          * The name of the property to get the value from or a function that can be called
          * to retrieve the value from the current record.
          */
-        public value?: string | ((record: TRecord) => number)
+        public value?: string | ((record: TRecord) => number),
+
+        /**
+         * The format to show the date value.
+         */
+        public formatFn?: (value: number) => string
     ) {}
 }
