@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component, forwardRef, Input, OnChanges, SimpleChanges } from '@angular/core'
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    forwardRef,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges
+} from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 
@@ -8,11 +17,13 @@ import { Column, ColumnType } from './columns/column'
 import { DateColumn } from './columns/date-column'
 import { TextColumn } from './columns/text-column'
 import { MatCardModule } from '@angular/material/card'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { SelectionModel } from '@angular/cdk/collections'
 
 @Component({
     selector: 'ppw-table',
     standalone: true,
-    imports: [CommonModule, MatTableModule, MatCardModule, DynamicCellDirective],
+    imports: [CommonModule, MatTableModule, MatCardModule, MatCheckboxModule, DynamicCellDirective],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     providers: [
@@ -27,16 +38,37 @@ import { MatCardModule } from '@angular/material/card'
 export class TableComponent<TRecord> implements OnChanges {
     @Input() public columns: Array<Column<TRecord, unknown>> = []
     @Input() public data: Array<Record<string, unknown>> = []
+    @Input() public enableRowSelection = false
+    @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
 
     /** The data source for the material table. */
-    public dataSource!: MatTableDataSource<TableRecord>
+    public dataSource!: MatTableDataSource<TableRecord<TRecord>>
 
     /** The names of the columns that are displayed. */
     public columnNames: Array<string> = []
 
+    public selection = new SelectionModel<TableRecord<TRecord>>(true, [])
+
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+        const numSelected = this.selection.selected.length
+        const numRows = this.dataSource.data.length
+        return numSelected === numRows
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        this.isAllSelected()
+            ? this.selection.clear()
+            : this.dataSource.data.forEach((row: TableRecord<TRecord>) => this.selection.select(row))
+    }
+
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['columns']) {
             this.columnNames = this.columns.map((column) => column.name)
+        }
+        if (this.enableRowSelection) {
+            this.columnNames.unshift('rowSelection')
         }
 
         // We need to set the data source in either case because we remap the records
@@ -45,6 +77,9 @@ export class TableComponent<TRecord> implements OnChanges {
         // When adding a new binding to this component, reconsider whether the following
         // line should still be executed for each change to the input bindings.
         this.setDataSource(this.data)
+        this.selection.changed.subscribe(() => {
+            this.selectionChanged.emit(this.selection.selected)
+        })
     }
 
     /**
@@ -68,7 +103,7 @@ export class TableComponent<TRecord> implements OnChanges {
      * be passed along where necessary.
      * @param items The items to map.
      */
-    private _mapToLocalKeyValuePairs(items: Array<Record<string, unknown>>): Array<TableRecord> {
+    private _mapToLocalKeyValuePairs(items: Array<Record<string, unknown>>): Array<TableRecord<TRecord>> {
         items ??= []
         return items.map((record) => {
             const mappedValues: Record<string, unknown> = {}
@@ -93,7 +128,7 @@ export class TableComponent<TRecord> implements OnChanges {
             return {
                 initialRecord: record,
                 mappedValues
-            } as TableRecord
+            } as TableRecord<TRecord>
         })
     }
 }
