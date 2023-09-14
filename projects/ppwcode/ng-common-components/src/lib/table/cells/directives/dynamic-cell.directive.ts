@@ -5,6 +5,7 @@ import { IsCellComponent } from '../mixins/cell-component.mixin'
 import { DateCellComponent } from '../date-cell/date-cell.component'
 import { NumberCellComponent } from '../number-cell/number-cell.component'
 import { TextCellComponent } from '../text-cell/text-cell.component'
+import { TemplateCellComponent } from '../template-cell/template-cell.component'
 
 @Directive({
     selector: '[ppwDynamicCell]',
@@ -21,7 +22,8 @@ export class DynamicCellDirective<TRecord> implements OnInit, IsCellComponent<an
     private _componentTypeMap = {
         [ColumnType.Date]: DateCellComponent,
         [ColumnType.Text]: TextCellComponent,
-        [ColumnType.Number]: NumberCellComponent
+        [ColumnType.Number]: NumberCellComponent,
+        [ColumnType.Template]: TemplateCellComponent
     }
 
     public constructor(private _viewContainerRef: ViewContainerRef) {}

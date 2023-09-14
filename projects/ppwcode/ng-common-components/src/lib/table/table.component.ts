@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { SelectionModel } from '@angular/cdk/collections'
 import { NumberColumn } from './columns/number-column'
+import { TemplateColumn } from './columns/template-column'
 
 @Component({
     selector: 'ppw-table',
@@ -128,6 +129,12 @@ export class TableComponent<TRecord> implements OnChanges {
                                 : mappedNumberValue !== null && mappedNumberValue !== undefined
                                 ? mappedNumberValue
                                 : undefined
+                        break
+                    case ColumnType.Template:
+                        const templateColumn = column as TemplateColumn<unknown>
+                        const mappedTemplateValue: unknown | undefined = getColumnValue(templateColumn, record)
+
+                        mappedValues[templateColumn.name] = mappedTemplateValue
                         break
                     case ColumnType.Text:
                     default:

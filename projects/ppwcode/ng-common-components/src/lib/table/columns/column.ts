@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core'
+
 /**
  * Enum containing the different column types supported by the DataTablesModule.
  */
@@ -5,7 +7,8 @@ export enum ColumnType {
     /** A column that will display the value as it is given. */
     Text = 'text',
     Date = 'date',
-    Number = 'number'
+    Number = 'number',
+    Template = 'template'
 }
 
 /**
