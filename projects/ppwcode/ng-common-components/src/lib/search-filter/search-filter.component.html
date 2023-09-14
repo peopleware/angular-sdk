@@ -4,6 +4,6 @@
     </mat-card-content>
     <mat-card-actions align="end" class="gap-8">
         <button mat-button (click)="reset.emit()">Reset</button>
-        <button mat-raised-button color="primary" (click)="search.emit()">Search</button>
+        <button mat-raised-button color="primary" (click)="search.emit()" [disabled]="submitDisabled">Search</button>
     </mat-card-actions>
 </mat-card>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button'
     standalone: true
 })
 export class SearchFilterComponent {
+    @Input() public submitDisabled = false
     @Output() public search: EventEmitter<void> = new EventEmitter<void>()
     @Output() public reset: EventEmitter<void> = new EventEmitter<void>()
 }
