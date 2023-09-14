@@ -6,6 +6,7 @@ import {
     forwardRef,
     Input,
     OnChanges,
+    OnInit,
     Output,
     SimpleChanges
 } from '@angular/core'
@@ -21,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { SelectionModel } from '@angular/cdk/collections'
 import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
+import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 
 @Component({
     selector: 'ppw-table',
@@ -37,7 +39,7 @@ import { TemplateColumn } from './columns/template-column'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent<TRecord> implements OnChanges {
+export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
     @Input() public columns: Array<Column<TRecord, unknown>> = []
     @Input() public data: Array<Record<string, unknown>> = []
     @Input() public enableRowSelection = false
@@ -65,12 +67,18 @@ export class TableComponent<TRecord> implements OnChanges {
             : this.dataSource.data.forEach((row: TableRecord<TRecord>) => this.selection.select(row))
     }
 
+    public ngOnInit(): void {
+        this.stopOnDestroy(this.selection.changed).subscribe(() => {
+            this.selectionChanged.emit(this.selection.selected)
+        })
+    }
+
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['columns']) {
             this.columnNames = this.columns.map((column) => column.name)
-        }
-        if (this.enableRowSelection) {
-            this.columnNames.unshift('rowSelection')
+            if (this.enableRowSelection) {
+                this.columnNames.unshift('rowSelection')
+            }
         }
 
         // We need to set the data source in either case because we remap the records
@@ -79,9 +87,6 @@ export class TableComponent<TRecord> implements OnChanges {
         // When adding a new binding to this component, reconsider whether the following
         // line should still be executed for each change to the input bindings.
         this.setDataSource(this.data)
-        this.selection.changed.subscribe(() => {
-            this.selectionChanged.emit(this.selection.selected)
-        })
     }
 
     /**
