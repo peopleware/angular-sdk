@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs'
 import { expectHttpError } from '../rxjs-operators/expect-http-error'
 import { createEmptyPagedEntities, PagedEntities } from './paged-entities'
-import { createFailedPagedListResult, createSuccessPagedListResult } from './paged-list'
+import { createFailedPagedAsyncResult, createSuccessPagedAsyncResult } from './paged-async-result'
 
 export type AsyncResultStatus = 'pending' | 'failed' | 'success' | 'initial'
 
@@ -58,14 +58,14 @@ export const expectAsyncResultHttpError = <TEntity>(statusCodes: Array<number>, 
     })
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const expectPagedListHttpSuccess = <TEntity, TFilters>(filters?: TFilters) =>
-    map((entities: PagedEntities<TEntity>) => createSuccessPagedListResult<TEntity, TFilters>(entities, filters))
+export const expectPagedAsyncResultHttpSuccess = <TEntity, TFilters>(filters?: TFilters) =>
+    map((entities: PagedEntities<TEntity>) => createSuccessPagedAsyncResult<TEntity, TFilters>(entities, filters))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const expectPagedListHttpError = <TEntity, TFilters>(statusCodes: Array<number>, filters?: TFilters) =>
+export const expectPagedAsyncResultHttpError = <TEntity, TFilters>(statusCodes: Array<number>, filters?: TFilters) =>
     expectHttpError(statusCodes, (httpError: HttpErrorResponse) => {
         const error = extractHttpError(httpError)
-        return createFailedPagedListResult<TEntity, TFilters>(error, createEmptyPagedEntities<TEntity>(), filters)
+        return createFailedPagedAsyncResult<TEntity, TFilters>(error, createEmptyPagedEntities<TEntity>(), filters)
     })
 
 export const executeAsyncOperation = async <TAsyncResult, TAsyncFilter, TSubject>(

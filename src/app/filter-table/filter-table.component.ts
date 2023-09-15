@@ -119,6 +119,7 @@ type SearchPlayersForm = {
     ]
 })
 export class FilterTableComponent implements OnInit {
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
     @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
     public searchForm!: FormGroup
     public columns: Array<Column<Player, unknown>> = [
@@ -132,7 +133,7 @@ export class FilterTableComponent implements OnInit {
         new NumberColumn('bonus', 'Bonus', 'bonus', (bonus: number) =>
             formatPercent(bonus / 100, this.locale, '1.2-2')
         ),
-        new TemplateColumn('active', 'Active', (player: Player) => this.playerStatusTemplate)
+        new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
     ]
     public data = PLAYERS_DATA
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
