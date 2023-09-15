@@ -24,6 +24,7 @@ After generating the new library make sure to:
 -   Also add the new library in the `scripts/ci/build-libs.sh` to the LIBRARIES_LIST at line 4 in the file.
 -   Make sure the new lib is added to the `projects` in `angular.json`.
 -   Add `.eslintrc` to the library.
+-   Add library to `.github/workflows/publish-npmjs.yaml` to ensure it gets published to npmjs.
 
 ## Build
 
