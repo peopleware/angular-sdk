@@ -10,7 +10,7 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core'
-import { NG_VALUE_ACCESSOR } from '@angular/forms'
+import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 
 import { DynamicCellDirective } from './cells/directives/dynamic-cell.directive'
@@ -41,7 +41,7 @@ import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 })
 export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
     @Input() public columns: Array<Column<TRecord, unknown>> = []
-    @Input() public data: Array<Record<string, unknown>> = []
+    @Input() public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input() public enableRowSelection = false
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
 
@@ -93,7 +93,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
      * Initialises an entirely new data source and sets the necessary properties.
      * @param items The items for the data source.
      */
-    private setDataSource(items: Array<Record<string, unknown>>): void {
+    private setDataSource(items: Array<Record<string, unknown>> | FormArray<FormGroup>): void {
         this.dataSource?.disconnect()
         const localRecords = this._mapToLocalKeyValuePairs(items)
         this.dataSource = new MatTableDataSource(localRecords)
@@ -110,9 +110,18 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
      * be passed along where necessary.
      * @param items The items to map.
      */
-    private _mapToLocalKeyValuePairs(items: Array<Record<string, unknown>>): Array<TableRecord<TRecord>> {
-        items ??= []
-        return items.map((record) => {
+    private _mapToLocalKeyValuePairs(
+        items: Array<Record<string, unknown>> | FormArray<FormGroup>
+    ): Array<TableRecord<TRecord>> {
+        let records: Array<unknown>
+
+        if (items instanceof FormArray) {
+            records = items.controls
+        } else {
+            records = items ?? []
+        }
+
+        return records.map((record) => {
             const mappedValues: Record<string, unknown> = {}
             for (const column of this.columns) {
                 switch (column.type) {
@@ -157,7 +166,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     }
 }
 
-export interface TableRecord<T = any> {
+export interface TableRecord<T = unknown> {
     /** The initial record that was passed. */
     initialRecord: T
     /** A local mapped representation of the record. */

@@ -206,7 +206,7 @@ describe('TableComponent', () => {
     })
 
     it('should show initial value', () => {
-        const testData = component.data[3]
+        const testData = (component.data as Array<Record<string, unknown>>)[3]
         expect(component.dataSource.data[3].initialRecord).toBe(testData)
         expect(component.dataSource.data[3].mappedValues['elementName']).toBe('Beryllium')
         expect(component.dataSource.data[3].mappedValues['symbol']).toBe('Be')
