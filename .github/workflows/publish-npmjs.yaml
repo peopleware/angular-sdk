@@ -35,6 +35,9 @@ jobs:
             - run: npm publish dist/ppwcode/ng-router --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm publish dist/ppwcode/ng-state-management --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-wireframe --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
