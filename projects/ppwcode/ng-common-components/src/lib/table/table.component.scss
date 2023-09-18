@@ -4,17 +4,14 @@
     @include mat.table-density(-2);
 }
 
-mat-card {
-    margin: 8px;
+table {
+    width: 100%;
+}
 
-    table {
-        width: 100%;
-    }
-    .column-type-number {
-        text-align: right;
-    }
+.column-type-number {
+    text-align: right;
+}
 
-    .mat-column-rowSelection {
-        width: 72px;
-    }
+.mat-column-rowSelection {
+    width: 72px;
 }

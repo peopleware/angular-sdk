@@ -14,11 +14,16 @@
         </mat-form-field>
     </form>
 </ppw-search-filter>
-<ppw-table
-    [columns]="columns"
-    [data]="data"
-    [enableRowSelection]="true"
-    (selectionChanged)="updateSelected($event)"></ppw-table>
+<mat-card>
+    <mat-card-content>
+        <ppw-table
+            [columns]="columns"
+            [data]="data"
+            [enableRowSelection]="true"
+            (selectionChanged)="updateSelected($event)"></ppw-table>
+    </mat-card-content>
+</mat-card>
+
 <mat-card *ngIf="selectedPlayersSignal().length">
     <mat-card-header>
         <mat-card-title>Selected ID's</mat-card-title>

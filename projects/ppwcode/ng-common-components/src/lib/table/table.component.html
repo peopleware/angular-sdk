@@ -1,39 +1,35 @@
-<mat-card>
-    <mat-card-content>
-        <table mat-table class="table-2" [dataSource]="dataSource">
-            <!-- Checkbox Column -->
-            <ng-container matColumnDef="rowSelection" *ngIf="enableRowSelection">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox
-                        color="primary"
-                        (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-checkbox
-                        color="primary"
-                        (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
+<table mat-table class="table-2" [dataSource]="dataSource">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="rowSelection" *ngIf="enableRowSelection">
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+                color="primary"
+                (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+                color="primary"
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+        </td>
+    </ng-container>
 
-            <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
-                <th mat-header-cell *matHeaderCellDef class="column-type-{{ column.type }}">{{ column.label }}</th>
-                <td mat-cell *matCellDef="let record" class="column-type-{{ column.type }}">
-                    <ng-container
-                        ppwDynamicCell
-                        [column]="column"
-                        [record]="record.initialRecord"
-                        [value]="record.mappedValues[column.name]"></ng-container>
-                </td>
-            </ng-container>
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
+        <th mat-header-cell *matHeaderCellDef class="column-type-{{ column.type }}">{{ column.label }}</th>
+        <td mat-cell *matCellDef="let record" class="column-type-{{ column.type }}">
+            <ng-container
+                ppwDynamicCell
+                [column]="column"
+                [record]="record.initialRecord"
+                [value]="record.mappedValues[column.name]"></ng-container>
+        </td>
+    </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
-        </table>
-    </mat-card-content>
-</mat-card>
+    <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+</table>
