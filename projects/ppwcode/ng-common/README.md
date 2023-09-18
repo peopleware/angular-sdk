@@ -23,3 +23,40 @@ Run `ng test ng-common` to execute the unit tests via [Karma](https://karma-runn
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Library contents
+
+### Mixins
+
+#### Constructor
+
+Defines a constructable type.
+
+#### Handle subscriptions
+
+Mixin to extend the given constructable with functionality to manage subscriptions.
+Provides the following:
+
+-   A function to wrap a stream with the PPW way of subscription handling.
+-   An ngOnDestroy implementation to automatically unsubscribe to all known subscriptions.
+
+#### Track pending
+
+Enhances the given base class with functionality for tracking a "pending" state.
+The initial state of the pending situation is "true".
+
+### Pipes
+
+#### PpwApiTranslate
+
+A pipe to translate properties of type PpwTranslationMap that come from the API to the current active locale.
+
+### RXJS Operators
+
+#### TruthyFilter
+
+An operator that only continues the stream when the incoming result is truthy
+
+#### TruthyFirst
+
+An operator that only continues the stream when the first incoming result is truthy

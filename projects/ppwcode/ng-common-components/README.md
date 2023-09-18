@@ -33,3 +33,27 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     "@types/luxon": "^3.3.2",
     "date-fns": "^2.30.0",
     "luxon": "^3.4.3"
+
+## Library contents
+
+### enum
+
+#### Severity
+
+An enum that indicates the severity of a message
+
+#### Expandable card
+
+A card with a colored top-bar. The card can be expanded and collapsed which can optionally be disabled.
+
+#### Message bar
+
+A card that can show a message of a specific severity. It is colored depending on the secerity.
+
+#### Search filter
+
+A component to show search filters in a card with a search button and a reset-form button.
+
+#### Table
+
+A component to render search result in a grid. All columns can be configured to render correctly.
