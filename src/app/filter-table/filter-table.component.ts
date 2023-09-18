@@ -1,9 +1,16 @@
+import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol, NgIf } from '@angular/common'
 import { Component, Inject, LOCALE_ID, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
 import {
     Column,
     DateColumn,
     ExpandableCardComponent,
     NumberColumn,
+    PpwTableOptions,
     SearchFilterComponent,
     TableComponent,
     TableRecord,
@@ -11,12 +18,6 @@ import {
     TextColumn
 } from '@ppwcode/ng-common-components'
 import { DateTime } from 'luxon'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { MatInputModule } from '@angular/material/input'
-import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol, NgIf } from '@angular/common'
-import { MatCardModule } from '@angular/material/card'
-import { MatIconModule } from '@angular/material/icon'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -135,6 +136,14 @@ export class FilterTableComponent implements OnInit {
         ),
         new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
     ]
+    public tableOptions: PpwTableOptions<Player> = {
+        columnWidths: {
+            age: '65px',
+            income: '100px',
+            bonus: '100px',
+            active: '50px'
+        }
+    }
     public data = PLAYERS_DATA
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
 
