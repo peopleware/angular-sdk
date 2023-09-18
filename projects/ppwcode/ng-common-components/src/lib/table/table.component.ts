@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections'
 import { CommonModule } from '@angular/common'
 import {
     ChangeDetectionStrategy,
@@ -11,18 +12,18 @@ import {
     SimpleChanges
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { MatCardModule } from '@angular/material/card'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 
 import { DynamicCellDirective } from './cells/directives/dynamic-cell.directive'
 import { Column, ColumnType } from './columns/column'
 import { DateColumn } from './columns/date-column'
-import { TextColumn } from './columns/text-column'
-import { MatCardModule } from '@angular/material/card'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { SelectionModel } from '@angular/cdk/collections'
 import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
-import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
+import { TextColumn } from './columns/text-column'
+import { PpwTableOptions } from './options/table-options'
 
 @Component({
     selector: 'ppw-table',
@@ -43,6 +44,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     @Input() public columns: Array<Column<TRecord, unknown>> = []
     @Input() public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input() public enableRowSelection = false
+    @Input() public options?: PpwTableOptions<TRecord>
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
 
     /** The data source for the material table. */

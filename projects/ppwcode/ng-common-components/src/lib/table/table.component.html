@@ -4,6 +4,7 @@
         <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox
                 color="primary"
+                [style.width]="options?.columnWidths?.['rowSelection']"
                 (change)="$event ? masterToggle() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
                 [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -12,6 +13,7 @@
         <td mat-cell *matCellDef="let row">
             <mat-checkbox
                 color="primary"
+                [style.width]="options?.columnWidths?.['rowSelection']"
                 (click)="$event.stopPropagation()"
                 (change)="$event ? selection.toggle(row) : null"
                 [checked]="selection.isSelected(row)">
@@ -20,8 +22,18 @@
     </ng-container>
 
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
-        <th mat-header-cell *matHeaderCellDef class="column-type-{{ column.type }}">{{ column.label }}</th>
-        <td mat-cell *matCellDef="let record" class="column-type-{{ column.type }}">
+        <th
+            mat-header-cell
+            [style.width]="options?.columnWidths?.[column.name]"
+            *matHeaderCellDef
+            class="column-type-{{ column.type }}">
+            {{ column.label }}
+        </th>
+        <td
+            mat-cell
+            [style.width]="options?.columnWidths?.[column.name]"
+            *matCellDef="let record"
+            class="column-type-{{ column.type }}">
             <ng-container
                 ppwDynamicCell
                 [column]="column"
