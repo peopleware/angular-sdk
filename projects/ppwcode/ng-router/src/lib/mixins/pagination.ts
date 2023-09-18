@@ -34,7 +34,7 @@ export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & 
     return class extends base implements CanPage {
         public page$ = this.watchPageIndexParam('page')
         public pageSize$ = this.watchPageSizeParam('pageSize')
-        public defaultPageSize: number = 20
+        public defaultPageSize = 20
 
         public async handlePageEvent(e: PageEvent, queryParamName = 'page'): Promise<void> {
             await this.relativeNavigation([], {
