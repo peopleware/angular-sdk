@@ -37,13 +37,17 @@
         (click)="onClickNavigationItem(navigationItem)">
         <span class="navigation-item-link">
             <ng-container *ngIf="navigationItem.icon">
-                <i [class]="navigationItem.icon" class="ppw-navigation-icon"></i>
+                <i
+                    [class]="navigationItem.icon"
+                    class="ppw-navigation-icon"
+                    [style.font-size]="navigationItemFontSize"></i>
             </ng-container>
-            <span>{{ navigationItem.label | translate }}</span>
+            <span [style.font-size]="navigationItemFontSize">{{ navigationItem.label | translate }}</span>
         </span>
         <i
             *ngIf="(navigationItem.children?.length ?? 0) > 0"
             class="fa-solid"
+            [style.font-size]="navigationItemFontSize"
             [class.fa-angle-down]="navigationItemIsOpened(navigationItem)"
             [class.fa-angle-left]="!navigationItemIsOpened(navigationItem)"></i>
     </button>

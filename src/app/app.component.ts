@@ -13,7 +13,8 @@ export class AppComponent {
     title = 'ppwcode'
     sidebarOptions: SidebarOptions = {
         logoUrl: './assets/ppwcode_logo.png',
-        centerLogo: false
+        centerLogo: false,
+        navigationItemFontSize: '15px'
     }
 
     constructor() {
