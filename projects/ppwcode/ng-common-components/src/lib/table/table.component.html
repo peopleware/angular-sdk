@@ -46,6 +46,7 @@
     <tr
         mat-row
         *matRowDef="let row; columns: columnNames"
+        [class.highlight]="options?.rowHighlightOnHover"
         [class.clickable]="options?.rowClickAction"
         (click)="options?.rowClickAction ? options?.rowClickAction(row.initialRecord) : null"></tr>
 </table>

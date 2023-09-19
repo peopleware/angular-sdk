@@ -146,7 +146,8 @@ export class FilterTableComponent implements OnInit {
         },
         rowClickAction: (row: Player) => {
             this.lastClickedRow = row
-        }
+        },
+        rowHighlightOnHover: true
     }
     public data = PLAYERS_DATA
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
