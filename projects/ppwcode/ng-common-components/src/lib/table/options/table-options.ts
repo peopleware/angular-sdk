@@ -9,4 +9,6 @@ export interface PpwTableOptions<TRecord> {
      * The values are the widths in CSS units: px, %, em, rem, ...
      */
     columnWidths?: Record<keyof Partial<TRecord> | string, string>
+
+    rowClickAction?: (row: TRecord) => void
 }

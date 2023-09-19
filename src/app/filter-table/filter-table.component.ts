@@ -123,6 +123,7 @@ export class FilterTableComponent implements OnInit {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
     public searchForm!: FormGroup
+    public lastClickedRow?: Player
     public columns: Array<Column<Player, unknown>> = [
         new TextColumn('firstName', 'First name', 'firstName'),
         new TextColumn('lastName', 'First name', 'lastName'),
@@ -142,6 +143,9 @@ export class FilterTableComponent implements OnInit {
             income: '100px',
             bonus: '100px',
             active: '50px'
+        },
+        rowClickAction: (row: Player) => {
+            this.lastClickedRow = row
         }
     }
     public data = PLAYERS_DATA

@@ -25,6 +25,15 @@
     </mat-card-content>
 </mat-card>
 
+<mat-card *ngIf="lastClickedRow">
+    <mat-card-header>
+        <mat-card-title>Last clicked row</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>{{ lastClickedRow | json }}</div>
+    </mat-card-content>
+</mat-card>
+
 <mat-card *ngIf="selectedPlayersSignal().length">
     <mat-card-header>
         <mat-card-title>Selected ID's</mat-card-title>

@@ -43,5 +43,9 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+    <tr
+        mat-row
+        *matRowDef="let row; columns: columnNames"
+        [class.clickable]="options?.rowClickAction"
+        (click)="options?.rowClickAction ? options?.rowClickAction(row.initialRecord) : null"></tr>
 </table>
