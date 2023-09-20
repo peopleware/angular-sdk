@@ -10,7 +10,9 @@ export interface PpwTableOptions<TRecord> {
      */
     columnWidths?: Record<keyof Partial<TRecord> | string, string>
 
-    rowClickAction?: (row: TRecord) => void
+    ignoreClickColumns?: string[]
+
+    rowClickAction?: (row: TRecord, columnName: string) => void
 
     rowHighlightOnHover?: boolean
 }

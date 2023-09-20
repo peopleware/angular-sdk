@@ -14,7 +14,6 @@
             <mat-checkbox
                 color="primary"
                 [style.width]="options?.columnWidths?.['rowSelection']"
-                (click)="$event.stopPropagation()"
                 (change)="$event ? selection.toggle(row) : null"
                 [checked]="selection.isSelected(row)">
             </mat-checkbox>
@@ -33,6 +32,7 @@
             mat-cell
             [style.width]="options?.columnWidths?.[column.name]"
             *matCellDef="let record"
+            (click)="executeRowClick(record.initialRecord, column.name)"
             class="column-type-{{ column.type }}">
             <ng-container
                 ppwDynamicCell
@@ -47,6 +47,5 @@
         mat-row
         *matRowDef="let row; columns: columnNames"
         [class.highlight]="options?.rowHighlightOnHover"
-        [class.clickable]="options?.rowClickAction"
-        (click)="options?.rowClickAction ? options?.rowClickAction(row.initialRecord) : null"></tr>
+        [class.clickable]="options?.rowClickAction"></tr>
 </table>

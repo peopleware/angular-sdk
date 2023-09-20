@@ -166,6 +166,12 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
             } as TableRecord<TRecord>
         })
     }
+
+    public executeRowClick(record: TRecord, columnName: string): void {
+        this.options?.rowClickAction && (this.options?.ignoreClickColumns?.indexOf(columnName) ?? -1 < 0)
+            ? this.options.rowClickAction(record, columnName)
+            : null
+    }
 }
 
 export interface TableRecord<T = unknown> {
