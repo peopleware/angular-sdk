@@ -8,4 +8,22 @@ mat-drawer-container {
             background-color: var(--ppw-sidenav-background-color);
         }
     }
+
+    mat-drawer-content {
+        .ppw-page-container {
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+
+            ppw-toolbar {
+                flex-grow: 0;
+            }
+
+            .ppw-page-content {
+                flex-grow: 1;
+                overflow: auto;
+            }
+        }
+    }
 }

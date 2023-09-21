@@ -22,12 +22,16 @@
         </ppw-left-sidenav>
     </mat-drawer>
     <mat-drawer-content>
-        <ppw-toolbar
-            (toggleSidebar)="toggleSidebar()"
-            [isSidenavOpen]="isSidenavOpen"
-            [showMenuToggle]="isSmallDevice || (!isSidenavOpen && !isLargerDevice)">
-            <ng-content select="[ppw-toolbar-content]"></ng-content>
-        </ppw-toolbar>
-        <router-outlet></router-outlet>
+        <div class="ppw-page-container">
+            <ppw-toolbar
+                (toggleSidebar)="toggleSidebar()"
+                [isSidenavOpen]="isSidenavOpen"
+                [showMenuToggle]="isSmallDevice || (!isSidenavOpen && !isLargerDevice)">
+                <ng-content select="[ppw-toolbar-content]"></ng-content>
+            </ppw-toolbar>
+            <div class="ppw-page-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
