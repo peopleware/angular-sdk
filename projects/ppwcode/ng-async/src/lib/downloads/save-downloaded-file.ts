@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver-es'
 import { notNull } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { AsyncResult } from '../models/async-result'
 
