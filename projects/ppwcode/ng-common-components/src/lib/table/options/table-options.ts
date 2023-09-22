@@ -12,7 +12,7 @@ export interface PpwTableOptions<TRecord> {
 
     ignoreClickColumns?: string[]
 
-    rowClickAction?: (row: TRecord, columnName: string) => void
+    rowClickAction?: (row: TRecord) => void
 
     rowHighlightOnHover?: boolean
 }
