@@ -15,4 +15,6 @@ export interface PpwTableOptions<TRecord> {
     rowClickAction?: (row: TRecord) => void
 
     rowHighlightOnHover?: boolean
+
+    tableHeight?: string
 }
