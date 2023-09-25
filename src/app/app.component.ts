@@ -16,6 +16,7 @@ export class AppComponent {
         centerLogo: false,
         navigationItemFontSize: '15px'
     }
+    public toolbarHeightPx = 60
 
     constructor() {
         this.translate.setDefaultLang('en')
