@@ -2,6 +2,15 @@
     [navigationItems]="getNavigationItems()"
     [sidebarOptions]="sidebarOptions"
     [toolbarHeightPx]="toolbarHeightPx">
+    <ng-container ppw-toolbar-left-content *ngIf="showToolbarLogo">
+        <img
+            class="toolbar-left-logo"
+            ngSrc="{{ toolbarLogoUrl }}"
+            alt="Logo"
+            height="{{ toolbarLogoHeight }}"
+            width="{{ toolbarLogoWidth }}"
+            priority="eager"
+    /></ng-container>
     <ng-container ppw-toolbar-content>
         <mat-icon>person</mat-icon>
     </ng-container>
@@ -9,6 +18,7 @@
     <ng-container ppw-sidebar-bottom-content>
         <div class="flex-column">
             <div class="page-toggles flex-column gap-8">
+                <mat-slide-toggle [(ngModel)]="showToolbarLogo">Show logo</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="sidebarOptions.showPageTitle">Show title</mat-slide-toggle>
             </div>
             <div class="version-info">

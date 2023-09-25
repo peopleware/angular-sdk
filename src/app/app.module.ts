@@ -9,7 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
-import { registerLocaleData } from '@angular/common'
+import { NgOptimizedImage, registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { TitleStrategy } from '@angular/router'
 import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
@@ -53,6 +53,7 @@ const ppwcodeComponents = [WireframeComponent]
         }),
         BrowserAnimationsModule,
         ...ppwcodeComponents,
+        NgOptimizedImage,
         MatSlideToggleModule,
         FormsModule
     ],

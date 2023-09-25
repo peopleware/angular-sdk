@@ -17,6 +17,10 @@ export class AppComponent {
         navigationItemFontSize: '15px',
         showPageTitle: true
     }
+    public showToolbarLogo = false
+    public toolbarLogoUrl = './assets/peopleware_logo.png'
+    public toolbarLogoWidth = 190
+    public toolbarLogoHeight = 40
     public toolbarHeightPx = 60
 
     constructor() {
