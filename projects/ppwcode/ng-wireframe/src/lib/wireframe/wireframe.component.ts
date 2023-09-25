@@ -56,7 +56,9 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        this.trackSidenavVisibility()
+        if (!this.sidebarOptions?.closedByDefaultOnLargerDevice) {
+            this.trackSidenavVisibility()
+        }
     }
 
     public ngOnDestroy(): void {

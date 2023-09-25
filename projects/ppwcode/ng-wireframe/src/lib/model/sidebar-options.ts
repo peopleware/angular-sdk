@@ -4,4 +4,5 @@ export interface SidebarOptions {
     logoWidth?: number
     centerLogo?: boolean
     navigationItemFontSize?: string
+    closedByDefaultOnLargerDevice?: boolean
 }
