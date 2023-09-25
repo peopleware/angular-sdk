@@ -9,6 +9,6 @@
         <span *ngIf="showPageTitle && title" class="page-title">{{ title }}</span>
     </div>
     <div class="right-section padding-8">
-        <ng-content></ng-content>
+        <ng-content select="[ppw-toolbar-right-content]"></ng-content>
     </div>
 </div>

@@ -33,7 +33,9 @@
                     (!sidebarOptions?.closedByDefaultOnLargerDevice &&
                         (isSmallDevice || (!isSidenavOpen && !isLargerDevice)))
                 ">
-                <ng-content select="[ppw-toolbar-content]"></ng-content>
+                <ng-container ppw-toolbar-right-content>
+                    <ng-content select="[ppw-toolbar-content]"></ng-content>
+                </ng-container>
             </ppw-toolbar>
             <div class="ppw-page-content">
                 <router-outlet></router-outlet>
