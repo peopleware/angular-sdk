@@ -6,7 +6,14 @@
         <mat-icon>person</mat-icon>
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
-    <ng-container ppw-sidebar-bottom-content
-        ><div class="version-info"><div>v0.0.29</div></div></ng-container
-    >
+    <ng-container ppw-sidebar-bottom-content>
+        <div class="flex-column">
+            <div class="page-toggles flex-column gap-8">
+                <mat-slide-toggle [(ngModel)]="sidebarOptions.showPageTitle">Show title</mat-slide-toggle>
+            </div>
+            <div class="version-info">
+                <div>v0.0.29</div>
+            </div>
+        </div>
+    </ng-container>
 </ppw-wireframe>

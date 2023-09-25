@@ -13,6 +13,8 @@ import { registerLocaleData } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { TitleStrategy } from '@angular/router'
 import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { FormsModule } from '@angular/forms'
 
 registerLocaleData(localeEn)
 
@@ -50,7 +52,9 @@ const ppwcodeComponents = [WireframeComponent]
             }
         }),
         BrowserAnimationsModule,
-        ...ppwcodeComponents
+        ...ppwcodeComponents,
+        MatSlideToggleModule,
+        FormsModule
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },

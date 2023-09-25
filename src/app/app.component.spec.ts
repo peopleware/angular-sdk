@@ -5,6 +5,8 @@ import { TranslateModule } from '@ngx-translate/core'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { MatIconModule } from '@angular/material/icon'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
+import { FormsModule } from '@angular/forms'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 describe('AppComponent', () => {
     beforeEach(() =>
@@ -13,6 +15,8 @@ describe('AppComponent', () => {
                 NoopAnimationsModule,
                 RouterTestingModule,
                 MatIconModule,
+                MatSlideToggleModule,
+                FormsModule,
                 TranslateModule.forRoot(),
                 WireframeComponent
             ],

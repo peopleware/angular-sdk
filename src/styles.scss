@@ -172,6 +172,17 @@ mat-card.highlighted-card {
     background-color: mat.get-color-from-palette($ppw-ui-accent);
 }
 
+.toolbar {
+    .left-section {
+        span {
+            &.page-title {
+                color: #18428c;
+                font-size: 20px !important;
+            }
+        }
+    }
+}
+
 .table-container::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -194,4 +205,14 @@ mat-card.highlighted-card {
 
 .table-container::-webkit-scrollbar-track-piece:start {
     margin-top: 200px;
+}
+
+div.page-toggles {
+    mat-slide-toggle {
+        div.mdc-form-field {
+            label {
+                color: white;
+            }
+        }
+    }
 }
