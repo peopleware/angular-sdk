@@ -6,6 +6,7 @@
                 <mat-icon>close</mat-icon>
             </ng-template>
         </button>
+        <ng-content select="[ppw-toolbar-left-content]"></ng-content>
         <span *ngIf="showPageTitle && title" class="page-title">{{ title }}</span>
     </div>
     <div class="right-section padding-8">
