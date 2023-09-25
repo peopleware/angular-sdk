@@ -1,7 +1,7 @@
 <mat-drawer-container class="app-wireframe-container">
     <mat-drawer
-        [mode]="isXSmallDevice ? 'over' : 'side'"
-        [ngClass]="isXSmallDevice ? 'drawer-full-width' : 'drawer'"
+        [mode]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'over' : 'side'"
+        [ngClass]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'"
         [opened]="!isSmallDevice && !isXSmallDevice && !sidebarOptions?.closedByDefaultOnLargerDevice"
         class="drawer-color">
         <ppw-left-sidenav
