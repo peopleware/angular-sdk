@@ -17,6 +17,7 @@ import { combineLatest, filter, map, startWith } from 'rxjs'
 export class ToolbarComponent implements OnInit {
     @Input() public showMenuToggle = true
     @Input() public isSidenavOpen = true
+    @Input() public showPageTitle = true
     @Output() public toggleSidebar: EventEmitter<void> = new EventEmitter<void>()
 
     public title: string | null = null
