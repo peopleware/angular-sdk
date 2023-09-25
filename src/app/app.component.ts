@@ -10,8 +10,8 @@ import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/mode
 })
 export class AppComponent {
     private translate: TranslateService = inject(TranslateService)
-    title = 'ppwcode'
-    sidebarOptions: SidebarOptions = {
+    public title = 'ppwcode'
+    public sidebarOptions: SidebarOptions = {
         logoUrl: './assets/ppwcode_logo.png',
         centerLogo: false,
         navigationItemFontSize: '15px'
