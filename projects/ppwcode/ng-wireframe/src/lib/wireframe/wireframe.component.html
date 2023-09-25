@@ -27,6 +27,7 @@
                 (toggleSidebar)="toggleSidebar()"
                 [isSidenavOpen]="isSidenavOpen"
                 [showPageTitle]="!!sidebarOptions?.showPageTitle"
+                [toolbarHeightPx]="toolbarHeightPx"
                 [showMenuToggle]="
                     (!!sidebarOptions?.closedByDefaultOnLargerDevice && !isSidenavOpen) ||
                     (!sidebarOptions?.closedByDefaultOnLargerDevice &&

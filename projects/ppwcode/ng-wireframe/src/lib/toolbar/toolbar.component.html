@@ -1,4 +1,4 @@
-<div class="toolbar">
+<div class="toolbar" [style.height.px]="toolbarHeightPx">
     <div class="left-section align-items-center">
         <button class="toolbar-button" *ngIf="showMenuToggle" (click)="toggleSidebar.emit()">
             <mat-icon *ngIf="!isSidenavOpen; else closeIcon">menu</mat-icon>

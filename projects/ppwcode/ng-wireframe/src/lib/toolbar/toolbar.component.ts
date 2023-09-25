@@ -18,6 +18,7 @@ export class ToolbarComponent implements OnInit {
     @Input() public showMenuToggle = true
     @Input() public isSidenavOpen = true
     @Input() public showPageTitle = true
+    @Input() public toolbarHeightPx?: number
     @Output() public toggleSidebar: EventEmitter<void> = new EventEmitter<void>()
 
     public title: string | null = null

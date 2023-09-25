@@ -23,6 +23,7 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
 
     @Input() public navigationItems: Array<NavigationItem> | null = []
     @Input() public sidebarOptions?: SidebarOptions
+    @Input() public toolbarHeightPx?: number
     @ViewChild(MatDrawer) public matDrawer!: MatDrawer
 
     public get isSmallDevice(): boolean {
