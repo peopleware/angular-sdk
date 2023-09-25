@@ -16,6 +16,7 @@ const _TextCellComponentBase = mixinCellComponent<TextColumn<any>, typeof TextCe
  * No transformation will be applied to the given value.
  */
 @Component({
+    selector: 'ppw-text-cell',
     template: `{{ value }}`,
     standalone: true
 })

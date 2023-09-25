@@ -16,6 +16,7 @@ const _DateCellComponentBase = mixinCellComponent<DateColumn<any, any>, typeof D
  * No transformation will be applied to the given value.
  */
 @Component({
+    selector: 'ppw-date-cell',
     template: `{{ value }}`,
     standalone: true
 })

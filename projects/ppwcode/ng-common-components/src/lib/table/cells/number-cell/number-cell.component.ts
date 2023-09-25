@@ -15,6 +15,7 @@ const _NumberCellComponentBase = mixinCellComponent<NumberColumn<any>, typeof Nu
  * No transformation will be applied to the given value.
  */
 @Component({
+    selector: 'ppw-number-cell',
     template: `{{ value }}`,
     standalone: true
 })

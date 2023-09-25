@@ -13,6 +13,7 @@ const _TemplateCellComponentBase = mixinCellComponent<
 >(TemplateCellComponentBase)
 
 @Component({
+    selector: 'ppw-template-cell',
     template: `<ng-container *ngTemplateOutlet="value; context: context"></ng-container>`,
     standalone: true,
     imports: [CommonModule]
