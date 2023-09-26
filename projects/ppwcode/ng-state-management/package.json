@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-state-management",
-    "version": "0.0.32",
+    "version": "0.0.33",
     "peerDependencies": {
         "@angular/common": "^16.2.0",
         "@angular/core": "^16.2.0"
