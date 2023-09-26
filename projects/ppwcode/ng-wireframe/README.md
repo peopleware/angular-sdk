@@ -52,14 +52,15 @@ The icon color of the navigation items can be set adding:
 
 Content can be added in 3 places:
 
--   The right side of the toolbar: `ppw-toolbar-content`
+-   The left side of the toolbar: `ppw-toolbar-left-content`
+-   The right side of the toolbar: `ppw-toolbar-right-content`
 -   Above the navigation menu items: `ppw-sidebar-top-content`
 -   At the bottom of the drawer: `ppw-sidebar-bottom-content`
 
 Complete example:
 
     <ppw-wireframe [navigationItems]="getNavigationItems()" [sidebarOptions]="sidebarOptions">
-        <ng-container ppw-toolbar-content><mat-icon>person</mat-icon></ng-container>
+        <ng-container ppw-toolbar-right-content><mat-icon>person</mat-icon></ng-container>
         <ng-container ppw-sidebar-top-content></ng-container>
         <ng-container ppw-sidebar-bottom-content><div class="version-info"><div>v0.0.2</div></div></ng-container>
     </ppw-wireframe>
