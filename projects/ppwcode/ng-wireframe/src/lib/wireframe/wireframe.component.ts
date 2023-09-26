@@ -26,6 +26,8 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
     @Input() public toolbarHeightPx?: number
     @ViewChild(MatDrawer) public matDrawer!: MatDrawer
 
+    public sidebarIsOpen = false
+
     public get isSmallDevice(): boolean {
         return this.observer.isMatched([Breakpoints.Small])
     }
@@ -48,8 +50,10 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((result) => {
                 if (result.matches && this.matDrawer.opened) {
+                    this.sidebarIsOpen = false
                     this.matDrawer.close()
                 } else if (!result.matches && !this.matDrawer.opened) {
+                    this.sidebarIsOpen = true
                     this.matDrawer.open()
                 }
                 this.cdRef.markForCheck()
@@ -73,5 +77,13 @@ export class WireframeComponent implements AfterViewInit, OnDestroy {
 
     public async closeSidebar(): Promise<void> {
         await this.matDrawer.close()
+    }
+
+    public sidebarOpened(): void {
+        this.sidebarIsOpen = !this.isSmallDevice && !this.isXSmallDevice
+    }
+
+    public sidebarClosed(): void {
+        this.sidebarIsOpen = false
     }
 }

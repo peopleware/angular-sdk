@@ -3,6 +3,8 @@
         [mode]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'over' : 'side'"
         [ngClass]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'"
         [opened]="!isSmallDevice && !isXSmallDevice && !sidebarOptions?.closedByDefaultOnLargerDevice"
+        (opened)="sidebarOpened()"
+        (closed)="sidebarClosed()"
         class="drawer-color">
         <ppw-left-sidenav
             (closeSidebar)="closeSidebar()"
@@ -25,13 +27,13 @@
         <div class="ppw-page-container">
             <ppw-toolbar
                 (toggleSidebar)="toggleSidebar()"
-                [isSidenavOpen]="isSidenavOpen"
+                [isSidenavOpen]="sidebarIsOpen"
                 [showPageTitle]="!!sidebarOptions?.showPageTitle"
                 [toolbarHeightPx]="toolbarHeightPx"
                 [showMenuToggle]="
-                    (!!sidebarOptions?.closedByDefaultOnLargerDevice && !isSidenavOpen) ||
+                    (!!sidebarOptions?.closedByDefaultOnLargerDevice && !sidebarIsOpen) ||
                     (!sidebarOptions?.closedByDefaultOnLargerDevice &&
-                        (isSmallDevice || (!isSidenavOpen && !isLargerDevice)))
+                        (isSmallDevice || (!sidebarIsOpen && !isLargerDevice)))
                 ">
                 <ng-container ppw-toolbar-left-content
                     ><ng-content select="[ppw-toolbar-left-content]"></ng-content
