@@ -126,7 +126,7 @@ export class FilterTableComponent implements OnInit {
     public lastClickedRow?: Player
     public columns: Array<Column<Player, unknown>> = [
         new TextColumn('firstName', 'First name', 'firstName'),
-        new TextColumn('lastName', 'First name', 'lastName'),
+        new TextColumn('lastName', 'Last name', 'lastName'),
         new DateColumn<DateTime, Player>('birthDate', 'Birth date', getLuxonFormatter('dd/MM/yyyy'), 'birthDate'),
         new NumberColumn('age', 'Age', 'age'),
         new NumberColumn('income', 'Income', 'income', (income: number) =>
@@ -144,7 +144,15 @@ export class FilterTableComponent implements OnInit {
             bonus: '100px',
             active: '50px'
         },
+        columnHeaderStyles: {
+            firstName: () => {
+                return { 'text-align': 'right' }
+            }
+        },
         columnStyles: {
+            firstName: () => {
+                return { 'text-align': 'right' }
+            },
             age: (record: Player) => {
                 if (record.age > 40) {
                     return { background: 'red' }
