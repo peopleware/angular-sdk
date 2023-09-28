@@ -19,4 +19,6 @@ export interface PpwTableOptions<TRecord> {
     tableHeight?: string
 
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
+
+    columnHeaderStyles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
 }

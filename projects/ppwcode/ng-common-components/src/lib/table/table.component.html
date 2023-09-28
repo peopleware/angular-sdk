@@ -29,6 +29,7 @@
             <th
                 mat-header-cell
                 [style.width]="options?.columnWidths?.[column.name]"
+                [ngStyle]="options?.columnHeaderStyles?.[column.name]?.()"
                 *matHeaderCellDef
                 class="column-type-{{ column.type }}">
                 {{ column.label }}
