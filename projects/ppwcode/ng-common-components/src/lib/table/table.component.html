@@ -36,6 +36,7 @@
             <td
                 mat-cell
                 [style.width]="options?.columnWidths?.[column.name]"
+                [ngStyle]="options?.columnStyles?.[column.name]?.(record.initialRecord)"
                 *matCellDef="let record"
                 (click)="executeRowClick(record.initialRecord, column.name)"
                 class="column-type-{{ column.type }}">
