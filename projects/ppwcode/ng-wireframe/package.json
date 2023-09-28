@@ -1,10 +1,10 @@
 {
     "name": "@ppwcode/ng-wireframe",
-    "version": "0.0.34",
+    "version": "0.0.35",
     "peerDependencies": {
         "@angular/common": "^16.2.0",
         "@angular/core": "^16.2.0",
-        "@ppwcode/ng-async": "^0.0.34"
+        "@ppwcode/ng-async": "^0.0.35"
     },
     "dependencies": {
         "tslib": "^2.3.0"
