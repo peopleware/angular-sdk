@@ -144,6 +144,14 @@ export class FilterTableComponent implements OnInit {
             bonus: '100px',
             active: '50px'
         },
+        columnStyles: {
+            age: (record: Player) => {
+                if (record.age > 40) {
+                    return { background: 'red' }
+                }
+                return {}
+            }
+        },
         rowClickAction: (row: Player) => {
             this.lastClickedRow = row
         },
