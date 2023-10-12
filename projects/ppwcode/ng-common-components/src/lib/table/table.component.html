@@ -52,6 +52,7 @@
         <tr mat-header-row *matHeaderRowDef="columnNames; sticky: !!options?.tableHeight"></tr>
         <tr
             mat-row
+            @rowsAnimation
             *matRowDef="let row; columns: columnNames"
             [class.highlight]="options?.rowHighlightOnHover"
             [class.clickable]="options?.rowClickAction"></tr>

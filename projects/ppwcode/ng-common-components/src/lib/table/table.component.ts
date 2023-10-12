@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections'
 import { CommonModule } from '@angular/common'
 import {
@@ -37,6 +38,14 @@ import { PpwTableOptions } from './options/table-options'
             useExisting: forwardRef(() => TableComponent),
             multi: true
         }
+    ],
+    animations: [
+        trigger('rowsAnimation', [
+            transition(':enter', [
+                style({ transform: 'translateY(-10%)', opacity: 0 }),
+                animate('.25s ease-in-out', style({ transform: 'translateY(0)', opacity: 1 }))
+            ])
+        ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
