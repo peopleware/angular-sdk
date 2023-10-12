@@ -1,14 +1,20 @@
 @use '@angular/material' as mat;
 
-.table-2 {
-    @include mat.table-density(-2);
+.ppw-table-container {
+    $tableHeight: var(--ppw-table-height, auto);
+    @if $tableHeight != 'auto' {
+        max-height: $tableHeight;
+        padding-right: 16px;
+        overflow: auto;
+    }
 }
 
-table {
+.ppw-table {
+    @include mat.table-density(-2); // Decreases the default spacing applied by Angular Material
     width: 100%;
 }
 
-.column-type-number {
+.ppw-column-type-number {
     text-align: right;
 }
 
@@ -21,5 +27,5 @@ table {
 }
 
 .highlight:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--ppw-table-row-highlight-background-color, rgba(0, 0, 0, 0.03));
 }

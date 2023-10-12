@@ -165,7 +165,7 @@ export class FilterTableComponent implements OnInit {
         },
         ignoreClickColumns: ['active'],
         rowHighlightOnHover: true,
-        tableHeight: 'calc(100vh - 270px)'
+        stickyHeader: true
     }
     public data = PLAYERS_DATA
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])

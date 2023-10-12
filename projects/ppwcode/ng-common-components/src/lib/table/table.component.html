@@ -1,9 +1,5 @@
-<section
-    class="table-container"
-    [style.max-height]="options?.tableHeight ?? 'auto'"
-    [style.padding-right.px]="options?.tableHeight ? 16 : undefined"
-    [style.overflow]="options?.tableHeight ? 'auto' : undefined">
-    <table mat-table class="table-2" [dataSource]="dataSource">
+<section class="ppw-table-container">
+    <table mat-table class="ppw-table" [dataSource]="dataSource">
         <!-- Checkbox Column -->
         <ng-container matColumnDef="rowSelection" *ngIf="enableRowSelection">
             <th mat-header-cell *matHeaderCellDef>
@@ -31,7 +27,7 @@
                 [style.width]="options?.columnWidths?.[column.name]"
                 [ngStyle]="options?.columnHeaderStyles?.[column.name]?.()"
                 *matHeaderCellDef
-                class="column-type-{{ column.type }}">
+                class="ppw-column-type-{{ column.type }}">
                 {{ column.label }}
             </th>
             <td
@@ -49,7 +45,7 @@
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnNames; sticky: !!options?.tableHeight"></tr>
+        <tr mat-header-row *matHeaderRowDef="columnNames; sticky: !!options?.stickyHeader"></tr>
         <tr
             mat-row
             @rowsAnimation

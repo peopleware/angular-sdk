@@ -16,7 +16,7 @@ export interface PpwTableOptions<TRecord> {
 
     rowHighlightOnHover?: boolean
 
-    tableHeight?: string
+    stickyHeader?: boolean
 
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
 
