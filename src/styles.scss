@@ -71,16 +71,6 @@ $ppw-ui-theme: mat.define-light-theme(
 html,
 body {
     height: 100%;
-
-    .mat-drawer.drawer-color {
-        --ppw-sidenav-background-color: #18428c;
-    }
-
-    .navigation-item {
-        i.ppw-navigation-icon {
-            --ppw-sidenav-icon-color: #6eb343;
-        }
-    }
 }
 
 body {
@@ -99,6 +89,10 @@ body {
     --ppw-expandable-card-header-indicator-color: white;
 
     --ppw-message-bar-warning-text-color: black;
+
+    --ppw-sidenav-background-color: #18428c;
+    --ppw-sidenav-icon-color: #6eb343;
+    --ppw-sidenav-close-button-color: white;
 
     --ppw-table-row-highlight-background-color: rgba(0, 0, 255, 0.03);
 }

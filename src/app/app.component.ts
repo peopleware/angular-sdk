@@ -14,7 +14,6 @@ export class AppComponent {
     public sidebarOptions: SidebarOptions = {
         logoUrl: './assets/ppwcode_logo.png',
         centerLogo: false,
-        navigationItemFontSize: '15px',
         showPageTitle: true
     }
     public showToolbarLogo = false

@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
 
-    .sidenav-content-wrapper {
+    .ppw-sidenav-content-wrapper {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -14,36 +14,37 @@
     }
 }
 
-.sidenav-close-button {
+.ppw-sidenav-close-button {
     border: none;
     padding: 1rem;
     background-color: transparent;
     display: block;
     position: absolute;
     right: 0;
+    color: var(--ppw-sidenav-close-button-color);
 }
 
-.sidenav-close-button:hover {
+.ppw-sidenav-close-button:hover {
     cursor: pointer;
     background-color: rgba(black, 4%); /* same as #F5F5F5 */
 }
 
-.authenticated-profile-wrapper {
-    margin: 8px;
-}
-
-.navigation-item {
+.ppw-sidenav-navigation-item {
     background: transparent;
-    color: white;
+    color: var(--ppw-sidenav-navigation-item-text-color, white);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 4px;
+    margin: var(--ppw-sidenav-navigation-item-margin, 4px);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--ppw-sidenav-navigation-item-radius, 8px);
 
-    .navigation-item-link {
+    .ppw-sidenav-navigation-item-text {
+        font-size: var(--ppw-sidenav-navigation-item-text-font-size);
+    }
+
+    .ppw-sidenav-navigation-item-link {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -53,17 +54,19 @@
     i {
         width: 32px;
 
-        &.ppw-navigation-icon {
+        &.ppw-sidenav-navigation-item-icon {
             color: var(--ppw-sidenav-icon-color);
+            font-size: var(--ppw-sidenav-navigation-item-icon-font-size);
         }
     }
 
     &:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background: var(--ppw-sidenav-navigation-item-hover-background-color, rgba(255, 255, 255, 0.15));
         cursor: pointer;
     }
 
-    .navigation-item {
-        margin-left: 16px;
+    .ppw-sidenav-navigation-item {
+        $defaultMargin: 0 0 0 16px;
+        margin: var(--ppw-sidenav-navigation-item-child-margin, #{$defaultMargin});
     }
 }

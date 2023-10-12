@@ -20,7 +20,6 @@ export class LeftSidenavComponent {
     @Input() public logoHeight = 100
     @Input() public logoWidth = 100
     @Input() public centerLogo = true
-    @Input() public navigationItemFontSize = 'unset'
     @Output() public closeSidebar: EventEmitter<void> = new EventEmitter()
 
     private _router: Router = inject(Router)
