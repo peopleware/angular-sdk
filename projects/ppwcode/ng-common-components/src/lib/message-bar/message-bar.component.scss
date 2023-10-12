@@ -1,4 +1,4 @@
-.message-bar-content {
+.ppw-message-bar-content {
     margin: var(--ppw-message-bar-spacing, 0px);
     display: flex;
     flex-direction: row;
@@ -6,22 +6,22 @@
     align-items: center;
 }
 
-.message-severity-info {
+.ppw-message-severity-info {
     background-color: var(--ppw-message-bar-info-background-color, #63c0df);
     color: var(--ppw-message-bar-info-text-color, black);
 }
 
-.message-severity-success {
+.ppw-message-severity-success {
     background-color: var(--ppw-message-bar-success-background-color, #009944);
     color: var(--ppw-message-bar-success-text-color, black);
 }
 
-.message-severity-error {
+.ppw-message-severity-error {
     background-color: var(--ppw-message-bar-error-background-color, #cf000f);
     color: var(--ppw-message-bar-error-text-color, white);
 }
 
-.message-severity-warning {
+.ppw-message-severity-warning {
     background-color: var(--ppw-message-bar-warning-background-color, #f89406);
     color: var(--ppw-message-bar-warning-text-color, white);
 }
