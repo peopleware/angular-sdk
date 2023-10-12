@@ -24,7 +24,8 @@ export interface ConfirmationDialogData {
     standalone: true,
     selector: 'ppw-confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
-    imports: [MatDialogModule, TranslateModule, MatButtonModule]
+    imports: [MatDialogModule, TranslateModule, MatButtonModule],
+    styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent {
     public data: ConfirmationDialogData = inject(MAT_DIALOG_DATA)
