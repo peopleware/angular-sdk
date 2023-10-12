@@ -15,10 +15,8 @@ export class AsyncResultComponent {
     @Input({ required: true }) public asyncResult?: AsyncResult<unknown, unknown> | null
     @Input() public pending?: boolean | null = null
 
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    @ContentChild('success', { read: TemplateRef }) public successTemplate!: TemplateRef<any>
-    @ContentChild('initial', { read: TemplateRef }) public initialTemplate?: TemplateRef<any>
-    /* eslint-enable @typescript-eslint/no-explicit-any */
+    @ContentChild('success', { read: TemplateRef }) public successTemplate!: TemplateRef<unknown>
+    @ContentChild('initial', { read: TemplateRef }) public initialTemplate?: TemplateRef<unknown>
 
     public get hasFailed(): boolean {
         return this.asyncResult?.status === 'failed'
