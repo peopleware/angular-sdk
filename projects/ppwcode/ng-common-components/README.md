@@ -2,28 +2,6 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
-## Code scaffolding
-
-Run `ng generate component component-name --project ng-common-components` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-common-components`.
-
-> Note: Don't forget to add `--project ng-common-components` or else it will be added to the default project in your `angular.json` file.
-
-## Build
-
-Run `ng build ng-common-components` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ng-common-components`, go to the dist folder `cd dist/ng-common-components` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ng-common-components` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
 ## Optional dependencies
 
     "@js-joda/core": "^5.5.3",
@@ -57,3 +35,38 @@ A component to show search filters in a card with a search button and a reset-fo
 #### Table
 
 A component to render search result in a grid. All columns can be configured to render correctly.
+
+## Usage
+
+### Theming
+
+The following CSS variables are available for theming. Just add them to the `body` selector.
+
+#### ppw-expandable-card
+
+| Variable name                                   | Extra info |
+| ----------------------------------------------- | ---------- |
+| `--ppw-expandable-card-header-background-color` |            |
+| `--ppw-expandable-card-header-indicator-color`  |            |
+| `--ppw-expandable-card-header-text-color`       |            |
+
+#### ppw-message-bar
+
+| Variable name                                | Extra info                                                  |
+| -------------------------------------------- | ----------------------------------------------------------- |
+| `--ppw-message-bar-error-background-color`   |                                                             |
+| `--ppw-message-bar-error-text-color`         |                                                             |
+| `--ppw-message-bar-info-background-color`    |                                                             |
+| `--ppw-message-bar-info-text-color`          |                                                             |
+| `--ppw-message-bar-spacing`                  | Adds extra spacing to the inner section of the message bar. |
+| `--ppw-message-bar-success-background-color` |                                                             |
+| `--ppw-message-bar-success-text-color`       |                                                             |
+| `--ppw-message-bar-warning-background-color` |                                                             |
+| `--ppw-message-bar-warning-text-color`       |                                                             |
+
+#### ppw-table
+
+| Variable name                                | Extra info |
+| -------------------------------------------- | ---------- |
+| `--ppw-table-height`                         |            |
+| `--ppw-table-row-highlight-background-color` |            |

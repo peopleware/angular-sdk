@@ -1,52 +1,52 @@
 # NgWireframe
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
-
-## Code scaffolding
-
-Run `ng generate component component-name --project ng-wireframe` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-wireframe`.
-
-> Note: Don't forget to add `--project ng-wireframe` or else it will be added to the default project in your `angular.json` file.
-
-## Build
-
-Run `ng build ng-wireframe` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ng-wireframe`, go to the dist folder `cd dist/ng-wireframe` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ng-wireframe` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This library provides a wireframe for Angular applications.
 
 ## Usage
+
+### Theming
+
+The following CSS variables are available for theming. Just add them to the `body` selector.
+
+#### ppw-left-sidenav
+
+| Variable name                                          | Extra info                                                                                                    |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `--ppw-sidenav-close-button-color`                     |                                                                                                               |
+| `--ppw-sidenav-navigation-item-child-margin`           | The default margin to apply to children have a collapsible navigation item.                                   |
+| `--ppw-sidenav-navigation-item-hover-background-color` |                                                                                                               |
+| `--ppw-sidenav-navigation-item-icon-color`             |                                                                                                               |
+| `--ppw-sidenav-navigation-item-icon-font-size`         |                                                                                                               |
+| `--ppw-sidenav-navigation-item-margin`                 | The default margin of a navigation item. The greater the margin, the more space between two navigation items. |
+| `--ppw-sidenav-navigation-item-radius`                 | The border radius applied to the navigation items, visible on hover.                                          |
+| `--ppw-sidenav-navigation-item-text-color`             |                                                                                                               |
+| `--ppw-sidenav-navigation-item-text-font-size`         |                                                                                                               |
+| `--ppw-sidenav-navigation-item-text-font-weight`       |                                                                                                               |
+
+#### ppw-toolbar
+
+| Variable name                           | Extra info |
+| --------------------------------------- | ---------- |
+| `--ppw-toolbar-border-bottom`           |            |
+| `--ppw-toolbar-box-shadow`              |            |
+| `--ppw-toolbar-button-background`       |            |
+| `--ppw-toolbar-button-hover-background` |            |
+| `--ppw-toolbar-button-hover-text-color` |            |
+| `--ppw-toolbar-button-padding`          |            |
+| `--ppw-toolbar-page-title-font-size`    |            |
+| `--ppw-toolbar-page-title-padding`      |            |
+| `--ppw-toolbar-page-title-text-color`   |            |
+
+#### ppw-wireframe
+
+| Variable name                      | Extra info |
+| ---------------------------------- | ---------- |
+| `--ppw-app-wireframe-drawer-width` |            |
+| `--ppw-sidenav-background-color`   |            |
 
 ### Wireframe
 
 The wireframe places an application layout with responsible left navigation and a toolbar on your web page.
-
-#### Colors
-
-The background color of the drawer can be configured by adding:
-
-    .mat-drawer.drawer-color {
-        --ppw-sidenav-background-color: #18428c;
-    }
-
-to the styles.scss of your application.
-
-The icon color of the navigation items can be set adding:
-
-    .navigation-item {
-        i.ppw-navigation-icon {
-            --ppw-sidenav-icon-color: #6eb343;
-        }
-    }
 
 #### Content
 
