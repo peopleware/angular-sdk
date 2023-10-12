@@ -9,7 +9,7 @@ import {
 @Component({
     selector: 'ppw-expandable-card',
     templateUrl: './expandable-card.component.html',
-    styleUrls: ['./expandable-card.component.scss'],
+    styleUrls: ['./expandable-card.component.scss', './expandable-card.component.theme.scss'],
     imports: [CommonModule, MatExpansionModule],
     encapsulation: ViewEncapsulation.None,
     providers: [
