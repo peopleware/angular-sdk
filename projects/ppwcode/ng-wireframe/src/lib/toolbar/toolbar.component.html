@@ -1,15 +1,15 @@
-<div class="toolbar" [style.height.px]="toolbarHeightPx">
-    <div class="left-section align-items-center">
-        <button class="toolbar-button" *ngIf="showMenuToggle" (click)="toggleSidebar.emit()">
+<div class="ppw-toolbar" [style.height.px]="toolbarHeightPx">
+    <div class="ppw-toolbar-left-section align-items-center">
+        <button class="ppw-toolbar-button" *ngIf="showMenuToggle" (click)="toggleSidebar.emit()">
             <mat-icon *ngIf="!isSidenavOpen; else closeIcon">menu</mat-icon>
             <ng-template #closeIcon>
                 <mat-icon>close</mat-icon>
             </ng-template>
         </button>
         <ng-content select="[ppw-toolbar-left-content]"></ng-content>
-        <span *ngIf="showPageTitle && title" class="page-title">{{ title }}</span>
+        <span *ngIf="showPageTitle && title" class="ppw-toolbar-page-title">{{ title }}</span>
     </div>
-    <div class="right-section padding-8">
+    <div class="ppw-toolbar-right-section padding-8">
         <ng-content select="[ppw-toolbar-right-content]"></ng-content>
     </div>
 </div>

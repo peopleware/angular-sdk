@@ -95,6 +95,9 @@ body {
     --ppw-sidenav-close-button-color: white;
 
     --ppw-table-row-highlight-background-color: rgba(0, 0, 255, 0.03);
+
+    --ppw-toolbar-page-title-font-size: 20px;
+    --ppw-toolbar-page-title-text-color: #18428c;
 }
 
 .no-margins {
@@ -171,17 +174,6 @@ body {
 
 mat-card.highlighted-card {
     background-color: mat.get-color-from-palette($ppw-ui-accent);
-}
-
-.toolbar {
-    .left-section {
-        span {
-            &.page-title {
-                color: #18428c;
-                font-size: 20px !important;
-            }
-        }
-    }
 }
 
 .table-container::-webkit-scrollbar {

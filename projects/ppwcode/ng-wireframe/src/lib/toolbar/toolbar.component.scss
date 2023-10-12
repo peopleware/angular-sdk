@@ -1,38 +1,46 @@
-.toolbar-button {
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background-color: transparent;
-    gap: 5px;
-}
+.ppw-toolbar {
+    $defaultBoxShadow: rgba(100, 100, 111, 20%) 0 7px 29px 0;
+    $defaultBorderBottom: 1px solid rgba(black, 12%);
 
-.toolbar-button:hover {
-    cursor: pointer;
-    background-color: rgba(black, 4%); /* same as #F5F5F5 */
-}
-
-.toolbar {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(black, 12%);
-    box-shadow: rgba(100, 100, 111, 20%) 0 7px 29px 0;
+    border-bottom: var(--ppw-toolbar-border-bottom, #{$defaultBorderBottom});
+    box-shadow: var(--ppw-toolbar-box-shadow, #{$defaultBoxShadow});
 
-    .left-section,
-    .right-section {
+    .ppw-toolbar-button {
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--ppw-toolbar-button-padding, 1rem);
+        background: var(--ppw-toolbar-button-background, transparent);
+        color: var(--ppw-toolbar-button-text-color);
+        gap: 5px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--ppw-toolbar-button-hover-background, rgba(black, 4%)); /* same as #F5F5F5 */
+            color: var(--ppw-toolbar-button-hover-text-color);
+        }
+    }
+
+    .ppw-toolbar-left-section,
+    .ppw-toolbar-right-section {
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 8px;
 
-        .page-title {
-            padding: 16px 8px;
-            font-size: 1.15em;
+        .ppw-toolbar-page-title {
+            $defaultPageTitlePadding: 16px 8px;
+
+            padding: var(--ppw-toolbar-page-title-padding, #{$defaultPageTitlePadding});
+            font-size: var(--ppw-toolbar-page-title-font-size, 1.15em);
+            color: var(--ppw-toolbar-page-title-text-color);
         }
     }
 
-    .right-section {
+    .ppw-toolbar-right-section {
         margin-right: 8px;
     }
 }
