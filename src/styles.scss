@@ -81,6 +81,8 @@ body {
         --mat-card-title-text-size: 16px;
     }
 
+    --ppw-app-wireframe-drawer-width: 250px;
+
     --ppw-confirmation-dialog-header-background-color: #{mat.get-color-from-palette($ppw-primary-palette, 500)};
     --ppw-confirmation-dialog-header-text-color: #{mat.get-contrast-color-from-palette($ppw-primary-palette, 500)};
 

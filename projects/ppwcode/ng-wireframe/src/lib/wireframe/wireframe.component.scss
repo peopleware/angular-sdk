@@ -1,29 +1,24 @@
-mat-drawer-container {
+.ppw-app-wireframe-container {
     height: 100%;
 
-    mat-drawer {
-        width: 300px;
-
-        &.drawer-color {
-            background-color: var(--ppw-sidenav-background-color);
-        }
+    .ppw-app-wireframe-drawer {
+        width: var(--ppw-app-wireframe-drawer-width, 300px);
+        background-color: var(--ppw-sidenav-background-color);
     }
 
-    mat-drawer-content {
-        .ppw-page-container {
-            height: 100%;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+    .ppw-page-container {
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
-            ppw-toolbar {
-                flex-grow: 0;
-            }
+        ppw-toolbar {
+            flex-grow: 0;
+        }
 
-            .ppw-page-content {
-                flex-grow: 1;
-                overflow: auto;
-            }
+        .ppw-page-content {
+            flex-grow: 1;
+            overflow: auto;
         }
     }
 }
