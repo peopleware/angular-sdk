@@ -2,6 +2,7 @@
     "APP_TITLE": "PPW Code",
     "navigation": {
         "expandable_card": "Expandable Card",
-        "filter_table": "Filter Table"
+        "filter_table": "Filter Table",
+        "message_bar": "Message Bar"
     }
 }

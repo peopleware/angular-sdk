@@ -39,6 +39,11 @@ export class AppComponent {
                 label: this.translate.instant('navigation.filter_table'),
                 icon: 'fa-solid fa-laptop-code',
                 fullRouterPath: '/filter-table'
+            },
+            {
+                label: this.translate.instant('navigation.message_bar'),
+                icon: 'fa-solid fa-triangle-exclamation',
+                fullRouterPath: '/message-bar'
             }
         ]
     }
