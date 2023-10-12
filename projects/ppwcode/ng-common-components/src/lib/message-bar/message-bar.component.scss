@@ -1,5 +1,5 @@
 .message-bar-content {
-    margin: 0.5em;
+    margin: var(--ppw-message-bar-spacing, 0px);
     display: flex;
     flex-direction: row;
     gap: 8px;
@@ -7,19 +7,21 @@
 }
 
 .message-severity-info {
-    background-color: #63c0df;
+    background-color: var(--ppw-message-bar-info-background-color, #63c0df);
+    color: var(--ppw-message-bar-info-text-color, black);
 }
 
 .message-severity-success {
-    background-color: #009944;
+    background-color: var(--ppw-message-bar-success-background-color, #009944);
+    color: var(--ppw-message-bar-success-text-color, black);
 }
 
 .message-severity-error {
-    background-color: #cf000f;
-    color: white;
+    background-color: var(--ppw-message-bar-error-background-color, #cf000f);
+    color: var(--ppw-message-bar-error-text-color, white);
 }
 
 .message-severity-warning {
-    background-color: #f89406;
-    color: white;
+    background-color: var(--ppw-message-bar-warning-background-color, #f89406);
+    color: var(--ppw-message-bar-warning-text-color, white);
 }
