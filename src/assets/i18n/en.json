@@ -1,6 +1,7 @@
 {
     "APP_TITLE": "PPW Code",
     "navigation": {
+        "confirmation_dialog": "Confirmation Dialog",
         "expandable_card": "Expandable Card",
         "filter_table": "Filter Table",
         "message_bar": "Message Bar"

@@ -31,6 +31,11 @@ export class AppComponent {
     public getNavigationItems(): NavigationItem[] {
         return [
             {
+                label: this.translate.instant('navigation.confirmation_dialog'),
+                icon: 'fa-solid fa-circle-question',
+                fullRouterPath: '/confirmation-dialog'
+            },
+            {
                 label: this.translate.instant('navigation.expandable_card'),
                 icon: 'fa-solid fa-house',
                 fullRouterPath: '/expandable-card'

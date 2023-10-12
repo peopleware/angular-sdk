@@ -91,6 +91,9 @@ body {
         --mat-card-title-text-size: 16px;
     }
 
+    --ppw-confirmation-dialog-header-background-color: #{mat.get-color-from-palette($ppw-primary-palette, 500)};
+    --ppw-confirmation-dialog-header-text-color: #{mat.get-contrast-color-from-palette($ppw-primary-palette, 500)};
+
     --ppw-expandable-card-header-text-color: white;
     --ppw-expandable-card-header-background-color: #6eb343;
     --ppw-expandable-card-header-indicator-color: white;
