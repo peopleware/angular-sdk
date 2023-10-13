@@ -82,3 +82,11 @@
         margin-left: calc(var(--ppw-sidenav-navigation-item-child-margin-left, #{$defaultLeftMargin}) * 3);
     }
 }
+
+.ppw-sidenav-navigation-item-children-wrapper {
+    margin: var(--ppw-sidenav-navigation-item-children-wrapper-margin, 0);
+    padding: var(--ppw-sidenav-navigation-item-children-wrapper-padding, 0);
+    border: var(--ppw-sidenav-navigation-item-children-wrapper-border, none);
+    border-radius: var(--ppw-sidenav-navigation-item-children-wrapper-border-radius, 0);
+    background: var(--ppw-sidenav-navigation-item-children-wrapper-background, none);
+}

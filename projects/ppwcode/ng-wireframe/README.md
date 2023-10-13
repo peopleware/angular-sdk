@@ -11,7 +11,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-left-sidenav
 
 | Variable name                                          | Extra info                                                                                                    |
-|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
 | `--ppw-sidenav-close-button-color`                     |                                                                                                               |
 | `--ppw-sidenav-navigation-item-child-margin`           | The default margin to apply to children have a collapsible navigation item.                                   |
 | `--ppw-sidenav-navigation-item-hover-background-color` |                                                                                                               |
@@ -22,6 +22,11 @@ The following CSS variables are available for theming. Just add them to the `bod
 | `--ppw-sidenav-navigation-item-text-color`             |                                                                                                               |
 | `--ppw-sidenav-navigation-item-text-font-size`         |                                                                                                               |
 | `--ppw-sidenav-navigation-item-text-font-weight`       |                                                                                                               |
+| `--ppw-sidenav-navigation-item-wrapper-background`     |                                                                                                               |
+| `--ppw-sidenav-navigation-item-wrapper-border`         |                                                                                                               |
+| `--ppw-sidenav-navigation-item-wrapper-border-radius`  |                                                                                                               |
+| `--ppw-sidenav-navigation-item-wrapper-margin`         |                                                                                                               |
+| `--ppw-sidenav-navigation-item-wrapper-padding`        |                                                                                                               |
 
 #### ppw-toolbar
 
