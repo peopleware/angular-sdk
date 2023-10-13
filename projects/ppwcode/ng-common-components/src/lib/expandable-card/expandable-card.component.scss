@@ -1,6 +1,9 @@
 mat-accordion.ppw-expandable-card-accordion {
+    --mat-expansion-header-description-color: var(--ppw-expandable-card-header-text-color);
     --mat-expansion-header-text-color: var(--ppw-expandable-card-header-text-color);
     --mat-expansion-header-indicator-color: var(--ppw-expandable-card-header-indicator-color);
+    --mat-expansion-header-hover-state-layer-color: var(--ppw-expandable-card-header-background-color);
+    --mat-expansion-header-focus-state-layer-color: var(--ppw-expandable-card-header-background-color);
 
     mat-expansion-panel.ppw-expandable-panel {
         margin: 8px;
