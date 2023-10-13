@@ -11,13 +11,13 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-left-sidenav
 
 | Variable name                                          | Extra info                                                                                                    |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | `--ppw-sidenav-close-button-color`                     |                                                                                                               |
 | `--ppw-sidenav-navigation-item-child-margin`           | The default margin to apply to children have a collapsible navigation item.                                   |
 | `--ppw-sidenav-navigation-item-hover-background-color` |                                                                                                               |
 | `--ppw-sidenav-navigation-item-icon-color`             |                                                                                                               |
 | `--ppw-sidenav-navigation-item-icon-font-size`         |                                                                                                               |
-| `--ppw-sidenav-navigation-item-margin`                 | The default margin of a navigation item. The greater the margin, the more space between two navigation items. |
+| `--ppw-sidenav-navigation-item-margin-left`            | The default margin of a navigation item. The greater the margin, the more space between two navigation items. |
 | `--ppw-sidenav-navigation-item-radius`                 | The border radius applied to the navigation items, visible on hover.                                          |
 | `--ppw-sidenav-navigation-item-text-color`             |                                                                                                               |
 | `--ppw-sidenav-navigation-item-text-font-size`         |                                                                                                               |

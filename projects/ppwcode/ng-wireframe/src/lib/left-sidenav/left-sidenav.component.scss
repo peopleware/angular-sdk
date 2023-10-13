@@ -65,8 +65,20 @@
         cursor: pointer;
     }
 
-    .ppw-sidenav-navigation-item {
-        $defaultMargin: 0 0 0 16px;
-        margin: var(--ppw-sidenav-navigation-item-child-margin, #{$defaultMargin});
+    $defaultLeftMargin: 12px;
+    &.ppw-sidenav-navigation-item-level-1 {
+        margin-left: calc(var(--ppw-sidenav-navigation-item-child-margin-left, #{$defaultLeftMargin}) * 0);
+    }
+
+    &.ppw-sidenav-navigation-item-level-2 {
+        margin-left: calc(var(--ppw-sidenav-navigation-item-child-margin-left, #{$defaultLeftMargin}) * 1);
+    }
+
+    &.ppw-sidenav-navigation-item-level-3 {
+        margin-left: calc(var(--ppw-sidenav-navigation-item-child-margin-left, #{$defaultLeftMargin}) * 2);
+    }
+
+    &.ppw-sidenav-navigation-item-level-4 {
+        margin-left: calc(var(--ppw-sidenav-navigation-item-child-margin-left, #{$defaultLeftMargin}) * 3);
     }
 }

@@ -26,9 +26,8 @@
 <ng-template #navigationItemTemplate let-navigationItem="navigationItem" let-level="level">
     <button
         type="button"
-        class="ppw-sidenav-navigation-item"
+        class="ppw-sidenav-navigation-item ppw-sidenav-navigation-item-level-{{ level ?? 1 }}"
         [class.navigation-item-disabled]="navigationItem.isEnabled === false"
-        [style.margin-left]="level * 12 + 'px'"
         (click)="onClickNavigationItem(navigationItem)">
         <span class="ppw-sidenav-navigation-item-link">
             <ng-container *ngIf="navigationItem.icon">
@@ -47,7 +46,7 @@
             <ng-container
                 *ngTemplateOutlet="
                     navigationItemTemplate;
-                    context: { navigationItem: child, level: level ?? 1 }
+                    context: { navigationItem: child, level: (level ?? 1) + 1 }
                 "></ng-container>
         </ng-container>
     </ng-container>
