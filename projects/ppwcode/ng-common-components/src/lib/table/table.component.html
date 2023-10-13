@@ -36,7 +36,7 @@
                 [ngStyle]="options?.columnStyles?.[column.name]?.(record.initialRecord)"
                 *matCellDef="let record"
                 (click)="executeRowClick(record.initialRecord, column.name)"
-                class="column-type-{{ column.type }}">
+                class="ppw-column-type-{{ column.type }}">
                 <ng-container
                     ppwDynamicCell
                     [column]="column"
