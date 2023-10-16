@@ -51,7 +51,8 @@ The following CSS variables are available for theming. Just add them to the `bod
 
 ### Wireframe
 
-The wireframe places an application layout with responsible left navigation and a toolbar on your web page.
+The wireframe places an application layout with responsive left navigation and a toolbar on your web page.
+You can hide the wireframe by adding a flag in the route configuration - In data add the `'showWireframe: false'` flag - If this flag is not added it will by default be true and show the wireframe
 
 #### Content
 

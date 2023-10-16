@@ -1,5 +1,6 @@
 <mat-drawer-container class="ppw-app-wireframe-container">
     <mat-drawer
+        *ngIf="showWireframe"
         [mode]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'over' : 'side'"
         [ngClass]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'"
         [opened]="!isSmallDevice && !isXSmallDevice && !sidebarOptions?.closedByDefaultOnLargerDevice"
@@ -25,6 +26,7 @@
     <mat-drawer-content>
         <div class="ppw-page-container">
             <ppw-toolbar
+                *ngIf="showWireframe"
                 (toggleSidebar)="toggleSidebar()"
                 [isSidenavOpen]="sidebarIsOpen"
                 [showPageTitle]="!!sidebarOptions?.showPageTitle"
