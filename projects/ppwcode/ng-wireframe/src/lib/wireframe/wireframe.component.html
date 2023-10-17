@@ -26,6 +26,7 @@
     <mat-drawer-content>
         <div class="ppw-page-container">
             <ppw-toolbar
+                *ngIf="showWireframe"
                 (toggleSidebar)="toggleSidebar()"
                 [isSidenavOpen]="sidebarIsOpen"
                 [showPageTitle]="!!sidebarOptions?.showPageTitle"
