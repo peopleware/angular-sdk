@@ -30,6 +30,10 @@ export class WireframeComponent implements AfterViewInit, OnDestroy, OnInit {
     public sidebarIsOpen = false
     public showWireframe = true
 
+    public get sidenavMode(): 'over' | 'side' {
+        return this.isXSmallDevice || !!this.sidebarOptions?.closedByDefaultOnLargerDevice ? 'over' : 'side'
+    }
+
     public get isSmallDevice(): boolean {
         return this.observer.isMatched([Breakpoints.Small])
     }
@@ -89,6 +93,14 @@ export class WireframeComponent implements AfterViewInit, OnDestroy, OnInit {
     public ngOnDestroy(): void {
         this.destroy$.next()
         this.destroy$.complete()
+    }
+
+    public async onNavigate(): Promise<void> {
+        // Automatically close the sidebar when the navigation is started on a small device where the sidebar is opened
+        // as an overlay.
+        if (this.sidenavMode === 'over') {
+            await this.closeSidebar()
+        }
     }
 
     public async toggleSidebar(): Promise<void> {

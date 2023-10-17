@@ -21,6 +21,7 @@ export class LeftSidenavComponent {
     @Input() public logoWidth = 100
     @Input() public centerLogo = true
     @Output() public closeSidebar: EventEmitter<void> = new EventEmitter()
+    @Output() public navigated: EventEmitter<NavigationItem> = new EventEmitter()
 
     private _router: Router = inject(Router)
     private _openedNavigationItems: Array<NavigationItem> = []
@@ -38,6 +39,7 @@ export class LeftSidenavComponent {
             this.toggleNavigationItemOpened(navigationItem)
         } else if (navigationItem.fullRouterPath) {
             this._router.navigateByUrl(navigationItem.fullRouterPath)
+            this.navigated.emit(navigationItem)
         } else {
             throw new Error('Could not handle navigation item with no children or router path.')
         }
