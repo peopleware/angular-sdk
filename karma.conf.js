@@ -13,7 +13,7 @@ module.exports = function (config) {
         const options = findTestsPlugin.options
 
         const relativeProjectSourceRoot = options.projectSourceRoot.replace(options.workspaceRoot, '')
-        console.log('RELATIVE PROJECT SOURCE ROOT', relativeProjectSourceRoot)
+        console.log('\nRELATIVE PROJECT SOURCE ROOT', relativeProjectSourceRoot)
         let matchResult = /[\\,\/]projects[\\,\/]ppwcode[\\,\/]([a-z,-]{1,})[\\,\/]src/gm.exec(
             relativeProjectSourceRoot
         )
@@ -46,7 +46,6 @@ module.exports = function (config) {
         coverageReporter: {
             dir: 'coverage',
             reporters: [
-                { type: 'text', subdir: `${subdir}/text` },
                 { type: 'text-summary', subdir: `${subdir}/text-summary` },
                 { type: 'html', subdir: `${subdir}/html` },
                 { type: 'cobertura', subdir: `${subdir}/cobertura` }
