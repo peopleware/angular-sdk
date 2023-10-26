@@ -8,6 +8,7 @@ export abstract class AbstractSearchFilterState<
     private sessionStorage: Storage | null = inject(SESSION_STORAGE_TOKEN, { optional: true })
 
     abstract readonly sessionStorageKey: string
+
     abstract getDefaultValues(): TStateModel
 
     protected constructor() {
@@ -27,5 +28,10 @@ export abstract class AbstractSearchFilterState<
         if (sessionStorageValue) {
             this.patch(JSON.parse(sessionStorageValue))
         }
+    }
+
+    public clearState(): void {
+        this.patch(this.getDefaultValues())
+        this.sessionStorage?.removeItem(this.sessionStorageKey)
     }
 }
