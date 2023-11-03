@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core'
+
 /**
  * Interface describing the options for a ppwcode table.
  */
@@ -21,4 +23,6 @@ export interface PpwTableOptions<TRecord> {
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
 
     columnHeaderStyles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
+
+    columnHeaderTemplates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
 }
