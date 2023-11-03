@@ -1,4 +1,4 @@
-import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol, NgIf } from '@angular/common'
+import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
 import { Component, Inject, LOCALE_ID, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
@@ -116,7 +116,6 @@ type SearchPlayersForm = {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        NgIf
     ]
 })
 export class FilterTableComponent implements OnInit {
