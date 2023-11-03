@@ -150,6 +150,9 @@ export class FilterTableComponent implements OnInit {
         columnHeaderStyles: {
             firstName: () => {
                 return { 'text-align': 'right' }
+            },
+            active: () => {
+                return { 'text-align': 'center' }
             }
         },
         columnHeaderTemplates: {
@@ -166,6 +169,9 @@ export class FilterTableComponent implements OnInit {
                     return { background: 'red' }
                 }
                 return {}
+            },
+            active: () => {
+                return { 'text-align': 'center' }
             }
         },
         rowClickAction: (row: Player) => {
