@@ -18,6 +18,7 @@ import {
     TextColumn
 } from '@ppwcode/ng-common-components'
 import { DateTime } from 'luxon'
+import { MatButtonModule } from '@angular/material/button'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -116,11 +117,14 @@ type SearchPlayersForm = {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
+        MatButtonModule
     ]
 })
 export class FilterTableComponent implements OnInit {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
+    @ViewChild('addTemplate', { static: true }) public addTemplate!: TemplateRef<unknown>
+
     public searchForm!: FormGroup
     public lastClickedRow?: Player
     public columns: Array<Column<Player, unknown>> = [
@@ -146,6 +150,11 @@ export class FilterTableComponent implements OnInit {
         columnHeaderStyles: {
             firstName: () => {
                 return { 'text-align': 'right' }
+            }
+        },
+        columnHeaderTemplates: {
+            active: () => {
+                return this.addTemplate
             }
         },
         columnStyles: {
