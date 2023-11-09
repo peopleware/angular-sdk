@@ -2,8 +2,8 @@
     "name": "@ppwcode/ng-router",
     "version": "0.0.46",
     "peerDependencies": {
-        "@angular/common": "^16.2.0",
-        "@angular/core": "^16.2.0",
+        "@angular/common": "^16.2.0 || ^17.0.0",
+        "@angular/core": "^16.2.0 || ^17.0.0",
         "@ppwcode/ng-common": "^0.0.46"
     },
     "dependencies": {
