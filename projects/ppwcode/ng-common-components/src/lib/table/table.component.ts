@@ -10,7 +10,8 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
+    TrackByFunction
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
@@ -52,6 +53,7 @@ import { PpwTableOptions } from './options/table-options'
 export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
     @Input() public columns: Array<Column<TRecord, unknown>> = []
     @Input() public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
+    @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
     @Input() public enableRowSelection = false
     @Input() public options?: PpwTableOptions<TRecord>
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
@@ -100,6 +102,11 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         this.setDataSource(this.data)
     }
 
+    public trackByFn(_index: number, item: TableRecord<TRecord>): unknown {
+        console.log(item.trackByValue)
+        return item.trackByValue
+    }
+
     /**
      * Initialises an entirely new data source and sets the necessary properties.
      * @param items The items for the data source.
@@ -132,7 +139,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
             records = items ?? []
         }
 
-        return records.map((record) => {
+        return records.map((record, index) => {
             const mappedValues: Record<string, unknown> = {}
             for (const column of this.columns) {
                 switch (column.type) {
@@ -171,7 +178,8 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
             // Ensure that properties that have no corresponding column are still available in the mapped local record.
             return {
                 initialRecord: record,
-                mappedValues
+                mappedValues,
+                trackByValue: this.trackBy(index, record as TRecord)
             } as TableRecord<TRecord>
         })
     }
@@ -188,6 +196,8 @@ export interface TableRecord<T = unknown> {
     initialRecord: T
     /** A local mapped representation of the record. */
     mappedValues: Record<string, unknown>
+    /** The value generated for the trackBy function. */
+    trackByValue: unknown
 }
 
 /**

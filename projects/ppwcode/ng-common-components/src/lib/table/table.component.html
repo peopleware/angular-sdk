@@ -1,5 +1,5 @@
 <section class="ppw-table-container">
-    <table mat-table class="ppw-table" [dataSource]="dataSource">
+    <table mat-table class="ppw-table" [dataSource]="dataSource" [trackBy]="trackByFn">
         <!-- Checkbox Column -->
         <ng-container matColumnDef="rowSelection" *ngIf="enableRowSelection">
             <th mat-header-cell *matHeaderCellDef>
