@@ -51,8 +51,8 @@ import { PpwTableOptions } from './options/table-options'
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
-    @Input() public columns: Array<Column<TRecord, unknown>> = []
-    @Input() public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
+    @Input({ required: true }) public columns: Array<Column<TRecord, unknown>> = []
+    @Input({ required: true }) public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
     @Input() public enableRowSelection = false
     @Input() public options?: PpwTableOptions<TRecord>
