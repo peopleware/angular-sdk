@@ -197,6 +197,7 @@ describe('TableComponent', () => {
             new TextColumn('elementName', 'Element name', 'name'),
             { type: ColumnType.Text, name: 'symbol', label: 'Symbol' }
         ]
+        component.trackBy = (index, record) => record.position
         fixture.detectChanges()
 
         component.ngOnChanges({
