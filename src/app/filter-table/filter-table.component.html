@@ -21,6 +21,7 @@
             [data]="data"
             [enableRowSelection]="true"
             [options]="tableOptions"
+            [trackBy]="trackByFn"
             (selectionChanged)="updateSelected($event)"></ppw-table>
     </mat-card-content>
 </mat-card>
@@ -54,5 +55,5 @@
 </ng-template>
 
 <ng-template #addTemplate
-    ><button mat-icon-button><mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon></button
+    ><button mat-icon-button (click)="addPlayer()"><mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon></button
 ></ng-template>

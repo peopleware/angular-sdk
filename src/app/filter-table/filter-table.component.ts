@@ -193,6 +193,10 @@ export class FilterTableComponent implements OnInit {
         })
     }
 
+    public trackByFn(_index: number, item: Player): number {
+        return item.id
+    }
+
     public performReset(): void {
         this.searchForm.reset()
         this.performSearch()
@@ -211,5 +215,21 @@ export class FilterTableComponent implements OnInit {
 
     public updateSelected(selected: TableRecord<Player>[]): void {
         this.selectedPlayersSignal.set(selected.map((record: TableRecord<Player>) => record.initialRecord))
+    }
+
+    public addPlayer(): void {
+        this.data = [
+            ...this.data,
+            {
+                id: 7,
+                firstName: 'Dries',
+                lastName: 'Mertens',
+                birthDate: DateTime.fromObject({ year: 1987, month: 5, day: 6 }),
+                age: 36,
+                income: 19000,
+                bonus: 35,
+                active: true
+            }
+        ]
     }
 }
