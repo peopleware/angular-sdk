@@ -103,7 +103,6 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     }
 
     public trackByFn(_index: number, item: TableRecord<TRecord>): unknown {
-        console.log(item.trackByValue)
         return item.trackByValue
     }
 
@@ -115,11 +114,6 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         this.dataSource?.disconnect()
         const localRecords = this._mapToLocalKeyValuePairs(items)
         this.dataSource = new MatTableDataSource(localRecords)
-    }
-
-    /** Checks whether the given record is of type TableRecord. */
-    public isTableRecord(record: any): record is TableRecord {
-        return 'mappedValues' in record
     }
 
     /**
@@ -143,15 +137,16 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
             const mappedValues: Record<string, unknown> = {}
             for (const column of this.columns) {
                 switch (column.type) {
-                    case ColumnType.Date:
-                        const dateColumn = column as DateColumn<unknown, any>
+                    case ColumnType.Date: {
+                        const dateColumn = column as DateColumn<unknown, unknown>
                         const mappedDateValue: unknown | undefined = getColumnValue(dateColumn, record)
 
                         mappedValues[dateColumn.name] = mappedDateValue
                             ? dateColumn.formatFn(mappedDateValue)
                             : undefined
                         break
-                    case ColumnType.Number:
+                    }
+                    case ColumnType.Number: {
                         const numberColumn = column as NumberColumn<unknown>
                         const mappedNumberValue: unknown | undefined = getColumnValue(numberColumn, record)
 
@@ -162,15 +157,15 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
                                 ? mappedNumberValue
                                 : undefined
                         break
-                    case ColumnType.Template:
+                    }
+                    case ColumnType.Template: {
                         const templateColumn = column as TemplateColumn<unknown>
-                        const mappedTemplateValue: unknown | undefined = getColumnValue(templateColumn, record)
-
-                        mappedValues[templateColumn.name] = mappedTemplateValue
+                        mappedValues[templateColumn.name] = getColumnValue(templateColumn, record)
                         break
+                    }
                     case ColumnType.Text:
                     default:
-                        mappedValues[column.name] = getColumnValue(column as TextColumn<any>, record)
+                        mappedValues[column.name] = getColumnValue(column as TextColumn<unknown>, record)
                         break
                 }
             }
@@ -205,8 +200,8 @@ export interface TableRecord<T = unknown> {
  * @param record
  * @param selector
  */
-export function getPossibleNestedValue(record: any, selector: any): any | undefined {
-    selector = selector.replace(/\[(\w+)\]/g, '.$1') // convert indexes to properties
+export function getPossibleNestedValue<TValue>(record: never, selector: string): TValue | undefined {
+    selector = selector.replace(/\[(\w+)]/g, '.$1') // convert indexes to properties
     selector = selector.replace(/^\./, '') // strip a leading dot
     const a = selector.split('.')
     for (let i = 0, n = a.length; i < n; ++i) {
@@ -228,9 +223,9 @@ export function getPossibleNestedValue(record: any, selector: any): any | undefi
 export function getColumnValue<TRecord, TValue>(column: Column<TRecord, TValue>, record: TRecord): TValue | undefined {
     let mappedValue: TValue | undefined
     if (typeof column.value === 'undefined' || column.value === null) {
-        mappedValue = getPossibleNestedValue(record, column.name)
+        mappedValue = getPossibleNestedValue<TValue | undefined>(record as never, column.name)
     } else if (typeof column.value === 'string') {
-        mappedValue = getPossibleNestedValue(record, column.value)
+        mappedValue = getPossibleNestedValue<TValue | undefined>(record as never, column.value)
     } else {
         mappedValue = column.value(record)
     }
