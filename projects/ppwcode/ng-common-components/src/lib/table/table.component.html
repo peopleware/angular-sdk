@@ -40,11 +40,12 @@
                 mat-cell
                 [style.width]="options?.columnWidths?.[column.name]"
                 [ngStyle]="options?.columnStyles?.[column.name]?.(record.initialRecord)"
-                *matCellDef="let record"
+                *matCellDef="let record; let idx = index"
                 (click)="executeRowClick(record.initialRecord, column.name)"
                 class="ppw-column-type-{{ column.type }}">
                 <ng-container
                     ppwDynamicCell
+                    [rowIndex]="idx"
                     [column]="column"
                     [record]="record.initialRecord"
                     [value]="record.mappedValues[column.name]"></ng-container>

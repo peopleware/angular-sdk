@@ -15,6 +15,7 @@ export class DynamicCellDirective<TRecord> implements OnInit, IsCellComponent<an
     @Input() public column!: Column<TRecord, any>
     @Input() public record!: Record<string, unknown>
     @Input() public value!: any
+    @Input() public rowIndex!: number
 
     /** A reference to the instantiated component. */
     public componentRef!: ComponentRef<IsCellComponent<Column<TRecord, any>>>
@@ -31,6 +32,7 @@ export class DynamicCellDirective<TRecord> implements OnInit, IsCellComponent<an
     public ngOnInit(): void {
         this._instantiateComponent(this._componentTypeMap[this.column.type ?? ColumnType.Text])
 
+        this.componentRef.instance.rowIndex = this.rowIndex
         this.componentRef.instance.column = this.column
         this.componentRef.instance.record = this.record
         this.componentRef.instance.value = this.value

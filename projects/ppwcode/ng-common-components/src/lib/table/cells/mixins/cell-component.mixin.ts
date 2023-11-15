@@ -10,6 +10,8 @@ import { Constructor } from '@angular/cdk/table'
  *      manipulate the value it was given.
  */
 export interface IsCellComponent<T extends Column<any, unknown>, V = any> {
+    /** The row index of the record in the ngFor loop */
+    rowIndex: number
     /** The configuration of the column the cell is related to. */
     column: T
     /** The original record data the cell is rendered for. */
@@ -34,6 +36,7 @@ export function mixinCellComponent<T extends Column<any, unknown>, U extends Con
     base: U
 ): IsCellComponentCtor<V> & U {
     return class extends base implements IsCellComponent<T, V> {
+        public rowIndex!: number
         public column!: T
         public record!: Record<string, unknown>
         public value!: V

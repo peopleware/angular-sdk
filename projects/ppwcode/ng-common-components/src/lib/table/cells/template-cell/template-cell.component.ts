@@ -20,6 +20,6 @@ const _TemplateCellComponentBase = mixinCellComponent<
 })
 export class TemplateCellComponent extends _TemplateCellComponentBase {
     public get context() {
-        return { record: this.record, $implicit: this.record }
+        return { record: this.record, rowIndex: this.rowIndex, $implicit: this.record }
     }
 }
