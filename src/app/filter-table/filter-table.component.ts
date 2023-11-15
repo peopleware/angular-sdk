@@ -214,7 +214,8 @@ export class FilterTableComponent
         lastName: string
         firstName: string
     }>(this.initialSearchParams)
-    public players$ = combineLatest([this.page$, this.pageSize$, this.searchParameters$]).pipe(
+    private refreshPlayers$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0)
+    public players$ = combineLatest([this.page$, this.pageSize$, this.searchParameters$, this.refreshPlayers$]).pipe(
         switchMap(([page, pageSize, searchParameters]) =>
             this.trackPending(this.mockPagedPlayers(page, pageSize, searchParameters))
         )
@@ -293,5 +294,6 @@ export class FilterTableComponent
             bonus: 35,
             active: true
         })
+        this.refreshPlayers$.next()
     }
 }
