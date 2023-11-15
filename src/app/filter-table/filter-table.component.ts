@@ -123,6 +123,7 @@ type SearchPlayersForm = {
 export class FilterTableComponent implements OnInit {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
+    @ViewChild('rowIndexTemplate', { static: true }) public rowIndexTemplate!: TemplateRef<any>
     @ViewChild('addTemplate', { static: true }) public addTemplate!: TemplateRef<unknown>
 
     public searchForm!: FormGroup
@@ -138,6 +139,7 @@ export class FilterTableComponent implements OnInit {
         new NumberColumn('bonus', 'Bonus', 'bonus', (bonus: number) =>
             formatPercent(bonus / 100, this.locale, '1.2-2')
         ),
+        new TemplateColumn('rowIndex', 'Row index', () => this.rowIndexTemplate),
         new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
     ]
     public tableOptions: PpwTableOptions<Player> = {
@@ -145,10 +147,14 @@ export class FilterTableComponent implements OnInit {
             age: '65px',
             income: '100px',
             bonus: '100px',
+            rowIndex: '100px',
             active: '50px'
         },
         columnHeaderStyles: {
             firstName: () => {
+                return { 'text-align': 'right' }
+            },
+            rowIndex: () => {
                 return { 'text-align': 'right' }
             },
             active: () => {
@@ -169,6 +175,9 @@ export class FilterTableComponent implements OnInit {
                     return { background: 'red' }
                 }
                 return {}
+            },
+            rowIndex: () => {
+                return { 'text-align': 'right' }
             },
             active: () => {
                 return { 'text-align': 'center' }

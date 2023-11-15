@@ -54,6 +54,12 @@
     </ng-container>
 </ng-template>
 
-<ng-template #addTemplate
-    ><button mat-icon-button (click)="addPlayer()"><mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon></button
-></ng-template>
+<ng-template #rowIndexTemplate let-rowIndex="rowIndex">
+    <span>{{ rowIndex }}</span>
+</ng-template>
+
+<ng-template #addTemplate>
+    <button mat-icon-button (click)="addPlayer()">
+        <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+    </button>
+</ng-template>
