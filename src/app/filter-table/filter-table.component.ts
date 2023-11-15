@@ -19,6 +19,17 @@ import {
 } from '@ppwcode/ng-common-components'
 import { DateTime } from 'luxon'
 import { MatButtonModule } from '@angular/material/button'
+import {
+    AsyncResultComponent,
+    DEFAULT_HTTP_ERROR_CODES,
+    expectPagedAsyncResultHttpError,
+    expectPagedAsyncResultHttpSuccess
+} from '@ppwcode/ng-async'
+import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
+import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src/lib/relative-navigation'
+import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
+import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
+import { BehaviorSubject, combineLatest, of, switchMap } from 'rxjs'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -117,10 +128,15 @@ type SearchPlayersForm = {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        MatButtonModule
+        MatButtonModule,
+        PaginationBarComponent,
+        AsyncResultComponent
     ]
 })
-export class FilterTableComponent implements OnInit {
+export class FilterTableComponent
+    extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))
+    implements OnInit
+{
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
     @ViewChild('rowIndexTemplate', { static: true }) public rowIndexTemplate!: TemplateRef<any>
@@ -190,10 +206,57 @@ export class FilterTableComponent implements OnInit {
         rowHighlightOnHover: true,
         stickyHeader: true
     }
-    public data = PLAYERS_DATA
+    public initialSearchParams: { lastName: string; firstName: string } = {
+        lastName: '',
+        firstName: ''
+    }
+    public searchParameters$: BehaviorSubject<{ lastName: string; firstName: string }> = new BehaviorSubject<{
+        lastName: string
+        firstName: string
+    }>(this.initialSearchParams)
+    public players$ = combineLatest([this.page$, this.pageSize$, this.searchParameters$]).pipe(
+        switchMap(([page, pageSize, searchParameters]) =>
+            this.trackPending(this.mockPagedPlayers(page, pageSize, searchParameters))
+        )
+    )
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
 
-    constructor(@Inject(LOCALE_ID) public locale: string) {}
+    constructor(@Inject(LOCALE_ID) public locale: string) {
+        super()
+    }
+
+    private mockPagedPlayers(
+        page: number,
+        pageSize: number,
+        filters?: {
+            firstName: string
+            lastName: string
+        }
+    ) {
+        const players = !filters
+            ? PLAYERS_DATA
+            : PLAYERS_DATA.filter((value: Player) => {
+                  return (
+                      (!filters.firstName ||
+                          value.firstName.toLowerCase().startsWith(filters.firstName?.toLowerCase() ?? '')) &&
+                      (!filters.lastName ||
+                          value.lastName.toLowerCase().startsWith(filters.lastName?.toLowerCase() ?? ''))
+                  )
+              })
+        const playersPage = players.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+        return of({
+            pageSize: pageSize,
+            pageIndex: page,
+            totalPages: Math.ceil(players.length / pageSize),
+            totalCount: players.length,
+            hasPreviousPage: false,
+            hasNextPage: true,
+            items: playersPage
+        }).pipe(
+            expectPagedAsyncResultHttpSuccess(filters),
+            expectPagedAsyncResultHttpError(DEFAULT_HTTP_ERROR_CODES, filters)
+        )
+    }
 
     public ngOnInit(): void {
         this.searchForm = new FormGroup<SearchPlayersForm>({
@@ -207,19 +270,12 @@ export class FilterTableComponent implements OnInit {
     }
 
     public performReset(): void {
-        this.searchForm.reset()
+        this.searchForm.reset({ lastName: '', firstName: '' })
         this.performSearch()
     }
 
     public performSearch(): void {
-        const filters = this.searchForm.getRawValue() as { firstName: string; lastName: string }
-        this.data = PLAYERS_DATA.filter((value: Player) => {
-            return (
-                (!filters.firstName ||
-                    value.firstName.toLowerCase().startsWith(filters.firstName?.toLowerCase() ?? '')) &&
-                (!filters.lastName || value.lastName.toLowerCase().startsWith(filters.lastName?.toLowerCase() ?? ''))
-            )
-        })
+        this.searchParameters$.next(this.searchForm.getRawValue() as { firstName: string; lastName: string })
     }
 
     public updateSelected(selected: TableRecord<Player>[]): void {
@@ -227,18 +283,15 @@ export class FilterTableComponent implements OnInit {
     }
 
     public addPlayer(): void {
-        this.data = [
-            ...this.data,
-            {
-                id: 7,
-                firstName: 'Dries',
-                lastName: 'Mertens',
-                birthDate: DateTime.fromObject({ year: 1987, month: 5, day: 6 }),
-                age: 36,
-                income: 19000,
-                bonus: 35,
-                active: true
-            }
-        ]
+        PLAYERS_DATA.push({
+            id: 7,
+            firstName: 'Dries',
+            lastName: 'Mertens',
+            birthDate: DateTime.fromObject({ year: 1987, month: 5, day: 6 }),
+            age: 36,
+            income: 19000,
+            bonus: 35,
+            active: true
+        })
     }
 }

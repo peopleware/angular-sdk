@@ -14,17 +14,22 @@
         </mat-form-field>
     </form>
 </ppw-search-filter>
-<mat-card>
-    <mat-card-content>
-        <ppw-table
-            [columns]="columns"
-            [data]="data"
-            [enableRowSelection]="true"
-            [options]="tableOptions"
-            [trackBy]="trackByFn"
-            (selectionChanged)="updateSelected($event)"></ppw-table>
-    </mat-card-content>
-</mat-card>
+<ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
+    <ng-template #success let-players>
+        <mat-card>
+            <mat-card-content>
+                <ppw-table
+                    [columns]="columns"
+                    [data]="players.entity.items"
+                    [enableRowSelection]="true"
+                    [options]="tableOptions"
+                    [trackBy]="trackByFn"
+                    (selectionChanged)="updateSelected($event)"></ppw-table>
+                <ppw-pagination-bar [pagedAsyncResult]="players" (page)="handlePageEvent($event)"></ppw-pagination-bar>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</ppw-async-result>
 
 <mat-card *ngIf="lastClickedRow">
     <mat-card-header>
