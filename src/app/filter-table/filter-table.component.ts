@@ -142,6 +142,9 @@ export class FilterTableComponent
     @ViewChild('rowIndexTemplate', { static: true }) public rowIndexTemplate!: TemplateRef<any>
     @ViewChild('addTemplate', { static: true }) public addTemplate!: TemplateRef<unknown>
 
+    // Below variable is an override of the defaultPageSize property in the mixinPagination
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public defaultPageSize = 5
     public searchForm!: FormGroup
     public lastClickedRow?: Player
     public columns: Array<Column<Player, unknown>> = [
