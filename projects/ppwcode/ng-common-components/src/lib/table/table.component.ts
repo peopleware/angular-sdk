@@ -75,9 +75,20 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
-        const numSelected = this.selection.selected.length
         const numRows = this.dataSource.data.length
-        return numSelected === numRows
+        const selectedRecords = this.dataSource.data.filter((record: TableRecord<TRecord>) => {
+            return this.selection.isSelected(record)
+        })
+        return (selectedRecords?.length ?? 0) === numRows
+    }
+
+    /** Whether the number of selected elements is greater than 0 but not equals to the total number of rows. */
+    isSomeSelected() {
+        const numRows = this.dataSource.data.length
+        const selectedRecords = this.dataSource.data.filter((record: TableRecord<TRecord>) => {
+            return this.selection.isSelected(record)
+        })
+        return (selectedRecords?.length ?? 0) > 0 && (selectedRecords?.length ?? 0) < numRows
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
