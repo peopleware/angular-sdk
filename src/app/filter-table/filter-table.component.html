@@ -25,7 +25,11 @@
                     [options]="tableOptions"
                     [trackBy]="trackByFn"
                     (selectionChanged)="updateSelected($event)"></ppw-table>
-                <ppw-pagination-bar [pagedAsyncResult]="players" (page)="handlePageEvent($event)"></ppw-pagination-bar>
+                <ppw-pagination-bar
+                    [pagedAsyncResult]="players"
+                    (page)="handlePageEvent($event)"
+                    [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                    [showFirstLastButtons]="true"></ppw-pagination-bar>
             </mat-card-content>
         </mat-card>
     </ng-template>
