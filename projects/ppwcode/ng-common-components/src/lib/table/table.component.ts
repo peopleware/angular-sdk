@@ -64,9 +64,14 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     /** The names of the columns that are displayed. */
     public columnNames: Array<string> = []
 
-    public selection = new SelectionModel<TableRecord<TRecord>>(true, [], true, (o1, o2) => {
-        return o1.trackByValue === o2.trackByValue
-    })
+    public selection = new SelectionModel<TableRecord<TRecord>>(
+        true,
+        [],
+        true,
+        (o1: TableRecord<TRecord>, o2: TableRecord<TRecord>) => {
+            return o1.trackByValue === o2.trackByValue
+        }
+    )
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
