@@ -12,6 +12,8 @@ import { PagedAsyncResult } from '@ppwcode/ng-async'
 export class PaginationBarComponent {
     @Input({ required: true }) public pagedAsyncResult!: PagedAsyncResult<never, never>
     @Input() public hidePageSize = true
+    @Input() public showFirstLastButtons = false
+    @Input() public pageSizeOptions: number[] = []
     @Output() public page = new EventEmitter<PageEvent>()
 
     public handlePageEvent(e: PageEvent): void {
