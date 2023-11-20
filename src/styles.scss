@@ -178,27 +178,27 @@ mat-card.highlighted-card {
     background-color: mat.get-color-from-palette($ppw-ui-accent);
 }
 
-.table-container::-webkit-scrollbar {
+.ppw-table-container::-webkit-scrollbar {
     width: 8px;
     height: 8px;
     border-radius: 5px;
     background-color: #ddd;
 }
 
-.table-container::-webkit-scrollbar-thumb {
+.ppw-table-container::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: mat.get-color-from-palette($ppw-ui-primary);
 }
 
-.table-container::-webkit-scrollbar-button,
-.table-container::-webkit-scrollbar-track,
-.table-container::-webkit-scrollbar-track-piece,
-.table-container::-webkit-scrollbar-corner,
-.table-container::-webkit-resizer {
+.ppw-table-container::-webkit-scrollbar-button,
+.ppw-table-container::-webkit-scrollbar-track,
+.ppw-table-container::-webkit-scrollbar-track-piece,
+.ppw-table-container::-webkit-scrollbar-corner,
+.ppw-table-container::-webkit-resizer {
     display: none;
 }
 
-.table-container::-webkit-scrollbar-track-piece:start {
+.ppw-table-container::-webkit-scrollbar-track-piece:start {
     margin-top: 200px;
 }
 
