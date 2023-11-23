@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common'
 import { Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { ThemePalette } from '@angular/material/core'
@@ -17,6 +18,8 @@ export interface ConfirmationDialogData {
     confirmationKey: string
     cancelKey: string
 
+    allowConfirmOnly?: boolean
+
     confirmationThemePalette?: ThemePalette
 }
 
@@ -24,7 +27,7 @@ export interface ConfirmationDialogData {
     standalone: true,
     selector: 'ppw-confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
-    imports: [MatDialogModule, TranslateModule, MatButtonModule],
+    imports: [MatDialogModule, TranslateModule, MatButtonModule, NgIf],
     styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent {

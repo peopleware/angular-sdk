@@ -27,4 +27,21 @@ export class ConfirmationDialogDemoComponent {
             } as ConfirmationDialogData
         })
     }
+
+    public openConfirmationOnlyDialog(): void {
+        this.matDialog.open(ConfirmationDialogComponent, {
+            data: {
+                titleKey: 'Something happened',
+                bodyKey:
+                    'This is just to ensure that you have been notified of something. You can click OK to close this dialog but not cancel.',
+
+                confirmationKey: 'OK',
+                cancelKey: 'Cancel',
+
+                allowConfirmOnly: true,
+
+                confirmationThemePalette: 'primary'
+            } as ConfirmationDialogData
+        })
+    }
 }
