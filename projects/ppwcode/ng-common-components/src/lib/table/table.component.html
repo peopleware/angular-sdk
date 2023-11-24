@@ -6,6 +6,7 @@
         [dataSource]="dataSource"
         [trackBy]="trackByFn"
         cdkDropList
+        [cdkDropListData]="dataSource"
         (cdkDropListDropped)="dropTable($event)">
         <!-- Draghandle column -->
         <ng-container matColumnDef="rowDrag" *ngIf="enableRowDrag">
