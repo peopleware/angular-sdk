@@ -11,7 +11,17 @@
         <ng-container matColumnDef="rowDrag" *ngIf="enableRowDrag">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <mat-icon cdkDragHandle>reorder</mat-icon>
+                <button
+                    type="button"
+                    cdkDragHandle
+                    (touchstart)="dragDisabled = false"
+                    (touchend)="dragDisabled = true"
+                    (mousedown)="dragDisabled = false"
+                    (mouseup)="dragDisabled = true"
+                    class="phx-icon-button drag-handle e2e-drag-button"
+                    mat-icon-button>
+                    <mat-icon>drag_indicator</mat-icon>
+                </button>
             </td>
         </ng-container>
 
@@ -73,6 +83,8 @@
             @rowsAnimation
             *matRowDef="let row; columns: columnNames"
             cdkDrag
+            [cdkDragDisabled]="dragDisabled"
+            (cdkDragReleased)="dragDisabled = true"
             [class.highlight]="options?.rowHighlightOnHover"
             [class.clickable]="options?.rowClickAction"></tr>
         <div *cdkDragPlaceholder></div>

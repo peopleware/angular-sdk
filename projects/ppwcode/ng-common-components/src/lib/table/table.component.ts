@@ -36,6 +36,7 @@ import {
     moveItemInArray
 } from '@angular/cdk/drag-drop'
 import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
 
 @Component({
     selector: 'ppw-table',
@@ -50,7 +51,8 @@ import { MatIconModule } from '@angular/material/icon'
         MatIconModule,
         CdkDragHandle,
         CdkDrag,
-        CdkDragPlaceholder
+        CdkDragPlaceholder,
+        MatButtonModule
     ],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
@@ -88,6 +90,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     /** The names of the columns that are displayed. */
     public columnNames: Array<string> = []
 
+    dragDisabled = true
     public selection = new SelectionModel<TableRecord<TRecord>>(
         true,
         [],
