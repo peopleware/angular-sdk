@@ -11,12 +11,13 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    TrackByFunction
+    TrackByFunction,
+    ViewChild
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table'
 import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 
 import { DynamicCellDirective } from './cells/directives/dynamic-cell.directive'
@@ -26,11 +27,31 @@ import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
 import { TextColumn } from './columns/text-column'
 import { PpwTableOptions } from './options/table-options'
+import {
+    CdkDrag,
+    CdkDragDrop,
+    CdkDragHandle,
+    CdkDragPlaceholder,
+    CdkDropList,
+    moveItemInArray
+} from '@angular/cdk/drag-drop'
+import { MatIconModule } from '@angular/material/icon'
 
 @Component({
     selector: 'ppw-table',
     standalone: true,
-    imports: [CommonModule, MatTableModule, MatCardModule, MatCheckboxModule, DynamicCellDirective],
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatCardModule,
+        MatCheckboxModule,
+        DynamicCellDirective,
+        CdkDropList,
+        MatIconModule,
+        CdkDragHandle,
+        CdkDrag,
+        CdkDragPlaceholder
+    ],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     providers: [
@@ -55,8 +76,11 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     @Input({ required: true }) public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
     @Input() public enableRowSelection = false
+    @Input() public enableRowDrag = false
     @Input() public options?: PpwTableOptions<TRecord>
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
+    @Output() public orderChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
+    @ViewChild('dataTable') table?: MatTable<TRecord>
 
     /** The data source for the material table. */
     public dataSource!: MatTableDataSource<TableRecord<TRecord>>
@@ -105,10 +129,13 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['columns']) {
+        if (changes['columns'] || changes['enableRowSelection'] || changes['enableRowDrag']) {
             this.columnNames = this.columns.map((column) => column.name)
             if (this.enableRowSelection) {
                 this.columnNames.unshift('rowSelection')
+            }
+            if (this.enableRowDrag) {
+                this.columnNames.unshift('rowDrag')
             }
         }
 
@@ -201,6 +228,12 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         this.options?.rowClickAction && (this.options?.ignoreClickColumns?.indexOf(columnName) ?? -1 < 0)
             ? this.options.rowClickAction(record)
             : null
+    }
+
+    public dropTable(event: CdkDragDrop<MatTableDataSource<TableRecord<TRecord>>, any>): void {
+        moveItemInArray(this.dataSource.data, event.previousIndex, event.currentIndex)
+        this.table?.renderRows()
+        this.orderChanged.emit(this.dataSource.data)
     }
 }
 
