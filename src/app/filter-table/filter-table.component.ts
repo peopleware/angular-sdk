@@ -1,6 +1,6 @@
 import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
 import { Component, Inject, LOCALE_ID, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core'
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
@@ -30,6 +30,7 @@ import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src
 import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -130,7 +131,9 @@ type SearchPlayersForm = {
         ReactiveFormsModule,
         MatButtonModule,
         PaginationBarComponent,
-        AsyncResultComponent
+        AsyncResultComponent,
+        FormsModule,
+        MatSlideToggleModule
     ]
 })
 export class FilterTableComponent
@@ -145,6 +148,7 @@ export class FilterTableComponent
     // Below variable is an override of the defaultPageSize property in the mixinPagination
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public defaultPageSize = 5
+    public enableRowDrag: boolean = false
     public searchForm!: FormGroup
     public lastClickedRow?: Player
     public columns: Array<Column<Player, unknown>> = [
