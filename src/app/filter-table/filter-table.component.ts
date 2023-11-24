@@ -29,7 +29,7 @@ import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mix
 import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src/lib/relative-navigation'
 import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
-import { BehaviorSubject, combineLatest, of, switchMap } from 'rxjs'
+import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -220,10 +220,15 @@ export class FilterTableComponent
     private refreshPlayers$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0)
     public players$ = combineLatest([this.page$, this.pageSize$, this.searchParameters$, this.refreshPlayers$]).pipe(
         switchMap(([page, pageSize, searchParameters]) =>
-            this.trackPending(this.mockPagedPlayers(page, pageSize, searchParameters))
+            this.trackPending(
+                this.mockPagedPlayers(page, pageSize, searchParameters).pipe(
+                    tap((items) => (this.playersToSave = [...(items.entity.items as Player[])]))
+                )
+            )
         )
     )
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
+    public playersToSave: Player[] = []
 
     constructor(@Inject(LOCALE_ID) public locale: string) {
         super()
@@ -284,6 +289,10 @@ export class FilterTableComponent
 
     public updateSelected(selected: TableRecord<Player>[]): void {
         this.selectedPlayersSignal.set(selected.map((record: TableRecord<Player>) => record.initialRecord))
+    }
+
+    public orderChanged(items: TableRecord<Player>[]): void {
+        this.playersToSave = [...items.map((item: TableRecord<Player>) => item.initialRecord)]
     }
 
     public addPlayer(): void {
