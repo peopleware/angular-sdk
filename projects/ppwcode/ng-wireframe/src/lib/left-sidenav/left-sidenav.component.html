@@ -39,7 +39,7 @@
             *ngIf="(navigationItem.children?.length ?? 0) > 0"
             class="fa-solid"
             [class.fa-angle-down]="navigationItemIsOpened(navigationItem)"
-            [class.fa-angle-left]="!navigationItemIsOpened(navigationItem)"></i>
+            [class.fa-angle-up]="!navigationItemIsOpened(navigationItem)"></i>
     </button>
     <ng-container *ngIf="navigationItemIsOpened(navigationItem) && navigationItem.children">
         <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
