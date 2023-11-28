@@ -1,5 +1,6 @@
 <mat-drawer-container class="ppw-app-wireframe-container">
     <mat-drawer
+        [disableClose]="true"
         *ngIf="showWireframe"
         [mode]="sidenavMode"
         [ngClass]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'"
