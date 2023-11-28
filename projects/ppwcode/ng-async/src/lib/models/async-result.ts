@@ -38,13 +38,20 @@ export const createFailedAsyncResult = <TResult, TFilter = null>(
 }
 
 export const extractHttpError = (httpError: HttpErrorResponse): Error => {
-    if (typeof httpError.error === 'object' && httpError.error !== null && typeof httpError.error.errors === 'object') {
-        const errorKeys = Object.keys(httpError.error.errors)
-        return new Error(httpError.error.errors[errorKeys[0]])
-    }
+    if (typeof httpError.error === 'object' && httpError.error !== null) {
+        if (typeof httpError.error.errors === 'object') {
+            const errorKeys = Object.keys(httpError.error.errors)
+            return new Error(httpError.error.errors[errorKeys[0]])
+        }
 
-    if (typeof httpError.error === 'object' && httpError.error !== null && typeof httpError.error.title === 'string') {
-        return new Error(httpError.error.title)
+        if (Array.isArray(httpError.error.messages) && httpError.error.messages.length > 0) {
+            const firstErrorMessage = httpError.error.messages[0]
+            return new Error(firstErrorMessage.text ?? firstErrorMessage.code)
+        }
+
+        if (typeof httpError.error.title === 'string') {
+            return new Error(httpError.error.title)
+        }
     }
 
     return new Error(httpError.error ?? httpError.statusText)
