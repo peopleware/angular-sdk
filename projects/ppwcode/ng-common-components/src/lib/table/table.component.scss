@@ -18,15 +18,17 @@
     text-align: right;
 }
 
-.mat-column-rowSelection {
+.cdk-column-rowSelection {
     width: 72px;
 }
 
-.mat-column-rowDrag {
-    width: 50px;
+.cdk-column-rowDrag {
+    width: 32px;
+    padding-left: 4px;
+    padding-right: 4px;
 
     mat-icon {
-        color: var(--mat-table-row-item-label-text-color, rgba(0, 0, 0, 0.87));
+        color: rgba(0, 0, 0, 0.54);
     }
 }
 

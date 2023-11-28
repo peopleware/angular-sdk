@@ -37,6 +37,7 @@ import {
 } from '@angular/cdk/drag-drop'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
+import { MatRippleModule } from '@angular/material/core'
 
 @Component({
     selector: 'ppw-table',
@@ -52,7 +53,8 @@ import { MatButtonModule } from '@angular/material/button'
         CdkDragHandle,
         CdkDrag,
         CdkDragPlaceholder,
-        MatButtonModule
+        MatButtonModule,
+        MatRippleModule
     ],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],

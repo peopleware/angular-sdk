@@ -11,18 +11,17 @@
         <!-- Draghandle column -->
         <ng-container matColumnDef="rowDrag" *ngIf="enableRowDrag">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <button
-                    type="button"
+            <td mat-cell *matCellDef="let element" class="drag-table-cell">
+                <mat-icon
                     cdkDragHandle
+                    mat-ripple
+                    class="drag-handle"
                     (touchstart)="dragDisabled = false"
                     (touchend)="dragDisabled = true"
                     (mousedown)="dragDisabled = false"
                     (mouseup)="dragDisabled = true"
-                    class="phx-icon-button drag-handle e2e-drag-button"
-                    mat-icon-button>
-                    <mat-icon>drag_indicator</mat-icon>
-                </button>
+                    >drag_indicator</mat-icon
+                >
             </td>
         </ng-container>
 
