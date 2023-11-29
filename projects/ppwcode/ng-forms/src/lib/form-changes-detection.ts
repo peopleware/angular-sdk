@@ -22,6 +22,7 @@ export interface DetectFormChanges {
 }
 
 export type DetectFormChangesCtor = Constructor<DetectFormChanges>
+type Valuable<T> = { [K in keyof T as T[K] extends null | undefined ? never : K]: T[K] }
 
 export const mixinDetectFormChanges = <T extends Constructor<Record<string, unknown>>>(
     base?: T
@@ -56,7 +57,22 @@ export const mixinDetectFormChanges = <T extends Constructor<Record<string, unkn
         private getFormStringifiedValue(form: FormGroup | FormControl | FormArray): string {
             // Stringify the raw value. This bypasses any possibility of incorrect "it is equal" conclusions because of object
             // references. The raw value is taken because it also contains the value of disabled form controls.
-            return JSON.stringify(form.getRawValue())
+            return JSON.stringify(this.getValuable(form.getRawValue()))
+        }
+
+        /**
+         * Removes properties with null or undefined value from the given object
+         */
+        private getValuable<
+            // eslint-disable-next-line @typescript-eslint/ban-types
+            T extends {},
+            V = Valuable<T>
+        >(obj: T): V {
+            return Object.fromEntries(
+                Object.entries(obj).filter(
+                    ([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined')
+                )
+            ) as V
         }
     }
 }
