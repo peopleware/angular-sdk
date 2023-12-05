@@ -21,6 +21,9 @@ export interface CanPage {
 
     /** Returns an observable stream that watches the given query parameter to be used as a page size. */
     watchPageSizeParam(paramName: string): Observable<number>
+
+    /** Method to directly navigate to a page. */
+    navigateToPage(page: number): Promise<void>
 }
 
 /** A constructable type that implements the CanPage interface. */
@@ -37,12 +40,7 @@ export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & 
         public defaultPageSize = 20
 
         public async handlePageEvent(e: PageEvent, queryParamName = 'page'): Promise<void> {
-            await this.relativeNavigation([], {
-                queryParams: {
-                    [queryParamName]: e.pageIndex + 1
-                },
-                queryParamsHandling: 'merge'
-            })
+            await this.navigateToPage(e.pageIndex + 1, queryParamName)
         }
 
         public watchPageIndexParam(paramName: string): Observable<number> {
@@ -57,6 +55,15 @@ export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & 
                 map((pageSize: number) => (pageSize < 1 ? this.defaultPageSize : pageSize)),
                 distinctUntilChanged()
             )
+        }
+
+        public async navigateToPage(page: number, queryParamName = 'page'): Promise<void> {
+            await this.relativeNavigation([], {
+                queryParams: {
+                    [queryParamName]: page
+                },
+                queryParamsHandling: 'merge'
+            })
         }
     }
 }
