@@ -1,0 +1,13 @@
+{
+    "name": "@ppwcode/ng-unit-testing",
+    "version": "0.0.59",
+    "peerDependencies": {
+        "@angular/common": "^16.2.0 || ^17.0.0",
+        "@angular/core": "^16.2.0 || ^17.0.0",
+        "jasmine-core": "^3.9.0 || ^4.0.0 || ^5.0.0"
+    },
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
+    "sideEffects": false
+}

@@ -10,6 +10,7 @@
             "@ppwcode/ng-forms": ["dist/ppwcode/ng-forms"],
             "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
             "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
+            "@ppwcode/ng-unit-testing": ["dist/ppwcode/ng-unit-testing"],
             "@ppwcode/ng-wireframe": ["dist/ppwcode/ng-wireframe"]
         },
         "baseUrl": "./",
