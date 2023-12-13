@@ -46,7 +46,16 @@ export const extractHttpError = (httpError: HttpErrorResponse): Error => {
 
         if (Array.isArray(httpError.error.messages) && httpError.error.messages.length > 0) {
             const firstErrorMessage = httpError.error.messages[0]
-            return new Error(firstErrorMessage.text ?? firstErrorMessage.code)
+            if (firstErrorMessage.text === 'DB_UQ_CONSTRAINT_VIOLATION') {
+                const parameter = firstErrorMessage.parameters?.find((param: string) => param.startsWith('UQ_'))
+                if (parameter) {
+                    return new Error(parameter)
+                } else {
+                    return new Error(firstErrorMessage.text)
+                }
+            } else {
+                return new Error(firstErrorMessage.text ?? firstErrorMessage.code)
+            }
         }
 
         if (typeof httpError.error.title === 'string') {
