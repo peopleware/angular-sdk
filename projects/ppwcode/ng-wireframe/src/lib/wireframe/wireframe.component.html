@@ -10,6 +10,7 @@
         class="ppw-app-wireframe-drawer">
         <ppw-left-sidenav
             (closeSidebar)="closeSidebar()"
+            (navigated)="onNavigate()"
             [navigationItems]="navigationItems"
             [centerLogo]="!!sidebarOptions?.centerLogo"
             [logoUrl]="sidebarOptions?.logoUrl"
