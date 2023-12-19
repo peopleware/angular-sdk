@@ -173,17 +173,6 @@ export class FilterTableComponent
             rowIndex: '100px',
             active: '50px'
         },
-        columnHeaderStyles: {
-            firstName: () => {
-                return { 'text-align': 'right' }
-            },
-            rowIndex: () => {
-                return { 'text-align': 'right' }
-            },
-            active: () => {
-                return { 'text-align': 'center' }
-            }
-        },
         columnHeaderTemplates: {
             active: () => {
                 return this.addTemplate
@@ -212,7 +201,18 @@ export class FilterTableComponent
         ignoreClickColumns: ['active'],
         rowHighlightOnHover: true,
         header: {
-            sticky: true
+            sticky: true,
+            styles: {
+                firstName: () => {
+                    return { 'text-align': 'right' }
+                },
+                rowIndex: () => {
+                    return { 'text-align': 'right' }
+                },
+                active: () => {
+                    return { 'text-align': 'center' }
+                }
+            }
         }
     }
     public initialSearchParams: { lastName: string; firstName: string } = {

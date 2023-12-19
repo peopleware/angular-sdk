@@ -28,11 +28,11 @@ export interface PpwTableOptions<TRecord> {
         hidden?: boolean
         /** Whether the first row should have a top border. This is only applied when the header is hidden. */
         showFirstRowTopBorder?: boolean
+        /** CSS styles to conditionally apply to the header cells of the given columns. */
+        styles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
     }
 
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
-
-    columnHeaderStyles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
 
     columnHeaderTemplates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
 }

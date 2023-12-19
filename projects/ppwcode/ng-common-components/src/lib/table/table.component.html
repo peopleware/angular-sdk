@@ -54,7 +54,7 @@
             <th
                 mat-header-cell
                 [style.width]="options?.columnWidths?.[column.name]"
-                [ngStyle]="options?.columnHeaderStyles?.[column.name]?.()"
+                [ngStyle]="options?.header?.styles?.[column.name]?.()"
                 *matHeaderCellDef
                 class="ppw-column-type-{{ column.type }}">
                 <ng-container *ngIf="(options?.columnHeaderTemplates?.[column.name]?.()); else textTemplateContainer">
