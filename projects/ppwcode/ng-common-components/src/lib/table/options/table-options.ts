@@ -18,7 +18,17 @@ export interface PpwTableOptions<TRecord> {
 
     rowHighlightOnHover?: boolean
 
-    stickyHeader?: boolean
+    /**
+     * Configuration for the header of the table.
+     */
+    header?: {
+        /** Whether the header should stick to the top of the table when scrolling. */
+        sticky?: boolean
+        /** Whether the header should be hidden. */
+        hidden?: boolean
+        /** Whether the first row should have a top border. This is only applied when the header is hidden. */
+        showFirstRowTopBorder?: boolean
+    }
 
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
 

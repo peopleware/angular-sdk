@@ -211,7 +211,9 @@ export class FilterTableComponent
         },
         ignoreClickColumns: ['active'],
         rowHighlightOnHover: true,
-        stickyHeader: true
+        header: {
+            sticky: true
+        }
     }
     public initialSearchParams: { lastName: string; firstName: string } = {
         lastName: '',

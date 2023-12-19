@@ -11,6 +11,22 @@
 .ppw-table {
     @include mat.table-density(-2); // Decreases the default spacing applied by Angular Material
     width: 100%;
+
+    &.ppw-table-header-hidden {
+        .mat-mdc-header-row {
+            display: none;
+        }
+
+        &.ppw-table-header-hidden-first-row-add-top-border {
+            tr:first-of-type {
+                td {
+                    border-top-color: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
+                    border-top-style: solid;
+                    border-top-width: 1px;
+                }
+            }
+        }
+    }
 }
 
 .ppw-column-type-number {
