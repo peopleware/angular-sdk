@@ -46,7 +46,7 @@
     border-radius: var(--ppw-sidenav-navigation-item-radius, 8px);
 
     .ppw-sidenav-navigation-item-text {
-        font-size: var(--ppw-sidenav-navigation-item-text-font-size);
+        font-size: var(--ppw-sidenav-navigation-item-text-font-size, 16px);
     }
 
     .ppw-sidenav-navigation-item-link {
@@ -61,7 +61,7 @@
 
         &.ppw-sidenav-navigation-item-icon {
             color: var(--ppw-sidenav-navigation-item-icon-color);
-            font-size: var(--ppw-sidenav-navigation-item-icon-font-size);
+            font-size: var(--ppw-sidenav-navigation-item-icon-font-size, 16px);
         }
     }
 
