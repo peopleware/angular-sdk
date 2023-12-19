@@ -1,3 +1,7 @@
+.ppw-message-bar {
+    margin: var(--ppw-message-bar-margin, 0px);
+}
+
 .ppw-message-bar-content {
     margin: var(--ppw-message-bar-spacing, 0px);
     display: flex;

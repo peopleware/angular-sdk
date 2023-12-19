@@ -58,6 +58,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 | `--ppw-message-bar-error-text-color`         |                                                             |
 | `--ppw-message-bar-info-background-color`    |                                                             |
 | `--ppw-message-bar-info-text-color`          |                                                             |
+| `--ppw-message-bar-margin`                   | Adds extra margin to the outer section of the message bar.  |
 | `--ppw-message-bar-spacing`                  | Adds extra spacing to the inner section of the message bar. |
 | `--ppw-message-bar-success-background-color` |                                                             |
 | `--ppw-message-bar-success-text-color`       |                                                             |
