@@ -17,6 +17,7 @@ export class AppComponent {
         showPageTitle: true
     }
     public showToolbarLogo = false
+    public showToolbarBackground = false
     public toolbarLogoUrl = './assets/peopleware_logo.png'
     public toolbarLogoWidth = 190
     public toolbarLogoHeight = 40

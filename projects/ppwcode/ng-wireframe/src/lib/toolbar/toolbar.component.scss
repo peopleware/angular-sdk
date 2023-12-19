@@ -4,6 +4,7 @@
 
     display: flex;
     justify-content: space-between;
+    background: var(--ppw-toolbar-background);
     border-bottom: var(--ppw-toolbar-border-bottom, #{$defaultBorderBottom});
     box-shadow: var(--ppw-toolbar-box-shadow, #{$defaultBoxShadow});
 

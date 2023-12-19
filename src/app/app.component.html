@@ -1,4 +1,5 @@
 <ppw-wireframe
+    [style.--ppw-toolbar-background]="showToolbarBackground ? 'orange' : 'unset'"
     [navigationItems]="getNavigationItems()"
     [sidebarOptions]="sidebarOptions"
     [toolbarHeightPx]="toolbarHeightPx">
@@ -20,6 +21,7 @@
             <div class="page-toggles flex-column gap-8">
                 <mat-slide-toggle [(ngModel)]="showToolbarLogo">Show logo</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="sidebarOptions.showPageTitle">Show title</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="showToolbarBackground">Show toolbar background</mat-slide-toggle>
             </div>
             <div class="version-info">
                 <div>v0.0.62</div>
