@@ -30,9 +30,9 @@ export interface PpwTableOptions<TRecord> {
         showFirstRowTopBorder?: boolean
         /** CSS styles to conditionally apply to the header cells of the given columns. */
         styles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
+        /** Column templates to apply to the header cell of a column instead of the default. */
+        templates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
     }
 
     columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
-
-    columnHeaderTemplates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
 }

@@ -173,11 +173,6 @@ export class FilterTableComponent
             rowIndex: '100px',
             active: '50px'
         },
-        columnHeaderTemplates: {
-            active: () => {
-                return this.addTemplate
-            }
-        },
         columnStyles: {
             firstName: () => {
                 return { 'text-align': 'right' }
@@ -211,6 +206,11 @@ export class FilterTableComponent
                 },
                 active: () => {
                     return { 'text-align': 'center' }
+                }
+            },
+            templates: {
+                active: () => {
+                    return this.addTemplate
                 }
             }
         }
