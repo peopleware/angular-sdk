@@ -166,13 +166,6 @@ export class FilterTableComponent
         new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
     ]
     public tableOptions: PpwTableOptions<Player> = {
-        columnWidths: {
-            age: '65px',
-            income: '100px',
-            bonus: '100px',
-            rowIndex: '100px',
-            active: '50px'
-        },
         rowClickAction: (row: Player) => {
             this.lastClickedRow = row
         },
@@ -214,6 +207,13 @@ export class FilterTableComponent
                 active: () => {
                     return { 'text-align': 'center' }
                 }
+            },
+            widths: {
+                age: '65px',
+                income: '100px',
+                bonus: '100px',
+                rowIndex: '100px',
+                active: '50px'
             }
         }
     }

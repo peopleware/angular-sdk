@@ -34,7 +34,7 @@
             <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox
                     color="primary"
-                    [style.width]="options?.columnWidths?.['rowSelection']"
+                    [style.width]="options?.columns?.widths?.['rowSelection']"
                     (change)="$event ? masterToggle() : null"
                     [checked]="isAllSelected()"
                     [indeterminate]="isSomeSelected()">
@@ -43,7 +43,7 @@
             <td mat-cell *matCellDef="let row">
                 <mat-checkbox
                     color="primary"
-                    [style.width]="options?.columnWidths?.['rowSelection']"
+                    [style.width]="options?.columns?.widths?.['rowSelection']"
                     (change)="$event ? selection.toggle(row) : null"
                     [checked]="selection.isSelected(row)">
                 </mat-checkbox>
@@ -53,7 +53,7 @@
         <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
             <th
                 mat-header-cell
-                [style.width]="options?.columnWidths?.[column.name]"
+                [style.width]="options?.columns?.widths?.[column.name]"
                 [ngStyle]="options?.header?.styles?.[column.name]?.()"
                 *matHeaderCellDef
                 class="ppw-column-type-{{ column.type }}">
@@ -67,7 +67,7 @@
             </th>
             <td
                 mat-cell
-                [style.width]="options?.columnWidths?.[column.name]"
+                [style.width]="options?.columns?.widths?.[column.name]"
                 [ngStyle]="options?.columns?.styles?.[column.name]?.(record.initialRecord)"
                 *matCellDef="let record; let idx = index"
                 (click)="executeRowClick(record.initialRecord, column.name)"
