@@ -169,7 +169,6 @@ export class FilterTableComponent
         rowClickAction: (row: Player) => {
             this.lastClickedRow = row
         },
-        ignoreClickColumns: ['active'],
         rowHighlightOnHover: true,
         header: {
             sticky: true,
@@ -191,6 +190,7 @@ export class FilterTableComponent
             }
         },
         columns: {
+            ignoreClick: ['active'],
             styles: {
                 firstName: () => {
                     return { 'text-align': 'right' }

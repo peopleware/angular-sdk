@@ -240,7 +240,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     }
 
     public executeRowClick(record: TRecord, columnName: string): void {
-        this.options?.rowClickAction && (this.options?.ignoreClickColumns?.indexOf(columnName) ?? -1 < 0)
+        this.options?.rowClickAction && (this.options?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0)
             ? this.options.rowClickAction(record)
             : null
     }

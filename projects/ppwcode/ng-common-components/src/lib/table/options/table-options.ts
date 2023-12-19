@@ -4,8 +4,6 @@ import { TemplateRef } from '@angular/core'
  * Interface describing the options for a ppwcode table.
  */
 export interface PpwTableOptions<TRecord> {
-    ignoreClickColumns?: string[]
-
     rowClickAction?: (row: TRecord) => void
 
     rowHighlightOnHover?: boolean
@@ -39,5 +37,7 @@ export interface PpwTableOptions<TRecord> {
         widths?: Record<keyof Partial<TRecord> | string, string>
         /** CSS styles to conditionally apply to the cells of the given columns. */
         styles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
+        /** Column names to ignore the row click for. */
+        ignoreClick?: string[]
     }
 }
