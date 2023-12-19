@@ -4,10 +4,6 @@ import { TemplateRef } from '@angular/core'
  * Interface describing the options for a ppwcode table.
  */
 export interface PpwTableOptions<TRecord> {
-    rowClickAction?: (row: TRecord) => void
-
-    rowHighlightOnHover?: boolean
-
     /**
      * Configuration for the header of the table.
      */
@@ -39,5 +35,15 @@ export interface PpwTableOptions<TRecord> {
         styles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
         /** Column names to ignore the row click for. */
         ignoreClick?: string[]
+    }
+
+    /**
+     * Configuration for the rows of the table.
+     */
+    rows: {
+        /** Whether the row should be highlighted on hover. */
+        highlightOnHover?: boolean
+        /** Function to be executed when the row is clicked. */
+        onClick?: (row: TRecord) => void
     }
 }

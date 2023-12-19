@@ -89,8 +89,8 @@
             cdkDrag
             [cdkDragDisabled]="dragDisabled"
             (cdkDragReleased)="dragDisabled = true"
-            [class.highlight]="options?.rowHighlightOnHover"
-            [class.clickable]="options?.rowClickAction"></tr>
+            [class.highlight]="options?.rows?.highlightOnHover"
+            [class.clickable]="options?.rows?.onClick"></tr>
         <div *cdkDragPlaceholder></div>
     </table>
 </section>

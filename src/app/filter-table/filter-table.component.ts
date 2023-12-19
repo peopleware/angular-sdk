@@ -166,10 +166,6 @@ export class FilterTableComponent
         new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
     ]
     public tableOptions: PpwTableOptions<Player> = {
-        rowClickAction: (row: Player) => {
-            this.lastClickedRow = row
-        },
-        rowHighlightOnHover: true,
         header: {
             sticky: true,
             styles: {
@@ -214,6 +210,12 @@ export class FilterTableComponent
                 bonus: '100px',
                 rowIndex: '100px',
                 active: '50px'
+            }
+        },
+        rows: {
+            highlightOnHover: true,
+            onClick: (row: Player) => {
+                this.lastClickedRow = row
             }
         }
     }
