@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common'
 import {
     ChangeDetectionStrategy,
     Component,
+    ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Input,
     OnChanges,
     OnInit,
@@ -76,6 +78,8 @@ import { MatRippleModule } from '@angular/material/core'
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
+    #elementRef: ElementRef = inject(ElementRef)
+
     @Input({ required: true }) public columns: Array<Column<TRecord, unknown>> = []
     @Input({ required: true }) public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
@@ -85,6 +89,12 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
     @Output() public orderChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
     @ViewChild('dataTable') table?: MatTable<TRecord>
+
+    /** Gets whether a custom height has been set by the --ppw-table-height CSS variable. */
+    public get hasFixedHeight(): boolean {
+        const cssHeightValue = getComputedStyle(this.#elementRef.nativeElement).getPropertyValue('--ppw-table-height')
+        return cssHeightValue !== 'auto' && cssHeightValue !== ''
+    }
 
     /** The data source for the material table. */
     public dataSource!: MatTableDataSource<TableRecord<TRecord>>
