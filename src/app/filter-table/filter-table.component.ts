@@ -1,36 +1,32 @@
 import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
-import { Component, Inject, LOCALE_ID, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core'
+import { Component, Inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import {
-    Column,
-    DateColumn,
-    ExpandableCardComponent,
-    NumberColumn,
-    PpwTableOptions,
-    SearchFilterComponent,
-    TableComponent,
-    TableRecord,
-    TemplateColumn,
-    TextColumn
-} from '@ppwcode/ng-common-components'
-import { DateTime } from 'luxon'
-import { MatButtonModule } from '@angular/material/button'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { TranslateModule } from '@ngx-translate/core'
 import {
     AsyncResultComponent,
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
     expectPagedAsyncResultHttpSuccess
 } from '@ppwcode/ng-async'
+import {
+    ExpandableCardComponent,
+    PpwTableModule,
+    PpwTableOptions,
+    SearchFilterComponent,
+    TableRecord
+} from '@ppwcode/ng-common-components'
+import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
+import { DateTime } from 'luxon'
+import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
+import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
 import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src/lib/relative-navigation'
-import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
-import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
-import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -122,7 +118,6 @@ type SearchPlayersForm = {
     imports: [
         CommonModule,
         ExpandableCardComponent,
-        TableComponent,
         SearchFilterComponent,
         MatCardModule,
         MatIconModule,
@@ -133,38 +128,22 @@ type SearchPlayersForm = {
         PaginationBarComponent,
         AsyncResultComponent,
         FormsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        PpwTableModule,
+        TranslateModule
     ]
 })
 export class FilterTableComponent
     extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))
     implements OnInit
 {
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    @ViewChild('playerStatusTemplate', { static: true }) public playerStatusTemplate!: TemplateRef<any>
-    @ViewChild('rowIndexTemplate', { static: true }) public rowIndexTemplate!: TemplateRef<any>
-    @ViewChild('addTemplate', { static: true }) public addTemplate!: TemplateRef<unknown>
-
     // Below variable is an override of the defaultPageSize property in the mixinPagination
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public defaultPageSize = 5
     public enableRowDrag = false
     public searchForm!: FormGroup
     public lastClickedRow?: Player
-    public columns: Array<Column<Player, unknown>> = [
-        new TextColumn('firstName', 'First name', 'firstName'),
-        new TextColumn('lastName', 'Last name', 'lastName'),
-        new DateColumn<DateTime, Player>('birthDate', 'Birth date', getLuxonFormatter('dd/MM/yyyy'), 'birthDate'),
-        new NumberColumn('age', 'Age', 'age'),
-        new NumberColumn('income', 'Income', 'income', (income: number) =>
-            formatCurrency(income, this.locale, getCurrencySymbol('EUR', 'wide'), 'EUR', '3.2-2')
-        ),
-        new NumberColumn('bonus', 'Bonus', 'bonus', (bonus: number) =>
-            formatPercent(bonus / 100, this.locale, '1.2-2')
-        ),
-        new TemplateColumn('rowIndex', 'Row index', () => this.rowIndexTemplate),
-        new TemplateColumn('active', 'Active', () => this.playerStatusTemplate)
-    ]
+
     public tableOptions: PpwTableOptions<Player> = {
         header: {
             sticky: true,
@@ -177,11 +156,6 @@ export class FilterTableComponent
                 },
                 active: () => {
                     return { 'text-align': 'center' }
-                }
-            },
-            templates: {
-                active: () => {
-                    return this.addTemplate
                 }
             }
         },
@@ -286,6 +260,14 @@ export class FilterTableComponent
 
     public trackByFn(_index: number, item: Player): number {
         return item.id
+    }
+
+    public formatBonus(bonus: number) {
+        return formatPercent(bonus / 100, this.locale, '1.2-2')
+    }
+
+    public formatIncome(income: number): string {
+        return formatCurrency(income, this.locale, getCurrencySymbol('EUR', 'wide'), 'EUR', '3.2-2')
     }
 
     public performReset(): void {

@@ -1,5 +1,3 @@
-import { TemplateRef } from '@angular/core'
-
 /**
  * Enum containing the different column types supported by the DataTablesModule.
  */

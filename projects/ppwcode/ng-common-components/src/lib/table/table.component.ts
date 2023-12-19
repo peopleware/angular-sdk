@@ -1,9 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections'
-import { CommonModule } from '@angular/common'
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import {
+    AfterContentChecked,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -12,52 +15,26 @@ import {
     OnChanges,
     OnInit,
     Output,
+    QueryList,
     SimpleChanges,
+    TemplateRef,
     TrackByFunction,
     ViewChild
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
-import { MatCardModule } from '@angular/material/card'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { MatTable, MatTableDataSource } from '@angular/material/table'
+import { assert } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
-
-import { DynamicCellDirective } from './cells/directives/dynamic-cell.directive'
+import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { Column, ColumnType } from './columns/column'
 import { DateColumn } from './columns/date-column'
 import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
 import { TextColumn } from './columns/text-column'
 import { PpwTableOptions } from './options/table-options'
-import {
-    CdkDrag,
-    CdkDragDrop,
-    CdkDragHandle,
-    CdkDragPlaceholder,
-    CdkDropList,
-    moveItemInArray
-} from '@angular/cdk/drag-drop'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
-import { MatRippleModule } from '@angular/material/core'
 
 @Component({
     selector: 'ppw-table',
-    standalone: true,
-    imports: [
-        CommonModule,
-        MatTableModule,
-        MatCardModule,
-        MatCheckboxModule,
-        DynamicCellDirective,
-        CdkDropList,
-        MatIconModule,
-        CdkDragHandle,
-        CdkDrag,
-        CdkDragPlaceholder,
-        MatButtonModule,
-        MatRippleModule
-    ],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     providers: [
@@ -77,10 +54,18 @@ import { MatRippleModule } from '@angular/material/core'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit, OnChanges {
+export class TableComponent<TRecord>
+    extends mixinHandleSubscriptions()
+    implements OnInit, OnChanges, AfterContentChecked
+{
+    #changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef)
     #elementRef: ElementRef = inject(ElementRef)
 
-    @Input({ required: true }) public columns: Array<Column<TRecord, unknown>> = []
+    public columns: Array<Column<TRecord, unknown>> = []
+    public headerTemplates: Record<string | keyof TRecord, TemplateRef<unknown>> = {} as Record<
+        string | keyof TRecord,
+        TemplateRef<unknown>
+    >
     @Input({ required: true }) public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
     @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
     @Input() public enableRowSelection = false
@@ -88,6 +73,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     @Input() public options?: PpwTableOptions<TRecord>
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
     @Output() public orderChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
+    @ContentChildren(PpwColumnDirective<TRecord>) public columnDirectives!: QueryList<PpwColumnDirective<TRecord>>
     @ViewChild('dataTable') table?: MatTable<TRecord>
 
     /** Gets whether a custom height has been set by the --ppw-table-height CSS variable. */
@@ -144,14 +130,8 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['columns'] || changes['enableRowSelection'] || changes['enableRowDrag']) {
-            this.columnNames = this.columns.map((column) => column.name)
-            if (this.enableRowSelection) {
-                this.columnNames.unshift('rowSelection')
-            }
-            if (this.enableRowDrag) {
-                this.columnNames.unshift('rowDrag')
-            }
+        if (changes['enableRowSelection'] || changes['enableRowDrag']) {
+            this.setColumns()
         }
 
         // We need to set the data source in either case because we remap the records
@@ -162,8 +142,47 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         this.setDataSource(this.data)
     }
 
+    public ngAfterContentChecked(): void {
+        this.setColumns()
+        this.setDataSource(this.data)
+    }
+
     public trackByFn(_index: number, item: TableRecord<TRecord>): unknown {
         return item.trackByValue
+    }
+
+    private setColumns(): void {
+        if (!this.columnDirectives) {
+            return
+        }
+
+        // Generate the columns from the found ppw-column instances in the content children.
+        this.columns = this.columnDirectives.map((columnDirective) => {
+            assert(
+                columnDirective.columnDefinition,
+                () => !!columnDirective.columnDefinition,
+                `A column definition could not be found, make sure your ppw-column templates are defined correctly.`
+            )
+            return columnDirective.columnDefinition
+        })
+        this.columnNames = this.columns.map((column) => column.name)
+
+        // The following columns available by the table component itself. Their visibility is handled by the input bindings.
+        if (this.enableRowSelection) {
+            this.columnNames.unshift('rowSelection')
+        }
+        if (this.enableRowDrag) {
+            this.columnNames.unshift('rowDrag')
+        }
+
+        // Mark the component for change detection so that the table is rendered again.
+        this.#changeDetectorRef.markForCheck()
+
+        this.columnDirectives.forEach((columnDirective) => {
+            if (columnDirective.headerTemplate) {
+                this.headerTemplates[columnDirective.name] = columnDirective.headerTemplate
+            }
+        })
     }
 
     /**

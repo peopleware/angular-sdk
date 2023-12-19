@@ -1,12 +1,11 @@
-import { SimpleChange } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { DateTimeFormatter, LocalDate } from '@js-joda/core'
-import { format } from 'date-fns'
+import { PpwTableModule } from './table.module'
+import { addMonths, format } from 'date-fns'
 import { DateTime } from 'luxon'
 import { ColumnType } from './columns/column'
-import { DateColumn } from './columns/date-column'
-import { NumberColumn } from './columns/number-column'
-import { TextColumn } from './columns/text-column'
 
 import { TableComponent } from './table.component'
 
@@ -20,6 +19,149 @@ export interface PeriodicElement extends Record<string, unknown> {
     jsJodaDate: LocalDate
     fnsDate: Date
 }
+
+const MOCK_ELEMENT_DATA = [
+    {
+        position: 1,
+        name: 'Hydrogen',
+        weight: 1.0079,
+        symbol: 'H',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 1,
+            day: 1
+        }),
+        jsDate: new Date(2023, 0, 1),
+        jsJodaDate: LocalDate.of(2023, 1, 1),
+        fnsDate: new Date(2023, 0, 1)
+    },
+    {
+        position: 2,
+        name: 'Helium',
+        weight: 4.0026,
+        symbol: 'He',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 2,
+            day: 1
+        }),
+        jsDate: new Date(2023, 1, 1),
+        jsJodaDate: LocalDate.of(2023, 2, 1),
+        fnsDate: new Date(2023, 1, 1)
+    },
+    {
+        position: 3,
+        name: 'Lithium',
+        weight: 6.941,
+        symbol: 'Li',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 3,
+            day: 1
+        }),
+        jsDate: new Date(2023, 2, 1),
+        jsJodaDate: LocalDate.of(2023, 3, 1),
+        fnsDate: new Date(2023, 2, 1)
+    },
+    {
+        position: 4,
+        name: 'Beryllium',
+        weight: 9.0122,
+        symbol: 'Be',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 4,
+            day: 1
+        }),
+        jsDate: new Date(2023, 3, 1),
+        jsJodaDate: LocalDate.of(2023, 4, 1),
+        fnsDate: new Date(2023, 3, 1)
+    },
+    {
+        position: 5,
+        name: 'Boron',
+        weight: 10.811,
+        symbol: 'B',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 5,
+            day: 1
+        }),
+        jsDate: new Date(2023, 4, 1),
+        jsJodaDate: LocalDate.of(2023, 5, 1),
+        fnsDate: new Date(2023, 4, 1)
+    },
+    {
+        position: 6,
+        name: 'Carbon',
+        weight: 12.0107,
+        symbol: 'C',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 6,
+            day: 1
+        }),
+        jsDate: new Date(2023, 5, 1),
+        jsJodaDate: LocalDate.of(2023, 6, 1),
+        fnsDate: new Date(2023, 5, 1)
+    },
+    {
+        position: 7,
+        name: 'Nitrogen',
+        weight: 14.0067,
+        symbol: 'N',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 7,
+            day: 1
+        }),
+        jsDate: new Date(2023, 6, 1),
+        jsJodaDate: LocalDate.of(2023, 7, 1),
+        fnsDate: new Date(2023, 6, 1)
+    },
+    {
+        position: 8,
+        name: 'Oxygen',
+        weight: 15.9994,
+        symbol: 'O',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 8,
+            day: 1
+        }),
+        jsDate: new Date(2023, 7, 1),
+        jsJodaDate: LocalDate.of(2023, 8, 1),
+        fnsDate: new Date(2023, 7, 1)
+    },
+    {
+        position: 9,
+        name: 'Fluorine',
+        weight: 18.9984,
+        symbol: 'F',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 9,
+            day: 1
+        }),
+        jsDate: new Date(2023, 8, 1),
+        jsJodaDate: LocalDate.of(2023, 9, 1),
+        fnsDate: new Date(2023, 8, 1)
+    },
+    {
+        position: 10,
+        name: 'Neon',
+        weight: 20.1797,
+        symbol: 'Ne',
+        luxDate: DateTime.fromObject({
+            year: 2023,
+            month: 10,
+            day: 1
+        }),
+        jsDate: new Date(2023, 9, 1),
+        jsJodaDate: LocalDate.of(2023, 10, 1),
+        fnsDate: new Date(2023, 9, 1)
+    }
+]
 
 export function getJsDateFormatter(): (value: Date) => string {
     return (value: Date) => value.toDateString()
@@ -37,194 +179,71 @@ export function getDateFnsFormatter(dateFormat: string): (value: Date) => string
     return (value: Date) => format(value, dateFormat)
 }
 
+@Component({
+    template: `
+        <ppw-table [data]="data" [trackBy]="trackBy">
+            <ppw-column
+                *ngFor="let column of columns"
+                [name]="column.name"
+                [label]="column.label"
+                [type]="column.type"
+                [valueRetrieval]="column.valueRetrieval"
+                [dateFormatFn]="column.dateFormatter"></ppw-column>
+        </ppw-table>
+    `
+})
+class TestTableComponent {
+    @ViewChild(TableComponent, { static: true }) tableComponent!: TableComponent<PeriodicElement>
+
+    public columns: Array<{
+        name: string
+        label: string
+        type: ColumnType
+        valueRetrieval?: string | ((record: PeriodicElement) => unknown)
+        dateFormatter?: (value: PeriodicElement) => string
+    }> = [
+        { name: 'elementName', label: 'Element name', type: ColumnType.Text, valueRetrieval: 'name' },
+        { name: 'symbol', label: 'Symbol', type: ColumnType.Text }
+    ]
+    public data: Array<PeriodicElement> = MOCK_ELEMENT_DATA
+    public trackBy = (index: number, record: PeriodicElement) => record.position
+}
+
 describe('TableComponent', () => {
-    let component: TableComponent<any>
-    let fixture: ComponentFixture<any>
-    let elementData: Array<PeriodicElement>
+    let tableComponent: TableComponent<any>
+    let fixture: ComponentFixture<TestTableComponent>
 
-    beforeEach(async () => {
-        elementData = [
-            {
-                position: 1,
-                name: 'Hydrogen',
-                weight: 1.0079,
-                symbol: 'H',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 1,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 0, 1),
-                jsJodaDate: LocalDate.of(2023, 1, 1),
-                fnsDate: new Date(2023, 0, 1)
-            },
-            {
-                position: 2,
-                name: 'Helium',
-                weight: 4.0026,
-                symbol: 'He',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 2,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 1, 1),
-                jsJodaDate: LocalDate.of(2023, 2, 1),
-                fnsDate: new Date(2023, 1, 1)
-            },
-            {
-                position: 3,
-                name: 'Lithium',
-                weight: 6.941,
-                symbol: 'Li',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 3,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 2, 1),
-                jsJodaDate: LocalDate.of(2023, 3, 1),
-                fnsDate: new Date(2023, 2, 1)
-            },
-            {
-                position: 4,
-                name: 'Beryllium',
-                weight: 9.0122,
-                symbol: 'Be',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 4,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 3, 1),
-                jsJodaDate: LocalDate.of(2023, 4, 1),
-                fnsDate: new Date(2023, 3, 1)
-            },
-            {
-                position: 5,
-                name: 'Boron',
-                weight: 10.811,
-                symbol: 'B',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 5,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 4, 1),
-                jsJodaDate: LocalDate.of(2023, 5, 1),
-                fnsDate: new Date(2023, 4, 1)
-            },
-            {
-                position: 6,
-                name: 'Carbon',
-                weight: 12.0107,
-                symbol: 'C',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 6,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 5, 1),
-                jsJodaDate: LocalDate.of(2023, 6, 1),
-                fnsDate: new Date(2023, 5, 1)
-            },
-            {
-                position: 7,
-                name: 'Nitrogen',
-                weight: 14.0067,
-                symbol: 'N',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 7,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 6, 1),
-                jsJodaDate: LocalDate.of(2023, 7, 1),
-                fnsDate: new Date(2023, 6, 1)
-            },
-            {
-                position: 8,
-                name: 'Oxygen',
-                weight: 15.9994,
-                symbol: 'O',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 8,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 7, 1),
-                jsJodaDate: LocalDate.of(2023, 8, 1),
-                fnsDate: new Date(2023, 7, 1)
-            },
-            {
-                position: 9,
-                name: 'Fluorine',
-                weight: 18.9984,
-                symbol: 'F',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 9,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 8, 1),
-                jsJodaDate: LocalDate.of(2023, 9, 1),
-                fnsDate: new Date(2023, 8, 1)
-            },
-            {
-                position: 10,
-                name: 'Neon',
-                weight: 20.1797,
-                symbol: 'Ne',
-                luxDate: DateTime.fromObject({
-                    year: 2023,
-                    month: 10,
-                    day: 1
-                }),
-                jsDate: new Date(2023, 9, 1),
-                jsJodaDate: LocalDate.of(2023, 10, 1),
-                fnsDate: new Date(2023, 9, 1)
-            }
-        ]
-
-        await TestBed.configureTestingModule({
-            imports: [TableComponent]
-        }).compileComponents()
-
-        fixture = TestBed.createComponent(TableComponent<any>)
-        component = fixture.componentInstance
-        component.data = elementData
-        component.columns = [
-            new TextColumn('elementName', 'Element name', 'name'),
-            { type: ColumnType.Text, name: 'symbol', label: 'Symbol' }
-        ]
-        component.trackBy = (index, record) => record.position
-        fixture.detectChanges()
-
-        component.ngOnChanges({
-            data: new SimpleChange(null, component.data, true),
-            columns: new SimpleChange(null, component.columns, true)
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestTableComponent],
+            imports: [PpwTableModule, NoopAnimationsModule]
         })
+
+        fixture = TestBed.createComponent(TestTableComponent)
+        fixture.componentInstance.data = [...MOCK_ELEMENT_DATA]
+        tableComponent = (fixture.componentInstance as TestTableComponent).tableComponent
+        fixture.detectChanges()
     })
 
     it('should show initial value', () => {
-        const testData = (component.data as Array<Record<string, unknown>>)[3]
-        expect(component.dataSource.data[3].initialRecord).toBe(testData)
-        expect(component.dataSource.data[3].mappedValues['elementName']).toBe('Beryllium')
-        expect(component.dataSource.data[3].mappedValues['symbol']).toBe('Be')
+        const testData = (tableComponent.data as Array<Record<string, unknown>>)[3]
+        expect(tableComponent.dataSource.data[3].initialRecord).toBe(testData)
+        expect(tableComponent.dataSource.data[3].mappedValues['elementName']).toBe('Beryllium')
+        expect(tableComponent.dataSource.data[3].mappedValues['symbol']).toBe('Be')
     })
 
     it('should detect column changes', () => {
-        component.columns[1] = new TextColumn('testName', 'testLabel', 'symbol')
-        component.ngOnChanges({
-            columns: new SimpleChange(
-                { type: ColumnType.Text, name: 'symbol', label: 'Symbol' },
-                component.columns[1],
-                true
-            )
-        })
-        expect(component.columnNames[1]).toBe('testName')
-        expect(component.dataSource.data[3].mappedValues['symbol']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['testName']).toBe('Be')
+        fixture.componentInstance.columns[1] = {
+            name: 'testName',
+            label: 'testLabel',
+            type: ColumnType.Text,
+            valueRetrieval: 'symbol'
+        }
+        fixture.detectChanges()
+
+        expect(tableComponent.columnNames[1]).toBe('testName')
+        expect(tableComponent.dataSource.data[3].mappedValues['symbol']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['testName']).toBe('Be')
     })
 
     it('should detect row changes', () => {
@@ -238,250 +257,349 @@ describe('TableComponent', () => {
             jsJodaDate: LocalDate.of(2024, 10, 1),
             fnsDate: new Date(2024, 10, 1)
         }
-        elementData.push(testObj)
-        component.ngOnChanges({ data: new SimpleChange(component.data, elementData, false) })
-        expect(component.dataSource.data[10].initialRecord).toBe(testObj)
+        fixture.componentInstance.data.push(testObj)
+        fixture.detectChanges()
+
+        expect(tableComponent.dataSource.data[10].initialRecord).toBe(testObj)
     })
 
     it('should map undefined text column property', () => {
-        component.columns.push(new TextColumn('weight', 'Weight'))
-        component.columns.push(new TextColumn('weightFromUndefinedProp', 'Weight'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({ name: 'weight', label: 'Weight', type: ColumnType.Text })
+        fixture.componentInstance.columns.push({
+            name: 'weightFromUndefinedProp',
+            label: 'Weight',
+            type: ColumnType.Text
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
-        expect(component.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
+        expect(tableComponent.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string text column property', () => {
-        component.columns.push(new TextColumn('weight', 'Weight', 'string'))
-        component.columns.push(new TextColumn('weightFromProp', 'Weight', 'weight'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'weight',
+            label: 'Weight',
+            type: ColumnType.Text,
+            valueRetrieval: 'string'
         })
+        fixture.componentInstance.columns.push({
+            name: 'weightFromProp',
+            label: 'Weight',
+            type: ColumnType.Text,
+            valueRetrieval: 'weight'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
     it('should map function text column property', () => {
-        component.columns.push(
-            new TextColumn('weight', 'Weight', (record: PeriodicElement) => record.weight.toFixed(2))
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'weight',
+            label: 'Weight',
+            type: ColumnType.Text,
+            valueRetrieval: (record: PeriodicElement) => record.weight.toFixed(2)
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe('9.01')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe('9.01')
     })
 
     it('should map undefined number column property', () => {
-        component.columns.push(new NumberColumn('weight', 'Weight'))
-        component.columns.push(new NumberColumn('weightFromUndefinedProp', 'Weight'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'weight',
+            label: 'Weight',
+            type: ColumnType.Number
         })
+        fixture.componentInstance.columns.push({
+            name: 'weightFromUndefinedProp',
+            label: 'Weight',
+            type: ColumnType.Number
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
-        expect(component.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
+        expect(tableComponent.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string number column property', () => {
-        component.columns.push(new NumberColumn('weight', 'Weight', 'number'))
-        component.columns.push(new NumberColumn('weightFromProp', 'Weight', 'weight'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'weight',
+            label: 'Weight',
+            type: ColumnType.Number,
+            valueRetrieval: 'number'
         })
+        fixture.componentInstance.columns.push({
+            name: 'weightFromProp',
+            label: 'Weight',
+            type: ColumnType.Number,
+            valueRetrieval: 'weight'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
     it('should map function number column property', () => {
-        component.columns.push(
-            new NumberColumn('weight', 'Weight', (record: PeriodicElement) => Number(record.weight.toFixed(2)))
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'weight',
+            label: 'Weight',
+            type: ColumnType.Number,
+            valueRetrieval: (record: PeriodicElement) => Number(record.weight.toFixed(2))
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'weight'])
-        expect(component.dataSource.data[3].mappedValues['weight']).toBe(9.01)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight'])
+        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.01)
     })
 
     it('should map undefined luxon date column property', () => {
-        component.columns.push(new DateColumn('luxDate', 'luxonTestDate', getLuxonFormatter('dd/MM/yyyy')))
-        component.columns.push(
-            new DateColumn('luxonTestDateFromUndefinedProp', 'luxonTestDate', getLuxonFormatter('dd/MM/yyyy'))
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'luxDate',
+            label: 'luxonTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string
         })
+        fixture.componentInstance.columns.push({
+            name: 'luxonTestDateFromUndefinedProp',
+            label: 'luxonTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'luxDate', 'luxonTestDateFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['luxDate']).toBe('01/04/2023')
-        expect(component.dataSource.data[3].mappedValues['luxonTestDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual([
+            'elementName',
+            'symbol',
+            'luxDate',
+            'luxonTestDateFromUndefinedProp'
+        ])
+        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe('01/04/2023')
+        expect(tableComponent.dataSource.data[3].mappedValues['luxonTestDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string luxon date column property', () => {
-        component.columns.push(new DateColumn('luxDate', 'Weight', getLuxonFormatter('dd/MM/yyyy'), 'date'))
-        component.columns.push(new DateColumn('luxDateFromProp', 'Weight', getLuxonFormatter('dd/MM/yyyy'), 'luxDate'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'luxDate',
+            label: 'Luxon date',
+            type: ColumnType.Date,
+            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
+            valueRetrieval: 'date'
         })
+        fixture.componentInstance.columns.push({
+            name: 'luxDateFromProp',
+            label: 'Luxon date',
+            type: ColumnType.Date,
+            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
+            valueRetrieval: 'luxDate'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'luxDate', 'luxDateFromProp'])
-        expect(component.dataSource.data[3].mappedValues['luxDate']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['luxDateFromProp']).toBe('01/04/2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'luxDate', 'luxDateFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['luxDateFromProp']).toBe('01/04/2023')
     })
 
     it('should map function luxon date column property', () => {
-        component.columns.push(
-            new DateColumn('luxDate', 'Luxon', getLuxonFormatter('dd/MM/yyyy'), (record: PeriodicElement) =>
-                record.luxDate.plus({ days: 1 })
-            )
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'luxDate',
+            label: 'Luxon date',
+            type: ColumnType.Date,
+            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
+            valueRetrieval: (record: PeriodicElement) => record.luxDate.plus({ days: 1 })
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'luxDate'])
-        expect(component.dataSource.data[3].mappedValues['luxDate']).toBe('02/04/2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'luxDate'])
+        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe('02/04/2023')
     })
 
     it('should map undefined js date column property', () => {
-        component.columns.push(new DateColumn('jsDate', 'jsTestDate', getJsDateFormatter()))
-        component.columns.push(new DateColumn('jsDateFromUndefinedProp', 'jsTestDate', getJsDateFormatter()))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsDate',
+            label: 'jsTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsDateFormatter() as (value: unknown) => string
         })
+        fixture.componentInstance.columns.push({
+            name: 'jsDateFromUndefinedProp',
+            label: 'jsTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsDateFormatter() as (value: unknown) => string
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['jsDate']).toBe('Sat Apr 01 2023')
-        expect(component.dataSource.data[3].mappedValues['jsDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromUndefinedProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe('Sat Apr 01 2023')
+        expect(tableComponent.dataSource.data[3].mappedValues['jsDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string js date column property', () => {
-        component.columns.push(new DateColumn('jsDate', 'jsDate', getJsDateFormatter(), 'date'))
-        component.columns.push(new DateColumn('jsDateFromProp', 'jsDateFromProp', getJsDateFormatter(), 'jsDate'))
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsDate',
+            label: 'jsDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+            valueRetrieval: 'date'
         })
+        fixture.componentInstance.columns.push({
+            name: 'jsDateFromProp',
+            label: 'jsDateFromProp',
+            type: ColumnType.Date,
+            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+            valueRetrieval: 'jsDate'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromProp'])
-        expect(component.dataSource.data[3].mappedValues['jsDate']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['jsDateFromProp']).toBe('Sat Apr 01 2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['jsDateFromProp']).toBe('Sat Apr 01 2023')
     })
 
     it('should map function js date column property', () => {
-        component.columns.push(
-            new DateColumn(
-                'jsDate',
-                'JS',
-                getJsDateFormatter(),
-                (record: PeriodicElement) =>
-                    (record.jsDate = new Date(record.jsDate.setMonth(record.jsDate.getMonth() + 4)))
-            )
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsDate',
+            label: 'jsDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+            valueRetrieval: (record: PeriodicElement) =>
+                new Date(
+                    record.jsDate.getFullYear(),
+                    record.jsDate.getMonth() + 4,
+                    record.jsDate.getDate(),
+                    record.jsDate.getHours(),
+                    record.jsDate.getMinutes(),
+                    record.jsDate.getSeconds()
+                )
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsDate'])
-        expect(component.dataSource.data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate'])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
     })
 
     it('should map undefined js-joda date column property', () => {
-        component.columns.push(new DateColumn('jsJodaDate', 'jsJodaTestDate', getJsJodaFormatter('dd-MM-yyyy')))
-        component.columns.push(
-            new DateColumn('jsJodaDateFromUndefinedProp', 'jsJodaTestDate', getJsJodaFormatter('dd-MM-yyyy'))
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsJodaDate',
+            label: 'jsJodaTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string
         })
+        fixture.componentInstance.columns.push({
+            name: 'jsJodaDateFromUndefinedProp',
+            label: 'jsJodaTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['jsJodaDate']).toBe('01-04-2023')
-        expect(component.dataSource.data[3].mappedValues['jsJodaDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual([
+            'elementName',
+            'symbol',
+            'jsJodaDate',
+            'jsJodaDateFromUndefinedProp'
+        ])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe('01-04-2023')
+        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string js-joda date column property', () => {
-        component.columns.push(new DateColumn('jsJodaDate', 'jsJodaDate', getJsJodaFormatter('dd-MM-yyyy'), 'date'))
-        component.columns.push(
-            new DateColumn('jsJodaDateFromProp', 'jsJodaDateFromProp', getJsJodaFormatter('dd-MM-yyyy'), 'jsJodaDate')
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsJodaDate',
+            label: 'jsJodaTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: 'value'
         })
+        fixture.componentInstance.columns.push({
+            name: 'jsJodaDateFromProp',
+            label: 'jsJodaDateFromProp',
+            type: ColumnType.Date,
+            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: 'jsJodaDate'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromProp'])
-        expect(component.dataSource.data[3].mappedValues['jsJodaDate']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['jsJodaDateFromProp']).toBe('01-04-2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDateFromProp']).toBe('01-04-2023')
     })
 
     it('should map function js-joda date column property', () => {
-        component.columns.push(
-            new DateColumn('jsJodaDate', 'JSJoda', getJsJodaFormatter('dd-MM-yyyy'), (record: PeriodicElement) =>
-                record.jsJodaDate.plusDays(4)
-            )
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'jsJodaDate',
+            label: 'jsJodaTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: (record: PeriodicElement) => record.jsJodaDate.plusDays(4)
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate'])
-        expect(component.dataSource.data[3].mappedValues['jsJodaDate']).toBe('05-04-2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate'])
+        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe('05-04-2023')
     })
 
     it('should map undefined date-fns date column property', () => {
-        component.columns.push(new DateColumn('fnsDate', 'fnsTestDate', getDateFnsFormatter('dd-MM-yyyy')))
-        component.columns.push(
-            new DateColumn('fnsDateFromUndefinedProp', 'fnsTestDate', getDateFnsFormatter('dd-MM-yyyy'))
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'fnsDate',
+            label: 'fnsTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string
         })
+        fixture.componentInstance.columns.push({
+            name: 'fnsDateFromUndefinedProp',
+            label: 'fnsTestDate',
+            type: ColumnType.Date,
+            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromUndefinedProp'])
-        expect(component.dataSource.data[3].mappedValues['fnsDate']).toBe('01-04-2023')
-        expect(component.dataSource.data[3].mappedValues['fnsDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromUndefinedProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe('01-04-2023')
+        expect(tableComponent.dataSource.data[3].mappedValues['fnsDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string date-fns date column property', () => {
-        component.columns.push(new DateColumn('fnsDate', 'fnsDate', getDateFnsFormatter('dd-MM-yyyy'), 'date'))
-        component.columns.push(
-            new DateColumn('fnsDateFromProp', 'fnsDateFromProp', getDateFnsFormatter('dd-MM-yyyy'), 'fnsDate')
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'fnsDate',
+            label: 'fnsDate',
+            type: ColumnType.Date,
+            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: 'date'
         })
+        fixture.componentInstance.columns.push({
+            name: 'fnsDateFromProp',
+            label: 'fnsDateFromProp',
+            type: ColumnType.Date,
+            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: 'fnsDate'
+        })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromProp'])
-        expect(component.dataSource.data[3].mappedValues['fnsDate']).toBe(undefined)
-        expect(component.dataSource.data[3].mappedValues['fnsDateFromProp']).toBe('01-04-2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromProp'])
+        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe(undefined)
+        expect(tableComponent.dataSource.data[3].mappedValues['fnsDateFromProp']).toBe('01-04-2023')
     })
 
     it('should map function date-fns date column property', () => {
-        component.columns.push(
-            new DateColumn(
-                'fnsDate',
-                'fnsDate',
-                getDateFnsFormatter('dd-MM-yyyy'),
-                (record: PeriodicElement) =>
-                    (record.fnsDate = new Date(record.fnsDate.setMonth(record.fnsDate.getMonth() + 4)))
-            )
-        )
-        component.ngOnChanges({
-            columns: new SimpleChange(component.columns, component.columns, false)
+        fixture.componentInstance.columns.push({
+            name: 'fnsDate',
+            label: 'fnsDate',
+            type: ColumnType.Date,
+            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
+            valueRetrieval: (record: PeriodicElement) => addMonths(record.fnsDate, 4)
         })
+        fixture.detectChanges()
 
-        expect(component.columnNames).toEqual(['elementName', 'symbol', 'fnsDate'])
-        expect(component.dataSource.data[3].mappedValues['fnsDate']).toBe('01-08-2023')
+        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate'])
+        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe('01-08-2023')
     })
 })

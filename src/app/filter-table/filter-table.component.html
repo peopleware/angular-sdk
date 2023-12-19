@@ -22,14 +22,46 @@
         <mat-card>
             <mat-card-content>
                 <ppw-table
-                    [columns]="columns"
                     [data]="players.entity.items"
                     [enableRowSelection]="true"
                     [enableRowDrag]="enableRowDrag"
                     [options]="tableOptions"
                     [trackBy]="trackByFn"
                     (orderChanged)="orderChanged($event)"
-                    (selectionChanged)="updateSelected($event)"></ppw-table>
+                    (selectionChanged)="updateSelected($event)">
+                    <ppw-column name="firstName" type="text" label="First name"></ppw-column>
+                    <ppw-column name="lastName" type="text" label="Last name"></ppw-column>
+                    <ppw-column name="birthDate" type="date" label="Birth date"></ppw-column>
+                    <ppw-column name="age" type="number" label="Age"></ppw-column>
+                    <ppw-column
+                        name="income"
+                        type="number"
+                        label="Income"
+                        [numberFormatFn]="formatIncome.bind(this)"></ppw-column>
+                    <ppw-column
+                        name="bonus"
+                        type="number"
+                        label="Bonus"
+                        [numberFormatFn]="formatBonus.bind(this)"></ppw-column>
+                    <ppw-column name="rowIndex" type="template" label="Row index">
+                        <ng-template ppw-column-cell let-rowIndex="rowIndex">
+                            <span>{{ rowIndex }}</span>
+                        </ng-template>
+                    </ppw-column>
+                    <ppw-column name="active" type="template">
+                        <ng-template ppw-column-header>
+                            <button mat-icon-button (click)="addPlayer()">
+                                <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+                            </button>
+                        </ng-template>
+                        <ng-template ppw-column-cell let-record>
+                            <ng-container [ngSwitch]="record.active">
+                                <mat-icon *ngSwitchCase="true">check</mat-icon>
+                                <mat-icon *ngSwitchCase="false">close</mat-icon>
+                            </ng-container>
+                        </ng-template>
+                    </ppw-column>
+                </ppw-table>
                 <ppw-pagination-bar
                     [pagedAsyncResult]="players"
                     (page)="handlePageEvent($event)"
@@ -69,20 +101,3 @@
         </span>
     </mat-card-content>
 </mat-card>
-
-<ng-template #playerStatusTemplate let-record>
-    <ng-container [ngSwitch]="record.active">
-        <mat-icon *ngSwitchCase="true">check</mat-icon>
-        <mat-icon *ngSwitchCase="false">close</mat-icon>
-    </ng-container>
-</ng-template>
-
-<ng-template #rowIndexTemplate let-rowIndex="rowIndex">
-    <span>{{ rowIndex }}</span>
-</ng-template>
-
-<ng-template #addTemplate>
-    <button mat-icon-button (click)="addPlayer()">
-        <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
-    </button>
-</ng-template>

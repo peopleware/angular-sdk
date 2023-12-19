@@ -1,5 +1,3 @@
-import { TemplateRef } from '@angular/core'
-
 /**
  * Interface describing the options for a ppwcode table.
  */
@@ -16,8 +14,6 @@ export interface PpwTableOptions<TRecord> {
         showFirstRowTopBorder?: boolean
         /** CSS styles to conditionally apply to the header cells of the given columns. */
         styles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
-        /** Column templates to apply to the header cell of a column instead of the default. */
-        templates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
     }
 
     /**
@@ -40,7 +36,7 @@ export interface PpwTableOptions<TRecord> {
     /**
      * Configuration for the rows of the table.
      */
-    rows: {
+    rows?: {
         /** Whether the row should be highlighted on hover. */
         highlightOnHover?: boolean
         /** Function to be executed when the row is clicked. */
