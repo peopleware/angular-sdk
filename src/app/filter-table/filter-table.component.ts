@@ -173,23 +173,6 @@ export class FilterTableComponent
             rowIndex: '100px',
             active: '50px'
         },
-        columnStyles: {
-            firstName: () => {
-                return { 'text-align': 'right' }
-            },
-            age: (record: Player) => {
-                if (record.age > 40) {
-                    return { background: 'red' }
-                }
-                return {}
-            },
-            rowIndex: () => {
-                return { 'text-align': 'right' }
-            },
-            active: () => {
-                return { 'text-align': 'center' }
-            }
-        },
         rowClickAction: (row: Player) => {
             this.lastClickedRow = row
         },
@@ -211,6 +194,25 @@ export class FilterTableComponent
             templates: {
                 active: () => {
                     return this.addTemplate
+                }
+            }
+        },
+        columns: {
+            styles: {
+                firstName: () => {
+                    return { 'text-align': 'right' }
+                },
+                age: (record: Player) => {
+                    if (record.age > 40) {
+                        return { background: 'red' }
+                    }
+                    return {}
+                },
+                rowIndex: () => {
+                    return { 'text-align': 'right' }
+                },
+                active: () => {
+                    return { 'text-align': 'center' }
                 }
             }
         }

@@ -34,5 +34,11 @@ export interface PpwTableOptions<TRecord> {
         templates?: Record<keyof Partial<TRecord> | string, () => TemplateRef<any>>
     }
 
-    columnStyles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
+    /**
+     * Configuration for the columns of the table.
+     */
+    columns?: {
+        /** CSS styles to conditionally apply to the cells of the given columns. */
+        styles?: Record<keyof Partial<TRecord> | string, (record: TRecord) => { [key: string]: unknown }>
+    }
 }
