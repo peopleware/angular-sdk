@@ -14,6 +14,11 @@
     }
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .ppw-sidenav-close-button {
     border: none;
     padding: 1rem;
