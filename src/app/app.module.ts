@@ -1,6 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import localeEn from '@angular/common/locales/en-BE'
+import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
@@ -15,6 +16,7 @@ import { TitleStrategy } from '@angular/router'
 import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FormsModule } from '@angular/forms'
+import { getLuxonFormatter } from './filter-table/filter-table.component'
 
 registerLocaleData(localeEn)
 
@@ -60,7 +62,8 @@ const ppwcodeComponents = [WireframeComponent]
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },
         { provide: TitleStrategy, useClass: TranslatedPageTitleStrategy },
-        { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
+        { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+        { provide: PPW_TABLE_DEFAULT_OPTIONS, useValue: { dateColumnFormatter: getLuxonFormatter('dd/MM/yyyy') } }
     ],
     bootstrap: [AppComponent]
 })

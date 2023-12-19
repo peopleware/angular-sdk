@@ -57,9 +57,8 @@
                 [ngStyle]="options?.header?.styles?.[column.name]?.()"
                 *matHeaderCellDef
                 class="ppw-column-type-{{ column.type }}">
-                <ng-container *ngIf="(options?.header?.templates?.[column.name]?.()); else textTemplateContainer">
-                    <ng-container
-                        *ngTemplateOutlet="headerTemplateCellTemplate; context: { headerTemplate: (options?.header?.templates?.[column.name]()) }"></ng-container>
+                <ng-container *ngIf="headerTemplates[column.name]; else textTemplateContainer">
+                    <ng-container *ngTemplateOutlet="headerTemplates[column.name]"></ng-container>
                 </ng-container>
                 <ng-template #textTemplateContainer>
                     <ng-container *ngTemplateOutlet="headerTextCellTemplate; context: { column }"></ng-container>
@@ -95,9 +94,6 @@
     </table>
 </section>
 
-<ng-template #headerTemplateCellTemplate let-headerTemplate="headerTemplate">
-    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-</ng-template>
 <ng-template #headerTextCellTemplate let-column="column">
     {{ column.label }}
 </ng-template>
