@@ -2,7 +2,7 @@
 
 .ppw-table-container {
     $tableHeight: var(--ppw-table-height, auto);
-    @if $tableHeight != 'auto' {
+    @if $tableHeight != auto {
         max-height: $tableHeight;
         padding-right: 16px;
         overflow: auto;
