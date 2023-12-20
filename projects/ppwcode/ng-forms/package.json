@@ -1,10 +1,10 @@
 {
     "name": "@ppwcode/ng-forms",
-    "version": "0.0.63",
+    "version": "0.0.64",
     "peerDependencies": {
         "@angular/common": "^16.2.0 || ^17.0.0",
         "@angular/core": "^16.2.0 || ^17.0.0",
-        "@ppwcode/ng-common": "^0.0.63"
+        "@ppwcode/ng-common": "^0.0.64"
     },
     "dependencies": {
         "tslib": "^2.3.0"
