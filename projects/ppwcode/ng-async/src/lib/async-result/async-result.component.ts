@@ -1,15 +1,10 @@
-import { CommonModule } from '@angular/common'
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core'
-import { MtxLoaderModule } from '@ng-matero/extensions/loader'
-import { TranslateModule } from '@ngx-translate/core'
+import { Severity } from '@ppwcode/ng-common-components'
 import { AsyncResult } from '../models/async-result'
-import { MessageBarComponent, Severity } from '@ppwcode/ng-common-components'
 
 @Component({
     selector: 'ppw-async-result',
-    templateUrl: './async-result.component.html',
-    standalone: true,
-    imports: [CommonModule, MessageBarComponent, TranslateModule, MtxLoaderModule]
+    templateUrl: './async-result.component.html'
 })
 export class AsyncResultComponent {
     @Input({ required: true }) public asyncResult?: AsyncResult<unknown, unknown> | null

@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { TranslateModule } from '@ngx-translate/core'
 import {
-    AsyncResultComponent,
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
     expectPagedAsyncResultHttpSuccess
@@ -24,6 +23,7 @@ import {
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
+import { AsyncResultModule } from '../../../projects/ppwcode/ng-async/src/lib/async-result/async-result.module'
 import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
 import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src/lib/relative-navigation'
@@ -126,7 +126,7 @@ type SearchPlayersForm = {
         ReactiveFormsModule,
         MatButtonModule,
         PaginationBarComponent,
-        AsyncResultComponent,
+        AsyncResultModule,
         FormsModule,
         MatSlideToggleModule,
         PpwTableModule,
