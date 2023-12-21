@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
 import { Severity } from '../enum/severity'
 
@@ -7,7 +7,7 @@ import { Severity } from '../enum/severity'
     selector: 'ppw-message-bar',
     templateUrl: './message-bar.component.html',
     styleUrls: ['./message-bar.component.scss'],
-    imports: [CommonModule, MatCardModule],
+    imports: [MatCardModule],
     standalone: true
 })
 export class MessageBarComponent {

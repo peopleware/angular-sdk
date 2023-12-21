@@ -14,77 +14,82 @@
         (cdkDropListDropped)="dropTable($event)"
     >
         <!-- Draghandle column -->
-        <ng-container matColumnDef="rowDrag" *ngIf="enableRowDrag">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element" class="drag-table-cell">
-                <mat-icon
-                    cdkDragHandle
-                    mat-ripple
-                    class="drag-handle"
-                    (touchstart)="dragDisabled = false"
-                    (touchend)="dragDisabled = true"
-                    (mousedown)="dragDisabled = false"
-                    (mouseup)="dragDisabled = true"
-                    >drag_indicator</mat-icon
-                >
-            </td>
-        </ng-container>
+        @if (enableRowDrag) {
+            <ng-container matColumnDef="rowDrag">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="drag-table-cell">
+                    <mat-icon
+                        cdkDragHandle
+                        mat-ripple
+                        class="drag-handle"
+                        (touchstart)="dragDisabled = false"
+                        (touchend)="dragDisabled = true"
+                        (mousedown)="dragDisabled = false"
+                        (mouseup)="dragDisabled = true"
+                        >drag_indicator</mat-icon
+                    >
+                </td>
+            </ng-container>
+        }
 
         <!-- Checkbox Column -->
-        <ng-container matColumnDef="rowSelection" *ngIf="enableRowSelection">
-            <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox
-                    color="primary"
-                    [style.width]="options?.columns?.widths?.['rowSelection']"
-                    (change)="$event ? masterToggle() : null"
-                    [checked]="isAllSelected()"
-                    [indeterminate]="isSomeSelected()"
-                >
-                </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-                <mat-checkbox
-                    color="primary"
-                    [style.width]="options?.columns?.widths?.['rowSelection']"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)"
-                >
-                </mat-checkbox>
-            </td>
-        </ng-container>
+        @if (enableRowSelection) {
+            <ng-container matColumnDef="rowSelection">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox
+                        color="primary"
+                        [style.width]="options?.columns?.widths?.['rowSelection']"
+                        (change)="$event ? masterToggle() : null"
+                        [checked]="isAllSelected()"
+                        [indeterminate]="isSomeSelected()"
+                    >
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox
+                        color="primary"
+                        [style.width]="options?.columns?.widths?.['rowSelection']"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                    >
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+        }
 
-        <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
-            <th
-                mat-header-cell
-                [style.width]="options?.columns?.widths?.[column.name]"
-                [ngStyle]="options?.header?.styles?.[column.name]?.()"
-                *matHeaderCellDef
-                class="ppw-column-type-{{ column.type }}"
-            >
-                <ng-container *ngIf="headerTemplates[column.name]; else textTemplateContainer">
-                    <ng-container *ngTemplateOutlet="headerTemplates[column.name]"></ng-container>
-                </ng-container>
-                <ng-template #textTemplateContainer>
-                    <ng-container *ngTemplateOutlet="headerTextCellTemplate; context: { column }"></ng-container>
-                </ng-template>
-            </th>
-            <td
-                mat-cell
-                [style.width]="options?.columns?.widths?.[column.name]"
-                [ngStyle]="options?.columns?.styles?.[column.name]?.(record.initialRecord)"
-                *matCellDef="let record; let idx = index"
-                (click)="executeRowClick(record.initialRecord, column.name)"
-                class="ppw-column-type-{{ column.type }}"
-            >
-                <ng-container
-                    ppwDynamicCell
-                    [rowIndex]="idx"
-                    [column]="column"
-                    [record]="record.initialRecord"
-                    [value]="record.mappedValues[column.name]"
-                ></ng-container>
-            </td>
-        </ng-container>
+        @for (column of columns; track column) {
+            <ng-container [matColumnDef]="column.name">
+                <th
+                    mat-header-cell
+                    [style.width]="options?.columns?.widths?.[column.name]"
+                    [ngStyle]="options?.header?.styles?.[column.name]?.()"
+                    *matHeaderCellDef
+                    class="ppw-column-type-{{ column.type }}"
+                >
+                    @if (headerTemplates[column.name]) {
+                        <ng-container *ngTemplateOutlet="headerTemplates[column.name]"></ng-container>
+                    } @else {
+                        <ng-container *ngTemplateOutlet="headerTextCellTemplate; context: { column }"></ng-container>
+                    }
+                </th>
+                <td
+                    mat-cell
+                    [style.width]="options?.columns?.widths?.[column.name]"
+                    [ngStyle]="options?.columns?.styles?.[column.name]?.(record.initialRecord)"
+                    *matCellDef="let record; let idx = index"
+                    (click)="executeRowClick(record.initialRecord, column.name)"
+                    class="ppw-column-type-{{ column.type }}"
+                >
+                    <ng-container
+                        ppwDynamicCell
+                        [rowIndex]="idx"
+                        [column]="column"
+                        [record]="record.initialRecord"
+                        [value]="record.mappedValues[column.name]"
+                    ></ng-container>
+                </td>
+            </ng-container>
+        }
 
         <tr mat-header-row *matHeaderRowDef="columnNames; sticky: !!options?.header?.sticky"></tr>
         <tr

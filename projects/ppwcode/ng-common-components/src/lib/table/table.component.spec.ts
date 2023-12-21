@@ -182,14 +182,15 @@ export function getDateFnsFormatter(dateFormat: string): (value: Date) => string
 @Component({
     template: `
         <ppw-table [data]="data" [trackBy]="trackBy">
-            <ppw-column
-                *ngFor="let column of columns"
-                [name]="column.name"
-                [label]="column.label"
-                [type]="column.type"
-                [valueRetrieval]="column.valueRetrieval"
-                [dateFormatFn]="column.dateFormatter"
-            ></ppw-column>
+            @for (column of columns; track column) {
+                <ppw-column
+                    [name]="column.name"
+                    [label]="column.label"
+                    [type]="column.type"
+                    [valueRetrieval]="column.valueRetrieval"
+                    [dateFormatFn]="column.dateFormatter"
+                ></ppw-column>
+            }
         </ppw-table>
     `
 })

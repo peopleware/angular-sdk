@@ -4,15 +4,17 @@
     [sidebarOptions]="sidebarOptions"
     [toolbarHeightPx]="toolbarHeightPx"
 >
-    <ng-container ppw-toolbar-left-content *ngIf="showToolbarLogo">
-        <img
-            class="toolbar-left-logo"
-            ngSrc="{{ toolbarLogoUrl }}"
-            alt="Logo"
-            height="{{ toolbarLogoHeight }}"
-            width="{{ toolbarLogoWidth }}"
-            priority="eager"
-    /></ng-container>
+    @if (showToolbarLogo) {
+        <ng-container ppw-toolbar-left-content>
+            <img
+                class="toolbar-left-logo"
+                ngSrc="{{ toolbarLogoUrl }}"
+                alt="Logo"
+                height="{{ toolbarLogoHeight }}"
+                width="{{ toolbarLogoWidth }}"
+                priority="eager"
+        /></ng-container>
+    }
     <ng-container ppw-toolbar-right-content>
         <mat-icon>person</mat-icon>
     </ng-container>

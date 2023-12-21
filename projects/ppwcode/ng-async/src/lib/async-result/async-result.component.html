@@ -1,5 +1,5 @@
 <mtx-loader [loading]="pending" type="progressbar">
-    <ng-container *ngIf="asyncResult">
+    @if (asyncResult) {
         <ng-container
             *ngTemplateOutlet="
                 hasFailed ? failed : isInitial ? initialTemplate ?? null : successTemplate;
@@ -7,7 +7,7 @@
             "
         >
         </ng-container>
-    </ng-container>
+    }
 </mtx-loader>
 
 <ng-template #failed>

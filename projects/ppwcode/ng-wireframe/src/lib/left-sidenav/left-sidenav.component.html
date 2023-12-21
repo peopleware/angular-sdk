@@ -1,21 +1,23 @@
-<button class="ppw-sidenav-close-button" *ngIf="showMenuCloseButton" (click)="closeSidebar.emit()">
-    <mat-icon>close</mat-icon>
-</button>
+@if (showMenuCloseButton) {
+    <button class="ppw-sidenav-close-button" (click)="closeSidebar.emit()">
+        <mat-icon>close</mat-icon>
+    </button>
+}
 
 <div class="ppw-sidenav-content-wrapper">
     <div class="flex-column">
-        <ng-container *ngIf="logoUrl">
+        @if (logoUrl) {
             <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo }">
                 <img [ngSrc]="logoUrl" alt="Logo" [height]="logoHeight" [width]="logoWidth" priority="eager" />
             </div>
-        </ng-container>
+        }
         <div class="ppw-sidenav-top-content">
             <ng-content select="[ppw-sidebar-top]"></ng-content>
         </div>
         <div class="ppw-sidenav-navigation-wrapper flex-column">
-            <ng-container *ngFor="let navigationItem of navigationItems">
+            @for (navigationItem of navigationItems; track navigationItem) {
                 <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
-            </ng-container>
+            }
         </div>
     </div>
     <div class="flex-column ppw-sidenav-bottom-content">
@@ -31,28 +33,29 @@
         (click)="onClickNavigationItem(navigationItem)"
     >
         <span class="ppw-sidenav-navigation-item-link">
-            <ng-container *ngIf="navigationItem.icon">
+            @if (navigationItem.icon) {
                 <i [class]="navigationItem.icon" class="ppw-sidenav-navigation-item-icon"></i>
-            </ng-container>
+            }
             <span class="ppw-sidenav-navigation-item-text">{{ navigationItem.label | translate }}</span>
         </span>
-        <i
-            *ngIf="(navigationItem.children?.length ?? 0) > 0"
-            class="fa-solid"
-            [class.fa-angle-down]="!navigationItemIsOpened(navigationItem)"
-            [class.fa-angle-up]="navigationItemIsOpened(navigationItem)"
-        ></i>
+        @if ((navigationItem.children?.length ?? 0) > 0) {
+            <i
+                class="fa-solid"
+                [class.fa-angle-down]="!navigationItemIsOpened(navigationItem)"
+                [class.fa-angle-up]="navigationItemIsOpened(navigationItem)"
+            ></i>
+        }
     </button>
-    <ng-container *ngIf="navigationItemIsOpened(navigationItem) && navigationItem.children">
+    @if (navigationItemIsOpened(navigationItem) && navigationItem.children) {
         <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
-            <ng-container *ngFor="let child of navigationItem.children">
+            @for (child of navigationItem.children; track child) {
                 <ng-container
                     *ngTemplateOutlet="
                         navigationItemTemplate;
                         context: { navigationItem: child, level: (level ?? 1) + 1 }
                     "
                 ></ng-container>
-            </ng-container>
+            }
         </div>
-    </ng-container>
+    }
 </ng-template>

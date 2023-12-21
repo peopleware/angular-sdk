@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import {
     MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
     MatExpansionModule,
@@ -10,7 +10,7 @@ import {
     selector: 'ppw-expandable-card',
     templateUrl: './expandable-card.component.html',
     styleUrls: ['./expandable-card.component.scss', './expandable-card.component.theme.scss'],
-    imports: [CommonModule, MatExpansionModule],
+    imports: [MatExpansionModule],
     encapsulation: ViewEncapsulation.None,
     providers: [
         {

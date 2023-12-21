@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'
 import { PagedAsyncResult } from '@ppwcode/ng-async'
 
 @Component({
     selector: 'ppw-pagination-bar',
     standalone: true,
-    imports: [CommonModule, MatPaginatorModule],
+    imports: [MatPaginatorModule],
     templateUrl: './pagination-bar.component.html'
 })
 export class PaginationBarComponent {

@@ -1,23 +1,20 @@
-<ppw-search-filter
-    *ngIf="searchForm"
-    (search)="performSearch()"
-    (reset)="performReset()"
-    [submitDisabled]="searchForm.invalid"
->
-    <form [formGroup]="searchForm" class="flex-row gap-8">
-        <mat-form-field>
-            <mat-label>firstName</mat-label>
-            <input matInput formControlName="firstName" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>lastName</mat-label>
-            <input matInput formControlName="lastName" />
-        </mat-form-field>
-    </form>
-    <div>
-        <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
-    </div>
-</ppw-search-filter>
+@if (searchForm) {
+    <ppw-search-filter (search)="performSearch()" (reset)="performReset()" [submitDisabled]="searchForm.invalid">
+        <form [formGroup]="searchForm" class="flex-row gap-8">
+            <mat-form-field>
+                <mat-label>firstName</mat-label>
+                <input matInput formControlName="firstName" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>lastName</mat-label>
+                <input matInput formControlName="lastName" />
+            </mat-form-field>
+        </form>
+        <div>
+            <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
+        </div>
+    </ppw-search-filter>
+}
 <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
     <ng-template ppw-async-result-success let-players>
         <mat-card>
@@ -59,10 +56,14 @@
                             </button>
                         </ng-template>
                         <ng-template ppw-column-cell let-record>
-                            <ng-container [ngSwitch]="record.active">
-                                <mat-icon *ngSwitchCase="true">check</mat-icon>
-                                <mat-icon *ngSwitchCase="false">close</mat-icon>
-                            </ng-container>
+                            @switch (record.active) {
+                                @case (true) {
+                                    <mat-icon>check</mat-icon>
+                                }
+                                @case (false) {
+                                    <mat-icon>close</mat-icon>
+                                }
+                            }
                         </ng-template>
                     </ppw-column>
                 </ppw-table>
@@ -77,32 +78,44 @@
     </ng-template>
 </ppw-async-result>
 
-<mat-card *ngIf="playersToSave?.length">
-    <mat-card-header>
-        <mat-card-title>Players after reordering</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div *ngFor="let p of playersToSave">{{ p | json }}</div>
-    </mat-card-content>
-</mat-card>
+@if (playersToSave?.length) {
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Players after reordering</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            @for (p of playersToSave; track p) {
+                <div>{{ p | json }}</div>
+            }
+        </mat-card-content>
+    </mat-card>
+}
 
-<mat-card *ngIf="lastClickedRow">
-    <mat-card-header>
-        <mat-card-title>Last clicked row</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div>{{ lastClickedRow | json }}</div>
-    </mat-card-content>
-</mat-card>
+@if (lastClickedRow) {
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Last clicked row</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div>{{ lastClickedRow | json }}</div>
+        </mat-card-content>
+    </mat-card>
+}
 
-<mat-card *ngIf="selectedPlayersSignal().length">
-    <mat-card-header>
-        <mat-card-title>Selected ID's</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <span *ngFor="let item of selectedPlayersSignal(); let last = last">
-            <span>{{ item.id }}</span>
-            <span *ngIf="!last">, </span>
-        </span>
-    </mat-card-content>
-</mat-card>
+@if (selectedPlayersSignal().length) {
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Selected ID's</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            @for (item of selectedPlayersSignal(); track item; let last = $last) {
+                <span>
+                    <span>{{ item.id }}</span>
+                    @if (!last) {
+                        <span>, </span>
+                    }
+                </span>
+            }
+        </mat-card-content>
+    </mat-card>
+}

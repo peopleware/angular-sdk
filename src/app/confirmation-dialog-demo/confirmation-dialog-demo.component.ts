@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -7,7 +6,7 @@ import { ConfirmationDialogComponent, ConfirmationDialogData } from '@ppwcode/ng
 @Component({
     selector: 'ppw-confirmation-dialog-demo',
     standalone: true,
-    imports: [CommonModule, MatDialogModule, MatButtonModule],
+    imports: [MatDialogModule, MatButtonModule],
     templateUrl: './confirmation-dialog-demo.component.html',
     styleUrls: ['./confirmation-dialog-demo.component.scss']
 })

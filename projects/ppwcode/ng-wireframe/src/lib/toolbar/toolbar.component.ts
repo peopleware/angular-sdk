@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -10,7 +9,7 @@ import { combineLatest, filter, map, startWith } from 'rxjs'
 @Component({
     selector: 'ppw-toolbar',
     standalone: true,
-    imports: [CommonModule, MatIconModule, MatMenuModule, TranslateModule, MatButtonModule],
+    imports: [MatIconModule, MatMenuModule, TranslateModule, MatButtonModule],
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
