@@ -1,10 +1,10 @@
 {
     "name": "@ppwcode/ng-router",
-    "version": "0.0.64",
+    "version": "0.0.65",
     "peerDependencies": {
         "@angular/common": "^17.0.0",
         "@angular/core": "^17.0.0",
-        "@ppwcode/ng-common": "^0.0.64"
+        "@ppwcode/ng-common": "^0.0.65"
     },
     "dependencies": {
         "tslib": "^2.3.0"
