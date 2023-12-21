@@ -18,7 +18,7 @@
     </div>
 </ppw-search-filter>
 <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
-    <ng-template #success let-players>
+    <ng-template ppw-async-result-success let-players>
         <mat-card>
             <mat-card-content>
                 <ppw-table
