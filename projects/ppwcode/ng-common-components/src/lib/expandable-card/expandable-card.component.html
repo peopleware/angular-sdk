@@ -4,7 +4,8 @@
         [expanded]="openAsExpanded"
         [disabled]="!canBeCollapsed"
         (opened)="panelOpenState = true"
-        (closed)="panelOpenState = canBeCollapsed">
+        (closed)="panelOpenState = canBeCollapsed"
+    >
         <mat-expansion-panel-header class="ppw-expandable-panel-header">
             <mat-panel-title *ngIf="cardTitle">{{ cardTitle }}</mat-panel-title>
         </mat-expansion-panel-header>

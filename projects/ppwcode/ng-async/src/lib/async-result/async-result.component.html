@@ -4,7 +4,8 @@
             *ngTemplateOutlet="
                 hasFailed ? failed : isInitial ? initialTemplate ?? null : successTemplate;
                 context: { $implicit: asyncResult }
-            ">
+            "
+        >
         </ng-container>
     </ng-container>
 </mtx-loader>
@@ -12,5 +13,6 @@
 <ng-template #failed>
     <ppw-message-bar
         [message]="asyncResult!.error?.message ?? '' | translate"
-        [severity]="errorSeverity"></ppw-message-bar>
+        [severity]="errorSeverity"
+    ></ppw-message-bar>
 </ng-template>

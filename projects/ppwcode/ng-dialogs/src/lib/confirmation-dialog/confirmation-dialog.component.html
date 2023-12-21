@@ -3,7 +3,8 @@
 <mat-dialog-content
     class="mat-typography"
     [translate]="data.bodyKey"
-    [translateParams]="data.bodyParams"></mat-dialog-content>
+    [translateParams]="data.bodyParams"
+></mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-stroked-button [mat-dialog-close]="false" *ngIf="!data.allowConfirmOnly">
         <i class="fa-solid fa-ban"></i> {{ data.cancelKey | translate }}

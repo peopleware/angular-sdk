@@ -45,10 +45,13 @@ export class SignalStore<T extends Record<string, unknown>> {
     public selectMany<P>(keys: (keyof T)[], cb: (obj: SpecificKeysOfObj<T>) => P): Signal<P>
     public selectMany<P>(keys: (keyof T)[], cb?: (obj: SpecificKeysOfObj<T>) => P): Signal<P | SpecificKeysOfObj<T>> {
         return computed(() => {
-            const state = keys.reduce((obj, key) => {
-                obj[key] = this.throwOrReturnSignals()[key]()
-                return obj
-            }, {} as Partial<SpecificKeysOfObj<T>>) as SpecificKeysOfObj<T>
+            const state = keys.reduce(
+                (obj, key) => {
+                    obj[key] = this.throwOrReturnSignals()[key]()
+                    return obj
+                },
+                {} as Partial<SpecificKeysOfObj<T>>
+            ) as SpecificKeysOfObj<T>
             return cb ? (cb(state) as P) : (state as SpecificKeysOfObj<T>)
         })
     }
@@ -60,10 +63,13 @@ export class SignalStore<T extends Record<string, unknown>> {
      * @param keys: The keys that are related to the pieces of state we want to pick
      */
     public pick(keys: (keyof T)[]): SpecificKeysOfObjAsSignals<T> {
-        return keys.reduce((obj, key) => {
-            obj[key] = this.throwOrReturnSignals()[key]
-            return obj
-        }, {} as Partial<SpecificKeysOfObjAsSignals<T>>) as SpecificKeysOfObjAsSignals<T>
+        return keys.reduce(
+            (obj, key) => {
+                obj[key] = this.throwOrReturnSignals()[key]
+                return obj
+            },
+            {} as Partial<SpecificKeysOfObjAsSignals<T>>
+        ) as SpecificKeysOfObjAsSignals<T>
     }
 
     /**

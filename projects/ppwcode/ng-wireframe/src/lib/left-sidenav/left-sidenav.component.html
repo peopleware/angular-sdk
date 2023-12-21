@@ -28,7 +28,8 @@
         type="button"
         class="ppw-sidenav-navigation-item ppw-sidenav-navigation-item-level-{{ level ?? 1 }}"
         [class.navigation-item-disabled]="navigationItem.isEnabled === false"
-        (click)="onClickNavigationItem(navigationItem)">
+        (click)="onClickNavigationItem(navigationItem)"
+    >
         <span class="ppw-sidenav-navigation-item-link">
             <ng-container *ngIf="navigationItem.icon">
                 <i [class]="navigationItem.icon" class="ppw-sidenav-navigation-item-icon"></i>
@@ -39,7 +40,8 @@
             *ngIf="(navigationItem.children?.length ?? 0) > 0"
             class="fa-solid"
             [class.fa-angle-down]="!navigationItemIsOpened(navigationItem)"
-            [class.fa-angle-up]="navigationItemIsOpened(navigationItem)"></i>
+            [class.fa-angle-up]="navigationItemIsOpened(navigationItem)"
+        ></i>
     </button>
     <ng-container *ngIf="navigationItemIsOpened(navigationItem) && navigationItem.children">
         <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
@@ -48,7 +50,8 @@
                     *ngTemplateOutlet="
                         navigationItemTemplate;
                         context: { navigationItem: child, level: (level ?? 1) + 1 }
-                    "></ng-container>
+                    "
+                ></ng-container>
             </ng-container>
         </div>
     </ng-container>

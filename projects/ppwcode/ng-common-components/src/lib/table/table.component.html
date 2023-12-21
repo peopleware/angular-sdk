@@ -11,7 +11,8 @@
         [trackBy]="trackByFn"
         cdkDropList
         [cdkDropListData]="dataSource"
-        (cdkDropListDropped)="dropTable($event)">
+        (cdkDropListDropped)="dropTable($event)"
+    >
         <!-- Draghandle column -->
         <ng-container matColumnDef="rowDrag" *ngIf="enableRowDrag">
             <th mat-header-cell *matHeaderCellDef></th>
@@ -37,7 +38,8 @@
                     [style.width]="options?.columns?.widths?.['rowSelection']"
                     (change)="$event ? masterToggle() : null"
                     [checked]="isAllSelected()"
-                    [indeterminate]="isSomeSelected()">
+                    [indeterminate]="isSomeSelected()"
+                >
                 </mat-checkbox>
             </th>
             <td mat-cell *matCellDef="let row">
@@ -45,7 +47,8 @@
                     color="primary"
                     [style.width]="options?.columns?.widths?.['rowSelection']"
                     (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
+                    [checked]="selection.isSelected(row)"
+                >
                 </mat-checkbox>
             </td>
         </ng-container>
@@ -56,7 +59,8 @@
                 [style.width]="options?.columns?.widths?.[column.name]"
                 [ngStyle]="options?.header?.styles?.[column.name]?.()"
                 *matHeaderCellDef
-                class="ppw-column-type-{{ column.type }}">
+                class="ppw-column-type-{{ column.type }}"
+            >
                 <ng-container *ngIf="headerTemplates[column.name]; else textTemplateContainer">
                     <ng-container *ngTemplateOutlet="headerTemplates[column.name]"></ng-container>
                 </ng-container>
@@ -70,13 +74,15 @@
                 [ngStyle]="options?.columns?.styles?.[column.name]?.(record.initialRecord)"
                 *matCellDef="let record; let idx = index"
                 (click)="executeRowClick(record.initialRecord, column.name)"
-                class="ppw-column-type-{{ column.type }}">
+                class="ppw-column-type-{{ column.type }}"
+            >
                 <ng-container
                     ppwDynamicCell
                     [rowIndex]="idx"
                     [column]="column"
                     [record]="record.initialRecord"
-                    [value]="record.mappedValues[column.name]"></ng-container>
+                    [value]="record.mappedValues[column.name]"
+                ></ng-container>
             </td>
         </ng-container>
 
@@ -89,7 +95,8 @@
             [cdkDragDisabled]="dragDisabled"
             (cdkDragReleased)="dragDisabled = true"
             [class.highlight]="options?.rows?.highlightOnHover"
-            [class.clickable]="options?.rows?.onClick"></tr>
+            [class.clickable]="options?.rows?.onClick"
+        ></tr>
         <div *cdkDragPlaceholder></div>
     </table>
 </section>

@@ -188,7 +188,8 @@ export function getDateFnsFormatter(dateFormat: string): (value: Date) => string
                 [label]="column.label"
                 [type]="column.type"
                 [valueRetrieval]="column.valueRetrieval"
-                [dateFormatFn]="column.dateFormatter"></ppw-column>
+                [dateFormatFn]="column.dateFormatter"
+            ></ppw-column>
         </ppw-table>
     `
 })

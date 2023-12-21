@@ -233,8 +233,8 @@ export class TableComponent<TRecord>
                             numberColumn.formatFn && mappedNumberValue !== null && mappedNumberValue !== undefined
                                 ? numberColumn.formatFn(mappedNumberValue as number)
                                 : mappedNumberValue !== null && mappedNumberValue !== undefined
-                                ? mappedNumberValue
-                                : undefined
+                                  ? mappedNumberValue
+                                  : undefined
                         break
                     }
                     case ColumnType.Template: {
