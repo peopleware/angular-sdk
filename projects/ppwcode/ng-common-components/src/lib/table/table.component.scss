@@ -1,10 +1,11 @@
 @use '@angular/material' as mat;
 
 .ppw-table-container {
+    overflow: auto;
+
     &.fixed-height {
         max-height: var(--ppw-table-height, auto);
         padding-right: 16px;
-        overflow: auto;
     }
 }
 
