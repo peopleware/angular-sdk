@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs'
+import { STATUS_CODE_MAP } from '../constants/error-codes'
 import { expectHttpError } from '../rxjs-operators/expect-http-error'
 import { createEmptyPagedEntities, PagedEntities } from './paged-entities'
 import { createFailedPagedAsyncResult, createSuccessPagedAsyncResult } from './paged-async-result'
@@ -63,7 +64,7 @@ export const extractHttpError = (httpError: HttpErrorResponse): Error => {
         }
     }
 
-    return new Error(httpError.error ?? httpError.statusText)
+    return new Error(httpError.error ?? STATUS_CODE_MAP.get(httpError.status) ?? httpError.statusText)
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
