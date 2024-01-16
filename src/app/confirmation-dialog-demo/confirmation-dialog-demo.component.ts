@@ -16,8 +16,8 @@ export class ConfirmationDialogDemoComponent {
     public openConfirmationDialog(): void {
         this.matDialog.open(ConfirmationDialogComponent, {
             data: {
-                titleKey: 'Confirm',
-                bodyKey: 'Are you sure',
+                titleKey: 'confirmation-dialog.title',
+                bodyKey: 'confirmation-dialog.body',
 
                 confirmationKey: 'OK',
                 cancelKey: 'Cancel',

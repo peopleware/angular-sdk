@@ -2,3 +2,7 @@
     background: var(--ppw-confirmation-dialog-header-background-color);
     color: var(--ppw-confirmation-dialog-header-text-color);
 }
+
+mat-dialog-content {
+    white-space: pre-wrap;
+}

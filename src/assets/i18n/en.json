@@ -1,5 +1,9 @@
 {
     "APP_TITLE": "PPW Code",
+    "confirmation-dialog": {
+        "body": "Are you sure you want to execute this action?\n\nThis action cannot be undone.",
+        "title": "Confirm execution?"
+    },
     "navigation": {
         "confirmation_dialog": "Confirmation Dialog",
         "expandable_card": "Expandable Card",
