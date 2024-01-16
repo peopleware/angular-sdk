@@ -6,7 +6,19 @@ import { createFailedPagedAsyncResult, createSuccessPagedAsyncResult } from './m
 import { createEmptyPagedEntities, PagedEntities } from './models/paged-entities'
 import { expectHttpError } from './rxjs-operators/expect-http-error'
 
+declare global {
+    interface Window {
+        ppwcodeHttpErrorExtractor?: (httpError: HttpErrorResponse) => Error
+    }
+}
+
 export const extractHttpError = (httpError: HttpErrorResponse): Error => {
+    // When a global error handler has been defined in the application itself, we should use that one instead of the
+    // default implementation that we provided here in the SDK.
+    if (window.ppwcodeHttpErrorExtractor) {
+        return window.ppwcodeHttpErrorExtractor(httpError)
+    }
+
     if (typeof httpError.error === 'object' && httpError.error !== null) {
         if (typeof httpError.error.errors === 'object') {
             const errorKeys = Object.keys(httpError.error.errors)

@@ -1,25 +1,12 @@
-# NgAsync
+# @ppwcode/ng-async
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+## Override default error extraction
 
-## Code scaffolding
+The SDK comes with a default implementation to extract an error from a response. To override this, add an implementation for
+`window.ppwcodeHttpErrorExtractor` in your application's `main.ts` file. For example:
 
-Run `ng generate component component-name --project ng-async` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-async`.
-
-> Note: Don't forget to add `--project ng-async` or else it will be added to the default project in your `angular.json` file.
-
-## Build
-
-Run `ng build ng-async` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ng-async`, go to the dist folder `cd dist/ng-async` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ng-async` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```typescript
+window.ppwcodeHttpErrorExtractor = (response: HttpErrorResponse): Error => {
+    return new Error(response.statusText)
+}
+```
