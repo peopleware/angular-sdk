@@ -1,9 +1,22 @@
-<ppw-expandable-card [cardTitle]="'Demo card which cannot be collapsed'" [canBeCollapsed]="false">
+<ppw-expandable-card
+    [cardTitle]="'Demo card which cannot be collapsed'"
+    [cardDescription]="'Description as property'"
+    [canBeCollapsed]="false"
+>
     <div>card contents</div>
 </ppw-expandable-card>
-<ppw-expandable-card [cardTitle]="'Demo card which can be collapsed'">
+<ppw-expandable-card>
+    <div ppw-expandable-card-title>
+        <span>Demo card which can be collapsed</span>
+    </div>
+    <div ppw-expandable-card-description class="flex-grow-1 flex-row justify-content-end">
+        <span>Description as content</span>
+    </div>
     <div>card contents</div>
 </ppw-expandable-card>
 <ppw-expandable-card [cardTitle]="'Demo card which can be opened'" [openAsExpanded]="false">
     <div>card contents</div>
+</ppw-expandable-card>
+<ppw-expandable-card>
+    <div>this is a card with a title or description in the header</div>
 </ppw-expandable-card>

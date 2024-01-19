@@ -7,9 +7,20 @@
         (closed)="panelOpenState = canBeCollapsed"
     >
         <mat-expansion-panel-header class="ppw-expandable-panel-header">
-            @if (cardTitle) {
-                <mat-panel-title>{{ cardTitle }}</mat-panel-title>
-            }
+            <mat-panel-title>
+                @if (cardTitle) {
+                    {{ cardTitle }}
+                } @else {
+                    <ng-content select="[ppw-expandable-card-title]"> </ng-content>
+                }
+            </mat-panel-title>
+            <mat-panel-description>
+                @if (cardDescription) {
+                    {{ cardDescription }}
+                } @else {
+                    <ng-content select="[ppw-expandable-card-description]"> </ng-content>
+                }
+            </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-content></ng-content>
     </mat-expansion-panel>

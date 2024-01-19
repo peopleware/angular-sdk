@@ -22,6 +22,7 @@ import {
 })
 export class ExpandableCardComponent {
     @Input() public cardTitle?: string
+    @Input() public cardDescription?: string
     @Input() public canBeCollapsed = true
     @Input() public openAsExpanded = true
     public panelOpenState = true
