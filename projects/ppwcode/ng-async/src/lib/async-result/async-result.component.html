@@ -1,12 +1,18 @@
 <mtx-loader [loading]="pending" type="progressbar">
     @if (asyncResult) {
-        <ng-container
-            *ngTemplateOutlet="
-                hasFailed ? failed : isInitial ? initialTemplate ?? null : successTemplate;
-                context: { $implicit: asyncResult }
-            "
-        >
-        </ng-container>
+        @switch (asyncResult.status) {
+            @case ('failed') {
+                <ng-container *ngTemplateOutlet="failed; context: { $implicit: asyncResult }"></ng-container>
+            }
+            @case ('success') {
+                <ng-container *ngTemplateOutlet="successTemplate; context: { $implicit: asyncResult }"></ng-container>
+            }
+            @case ('initial') {
+                <ng-container
+                    *ngTemplateOutlet="initialTemplate ?? null; context: { $implicit: asyncResult }"
+                ></ng-container>
+            }
+        }
     }
 </mtx-loader>
 

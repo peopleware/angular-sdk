@@ -14,13 +14,5 @@ export class AsyncResultComponent {
     @ContentChild(PpwAsyncResultSuccessDirective, { read: TemplateRef }) public successTemplate!: TemplateRef<unknown>
     @ContentChild(PpwAsyncResultInitialDirective, { read: TemplateRef }) public initialTemplate?: TemplateRef<unknown>
 
-    public get hasFailed(): boolean {
-        return this.asyncResult?.status === 'failed'
-    }
-
-    public get isInitial(): boolean {
-        return this.asyncResult?.status === 'initial'
-    }
-
     public readonly errorSeverity: Severity = Severity.error
 }
