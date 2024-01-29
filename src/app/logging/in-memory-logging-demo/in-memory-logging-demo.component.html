@@ -1,0 +1,36 @@
+<div class="flex-column gap-16 page-wrapper">
+    <ppw-message-bar
+        [severity]="Severity.info"
+        message="
+        In memory logging is useful for testing purposes. In production, our applications log to the console, but in
+        testing, we would need to spy on the console methods. Spying on console methods can interfere with the logging
+        of the unit test runner or interfere with other test output.
+        "
+    ></ppw-message-bar>
+    <h2>Usage</h2>
+    <pre>
+        TestBed.configureTestingModule(&lcub;
+            providers: [provideInMemoryLogger()]
+        &rcub;)
+    </pre>
+    <h2>Demo</h2>
+    <div class="flex-row gap-16">
+        <div class="flex-column gap-8">
+            <button mat-stroked-button (click)="addLogLine('debug')">Add debug line</button>
+            <button mat-stroked-button (click)="addLogLine('info')">Add info line</button>
+            <button mat-stroked-button (click)="addLogLine('log')">Add log line</button>
+            <button mat-stroked-button (click)="addLogLine('warn')">Add warning line</button>
+            <button mat-stroked-button (click)="addLogLine('error')">Add error line</button>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="flex-column flex-grow-1 gap-16">
+            <ppw-table [data]="logLines" [options]="options" [trackBy]="trackLogLine">
+                <ppw-column type="text" label="type" name="type"></ppw-column>
+                <ppw-column type="text" label="message" name="message"></ppw-column>
+            </ppw-table>
+            <div class="flex-row">
+                <button mat-stroked-button (click)="clear()">Clear log</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,6 +49,11 @@ export class AppComponent {
                 label: this.translate.instant('navigation.message_bar'),
                 icon: 'fa-solid fa-triangle-exclamation',
                 fullRouterPath: '/message-bar'
+            },
+            {
+                label: this.translate.instant('navigation.in_memory_logging'),
+                icon: 'fa-solid fa-file-code',
+                fullRouterPath: '/in-memory-logging'
             }
         ]
     }

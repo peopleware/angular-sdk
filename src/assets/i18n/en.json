@@ -8,6 +8,7 @@
         "confirmation_dialog": "Confirmation Dialog",
         "expandable_card": "Expandable Card",
         "filter_table": "Filter Table",
+        "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar"
     }
 }
