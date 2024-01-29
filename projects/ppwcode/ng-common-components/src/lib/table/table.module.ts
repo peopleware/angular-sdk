@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragHandle, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop'
-import { NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common'
+import { NgComponentOutlet, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatRippleModule } from '@angular/material/core'
@@ -9,10 +9,17 @@ import { DynamicCellDirective } from './cells/directives/dynamic-cell.directive'
 import { PpwColumnCellDirective } from './column-directives/ppw-column-cell.directive'
 import { PpwColumnHeaderDirective } from './column-directives/ppw-column-header.directive'
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
+import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.directive'
 import { TableComponent } from './table.component'
 
 @NgModule({
-    declarations: [TableComponent, PpwColumnDirective, PpwColumnHeaderDirective, PpwColumnCellDirective],
+    declarations: [
+        TableComponent,
+        PpwColumnDirective,
+        PpwColumnHeaderDirective,
+        PpwColumnCellDirective,
+        PpwEmptyTablePageDirective
+    ],
     imports: [
         MatTableModule,
         CdkDropList,
@@ -26,8 +33,15 @@ import { TableComponent } from './table.component'
         NgIf,
         NgForOf,
         NgTemplateOutlet,
-        CdkDragPlaceholder
+        CdkDragPlaceholder,
+        NgComponentOutlet
     ],
-    exports: [TableComponent, PpwColumnDirective, PpwColumnHeaderDirective, PpwColumnCellDirective]
+    exports: [
+        TableComponent,
+        PpwColumnDirective,
+        PpwColumnHeaderDirective,
+        PpwColumnCellDirective,
+        PpwEmptyTablePageDirective
+    ]
 })
 export class PpwTableModule {}

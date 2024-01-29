@@ -28,6 +28,10 @@
             }
         }
     }
+
+    .ppw-table-no-data-row {
+        padding: var(--ppw-table-no-data-row-padding, 8px);
+    }
 }
 
 .ppw-column-type-number {

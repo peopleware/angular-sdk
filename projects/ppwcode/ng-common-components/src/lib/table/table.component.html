@@ -26,8 +26,8 @@
                         (touchend)="dragDisabled = true"
                         (mousedown)="dragDisabled = false"
                         (mouseup)="dragDisabled = true"
-                        >drag_indicator</mat-icon
-                    >
+                        >drag_indicator
+                    </mat-icon>
                 </td>
             </ng-container>
         }
@@ -38,6 +38,7 @@
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox
                         color="primary"
+                        [disabled]="dataSource.data.length === 0"
                         [style.width]="options?.columns?.widths?.['rowSelection']"
                         (change)="$event ? masterToggle() : null"
                         [checked]="isAllSelected()"
@@ -102,6 +103,18 @@
             [class.highlight]="options?.rows?.highlightOnHover"
             [class.clickable]="options?.rows?.onClick"
         ></tr>
+        <tr *matNoDataRow>
+            <td
+                [attr.colspan]="columnNames.length + (enableRowSelection ? 1 : 0) + (enableRowDrag ? 1 : 0)"
+                class="ppw-table-no-data-row"
+            >
+                @if (emptyPageTemplate) {
+                    <ng-container *ngTemplateOutlet="emptyPageTemplate"></ng-container>
+                } @else if (emptyPageComponent) {
+                    <ng-container *ngComponentOutlet="emptyPageComponent"></ng-container>
+                }
+            </td>
+        </tr>
         <div *cdkDragPlaceholder></div>
     </table>
 </section>

@@ -6,6 +6,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -19,6 +20,7 @@ import {
     SimpleChanges,
     TemplateRef,
     TrackByFunction,
+    Type,
     ViewChild
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
@@ -31,7 +33,9 @@ import { DateColumn } from './columns/date-column'
 import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
 import { TextColumn } from './columns/text-column'
+import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.directive'
 import { PpwTableOptions } from './options/table-options'
+import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
 
 @Component({
     selector: 'ppw-table',
@@ -60,6 +64,7 @@ export class TableComponent<TRecord>
 {
     #changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef)
     #elementRef: ElementRef = inject(ElementRef)
+    #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
 
     public columns: Array<Column<TRecord, unknown>> = []
     public headerTemplates: Record<string | keyof TRecord, TemplateRef<unknown>> = {} as Record<
@@ -73,8 +78,13 @@ export class TableComponent<TRecord>
     @Input() public options?: PpwTableOptions<TRecord>
     @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
     @Output() public orderChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
+    @ContentChild(PpwEmptyTablePageDirective, { read: TemplateRef }) public emptyPageTemplate?: TemplateRef<unknown>
     @ContentChildren(PpwColumnDirective<TRecord>) public columnDirectives!: QueryList<PpwColumnDirective<TRecord>>
     @ViewChild('dataTable') table?: MatTable<TRecord>
+
+    public get emptyPageComponent(): Type<unknown> | undefined {
+        return this.#tableDefaultOptions?.emptyPageComponent
+    }
 
     /** Gets whether a custom height has been set by the --ppw-table-height CSS variable. */
     public get hasFixedHeight(): boolean {
@@ -101,6 +111,10 @@ export class TableComponent<TRecord>
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numRows = this.dataSource.data.length
+        if (numRows === 0) {
+            return false
+        }
+
         const selectedRecords = this.dataSource.data.filter((record: TableRecord<TRecord>) => {
             return this.selection.isSelected(record)
         })
