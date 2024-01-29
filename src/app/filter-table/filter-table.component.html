@@ -66,6 +66,9 @@
                             }
                         </ng-template>
                     </ppw-column>
+                    <ng-template ppw-empty-page>
+                        <p>The current page has no data to display.</p>
+                    </ng-template>
                 </ppw-table>
                 <ppw-pagination-bar
                     [pagedAsyncResult]="players"
