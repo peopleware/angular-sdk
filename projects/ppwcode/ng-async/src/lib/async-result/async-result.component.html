@@ -5,7 +5,19 @@
                 <ng-container *ngTemplateOutlet="failed; context: { $implicit: asyncResult }"></ng-container>
             }
             @case ('success') {
-                <ng-container *ngTemplateOutlet="successTemplate; context: { $implicit: asyncResult }"></ng-container>
+                @if (asyncResult.entity === null) {
+                    @if (emptyTemplate) {
+                        <ng-container
+                            *ngTemplateOutlet="emptyTemplate; context: { $implicit: asyncResult }"
+                        ></ng-container>
+                    } @else if (asyncResultDefaultEmptyComponent) {
+                        <ng-container *ngComponentOutlet="asyncResultDefaultEmptyComponent"></ng-container>
+                    }
+                } @else {
+                    <ng-container
+                        *ngTemplateOutlet="successTemplate; context: { $implicit: asyncResult }"
+                    ></ng-container>
+                }
             }
             @case ('initial') {
                 <ng-container

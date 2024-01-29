@@ -3,12 +3,26 @@ import { NgModule } from '@angular/core'
 import { MtxLoaderModule } from '@ng-matero/extensions/loader'
 import { TranslateModule } from '@ngx-translate/core'
 import { MessageBarComponent } from '@ppwcode/ng-common-components'
-import { PpwAsyncResultInitialDirective, PpwAsyncResultSuccessDirective } from './async-result-directives'
+import {
+    PpwAsyncResultEmptyDirective,
+    PpwAsyncResultInitialDirective,
+    PpwAsyncResultSuccessDirective
+} from './async-result-directives'
 import { AsyncResultComponent } from './async-result.component'
 
 @NgModule({
-    declarations: [AsyncResultComponent, PpwAsyncResultInitialDirective, PpwAsyncResultSuccessDirective],
-    exports: [AsyncResultComponent, PpwAsyncResultInitialDirective, PpwAsyncResultSuccessDirective],
+    declarations: [
+        AsyncResultComponent,
+        PpwAsyncResultInitialDirective,
+        PpwAsyncResultSuccessDirective,
+        PpwAsyncResultEmptyDirective
+    ],
+    exports: [
+        AsyncResultComponent,
+        PpwAsyncResultInitialDirective,
+        PpwAsyncResultSuccessDirective,
+        PpwAsyncResultEmptyDirective
+    ],
     imports: [CommonModule, MessageBarComponent, TranslateModule, MtxLoaderModule]
 })
 export class AsyncResultModule {}
