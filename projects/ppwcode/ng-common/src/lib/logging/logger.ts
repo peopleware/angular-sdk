@@ -7,6 +7,7 @@ export const PPW_LOGGER = new InjectionToken<PpwLogger>('PpwLogger')
 
 export interface PpwLogger {
     readonly debugMode: boolean
+    readonly prefix: string
 
     debug(message?: any, ...optionalParams: any[]): void
 
@@ -20,32 +21,39 @@ export interface PpwLogger {
 }
 
 export class Logger implements PpwLogger {
-    constructor(public readonly debugMode: boolean) {}
+    constructor(
+        public readonly prefix: string,
+        public readonly debugMode: boolean
+    ) {}
 
     public debug(message?: any, ...optionalParams: any[]): void {
         if (this.debugMode) {
-            console.debug(message, ...optionalParams)
+            console.debug(this.prefixMessage(message), ...optionalParams)
         }
     }
 
     public info(message?: any, ...optionalParams: any[]): void {
-        console.info(message, ...optionalParams)
+        console.info(this.prefixMessage(message), ...optionalParams)
     }
 
     public log(message?: any, ...optionalParams: any[]): void {
-        console.log(message, ...optionalParams)
+        console.log(this.prefixMessage(message), ...optionalParams)
     }
 
     public warn(message?: any, ...optionalParams: any[]): void {
-        console.warn(message, ...optionalParams)
+        console.warn(this.prefixMessage(message), ...optionalParams)
     }
 
     public error(message?: any, ...optionalParams: any[]): void {
-        console.error(message, ...optionalParams)
+        console.error(this.prefixMessage(message), ...optionalParams)
+    }
+
+    private prefixMessage(message?: any): string {
+        return this.prefix ? `${this.prefix} ${message}` : message
     }
 }
 
 export const provideLogger = (options?: PpwLoggerOptions): FactoryProvider => ({
     provide: PPW_LOGGER,
-    useFactory: () => new Logger(options?.debug ?? false)
+    useFactory: () => new Logger(options?.prefix ?? '', options?.debug ?? false)
 })

@@ -13,36 +13,43 @@ export interface InMemoryLogLine {
 export class InMemoryLogger implements PpwLogger {
     public readonly logLines: Array<InMemoryLogLine> = []
 
-    constructor(public readonly debugMode: boolean) {}
+    constructor(
+        public readonly prefix: string,
+        public readonly debugMode: boolean
+    ) {}
 
     public debug(message?: any, ...optionalParams: any[]): void {
         if (this.debugMode) {
-            this.logLines.push({ type: 'debug', message, optionalParams })
+            this.logLines.push({ type: 'debug', message: this.prefixMessage(message), optionalParams })
         }
     }
 
     public info(message?: any, ...optionalParams: any[]): void {
-        this.logLines.push({ type: 'info', message, optionalParams })
+        this.logLines.push({ type: 'info', message: this.prefixMessage(message), optionalParams })
     }
 
     public log(message?: any, ...optionalParams: any[]): void {
-        this.logLines.push({ type: 'log', message, optionalParams })
+        this.logLines.push({ type: 'log', message: this.prefixMessage(message), optionalParams })
     }
 
     public warn(message?: any, ...optionalParams: any[]): void {
-        this.logLines.push({ type: 'warn', message, optionalParams })
+        this.logLines.push({ type: 'warn', message: this.prefixMessage(message), optionalParams })
     }
 
     public error(message?: any, ...optionalParams: any[]): void {
-        this.logLines.push({ type: 'error', message, optionalParams })
+        this.logLines.push({ type: 'error', message: this.prefixMessage(message), optionalParams })
     }
 
     public clear(): void {
         this.logLines.splice(0, this.logLines.length)
     }
+
+    private prefixMessage(message?: any): string {
+        return this.prefix ? `${this.prefix} ${message}` : message
+    }
 }
 
 export const provideInMemoryLogger = (options?: PpwLoggerOptions): FactoryProvider => ({
     provide: PPW_LOGGER,
-    useFactory: () => new InMemoryLogger(options?.debug ?? false)
+    useFactory: () => new InMemoryLogger(options?.prefix ?? '', options?.debug ?? false)
 })
