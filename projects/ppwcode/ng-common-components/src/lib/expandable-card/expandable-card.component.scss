@@ -28,6 +28,14 @@ mat-accordion.ppw-expandable-card-accordion {
             border-bottom-right-radius: 0;
         }
 
+        mat-expansion-panel-header.ppw-expandable-panel-header {
+            height: var(--ppw-expandable-card-header-height-collapsed);
+
+            &[aria-expanded='true'] {
+                height: var(--ppw-expandable-card-header-height-expanded);
+            }
+        }
+
         mat-expansion-panel-header.ppw-expandable-panel-header .mat-expansion-panel-header-description {
             justify-content: end;
         }
