@@ -20,3 +20,28 @@
 <ppw-expandable-card>
     <div>this is a card with a title or description in the header</div>
 </ppw-expandable-card>
+
+<ppw-expandable-card [openAsExpanded]="false">
+    <div ppw-expandable-card-title class="flex-grow-1">
+        <span>Demo card which can be opened with full-width title</span>
+    </div>
+    <div>card contents</div>
+</ppw-expandable-card>
+<ppw-expandable-card [openAsExpanded]="false">
+    <div ppw-expandable-card-description class="flex-grow-1">
+        <span>Demo card which can be opened with full-width description</span>
+    </div>
+    <div>card contents</div>
+</ppw-expandable-card>
+<ppw-expandable-card
+    [cardTitle]="'Demo card which can be opened with a full-width title passed as parameter'"
+    [openAsExpanded]="false"
+>
+    <div>card contents</div>
+</ppw-expandable-card>
+<ppw-expandable-card
+    [cardDescription]="'Demo card which can be opened with a full-width description passed as parameter'"
+    [openAsExpanded]="false"
+>
+    <div>card contents</div>
+</ppw-expandable-card>
