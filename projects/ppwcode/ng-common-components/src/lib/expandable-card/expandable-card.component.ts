@@ -1,10 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core'
 
-import {
-    MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
-    MatExpansionModule,
-    MatExpansionPanelDefaultOptions
-} from '@angular/material/expansion'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 @Component({
     selector: 'ppw-expandable-card',
@@ -12,12 +8,6 @@ import {
     styleUrls: ['./expandable-card.component.scss', './expandable-card.component.theme.scss'],
     imports: [MatExpansionModule],
     encapsulation: ViewEncapsulation.None,
-    providers: [
-        {
-            provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
-            useValue: { expandedHeight: '32px', collapsedHeight: '32px' } as MatExpansionPanelDefaultOptions
-        }
-    ],
     standalone: true
 })
 export class ExpandableCardComponent {

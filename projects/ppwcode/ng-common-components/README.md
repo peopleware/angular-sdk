@@ -44,11 +44,13 @@ The following CSS variables are available for theming. Just add them to the `bod
 
 #### ppw-expandable-card
 
-| Variable name                                   | Extra info |
-| ----------------------------------------------- | ---------- |
-| `--ppw-expandable-card-header-background-color` |            |
-| `--ppw-expandable-card-header-indicator-color`  |            |
-| `--ppw-expandable-card-header-text-color`       |            |
+| Variable name                                   | Extra info       |
+| ----------------------------------------------- | ---------------- |
+| `--ppw-expandable-card-header-background-color` |                  |
+| `--ppw-expandable-card-header-indicator-color`  |                  |
+| `--ppw-expandable-card-header-text-color`       |                  |
+| `--ppw-expandable-card-header-height-collapsed` | Defaults to 32px |
+| `--ppw-expandable-card-header-height-expanded`  | Defaults to 32px |
 
 #### ppw-message-bar
 
