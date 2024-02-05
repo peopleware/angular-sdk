@@ -37,5 +37,14 @@ mat-accordion.ppw-expandable-card-accordion {
                 padding-top: 16px;
             }
         }
+
+        .ppw-expandable-card-title:empty,
+        .ppw-expandable-card-description:empty {
+            display: none;
+        }
+        .ppw-expandable-card-title:empty + .ppw-expandable-card-description:not(:empty),
+        .ppw-expandable-card-title:not(:empty):has(+ .ppw-expandable-card-description:empty) {
+            flex-grow: 1;
+        }
     }
 }
