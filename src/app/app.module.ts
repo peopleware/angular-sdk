@@ -12,6 +12,7 @@ import { TitleStrategy } from '@angular/router'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { PPW_ASYNC_RESULT_DEFAULT_OPTIONS, PpwAsyncResultDefaultOptions } from '@ppwcode/ng-async'
+import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
 import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
@@ -69,7 +70,21 @@ const ppwcodeComponents = [WireframeComponent]
         {
             provide: PPW_ASYNC_RESULT_DEFAULT_OPTIONS,
             useValue: { emptyResultComponent: EmptyAsyncResultComponent } as PpwAsyncResultDefaultOptions
-        }
+        },
+        provideGlobalErrorHandler({
+            errorDialogOptions: {
+                allowIgnore: true,
+                messages: {
+                    title: 'global-error-dialog.title',
+                    reload: 'global-error-dialog.reload',
+                    ignore: 'global-error-dialog.ignore',
+                    copySingleError: 'global-error-dialog.copy-single-error',
+                    copyAllErrors: 'global-error-dialog.copy-all-errors',
+                    goHome: 'global-error-dialog.go-home',
+                    singleErrorDetails: 'global-error-dialog.single-error-details'
+                }
+            }
+        })
     ],
     bootstrap: [AppComponent]
 })

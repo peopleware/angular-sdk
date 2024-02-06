@@ -1,0 +1,32 @@
+<div class="flex-column gap-16 padding-8">
+    <ppw-message-bar
+        [severity]="Severity.info"
+        message="
+        A global error handler catches exceptions that are uncaught by the application and displays them in a dialog.
+        Its purpose is to highlight errors that are still present in the application and need to be fixed. The dialog
+        should never occur on a production environment, but it is useful for development and testing.
+        "
+    ></ppw-message-bar>
+    <h2>Usage</h2>
+    <p>Add the following snippet to your app module providers.</p>
+    <pre>
+        provideGlobalErrorHandler(&#123;
+            errorDialogOptions: &#123;
+                allowIgnore: true,
+                messages: &#123;
+                    title: 'global-error-dialog.title',
+                    reload: 'global-error-dialog.reload',
+                    ignore: 'global-error-dialog.ignore',
+                    copySingleError: 'global-error-dialog.copy-single-error',
+                    copyAllErrors: 'global-error-dialog.copy-all-errors',
+                    goHome: 'global-error-dialog.go-home',
+                    singleErrorDetails: 'global-error-dialog.single-error-details'
+                &#125;
+            &#125;
+        &#125;)
+    </pre>
+    <h2>Demo</h2>
+    <div class="flex-row">
+        <button mat-raised-button color="primary" (click)="invokeError()">Invoke error</button>
+    </div>
+</div>

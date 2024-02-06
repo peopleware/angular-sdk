@@ -4,10 +4,21 @@
         "body": "Are you sure you want to execute this action?\n\nThis action cannot be undone.",
         "title": "Confirm execution?"
     },
+    "global-error-dialog": {
+        "copy-all-errors": "Copy All Errors",
+        "copy-single-error": "Copy Error",
+        "generic-error-message": "An unexpected error occurred. Please reload the application.",
+        "go-home": "Go Home",
+        "ignore": "Ignore",
+        "reload": "Reload",
+        "single-error-details": "Error Details",
+        "title": "Unexpected error"
+    },
     "navigation": {
         "confirmation_dialog": "Confirmation Dialog",
         "expandable_card": "Expandable Card",
         "filter_table": "Filter Table",
+        "global_error_handler": "Global Error Handler",
         "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar"
     }

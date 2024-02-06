@@ -54,6 +54,11 @@ export class AppComponent {
                 label: this.translate.instant('navigation.in_memory_logging'),
                 icon: 'fa-solid fa-file-code',
                 fullRouterPath: '/in-memory-logging'
+            },
+            {
+                label: this.translate.instant('navigation.global_error_handler'),
+                icon: 'fa-solid fa-bug',
+                fullRouterPath: '/global-error-handler'
             }
         ]
     }
