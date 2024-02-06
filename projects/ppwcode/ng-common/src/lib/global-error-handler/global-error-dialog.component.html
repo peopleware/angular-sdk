@@ -1,0 +1,58 @@
+<h1 mat-dialog-title class="ppw-global-error-dialog-title">{{ messages.title | translate }}</h1>
+<mat-dialog-content class="ppw-global-error-dialog-content">
+    @if (showGenericErrorMessage && messages.genericErrorMessage) {
+        <div class="ppw-global-error-dialog-error">
+            <div class="ppw-global-error-dialog-error-message">
+                <p>{{ messages.genericErrorMessage | translate }}</p>
+            </div>
+        </div>
+    } @else {
+        @for (error of errors; track error; let isLast = $last) {
+            <div class="ppw-global-error-dialog-error">
+                <div class="ppw-global-error-dialog-error-message">
+                    @if (error.message) {
+                        <p>{{ error.message }}</p>
+                    }
+                    @if (canCopySingleError && messages.copySingleError) {
+                        <button mat-stroked-button color="warn" (click)="copyError(error)">
+                            {{ messages.copySingleError | translate }}
+                        </button>
+                    }
+                </div>
+                @if (error.errorInstance && error.errorInstance.stack) {
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ messages.singleErrorDetails | translate }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <pre>{{ error.errorInstance.stack }}</pre>
+                    </mat-expansion-panel>
+                }
+                @if (!isLast) {
+                    <hr />
+                }
+            </div>
+        }
+    }
+</mat-dialog-content>
+<mat-dialog-actions class="global-error-dialog-actions" align="end">
+    @if (canIgnore && messages.ignore) {
+        <button mat-button color="accent" mat-dialog-close>
+            {{ messages.ignore | translate }}
+        </button>
+    }
+    @if (canGoHome && messages.goHome) {
+        <button mat-stroked-button color="accent" (click)="toHome()">
+            {{ messages.goHome | translate }}
+        </button>
+    }
+    @if (canCopyAllErrors && messages.copyAllErrors) {
+        <button mat-stroked-button color="warn" (click)="copyAllErrors()">
+            {{ messages.copyAllErrors | translate }}
+        </button>
+    }
+    @if (canReload && messages.reload) {
+        <button mat-raised-button color="primary" (click)="reloadPage()">
+            {{ messages.reload | translate }}
+        </button>
+    }
+</mat-dialog-actions>

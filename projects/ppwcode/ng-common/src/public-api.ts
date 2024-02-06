@@ -2,6 +2,10 @@
  * Public API Surface of ng-common
  */
 
+export * from './lib/global-error-handler/global-error-handler'
+export * from './lib/global-error-handler/global-error-dialog.component'
+export * from './lib/global-error-handler/global-error-dialog-options'
+export * from './lib/global-error-handler/provider'
 export * from './lib/logging/in-memory-logger'
 export * from './lib/logging/logger'
 export * from './lib/logging/logger-options'
