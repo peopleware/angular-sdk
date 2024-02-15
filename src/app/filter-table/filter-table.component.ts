@@ -11,7 +11,8 @@ import { TranslateModule } from '@ngx-translate/core'
 import {
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
-    expectPagedAsyncResultHttpSuccess
+    expectPagedAsyncResultHttpSuccess,
+    PagedAsyncResult
 } from '@ppwcode/ng-async'
 import {
     ExpandableCardComponent,
@@ -22,7 +23,7 @@ import {
 } from '@ppwcode/ng-common-components'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
-import { BehaviorSubject, combineLatest, of, switchMap, tap } from 'rxjs'
+import { BehaviorSubject, combineLatest, Observable, of, switchMap, tap } from 'rxjs'
 import { AsyncResultModule } from '../../../projects/ppwcode/ng-async/src/lib/async-result/async-result.module'
 import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
@@ -36,6 +37,11 @@ export interface Player extends Record<string, unknown> {
     age: number
     income: number
     bonus: number
+}
+
+export interface PlayerFilters {
+    firstName: string
+    lastName: string
 }
 
 const PLAYERS_DATA: Array<Player> = [
@@ -202,7 +208,12 @@ export class FilterTableComponent
         firstName: string
     }>(this.initialSearchParams)
     private refreshPlayers$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0)
-    public players$ = combineLatest([this.page$, this.pageSize$, this.searchParameters$, this.refreshPlayers$]).pipe(
+    public players$: Observable<PagedAsyncResult<Player, PlayerFilters>> = combineLatest([
+        this.page$,
+        this.pageSize$,
+        this.searchParameters$,
+        this.refreshPlayers$
+    ]).pipe(
         switchMap(([page, pageSize, searchParameters]) =>
             this.trackPending(
                 this.mockPagedPlayers(page, pageSize, searchParameters).pipe(
@@ -221,11 +232,8 @@ export class FilterTableComponent
     private mockPagedPlayers(
         page: number,
         pageSize: number,
-        filters?: {
-            firstName: string
-            lastName: string
-        }
-    ) {
+        filters?: PlayerFilters
+    ): Observable<PagedAsyncResult<Player, PlayerFilters>> {
         const players = !filters
             ? PLAYERS_DATA
             : PLAYERS_DATA.filter((value: Player) => {
@@ -246,8 +254,8 @@ export class FilterTableComponent
             hasNextPage: true,
             items: playersPage
         }).pipe(
-            expectPagedAsyncResultHttpSuccess(filters),
-            expectPagedAsyncResultHttpError(DEFAULT_HTTP_ERROR_CODES, filters)
+            expectPagedAsyncResultHttpSuccess<Player, PlayerFilters>(filters),
+            expectPagedAsyncResultHttpError<Player, PlayerFilters>(DEFAULT_HTTP_ERROR_CODES, filters)
         )
     }
 

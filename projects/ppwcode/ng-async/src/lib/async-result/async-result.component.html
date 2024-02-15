@@ -15,13 +15,19 @@
                     }
                 } @else {
                     <ng-container
-                        *ngTemplateOutlet="successTemplate; context: { $implicit: asyncResult }"
+                        *ngTemplateOutlet="
+                            successTemplate ?? null;
+                            context: { $implicit: asyncResult, entity: asyncResult.entity }
+                        "
                     ></ng-container>
                 }
             }
             @case ('initial') {
                 <ng-container
-                    *ngTemplateOutlet="initialTemplate ?? null; context: { $implicit: asyncResult }"
+                    *ngTemplateOutlet="
+                        initialTemplate ?? null;
+                        context: { $implicit: asyncResult, entity: asyncResult.entity }
+                    "
                 ></ng-container>
             }
         }

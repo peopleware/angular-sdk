@@ -19,7 +19,7 @@
     <ng-template ppw-async-result-empty>
         <p>No result</p>
     </ng-template>
-    <ng-template ppw-async-result-success let-players>
+    <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
         <mat-card>
             <mat-card-content>
                 <ppw-table
