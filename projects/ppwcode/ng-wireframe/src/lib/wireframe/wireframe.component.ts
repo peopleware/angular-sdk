@@ -5,9 +5,9 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav'
 import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { filter, map, Subject, takeUntil } from 'rxjs'
 import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
+import { SidebarOptions } from '../model/sidebar-options'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 import { ToolbarComponent } from '../toolbar/toolbar.component'
-import { SidebarOptions } from '../model/sidebar-options'
 
 @Component({
     selector: 'ppw-wireframe',
@@ -25,7 +25,8 @@ export class WireframeComponent implements AfterViewInit, OnDestroy, OnInit {
     @Input() public navigationItems: Array<NavigationItem> | null = []
     @Input() public sidebarOptions?: SidebarOptions
     @Input() public toolbarHeightPx?: number
-    @ViewChild(MatDrawer) public matDrawer!: MatDrawer
+    @Input() public hideSidenavWhenNoNavigationItems: boolean = false
+    @ViewChild(MatDrawer) public matDrawer?: MatDrawer
 
     public sidebarIsOpen = false
     public showWireframe = true
@@ -50,11 +51,19 @@ export class WireframeComponent implements AfterViewInit, OnDestroy, OnInit {
         return this.matDrawer?.opened ?? (!this.isSmallDevice && !this.isXSmallDevice)
     }
 
+    public get forceHiddenSidenav(): boolean {
+        return this.hideSidenavWhenNoNavigationItems && (!this.navigationItems || this.navigationItems.length === 0)
+    }
+
     public trackSidenavVisibility(): void {
         this.observer
             .observe([Breakpoints.XSmall, Breakpoints.Small])
             .pipe(takeUntil(this.destroy$))
             .subscribe((result) => {
+                if (!this.matDrawer) {
+                    return
+                }
+
                 if (result.matches && this.matDrawer.opened) {
                     this.sidebarIsOpen = false
                     this.matDrawer.close()
@@ -104,11 +113,11 @@ export class WireframeComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     public async toggleSidebar(): Promise<void> {
-        await this.matDrawer.toggle()
+        await this.matDrawer?.toggle()
     }
 
     public async closeSidebar(): Promise<void> {
-        await this.matDrawer.close()
+        await this.matDrawer?.close()
     }
 
     public sidebarOpened(): void {
