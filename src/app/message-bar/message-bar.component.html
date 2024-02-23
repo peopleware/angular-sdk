@@ -1,6 +1,32 @@
 <div class="flex-column gap-8 padding-8">
+    <h1>Message bar with input parameter message</h1>
     <ppw-message-bar message="This is an info message" [severity]="severity.info"></ppw-message-bar>
     <ppw-message-bar message="This is a warning message" [severity]="severity.warning"></ppw-message-bar>
     <ppw-message-bar message="This is an error message" [severity]="severity.error"></ppw-message-bar>
     <ppw-message-bar message="This is a success message" [severity]="severity.success"></ppw-message-bar>
+</div>
+<div class="flex-column gap-8 padding-8">
+    <h1>Message bar with content projection</h1>
+    <ppw-message-bar [severity]="severity.info">
+        <i class="fa-solid fa-user"></i> This is an informational message about a user.
+    </ppw-message-bar>
+    <ppw-message-bar [severity]="severity.warning">
+        <div class="flex-row flex-grow-1 justify-content-between align-items-center">
+            <div class="flex-row gap-8 align-items-center">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                Be careful! This is a warning message.
+            </div>
+            <i class="fa-solid fa-times"></i>
+        </div>
+    </ppw-message-bar>
+    <ppw-message-bar [severity]="severity.error">
+        <div class="flex-column">
+            <p>Yep, it's broken!</p>
+            <p>It's really broken!</p>
+            <p>It's so broken, it's not even funny!</p>
+        </div>
+    </ppw-message-bar>
+    <ppw-message-bar [severity]="severity.success">
+        <p>Apparently we did something right. <strong>Good job!</strong></p>
+    </ppw-message-bar>
 </div>

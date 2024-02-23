@@ -12,5 +12,5 @@ import { Severity } from '../enum/severity'
 })
 export class MessageBarComponent {
     @Input({ required: true }) public severity!: Severity
-    @Input({ required: true }) public message!: string
+    @Input() public message: string | null = null
 }
