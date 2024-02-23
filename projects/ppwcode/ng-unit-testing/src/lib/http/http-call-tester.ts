@@ -1,9 +1,9 @@
 import { TestRequest } from '@angular/common/http/testing'
 import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { FileDownload } from '@ppwcode/ng-async'
 import { noop, Observable } from 'rxjs'
 
 import { expectOneCallToUrl, ResponseOptions } from './http-client-testing-controller'
-import { FileDownload } from '@ppwcode/ng-async'
 
 /**
  * This class can be used in testing to leverage the HttpTestingController for HTTP call testing.
@@ -22,8 +22,6 @@ import { FileDownload } from '@ppwcode/ng-async'
  *       expect(result).toBe(response);
  *     })
  *     .verify();
- *
- *   // No further expectations necessary.
  * });
  */
 export class HttpCallTester<TRequestResponse, TStreamResult> {
@@ -154,7 +152,7 @@ export class HttpCallTester<TRequestResponse, TStreamResult> {
      * @throws Throws a ConditionViolation if no mocked request response has been set.
      */
     public verify(): void {
-        this.verifySubscription(1, 0)
+        this.verifySubscription({ expectedSubscriptionHits: 1, expectedFailureHits: 0 })
     }
 
     /**
@@ -165,30 +163,45 @@ export class HttpCallTester<TRequestResponse, TStreamResult> {
      * @throws Throws a ConditionViolation if no mocked request response has been set.
      */
     public verifyFailure(): void {
-        this.verifySubscription(0, 1)
+        this.verifySubscription({
+            expectedSubscriptionHits: 0,
+            expectedFailureHits: 1
+        })
     }
 
-    private verifySubscription(expectedSubscriptionHits: number, expectedFailureHits: number): void {
+    private verifySubscription({
+        expectedSubscriptionHits,
+        expectedFailureHits
+    }: {
+        expectedSubscriptionHits: number
+        expectedFailureHits: number
+    }): void {
         const stream$ = notUndefined(this.stream$)
         const response = notUndefined(this.mockedResponse)
 
         let subscriptionHits = 0
         let failureHits = 0
-        const subscription = stream$.subscribe(
-            (result: TStreamResult) => {
+        const subscription = stream$.subscribe({
+            next: (result: TStreamResult) => {
                 this.expectStreamResultFn(result)
                 subscriptionHits++
             },
-            (error: unknown) => {
+            error: (error: unknown) => {
                 this.expectErrorFn(error)
                 failureHits++
             }
-        )
+        })
 
         expectOneCallToUrl(this.url, response, this.expectRequestFn, this.responseOptions)
 
         subscription.unsubscribe()
-        expect(subscriptionHits).toEqual(expectedSubscriptionHits)
-        expect(failureHits).toEqual(expectedFailureHits)
+        expect(subscriptionHits)
+            .withContext(
+                `Expected ${expectedSubscriptionHits} successful http stream results but got ${subscriptionHits}`
+            )
+            .toEqual(expectedSubscriptionHits)
+        expect(failureHits)
+            .withContext(`Expected ${expectedFailureHits} failed http stream results but got ${failureHits}`)
+            .toEqual(expectedFailureHits)
     }
 }
