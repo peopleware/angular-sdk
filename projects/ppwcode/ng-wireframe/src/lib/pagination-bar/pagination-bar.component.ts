@@ -10,7 +10,7 @@ import { PagedAsyncResult } from '@ppwcode/ng-async'
     templateUrl: './pagination-bar.component.html'
 })
 export class PaginationBarComponent {
-    @Input({ required: true }) public pagedAsyncResult!: PagedAsyncResult<never, never>
+    @Input({ required: true }) public pagedAsyncResult!: PagedAsyncResult<unknown, unknown>
     @Input() public hidePageSize = true
     @Input() public showFirstLastButtons = false
     @Input() public pageSizeOptions: number[] = []
