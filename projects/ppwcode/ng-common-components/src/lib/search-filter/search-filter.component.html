@@ -1,9 +1,13 @@
 <mat-card>
-    <mat-card-content (keyup.enter)="search.emit()" (keyup.control.enter)="reset.emit()">
+    <mat-card-content (keyup.enter)="search.emit()" (keyup.control.enter)="allowReset ? reset.emit() : undefined">
         <ng-content></ng-content>
     </mat-card-content>
     <mat-card-actions align="end" class="gap-8">
-        <button mat-button (click)="reset.emit()">Reset</button>
-        <button mat-raised-button color="primary" (click)="search.emit()" [disabled]="submitDisabled">Search</button>
+        @if (allowReset) {
+            <button mat-button (click)="reset.emit()">{{ resetLabel }}</button>
+        }
+        <button mat-raised-button color="primary" (click)="search.emit()" [disabled]="submitDisabled">
+            {{ searchLabel }}
+        </button>
     </mat-card-actions>
 </mat-card>
