@@ -46,7 +46,12 @@ export const mixinDetectFormChanges = <T extends Constructor<Record<string, unkn
             // A takeUntil operator is therefore not sufficient.
             this._subscription?.unsubscribe()
             this._subscription = form.valueChanges.pipe(startWith(form.getRawValue())).subscribe(() => {
-                this.hasFormChangesSig.set(this.stringifiedInitialValue !== this.getFormStringifiedValue(form))
+                const hasChanges = this.hasFormChangesSig()
+                const updatedValueHasChanges = this.stringifiedInitialValue !== this.getFormStringifiedValue(form)
+                if (hasChanges !== updatedValueHasChanges) {
+                    // Only when the value of the signal should change, we should set the new value.
+                    this.hasFormChangesSig.set(updatedValueHasChanges)
+                }
             })
         }
 
