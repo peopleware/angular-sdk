@@ -48,19 +48,35 @@ export const extractHttpError = (httpError: HttpErrorResponse): Error => {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const expectAsyncResultHttpError = <TEntity>(statusCodes: Array<number>, fallbackValue: TEntity) =>
-    expectHttpError(statusCodes, (httpError: HttpErrorResponse) => {
-        const error = extractHttpError(httpError)
-        return createFailedAsyncResult(error, fallbackValue, null)
-    })
+export const expectAsyncResultHttpError = <TEntity>(
+    statusCodes: Array<number>,
+    fallbackValue: TEntity,
+    completeOnError = true
+) =>
+    expectHttpError(
+        statusCodes,
+        (httpError: HttpErrorResponse) => {
+            const error = extractHttpError(httpError)
+            return createFailedAsyncResult(error, fallbackValue, null)
+        },
+        completeOnError
+    )
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const expectPagedAsyncResultHttpSuccess = <TEntity, TFilters>(filters?: TFilters) =>
     map((entities: PagedEntities<TEntity>) => createSuccessPagedAsyncResult<TEntity, TFilters>(entities, filters))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const expectPagedAsyncResultHttpError = <TEntity, TFilters>(statusCodes: Array<number>, filters?: TFilters) =>
-    expectHttpError(statusCodes, (httpError: HttpErrorResponse) => {
-        const error = extractHttpError(httpError)
-        return createFailedPagedAsyncResult<TEntity, TFilters>(error, createEmptyPagedEntities<TEntity>(), filters)
-    })
+export const expectPagedAsyncResultHttpError = <TEntity, TFilters>(
+    statusCodes: Array<number>,
+    filters?: TFilters,
+    completeOnError = true
+) =>
+    expectHttpError(
+        statusCodes,
+        (httpError: HttpErrorResponse) => {
+            const error = extractHttpError(httpError)
+            return createFailedPagedAsyncResult<TEntity, TFilters>(error, createEmptyPagedEntities<TEntity>(), filters)
+        },
+        completeOnError
+    )
