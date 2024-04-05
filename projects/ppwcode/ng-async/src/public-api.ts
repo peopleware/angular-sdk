@@ -5,7 +5,6 @@
 export * from './lib/async-result/async-result.component'
 export * from './lib/async-result/async-result.module'
 export * from './lib/async-result/async-result-directives'
-export * from './lib/rxjs-operators/expect-http-error'
 export * from './lib/constants/error-codes'
 export * from './lib/downloads/save-downloaded-file'
 export * from './lib/models/async-result'

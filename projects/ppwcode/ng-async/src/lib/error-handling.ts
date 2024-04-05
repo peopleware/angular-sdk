@@ -1,10 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http'
-import { map } from 'rxjs'
+import { map, Observable, Subscriber } from 'rxjs'
 import { STATUS_CODE_MAP } from './constants/error-codes'
 import { createFailedAsyncResult } from './models/async-result'
 import { createFailedPagedAsyncResult, createSuccessPagedAsyncResult } from './models/paged-async-result'
 import { createEmptyPagedEntities, PagedEntities } from './models/paged-entities'
-import { expectHttpError } from './rxjs-operators/expect-http-error'
 
 declare global {
     interface Window {
@@ -62,21 +61,67 @@ export const expectAsyncResultHttpError = <TEntity>(
         completeOnError
     )
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const expectPagedAsyncResultHttpSuccess = <TEntity, TFilters>(filters?: TFilters) =>
     map((entities: PagedEntities<TEntity>) => createSuccessPagedAsyncResult<TEntity, TFilters>(entities, filters))
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const expectPagedAsyncResultHttpError = <TEntity, TFilters = object | null | undefined>(
     statusCodes: Array<number>,
     filters?: TFilters,
     completeOnError = true
 ) =>
-    expectHttpError(
-        statusCodes,
-        (httpError: HttpErrorResponse) => {
-            const error = extractHttpError(httpError)
-            return createFailedPagedAsyncResult<TEntity, TFilters>(error, createEmptyPagedEntities<TEntity>(), filters)
-        },
-        completeOnError
+    function <T>(source: Observable<T>): Observable<T> {
+        // This is syntactic sugar for handling the error case of a paged async result. It will create a failed paged async
+        // result, meaning that the result type of the handler is actually the same as the value received in the source.
+        // That's the reason why T is used twice in the generics of createHttpErrorReponseOperatorObservable.
+        return createHttpErrorReponseOperatorObservable<T, T>(
+            source,
+            statusCodes,
+            (httpError: HttpErrorResponse) => {
+                const error = extractHttpError(httpError)
+                return createFailedPagedAsyncResult<TEntity, TFilters>(
+                    error,
+                    createEmptyPagedEntities<TEntity>(),
+                    filters
+                ) as T // Cast to T because we are creating a PagedEntities<T> in the handler but the "item type" can't be inferred.
+            },
+            completeOnError
+        )
+    }
+
+export const expectHttpError = <TResult>(
+    statusCodes: Array<number>,
+    handler: (httpError: HttpErrorResponse) => TResult,
+    complete = false
+) =>
+    function <T>(source: Observable<T>): Observable<T | TResult> {
+        return createHttpErrorReponseOperatorObservable(source, statusCodes, handler, complete)
+    }
+
+const createHttpErrorReponseOperatorObservable = <T, TResult>(
+    source: Observable<T>,
+    statusCodes: Array<number>,
+    handler: (httpError: HttpErrorResponse) => TResult,
+    complete = false
+) => {
+    return new Observable((subscriber: Subscriber<T | TResult>) =>
+        source.subscribe({
+            next(value: T) {
+                subscriber.next(value)
+            },
+            error(error: HttpErrorResponse | unknown) {
+                if (error instanceof HttpErrorResponse && statusCodes.indexOf(error.status) > -1) {
+                    const continueWithValue: TResult = handler(error)
+                    subscriber.next(continueWithValue)
+                    if (complete) {
+                        subscriber.complete()
+                    }
+                } else {
+                    subscriber.error(error)
+                }
+            },
+            complete() {
+                subscriber.complete()
+            }
+        })
     )
+}

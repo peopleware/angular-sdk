@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { firstValueFrom, of, throwError } from 'rxjs'
-import { expectHttpError } from './expect-http-error'
+import { expectHttpError } from './error-handling'
 
 describe('expectHttpError', () => {
     it('should pass on the received value', async () => {
