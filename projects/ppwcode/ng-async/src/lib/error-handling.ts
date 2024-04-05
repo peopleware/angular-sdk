@@ -67,7 +67,7 @@ export const expectPagedAsyncResultHttpSuccess = <TEntity, TFilters>(filters?: T
     map((entities: PagedEntities<TEntity>) => createSuccessPagedAsyncResult<TEntity, TFilters>(entities, filters))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const expectPagedAsyncResultHttpError = <TEntity, TFilters>(
+export const expectPagedAsyncResultHttpError = <TEntity, TFilters = object | null | undefined>(
     statusCodes: Array<number>,
     filters?: TFilters,
     completeOnError = true
