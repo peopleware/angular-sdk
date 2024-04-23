@@ -1,14 +1,12 @@
-import { OnDestroy } from '@angular/core'
-import { Observable, Subject, takeUntil } from 'rxjs'
+import { DestroyRef, inject } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { Observable } from 'rxjs'
 import { Constructor } from './constructor'
 
 /**
  * Defines that subscriptions can be handled.
  */
-export interface CanHandleSubscriptions extends OnDestroy {
-    /** Called when Angular destroys the directive, pipe or service. */
-    ngOnDestroy(): void
-
+export interface CanHandleSubscriptions {
     /** Function to be used to wrap a stream with subscription handling. */
     stopOnDestroy<T>(stream$: Observable<T>): Observable<T>
 }
@@ -27,15 +25,10 @@ export const mixinHandleSubscriptions = <T extends Constructor<{}>>(base?: T): C
     const baseClass: T = base ?? (class {} as T)
 
     return class extends baseClass implements CanHandleSubscriptions {
-        private readonly onDestroy$: Subject<void> = new Subject()
-
-        public ngOnDestroy(): void {
-            this.onDestroy$.next()
-            this.onDestroy$.complete()
-        }
+        #destroyRef: DestroyRef = inject(DestroyRef)
 
         public stopOnDestroy<TStreamResult>(stream$: Observable<TStreamResult>): Observable<TStreamResult> {
-            return stream$.pipe(takeUntil(this.onDestroy$))
+            return stream$.pipe(takeUntilDestroyed(this.#destroyRef))
         }
     }
 }
