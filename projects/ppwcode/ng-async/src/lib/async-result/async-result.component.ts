@@ -1,4 +1,4 @@
-import { Component, ContentChild, inject, Input, TemplateRef, Type } from '@angular/core'
+import { Component, contentChild, inject, input, InputSignal, Signal, TemplateRef, Type } from '@angular/core'
 import { Severity } from '@ppwcode/ng-common-components'
 import { AsyncResult } from '../models/async-result'
 import {
@@ -16,17 +16,30 @@ import {
     templateUrl: './async-result.component.html'
 })
 export class AsyncResultComponent {
+    // Dependencies
     #asyncResultDefaultOptions: PpwAsyncResultDefaultOptions | null = inject(PPW_ASYNC_RESULT_DEFAULT_OPTIONS, {
         optional: true
     })
 
-    @Input({ required: true }) public asyncResult?: AsyncResult<unknown, unknown> | null
-    @Input() public pending?: boolean | null = null
+    // Inputs
+    public asyncResult: InputSignal<AsyncResult<unknown, unknown> | null> = input.required<AsyncResult<
+        unknown,
+        unknown
+    > | null>()
+    public pending: InputSignal<boolean | null> = input<boolean | null>(null)
 
-    @ContentChild(PpwAsyncResultSuccessDirective, { read: TemplateRef }) public successTemplate!: TemplateRef<unknown>
-    @ContentChild(PpwAsyncResultInitialDirective, { read: TemplateRef }) public initialTemplate?: TemplateRef<unknown>
-    @ContentChild(PpwAsyncResultEmptyDirective, { read: TemplateRef }) public emptyTemplate?: TemplateRef<unknown>
+    // Content children
+    public successTemplate: Signal<TemplateRef<unknown>> = contentChild.required(PpwAsyncResultSuccessDirective, {
+        read: TemplateRef
+    })
+    public initialTemplate: Signal<TemplateRef<unknown> | undefined> = contentChild(PpwAsyncResultInitialDirective, {
+        read: TemplateRef
+    })
+    public emptyTemplate: Signal<TemplateRef<unknown> | undefined> = contentChild(PpwAsyncResultEmptyDirective, {
+        read: TemplateRef
+    })
 
+    // Getters
     public get asyncResultDefaultEmptyComponent(): Type<unknown> | undefined {
         return this.#asyncResultDefaultOptions?.emptyResultComponent
     }

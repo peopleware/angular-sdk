@@ -1,33 +1,28 @@
-<mtx-loader [loading]="pending" type="progressbar">
-    @if (asyncResult) {
-        @switch (asyncResult.status) {
+<mtx-loader [loading]="pending()" type="progressbar">
+    @if (asyncResult(); as result) {
+        @switch (result.status) {
             @case ('failed') {
-                <ng-container *ngTemplateOutlet="failed; context: { $implicit: asyncResult }"></ng-container>
+                <ng-container *ngTemplateOutlet="failed; context: { $implicit: result }"></ng-container>
             }
             @case ('success') {
-                @if (asyncResult.entity === null) {
-                    @if (emptyTemplate) {
-                        <ng-container
-                            *ngTemplateOutlet="emptyTemplate; context: { $implicit: asyncResult }"
-                        ></ng-container>
+                @if (result.entity === null) {
+                    @if (emptyTemplate(); as empty) {
+                        <ng-container *ngTemplateOutlet="empty; context: { $implicit: result }"></ng-container>
                     } @else if (asyncResultDefaultEmptyComponent) {
                         <ng-container *ngComponentOutlet="asyncResultDefaultEmptyComponent"></ng-container>
                     }
                 } @else {
                     <ng-container
                         *ngTemplateOutlet="
-                            successTemplate ?? null;
-                            context: { $implicit: asyncResult, entity: asyncResult.entity }
+                            successTemplate() ?? null;
+                            context: { $implicit: result, entity: result.entity }
                         "
                     ></ng-container>
                 }
             }
             @case ('initial') {
                 <ng-container
-                    *ngTemplateOutlet="
-                        initialTemplate ?? null;
-                        context: { $implicit: asyncResult, entity: asyncResult.entity }
-                    "
+                    *ngTemplateOutlet="initialTemplate() ?? null; context: { $implicit: result, entity: result.entity }"
                 ></ng-container>
             }
         }
@@ -36,7 +31,7 @@
 
 <ng-template #failed>
     <ppw-message-bar
-        [message]="asyncResult!.error?.message ?? '' | translate"
+        [message]="asyncResult()!.error?.message ?? '' | translate"
         [severity]="errorSeverity"
     ></ppw-message-bar>
 </ng-template>
