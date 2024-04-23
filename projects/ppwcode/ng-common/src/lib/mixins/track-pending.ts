@@ -36,7 +36,7 @@ export const mixinTrackPending = <T extends Constructor<{}>>(
 ): T & CanTrackPendingCtor => {
     base ??= class {} as T
     return class extends base implements CanTrackPending {
-        private pendingTrackers$: BehaviorSubject<{ [key: string]: boolean }> = new BehaviorSubject<{
+        #pendingTrackers$: BehaviorSubject<{ [key: string]: boolean }> = new BehaviorSubject<{
             [key: string]: boolean
         }>({
             pending: isInitiallyPending
@@ -46,19 +46,9 @@ export const mixinTrackPending = <T extends Constructor<{}>>(
 
         /* eslint-disable @typescript-eslint/no-explicit-any */
         public startPending = (trackingName = 'pending'): MonoTypeOperatorFunction<any> =>
-            tap(() => {
-                this.pendingTrackers$.next({
-                    ...this.pendingTrackers$.value,
-                    [trackingName]: true
-                })
-            })
+            tap(() => this.#updateTracker(trackingName, true))
         public stopPending = (trackingName = 'pending'): MonoTypeOperatorFunction<any> =>
-            tap(() => {
-                this.pendingTrackers$.next({
-                    ...this.pendingTrackers$.value,
-                    [trackingName]: false
-                })
-            })
+            tap(() => this.#updateTracker(trackingName, false))
         /* eslint-enable @typescript-eslint/no-explicit-any */
 
         public trackPending<T>(stream$: Observable<T>, trackingName = 'pending'): Observable<T> {
@@ -70,7 +60,14 @@ export const mixinTrackPending = <T extends Constructor<{}>>(
         }
 
         public isPending(trackingName = 'pending'): Observable<boolean> {
-            return this.pendingTrackers$.pipe(map((trackers) => trackers[trackingName] ?? false))
+            return this.#pendingTrackers$.pipe(map((trackers) => trackers[trackingName] ?? false))
+        }
+
+        #updateTracker(trackingName: string, isPending: boolean): void {
+            this.#pendingTrackers$.next({
+                ...this.#pendingTrackers$.value,
+                [trackingName]: isPending
+            })
         }
     }
 }
