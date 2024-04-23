@@ -29,7 +29,8 @@ export type CanTrackPendingCtor = Constructor<CanTrackPending>
  * @param isInitiallyPending Whether the pending state is true on initial creation of the class.
  * @param base An optional base class.
  */
-export const mixinTrackPending = <T extends Constructor<Record<string, unknown>>>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const mixinTrackPending = <T extends Constructor<{}>>(
     isInitiallyPending = true,
     base?: T
 ): T & CanTrackPendingCtor => {
@@ -69,7 +70,7 @@ export const mixinTrackPending = <T extends Constructor<Record<string, unknown>>
         }
 
         public isPending(trackingName = 'pending'): Observable<boolean> {
-            return this.pendingTrackers$.pipe(map((trackers) => trackers[trackingName]))
+            return this.pendingTrackers$.pipe(map((trackers) => trackers[trackingName] ?? false))
         }
     }
 }
