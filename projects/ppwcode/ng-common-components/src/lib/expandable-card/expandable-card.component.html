@@ -1,22 +1,22 @@
 <mat-accordion class="ppw-expandable-card-accordion">
     <mat-expansion-panel
         class="ppw-expandable-panel"
-        [expanded]="openAsExpanded"
-        [disabled]="!canBeCollapsed"
+        [expanded]="openAsExpanded()"
+        [disabled]="!canBeCollapsed()"
         (opened)="panelOpenState = true"
-        (closed)="panelOpenState = canBeCollapsed"
+        (closed)="panelOpenState = canBeCollapsed()"
     >
         <mat-expansion-panel-header class="ppw-expandable-panel-header">
             <mat-panel-title class="ppw-expandable-card-title">
-                @if (cardTitle) {
-                    {{ cardTitle }}
+                @if (cardTitle()) {
+                    {{ cardTitle() }}
                 } @else {
                     <ng-content select="[ppw-expandable-card-title]"> </ng-content>
                 }
             </mat-panel-title>
             <mat-panel-description class="ppw-expandable-card-description">
-                @if (cardDescription) {
-                    {{ cardDescription }}
+                @if (cardDescription()) {
+                    {{ cardDescription() }}
                 } @else {
                     <ng-content select="[ppw-expandable-card-description]"> </ng-content>
                 }

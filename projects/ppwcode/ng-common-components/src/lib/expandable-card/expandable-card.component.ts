@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core'
+import { Component, input, InputSignal, ViewEncapsulation } from '@angular/core'
 
 import { MatExpansionModule } from '@angular/material/expansion'
 
@@ -11,9 +11,11 @@ import { MatExpansionModule } from '@angular/material/expansion'
     standalone: true
 })
 export class ExpandableCardComponent {
-    @Input() public cardTitle?: string
-    @Input() public cardDescription?: string
-    @Input() public canBeCollapsed = true
-    @Input() public openAsExpanded = true
+    // Inputs
+    cardTitle: InputSignal<string | undefined> = input()
+    cardDescription: InputSignal<string | undefined> = input()
+    canBeCollapsed: InputSignal<boolean> = input(true)
+    openAsExpanded: InputSignal<boolean> = input(true)
+
     public panelOpenState = true
 }
