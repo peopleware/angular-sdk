@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { Severity } from '@ppwcode/ng-common-components'
 
 import { MessageBarComponent } from './message-bar.component'
 
@@ -12,6 +13,7 @@ describe('MessageBarComponent', () => {
         }).compileComponents()
 
         fixture = TestBed.createComponent(MessageBarComponent)
+        fixture.componentRef.setInput('severity', Severity.info)
         component = fixture.componentInstance
         fixture.detectChanges()
     })

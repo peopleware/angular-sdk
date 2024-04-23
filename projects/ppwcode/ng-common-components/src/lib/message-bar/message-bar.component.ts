@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, input, InputSignal } from '@angular/core'
 
 import { MatCardModule } from '@angular/material/card'
 import { Severity } from '../enum/severity'
@@ -11,6 +11,6 @@ import { Severity } from '../enum/severity'
     standalone: true
 })
 export class MessageBarComponent {
-    @Input({ required: true }) public severity!: Severity
-    @Input() public message: string | null = null
+    public severity: InputSignal<Severity> = input.required<Severity>()
+    public message: InputSignal<string | null> = input<string | null>(null)
 }
