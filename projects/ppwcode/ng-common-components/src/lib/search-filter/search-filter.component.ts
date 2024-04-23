@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
 
 import { MatCardModule } from '@angular/material/card'
-import { MatButtonModule } from '@angular/material/button'
-import { CommonModule } from '@angular/common'
 
 @Component({
     selector: 'ppw-search-filter',
@@ -12,10 +12,13 @@ import { CommonModule } from '@angular/common'
     standalone: true
 })
 export class SearchFilterComponent {
-    @Input() public submitDisabled = false
-    @Input() public allowReset = true
-    @Input() public searchLabel: string = 'Search'
-    @Input() public resetLabel: string = 'Reset'
-    @Output() public search: EventEmitter<void> = new EventEmitter<void>()
-    @Output() public reset: EventEmitter<void> = new EventEmitter<void>()
+    // Inputs
+    public submitDisabled: InputSignal<boolean> = input(false)
+    public allowReset: InputSignal<boolean> = input(true)
+    public searchLabel: InputSignal<string> = input('Search')
+    public resetLabel: InputSignal<string> = input('Reset')
+
+    // Outputs
+    public search: OutputEmitterRef<void> = output<void>()
+    public reset: OutputEmitterRef<void> = output<void>()
 }

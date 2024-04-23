@@ -1,13 +1,13 @@
 <mat-card>
-    <mat-card-content (keyup.enter)="search.emit()" (keyup.control.enter)="allowReset ? reset.emit() : undefined">
+    <mat-card-content (keyup.enter)="search.emit()" (keyup.control.enter)="allowReset() ? reset.emit() : undefined">
         <ng-content></ng-content>
     </mat-card-content>
     <mat-card-actions align="end" class="gap-8">
-        @if (allowReset) {
-            <button mat-button (click)="reset.emit()">{{ resetLabel }}</button>
+        @if (allowReset()) {
+            <button mat-button (click)="reset.emit()">{{ resetLabel() }}</button>
         }
-        <button mat-raised-button color="primary" (click)="search.emit()" [disabled]="submitDisabled">
-            {{ searchLabel }}
+        <button mat-raised-button color="primary" (click)="search.emit()" [disabled]="submitDisabled()">
+            {{ searchLabel() }}
         </button>
     </mat-card-actions>
 </mat-card>
