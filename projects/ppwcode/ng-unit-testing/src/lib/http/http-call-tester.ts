@@ -74,30 +74,38 @@ export class HttpCallTester<TRequestResponse, TStreamResult> {
     }
 
     /**
-     * Creates a new instance of HttpCallTester that has been set up to check the retrieval of a Blob.
-     * It has been set up with an empty blob as the response result and expects that the stream result is the same blob.
+     * Creates a new instance of HttpCallTester that has been set up to check the retrieval of a file to download.
+     * It has been set up with an empty blob as the response result and expects that the stream result is the same blob
+     * with a file name.
      *
      * The expectation of the stream result can simply be overridden by calling `.expectStreamResultTo` again.
      *
      * @example
-     * HttpCallTester.expectOneBlobFrom('https://api/export')
+     * HttpCallTester.expectOneFileDownloadFrom('https://api/export', 'download.xlsx')
      *    .whenSubscribingTo(httpClient.get('https://api/export))
      *    .verify();
      * @param url The url that is expected to be called.
+     * @param fileName The name of the file that is expected to be downloaded.
      * @returns An HttpCallTester instance ready to verify the call.
      */
     public static expectOneFileDownloadFromUrl<TStreamResult = FileDownload>(
-        url: string
-    ): HttpCallTester<FileDownload, TStreamResult> {
-        const fileDownload: FileDownload = {
-            blob: new Blob(),
-            fileName: 'testFile.txt'
+        url: string,
+        fileName?: string
+    ): HttpCallTester<Blob, TStreamResult> {
+        // When a file name is passed, this should be mocked in the Content-Disposition response header.
+        // The default implementation is to extract the file name from this header.
+        const headers: Record<string, string> = {}
+        if (fileName) {
+            headers['Content-Disposition'] = `filename=${fileName}`
         }
 
-        return new HttpCallTester<FileDownload, TStreamResult>(url)
-            .withResponse(fileDownload)
+        return new HttpCallTester<Blob, TStreamResult>(url)
+            .withResponse(new Blob(), { headers })
             .expectStreamResultTo((result) => {
-                expect(result).toBe(fileDownload as unknown as TStreamResult)
+                expect(result).toEqual({
+                    blob: new Blob(),
+                    fileName: fileName
+                } as TStreamResult)
             })
     }
 
