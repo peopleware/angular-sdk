@@ -1,25 +1,23 @@
 <mat-drawer-container class="ppw-app-wireframe-container">
-    @if (showWireframe && !forceHiddenSidenav) {
+    @if (showWireframe() && !forceHiddenSidenav()) {
         <mat-drawer
             [disableClose]="true"
-            [mode]="sidenavMode"
+            [mode]="sidenavMode()"
             [ngClass]="
-                isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'
+                isXSmallDevice() || !!sidebarOptions()?.closedByDefaultOnLargerDevice ? 'drawer-full-width' : 'drawer'
             "
-            [opened]="!isSmallDevice && !isXSmallDevice && !sidebarOptions?.closedByDefaultOnLargerDevice"
-            (opened)="sidebarOpened()"
-            (closed)="sidebarClosed()"
+            [opened]="!isSmallDevice() && !isXSmallDevice() && !sidebarOptions()?.closedByDefaultOnLargerDevice"
             class="ppw-app-wireframe-drawer"
         >
             <ppw-left-sidenav
                 (closeSidebar)="closeSidebar()"
                 (navigated)="onNavigate()"
-                [navigationItems]="navigationItems"
-                [centerLogo]="!!sidebarOptions?.centerLogo"
-                [logoUrl]="sidebarOptions?.logoUrl"
-                [logoHeight]="sidebarOptions?.logoHeight ?? 100"
-                [logoWidth]="sidebarOptions?.logoWidth ?? 100"
-                [showMenuCloseButton]="isXSmallDevice || !!sidebarOptions?.closedByDefaultOnLargerDevice"
+                [navigationItems]="navigationItems()"
+                [centerLogo]="!!sidebarOptions()?.centerLogo"
+                [logoUrl]="sidebarOptions()?.logoUrl"
+                [logoHeight]="sidebarOptions()?.logoHeight ?? 100"
+                [logoWidth]="sidebarOptions()?.logoWidth ?? 100"
+                [showMenuCloseButton]="isXSmallDevice() || !!sidebarOptions()?.closedByDefaultOnLargerDevice"
             >
                 <div ppw-sidebar-top class="ppw-sidebar-top-content">
                     <ng-content select="[ppw-sidebar-top-content]"></ng-content>
@@ -32,17 +30,17 @@
     }
     <mat-drawer-content>
         <div class="ppw-page-container">
-            @if (showWireframe) {
+            @if (showWireframe()) {
                 <ppw-toolbar
                     (toggleSidebar)="toggleSidebar()"
                     [isSidenavOpen]="sidebarIsOpen"
-                    [showPageTitle]="!!sidebarOptions?.showPageTitle"
-                    [toolbarHeightPx]="toolbarHeightPx"
+                    [showPageTitle]="!!sidebarOptions()?.showPageTitle"
+                    [toolbarHeightPx]="toolbarHeightPx()"
                     [showMenuToggle]="
-                        !forceHiddenSidenav &&
-                        (!!sidebarOptions?.closedByDefaultOnLargerDevice ||
-                            (!sidebarOptions?.closedByDefaultOnLargerDevice &&
-                                (isSmallDevice || (!sidebarIsOpen && !isLargerDevice))))
+                        !forceHiddenSidenav() &&
+                        (!!sidebarOptions()?.closedByDefaultOnLargerDevice ||
+                            (!sidebarOptions()?.closedByDefaultOnLargerDevice &&
+                                (isSmallDevice() || (!sidebarIsOpen && !isLargerDevice()))))
                     "
                 >
                     <ng-container ppw-toolbar-left-content
