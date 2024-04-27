@@ -1,11 +1,10 @@
 <mat-paginator
-    #paginator
     (page)="handlePageEvent($event)"
-    [length]="pagedAsyncResult.entity.totalCount"
-    [pageSize]="pagedAsyncResult.entity.pageSize"
-    [pageIndex]="pagedAsyncResult.entity.pageIndex - 1"
-    [pageSizeOptions]="pageSizeOptions"
-    [showFirstLastButtons]="showFirstLastButtons"
-    [hidePageSize]="hidePageSize"
+    [length]="pagedAsyncResult().entity.totalCount"
+    [pageSize]="pagedAsyncResult().entity.pageSize"
+    [pageIndex]="pagedAsyncResult().entity.pageIndex - 1"
+    [pageSizeOptions]="pageSizeOptions()"
+    [showFirstLastButtons]="showFirstLastButtons()"
+    [hidePageSize]="hidePageSize()"
 >
 </mat-paginator>

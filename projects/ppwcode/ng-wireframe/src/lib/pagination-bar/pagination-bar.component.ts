@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
 
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'
 import { PagedAsyncResult } from '@ppwcode/ng-async'
@@ -10,11 +10,14 @@ import { PagedAsyncResult } from '@ppwcode/ng-async'
     templateUrl: './pagination-bar.component.html'
 })
 export class PaginationBarComponent {
-    @Input({ required: true }) public pagedAsyncResult!: PagedAsyncResult<unknown, unknown>
-    @Input() public hidePageSize = true
-    @Input() public showFirstLastButtons = false
-    @Input() public pageSizeOptions: number[] = []
-    @Output() public page = new EventEmitter<PageEvent>()
+    // Inputs
+    public pagedAsyncResult: InputSignal<PagedAsyncResult<unknown, unknown>> = input.required()
+    public hidePageSize: InputSignal<boolean> = input(true)
+    public showFirstLastButtons: InputSignal<boolean> = input(false)
+    public pageSizeOptions: InputSignal<Array<number>> = input<Array<number>>([])
+
+    // Outputs
+    public page: OutputEmitterRef<PageEvent> = output()
 
     public handlePageEvent(e: PageEvent): void {
         this.page.emit(e)
