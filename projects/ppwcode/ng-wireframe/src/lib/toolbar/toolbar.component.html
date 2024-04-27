@@ -10,8 +10,8 @@
             </button>
         }
         <ng-content select="[ppw-toolbar-left-content]"></ng-content>
-        @if (showPageTitle() && title) {
-            <span class="ppw-toolbar-page-title">{{ title }}</span>
+        @if (showPageTitle() && title()) {
+            <span class="ppw-toolbar-page-title">{{ title() }}</span>
         }
     </div>
     <div class="ppw-toolbar-right-section padding-8">
