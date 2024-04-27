@@ -74,7 +74,7 @@
                     </ng-template>
                 </ppw-table>
                 <ppw-pagination-bar
-                    [pagedAsyncResult]="players"
+                    [pagedAsyncResult]="players.entity"
                     (page)="handlePageEvent($event)"
                     [pageSizeOptions]="[2, 5, 10, 20, 50]"
                     [showFirstLastButtons]="true"

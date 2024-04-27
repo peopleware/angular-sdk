@@ -9,6 +9,18 @@ export interface AsyncResult<TResult, TFilter = null> {
     filters: TFilter | null
 }
 
+export const isAsyncResult = <TResult, TFilter = null>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    possibleAsyncResult: any
+): possibleAsyncResult is AsyncResult<TResult, TFilter> => {
+    return (
+        typeof possibleAsyncResult === 'object' &&
+        possibleAsyncResult !== null &&
+        'status' in possibleAsyncResult &&
+        'entity' in possibleAsyncResult
+    )
+}
+
 export const createSuccessAsyncResult = <TResult, TFilter = null>(
     entities: TResult,
     filters: TFilter | null = null
