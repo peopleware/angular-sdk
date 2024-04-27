@@ -1,4 +1,5 @@
-import { signal, Signal } from '@angular/core'
+import { DestroyRef, inject, signal, Signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import { Constructor } from '@ppwcode/ng-common'
 import { startWith, Subscription } from 'rxjs'
@@ -17,8 +18,6 @@ export interface DetectFormChanges {
      * but you still want to compare to the initial value of the form group or array.
      */
     detectFormChanges(form: FormGroup | FormControl | FormArray, resetInitialValue?: boolean): void
-
-    ngOnDestroy(): void
 }
 
 export type DetectFormChangesCtor = Constructor<DetectFormChanges>
@@ -30,33 +29,33 @@ export const mixinDetectFormChanges = <T extends Constructor<Record<string, unkn
     const baseClass = base ?? (class {} as T)
 
     return class extends baseClass implements DetectFormChanges {
+        #destroyRef = inject(DestroyRef)
+        #stringifiedInitialValue = ''
+        #subscription?: Subscription
+
         public hasFormChangesSig = signal(false)
-        private stringifiedInitialValue = ''
-        private _subscription?: Subscription
 
         public detectFormChanges(form: FormGroup | FormControl | FormArray, resetInitialValue = true): void {
             // At some points in code, the form group or array is updated.
             // E.g. when an item is added or removed from the form array.
             // In such cases, we don't want to reset the initial value. It is up to the developer to decide when to reset.
             if (resetInitialValue) {
-                this.stringifiedInitialValue = this.getFormStringifiedValue(form)
+                this.#stringifiedInitialValue = this.getFormStringifiedValue(form)
             }
 
             // Manual unsubscribes are necessary here because this function can be called multiple times.
             // A takeUntil operator is therefore not sufficient.
-            this._subscription?.unsubscribe()
-            this._subscription = form.valueChanges.pipe(startWith(form.getRawValue())).subscribe(() => {
-                const hasChanges = this.hasFormChangesSig()
-                const updatedValueHasChanges = this.stringifiedInitialValue !== this.getFormStringifiedValue(form)
-                if (hasChanges !== updatedValueHasChanges) {
-                    // Only when the value of the signal should change, we should set the new value.
-                    this.hasFormChangesSig.set(updatedValueHasChanges)
-                }
-            })
-        }
-
-        public ngOnDestroy(): void {
-            this._subscription?.unsubscribe()
+            this.#subscription?.unsubscribe()
+            this.#subscription = form.valueChanges
+                .pipe(takeUntilDestroyed(this.#destroyRef), startWith(form.getRawValue()))
+                .subscribe(() => {
+                    const hasChanges = this.hasFormChangesSig()
+                    const updatedValueHasChanges = this.#stringifiedInitialValue !== this.getFormStringifiedValue(form)
+                    if (hasChanges !== updatedValueHasChanges) {
+                        // Only when the value of the signal should change, we should set the new value.
+                        this.hasFormChangesSig.set(updatedValueHasChanges)
+                    }
+                })
         }
 
         private getFormStringifiedValue(form: FormGroup | FormControl | FormArray): string {
