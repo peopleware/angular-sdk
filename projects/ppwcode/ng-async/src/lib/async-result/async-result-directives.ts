@@ -1,4 +1,4 @@
-import { Directive, Input, Signal } from '@angular/core'
+import { Directive, input, InputSignal, Signal } from '@angular/core'
 import { Observable } from 'rxjs'
 import { AsyncResult } from '../models/async-result'
 import { PpwAsyncResultSuccessContext } from './async-result-success-context'
@@ -8,11 +8,12 @@ import { PpwAsyncResultSuccessContext } from './async-result-success-context'
     selector: '[ppw-async-result-initial]'
 })
 export class PpwAsyncResultInitialDirective<TResult, TFilters> {
-    @Input({ required: true }) public contextTyper!:
+    public contextTyper: InputSignal<
         | Observable<AsyncResult<TResult, TFilters> | null>
         | Signal<AsyncResult<TResult, TFilters> | null>
         | AsyncResult<TResult, TFilters>
         | null
+    > = input.required()
 
     static ngTemplateContextGuard<TResult, TFilters>(
         dir: PpwAsyncResultSuccessDirective<TResult, TFilters>,
@@ -28,11 +29,9 @@ export class PpwAsyncResultInitialDirective<TResult, TFilters> {
     selector: '[ppw-async-result-success]'
 })
 export class PpwAsyncResultSuccessDirective<T, U> {
-    @Input({ required: true }) public contextTyper!:
-        | Observable<AsyncResult<T, U> | null>
-        | Signal<AsyncResult<T, U> | null>
-        | AsyncResult<T, U>
-        | null
+    public contextTyper: InputSignal<
+        Observable<AsyncResult<T, U> | null> | Signal<AsyncResult<T, U> | null> | AsyncResult<T, U> | null
+    > = input.required()
 
     static ngTemplateContextGuard<TResult, TFilters>(
         dir: PpwAsyncResultSuccessDirective<TResult, TFilters>,
