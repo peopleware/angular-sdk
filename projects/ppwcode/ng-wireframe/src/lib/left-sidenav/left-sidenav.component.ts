@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common'
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
+import { Component, inject, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
 import { Router, RouterLink } from '@angular/router'
@@ -14,14 +14,17 @@ import { NavigationItem } from '../navigation-item/navigation-item.model'
     styleUrls: ['./left-sidenav.component.scss']
 })
 export class LeftSidenavComponent {
-    @Input({ required: true }) public navigationItems: Array<NavigationItem> | null = []
-    @Input() public showMenuCloseButton = true
-    @Input() public logoUrl?: string
-    @Input() public logoHeight = 100
-    @Input() public logoWidth = 100
-    @Input() public centerLogo = true
-    @Output() public closeSidebar: EventEmitter<void> = new EventEmitter()
-    @Output() public navigated: EventEmitter<NavigationItem> = new EventEmitter()
+    // Inputs
+    public navigationItems: InputSignal<Array<NavigationItem> | null> = input.required()
+    public showMenuCloseButton: InputSignal<boolean> = input(true)
+    public logoUrl: InputSignal<string | undefined> = input()
+    public logoHeight: InputSignal<number> = input(100)
+    public logoWidth: InputSignal<number> = input(100)
+    public centerLogo: InputSignal<boolean> = input(true)
+
+    // Outputs
+    public closeSidebar: OutputEmitterRef<void> = output()
+    public navigated: OutputEmitterRef<NavigationItem> = output()
 
     private _router: Router = inject(Router)
     private _openedNavigationItems: Array<NavigationItem> = []

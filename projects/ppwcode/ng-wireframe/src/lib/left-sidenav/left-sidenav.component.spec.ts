@@ -51,7 +51,7 @@ describe('Left sidenav component', () => {
 
         fixture = TestBed.createComponent(LeftSidenavComponent)
         component = fixture.componentInstance
-        component.navigationItems = navigationItems
+        fixture.componentRef.setInput('navigationItems', navigationItems)
         fixture.detectChanges()
     })
 
