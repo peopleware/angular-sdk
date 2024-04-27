@@ -1,8 +1,8 @@
-<div class="ppw-toolbar" [style.height.px]="toolbarHeightPx">
+<div class="ppw-toolbar" [style.height.px]="toolbarHeightPx()">
     <div class="ppw-toolbar-left-section align-items-center">
-        @if (showMenuToggle) {
+        @if (showMenuToggle()) {
             <button class="ppw-toolbar-button" (click)="toggleSidebar.emit()">
-                @if (!isSidenavOpen) {
+                @if (!isSidenavOpen()) {
                     <mat-icon>menu</mat-icon>
                 } @else {
                     <mat-icon>close</mat-icon>
@@ -10,7 +10,7 @@
             </button>
         }
         <ng-content select="[ppw-toolbar-left-content]"></ng-content>
-        @if (showPageTitle && title) {
+        @if (showPageTitle() && title) {
             <span class="ppw-toolbar-page-title">{{ title }}</span>
         }
     </div>

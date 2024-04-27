@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core'
+import { Component, inject, input, InputSignal, OnInit, output, OutputEmitterRef } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatMenuModule } from '@angular/material/menu'
@@ -14,11 +14,14 @@ import { combineLatest, filter, map, startWith } from 'rxjs'
     styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-    @Input() public showMenuToggle = true
-    @Input() public isSidenavOpen = true
-    @Input() public showPageTitle = true
-    @Input() public toolbarHeightPx?: number
-    @Output() public toggleSidebar: EventEmitter<void> = new EventEmitter<void>()
+    // Inputs
+    public showMenuToggle: InputSignal<boolean> = input(true)
+    public isSidenavOpen: InputSignal<boolean> = input(true)
+    public showPageTitle: InputSignal<boolean> = input(true)
+    public toolbarHeightPx: InputSignal<number | undefined> = input()
+
+    // Outputs
+    public toggleSidebar: OutputEmitterRef<void> = output()
 
     public title: string | null = null
 
