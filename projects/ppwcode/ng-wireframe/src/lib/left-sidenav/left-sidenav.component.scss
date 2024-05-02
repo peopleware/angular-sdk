@@ -8,9 +8,24 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: stretch;
+        align-content: space-between;
+        height: 100vh;
         gap: 8px;
-        padding: 8px;
-        height: calc(100vh - 16px);
+
+        .ppw-sidenav-top-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .ppw-sidenav-bottom-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: flex-end;
+            padding: 16px;
+        }
     }
 }
 

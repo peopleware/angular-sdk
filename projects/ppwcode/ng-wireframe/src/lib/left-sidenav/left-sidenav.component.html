@@ -5,7 +5,7 @@
 }
 
 <div class="ppw-sidenav-content-wrapper">
-    <div class="flex-column">
+    <div class="ppw-sidenav-top-content-wrapper">
         @if (logoUrl) {
             <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo }">
                 <img [ngSrc]="logoUrl" alt="Logo" [height]="logoHeight" [width]="logoWidth" priority="eager" />
@@ -20,7 +20,7 @@
             }
         </div>
     </div>
-    <div class="flex-column ppw-sidenav-bottom-content">
+    <div class="ppw-sidenav-bottom-content-wrapper">
         <ng-content select="[ppw-sidebar-bottom]"></ng-content>
     </div>
 </div>
