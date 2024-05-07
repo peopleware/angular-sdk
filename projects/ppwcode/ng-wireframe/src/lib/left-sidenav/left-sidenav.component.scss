@@ -3,6 +3,7 @@
 :host {
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     .ppw-sidenav-content-wrapper {
         display: flex;
@@ -10,7 +11,7 @@
         justify-content: space-between;
         align-items: stretch;
         align-content: space-between;
-        height: 100vh;
+        height: 100%;
         gap: 8px;
 
         .ppw-sidenav-top-content-wrapper {
