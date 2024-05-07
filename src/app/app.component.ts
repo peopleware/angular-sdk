@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core'
 import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { TranslateService } from '@ngx-translate/core'
 import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
+import { mixinResponsiveObservers } from '../../projects/ppwcode/ng-common/src/lib/mixins/responsive-observers'
 
 @Component({
     selector: 'ppw-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent extends mixinResponsiveObservers() {
     private translate: TranslateService = inject(TranslateService)
     public title = 'ppwcode'
     public sidebarOptions: SidebarOptions = {
@@ -24,6 +25,7 @@ export class AppComponent {
     public toolbarHeightPx = 60
 
     constructor() {
+        super()
         this.translate.setDefaultLang('en')
         this.translate.use('en')
     }

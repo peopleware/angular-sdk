@@ -18,6 +18,9 @@
     }
     <ng-container ppw-toolbar-right-content>
         <mat-icon>person</mat-icon>
+        @if ((isSmallScreen$ | async) === false) {
+            <span>Username</span>
+        }
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
     <ng-container ppw-sidebar-bottom-content>
