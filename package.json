@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "start": "ng serve",
+        "start:remote": "ng serve --host 0.0.0.0",
         "lint:prettier": "cross-env prettier --check \"**/*.{ts,js,md,html,scss}\"",
         "format:prettier": "cross-env prettier --write \"**/*.{ts,js,md,html,scss}\"",
         "lint:lint": "ng lint",
