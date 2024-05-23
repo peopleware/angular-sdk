@@ -1,5 +1,5 @@
-import { getRelativeNavigator, RelativeNavigator } from './routing'
 import { Constructor } from '@ppwcode/ng-common'
+import { getRelativeNavigator, RelativeNavigator } from './routing'
 
 /**
  * Interface describing something that support navigation relative to the current instance.
@@ -16,9 +16,8 @@ export type RelativeNavigationCtor = Constructor<CanNavigateRelatively>
  * Enhances an optional base class with functionality to support relative navigation.
  * @param base An optional base class.
  */
-export const mixinRelativeNavigation = <T extends Constructor<Record<string, unknown>>>(
-    base?: T
-): T & RelativeNavigationCtor => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const mixinRelativeNavigation = <T extends Constructor<{}>>(base?: T): T & RelativeNavigationCtor => {
     const baseClass = base ?? (class {} as T)
 
     return class extends baseClass implements CanNavigateRelatively {
