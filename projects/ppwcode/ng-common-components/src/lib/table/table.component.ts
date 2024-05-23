@@ -194,7 +194,7 @@ export class TableComponent<TRecord>
 
         this.columnDirectives.forEach((columnDirective) => {
             if (columnDirective.headerTemplate) {
-                this.headerTemplates[columnDirective.name] = columnDirective.headerTemplate
+                this.headerTemplates[columnDirective.name()] = columnDirective.headerTemplate
             }
         })
     }

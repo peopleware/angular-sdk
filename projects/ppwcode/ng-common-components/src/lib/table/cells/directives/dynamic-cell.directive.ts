@@ -1,21 +1,22 @@
-import { ComponentRef, Directive, Input, OnInit, Type, ViewContainerRef } from '@angular/core'
+import { ComponentRef, Directive, input, InputSignal, OnInit, Type, ViewContainerRef } from '@angular/core'
 
 import { Column, ColumnType } from '../../columns/column'
-import { IsCellComponent } from '../mixins/cell-component.mixin'
 import { DateCellComponent } from '../date-cell/date-cell.component'
+import { IsCellComponent } from '../mixins/cell-component.mixin'
 import { NumberCellComponent } from '../number-cell/number-cell.component'
-import { TextCellComponent } from '../text-cell/text-cell.component'
 import { TemplateCellComponent } from '../template-cell/template-cell.component'
+import { TextCellComponent } from '../text-cell/text-cell.component'
 
 @Directive({
     selector: '[ppwDynamicCell]',
     standalone: true
 })
-export class DynamicCellDirective<TRecord> implements OnInit, IsCellComponent<any> {
-    @Input() public column!: Column<TRecord, any>
-    @Input() public record!: Record<string, unknown>
-    @Input() public value!: any
-    @Input() public rowIndex!: number
+export class DynamicCellDirective<TRecord> implements OnInit {
+    // Inputs
+    public column: InputSignal<Column<TRecord, any>> = input.required()
+    public record: InputSignal<Record<string, unknown>> = input.required()
+    public value: InputSignal<any> = input.required()
+    public rowIndex: InputSignal<number> = input.required()
 
     /** A reference to the instantiated component. */
     public componentRef!: ComponentRef<IsCellComponent<Column<TRecord, any>>>
@@ -30,12 +31,12 @@ export class DynamicCellDirective<TRecord> implements OnInit, IsCellComponent<an
     public constructor(private _viewContainerRef: ViewContainerRef) {}
 
     public ngOnInit(): void {
-        this._instantiateComponent(this._componentTypeMap[this.column.type ?? ColumnType.Text])
+        this._instantiateComponent(this._componentTypeMap[this.column().type ?? ColumnType.Text])
 
-        this.componentRef.instance.rowIndex = this.rowIndex
-        this.componentRef.instance.column = this.column
-        this.componentRef.instance.record = this.record
-        this.componentRef.instance.value = this.value
+        this.componentRef.instance.rowIndex = this.rowIndex()
+        this.componentRef.instance.column = this.column()
+        this.componentRef.instance.record = this.record()
+        this.componentRef.instance.value = this.value()
     }
 
     /**
