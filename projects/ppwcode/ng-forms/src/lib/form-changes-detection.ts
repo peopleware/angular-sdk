@@ -23,9 +23,8 @@ export interface DetectFormChanges {
 export type DetectFormChangesCtor = Constructor<DetectFormChanges>
 type Valuable<T> = { [K in keyof T as T[K] extends null | undefined ? never : K]: T[K] }
 
-export const mixinDetectFormChanges = <T extends Constructor<Record<string, unknown>>>(
-    base?: T
-): T & DetectFormChangesCtor => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const mixinDetectFormChanges = <T extends Constructor<{}>>(base?: T): T & DetectFormChangesCtor => {
     const baseClass = base ?? (class {} as T)
 
     return class extends baseClass implements DetectFormChanges {
