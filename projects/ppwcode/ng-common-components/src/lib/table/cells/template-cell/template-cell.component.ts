@@ -1,16 +1,8 @@
 import { CommonModule } from '@angular/common'
-import { mixinCellComponent } from '../mixins/cell-component.mixin'
 import { Component, TemplateRef } from '@angular/core'
+import { Constructor } from '@ppwcode/ng-common'
 import { TemplateColumn } from '../../columns/template-column'
-
-// Boilerplate for applying mixins to TemplateCellComponent.
-class TemplateCellComponentBase {}
-
-const _TemplateCellComponentBase = mixinCellComponent<
-    TemplateColumn<any>,
-    typeof TemplateCellComponentBase,
-    TemplateRef<any>
->(TemplateCellComponentBase)
+import { mixinCellComponent } from '../mixins/cell-component.mixin'
 
 @Component({
     selector: 'ppw-template-cell',
@@ -18,7 +10,14 @@ const _TemplateCellComponentBase = mixinCellComponent<
     standalone: true,
     imports: [CommonModule]
 })
-export class TemplateCellComponent extends _TemplateCellComponentBase {
+export class TemplateCellComponent extends mixinCellComponent<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    TemplateColumn<any>,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    Constructor<{}>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    TemplateRef<any>
+>() {
     public get context() {
         return { record: this.record, rowIndex: this.rowIndex, $implicit: this.record }
     }

@@ -1,12 +1,7 @@
 import { Component } from '@angular/core'
-import { mixinCellComponent } from '../mixins/cell-component.mixin'
+import { Constructor } from '@ppwcode/ng-common'
 import { NumberColumn } from '../../columns/number-column'
-
-// Boilerplate for applying mixins to TextCellComponent.
-class NumberCellComponentBase {}
-const _NumberCellComponentBase = mixinCellComponent<NumberColumn<any>, typeof NumberCellComponentBase, string>(
-    NumberCellComponentBase
-)
+import { mixinCellComponent } from '../mixins/cell-component.mixin'
 
 /**
  * This component acts as a cell within a table. It's purpose is to display
@@ -19,4 +14,6 @@ const _NumberCellComponentBase = mixinCellComponent<NumberColumn<any>, typeof Nu
     template: `{{ value }}`,
     standalone: true
 })
-export class NumberCellComponent extends _NumberCellComponentBase {}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/ban-types
+export class NumberCellComponent extends mixinCellComponent<NumberColumn<any>, Constructor<{}>, string>() {}
