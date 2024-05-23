@@ -28,7 +28,7 @@
                     [enableRowDrag]="enableRowDrag"
                     [options]="tableOptions"
                     [trackBy]="trackByFn"
-                    (orderChanged)="orderChanged($event)"
+                    (orderChanged)="orderChanged(players.entity, $event)"
                     (selectionChanged)="updateSelected($event)"
                 >
                     <ppw-column name="firstName" type="text" label="First name"></ppw-column>

@@ -2,12 +2,12 @@ import { Component, ViewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { DateTimeFormatter, LocalDate } from '@js-joda/core'
-import { PpwTableModule } from './table.module'
 import { addMonths, format } from 'date-fns'
 import { DateTime } from 'luxon'
 import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
+import { PpwTableModule } from './table.module'
 
 export interface PeriodicElement extends Record<string, unknown> {
     name: string
@@ -228,10 +228,10 @@ describe('TableComponent', () => {
     })
 
     it('should show initial value', () => {
-        const testData = (tableComponent.data as Array<Record<string, unknown>>)[3]
-        expect(tableComponent.dataSource.data[3].initialRecord).toBe(testData)
-        expect(tableComponent.dataSource.data[3].mappedValues['elementName']).toBe('Beryllium')
-        expect(tableComponent.dataSource.data[3].mappedValues['symbol']).toBe('Be')
+        const testData = (tableComponent.data() as Array<Record<string, unknown>>)[3]
+        expect(tableComponent.dataSource().data[3].initialRecord).toBe(testData)
+        expect(tableComponent.dataSource().data[3].mappedValues['elementName']).toBe('Beryllium')
+        expect(tableComponent.dataSource().data[3].mappedValues['symbol']).toBe('Be')
     })
 
     it('should detect column changes', () => {
@@ -243,9 +243,9 @@ describe('TableComponent', () => {
         }
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames[1]).toBe('testName')
-        expect(tableComponent.dataSource.data[3].mappedValues['symbol']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['testName']).toBe('Be')
+        expect(tableComponent.columnNames()[1]).toBe('testName')
+        expect(tableComponent.dataSource().data[3].mappedValues['symbol']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['testName']).toBe('Be')
     })
 
     it('should detect row changes', () => {
@@ -259,10 +259,11 @@ describe('TableComponent', () => {
             jsJodaDate: LocalDate.of(2024, 10, 1),
             fnsDate: new Date(2024, 10, 1)
         }
-        fixture.componentInstance.data.push(testObj)
+        const newData = [...fixture.componentInstance.data, testObj]
+        fixture.componentInstance.data = newData
         fixture.detectChanges()
 
-        expect(tableComponent.dataSource.data[10].initialRecord).toBe(testObj)
+        expect(tableComponent.dataSource().data[10].initialRecord).toBe(testObj)
     })
 
     it('should map undefined text column property', () => {
@@ -274,9 +275,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
-        expect(tableComponent.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.0122)
+        expect(tableComponent.dataSource().data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string text column property', () => {
@@ -294,9 +295,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
     it('should map function text column property', () => {
@@ -308,8 +309,8 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe('9.01')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe('9.01')
     })
 
     it('should map undefined number column property', () => {
@@ -325,9 +326,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.0122)
-        expect(tableComponent.dataSource.data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.0122)
+        expect(tableComponent.dataSource().data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string number column property', () => {
@@ -345,9 +346,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['weightFromProp']).toBe(9.0122)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
     it('should map function number column property', () => {
@@ -359,8 +360,8 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'weight'])
-        expect(tableComponent.dataSource.data[3].mappedValues['weight']).toBe(9.01)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight'])
+        expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.01)
     })
 
     it('should map undefined luxon date column property', () => {
@@ -378,14 +379,14 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual([
+        expect(tableComponent.columnNames()).toEqual([
             'elementName',
             'symbol',
             'luxDate',
             'luxonTestDateFromUndefinedProp'
         ])
-        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe('01/04/2023')
-        expect(tableComponent.dataSource.data[3].mappedValues['luxonTestDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe('01/04/2023')
+        expect(tableComponent.dataSource().data[3].mappedValues['luxonTestDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string luxon date column property', () => {
@@ -405,9 +406,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'luxDate', 'luxDateFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['luxDateFromProp']).toBe('01/04/2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'luxDate', 'luxDateFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['luxDateFromProp']).toBe('01/04/2023')
     })
 
     it('should map function luxon date column property', () => {
@@ -420,8 +421,8 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'luxDate'])
-        expect(tableComponent.dataSource.data[3].mappedValues['luxDate']).toBe('02/04/2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'luxDate'])
+        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe('02/04/2023')
     })
 
     it('should map undefined js date column property', () => {
@@ -439,9 +440,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromUndefinedProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe('Sat Apr 01 2023')
-        expect(tableComponent.dataSource.data[3].mappedValues['jsDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromUndefinedProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Sat Apr 01 2023')
+        expect(tableComponent.dataSource().data[3].mappedValues['jsDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string js date column property', () => {
@@ -461,9 +462,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['jsDateFromProp']).toBe('Sat Apr 01 2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['jsDateFromProp']).toBe('Sat Apr 01 2023')
     })
 
     it('should map function js date column property', () => {
@@ -484,8 +485,8 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsDate'])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate'])
+        expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
     })
 
     it('should map undefined js-joda date column property', () => {
@@ -503,14 +504,14 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual([
+        expect(tableComponent.columnNames()).toEqual([
             'elementName',
             'symbol',
             'jsJodaDate',
             'jsJodaDateFromUndefinedProp'
         ])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe('01-04-2023')
-        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe('01-04-2023')
+        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string js-joda date column property', () => {
@@ -530,9 +531,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDateFromProp']).toBe('01-04-2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDateFromProp']).toBe('01-04-2023')
     })
 
     it('should map function js-joda date column property', () => {
@@ -545,8 +546,8 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'jsJodaDate'])
-        expect(tableComponent.dataSource.data[3].mappedValues['jsJodaDate']).toBe('05-04-2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsJodaDate'])
+        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe('05-04-2023')
     })
 
     it('should map undefined date-fns date column property', () => {
@@ -564,9 +565,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromUndefinedProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe('01-04-2023')
-        expect(tableComponent.dataSource.data[3].mappedValues['fnsDateFromUndefinedProp']).toBe(undefined)
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromUndefinedProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe('01-04-2023')
+        expect(tableComponent.dataSource().data[3].mappedValues['fnsDateFromUndefinedProp']).toBe(undefined)
     })
 
     it('should map string date-fns date column property', () => {
@@ -586,9 +587,9 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromProp'])
-        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe(undefined)
-        expect(tableComponent.dataSource.data[3].mappedValues['fnsDateFromProp']).toBe('01-04-2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromProp'])
+        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe(undefined)
+        expect(tableComponent.dataSource().data[3].mappedValues['fnsDateFromProp']).toBe('01-04-2023')
     })
 
     it('should map function date-fns date column property', () => {
@@ -601,7 +602,7 @@ describe('TableComponent', () => {
         })
         fixture.detectChanges()
 
-        expect(tableComponent.columnNames).toEqual(['elementName', 'symbol', 'fnsDate'])
-        expect(tableComponent.dataSource.data[3].mappedValues['fnsDate']).toBe('01-08-2023')
+        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate'])
+        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe('01-08-2023')
     })
 })

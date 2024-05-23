@@ -2,30 +2,28 @@ import { animate, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import {
-    AfterContentChecked,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChild,
-    ContentChildren,
+    computed,
+    contentChild,
+    contentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
-    Input,
-    OnChanges,
+    input,
+    InputSignal,
     OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
+    output,
+    OutputEmitterRef,
+    Signal,
     TemplateRef,
     TrackByFunction,
     Type,
-    ViewChild
+    viewChild
 } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
-import { assert } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { assert, notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { Column, ColumnType } from './columns/column'
@@ -58,29 +56,36 @@ import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent<TRecord>
-    extends mixinHandleSubscriptions()
-    implements OnInit, OnChanges, AfterContentChecked
-{
-    #changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef)
+export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit {
     #elementRef: ElementRef = inject(ElementRef)
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
 
-    public columns: Array<Column<TRecord, unknown>> = []
     public headerTemplates: Record<string | keyof TRecord, TemplateRef<unknown>> = {} as Record<
         string | keyof TRecord,
         TemplateRef<unknown>
     >
-    @Input({ required: true }) public data: Array<Record<string, unknown>> | FormArray<FormGroup> = []
-    @Input({ required: true }) public trackBy!: TrackByFunction<TRecord>
-    @Input() public enableRowSelection = false
-    @Input() public enableRowDrag = false
-    @Input() public options?: PpwTableOptions<TRecord>
-    @Output() public selectionChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
-    @Output() public orderChanged: EventEmitter<TableRecord<TRecord>[]> = new EventEmitter<TableRecord<TRecord>[]>()
-    @ContentChild(PpwEmptyTablePageDirective, { read: TemplateRef }) public emptyPageTemplate?: TemplateRef<unknown>
-    @ContentChildren(PpwColumnDirective<TRecord>) public columnDirectives!: QueryList<PpwColumnDirective<TRecord>>
-    @ViewChild('dataTable') table?: MatTable<TRecord>
+
+    // Inputs
+    public data: InputSignal<Array<Record<string, unknown>> | FormArray<FormGroup>> = input.required()
+    public trackBy: InputSignal<TrackByFunction<TRecord>> = input.required()
+    public enableRowSelection: InputSignal<boolean> = input(false)
+    public enableRowDrag: InputSignal<boolean> = input(false)
+    public options: InputSignal<PpwTableOptions<TRecord> | undefined> = input<PpwTableOptions<TRecord> | undefined>(
+        undefined
+    )
+
+    // Outputs
+    public selectionChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
+    public orderChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
+
+    // Content children
+    public emptyPageTemplate: Signal<TemplateRef<unknown> | undefined> = contentChild(PpwEmptyTablePageDirective, {
+        read: TemplateRef
+    })
+    public columnDirectives: Signal<readonly PpwColumnDirective<TRecord>[]> = contentChildren(PpwColumnDirective)
+
+    // View children
+    table: Signal<MatTable<TRecord>> = viewChild.required(MatTable)
 
     public get emptyPageComponent(): Type<unknown> | undefined {
         return this.#tableDefaultOptions?.emptyPageComponent
@@ -92,11 +97,46 @@ export class TableComponent<TRecord>
         return cssHeightValue !== 'auto' && cssHeightValue !== ''
     }
 
-    /** The data source for the material table. */
-    public dataSource!: MatTableDataSource<TableRecord<TRecord>>
+    public columns: Signal<Array<Column<TRecord, unknown>>> = computed(() => {
+        const columnDirectives = this.columnDirectives()
+
+        columnDirectives.forEach((columnDirective) => {
+            if (columnDirective.headerTemplate) {
+                this.headerTemplates[columnDirective.name()] = columnDirective.headerTemplate
+            }
+        })
+
+        // Generate the columns from the found ppw-column instances in the content children.
+        return columnDirectives.map((columnDirective) => {
+            assert(
+                columnDirective.columnDefinition(),
+                () => !!columnDirective.columnDefinition(),
+                `A column definition could not be found, make sure your ppw-column templates are defined correctly.`
+            )
+            return notUndefined(columnDirective.columnDefinition())
+        })
+    })
 
     /** The names of the columns that are displayed. */
-    public columnNames: Array<string> = []
+    public columnNames: Signal<Array<string>> = computed(() => {
+        const names = this.columns().map((column) => column.name)
+
+        // The following columns available by the table component itself. Their visibility is handled by the input bindings.
+        if (this.enableRowSelection()) {
+            names.unshift('rowSelection')
+        }
+        if (this.enableRowDrag()) {
+            names.unshift('rowDrag')
+        }
+
+        return names
+    })
+
+    /** The data source for the material table. */
+    public dataSource: Signal<MatTableDataSource<TableRecord<TRecord>>> = computed(() => {
+        const localRecords = this._mapToLocalKeyValuePairs(this.data(), this.columns())
+        return new MatTableDataSource(localRecords)
+    })
 
     dragDisabled = true
     public selection = new SelectionModel<TableRecord<TRecord>>(
@@ -110,12 +150,12 @@ export class TableComponent<TRecord>
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
-        const numRows = this.dataSource.data.length
+        const numRows = this.dataSource().data.length
         if (numRows === 0) {
             return false
         }
 
-        const selectedRecords = this.dataSource.data.filter((record: TableRecord<TRecord>) => {
+        const selectedRecords = this.dataSource().data.filter((record: TableRecord<TRecord>) => {
             return this.selection.isSelected(record)
         })
         return (selectedRecords?.length ?? 0) === numRows
@@ -123,8 +163,8 @@ export class TableComponent<TRecord>
 
     /** Whether the number of selected elements is greater than 0 but not equals to the total number of rows. */
     isSomeSelected() {
-        const numRows = this.dataSource.data.length
-        const selectedRecords = this.dataSource.data.filter((record: TableRecord<TRecord>) => {
+        const numRows = this.dataSource().data.length
+        const selectedRecords = this.dataSource().data.filter((record: TableRecord<TRecord>) => {
             return this.selection.isSelected(record)
         })
         return (selectedRecords?.length ?? 0) > 0 && (selectedRecords?.length ?? 0) < numRows
@@ -134,7 +174,7 @@ export class TableComponent<TRecord>
     masterToggle() {
         this.isAllSelected()
             ? this.selection.clear()
-            : this.dataSource.data.forEach((row: TableRecord<TRecord>) => this.selection.select(row))
+            : this.dataSource().data.forEach((row: TableRecord<TRecord>) => this.selection.select(row))
     }
 
     public ngOnInit(): void {
@@ -143,70 +183,8 @@ export class TableComponent<TRecord>
         })
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['enableRowSelection'] || changes['enableRowDrag']) {
-            this.setColumns()
-        }
-
-        // We need to set the data source in either case because we remap the records
-        // to a local set of records. So if a new column is added we need to remap
-        // the records again.
-        // When adding a new binding to this component, reconsider whether the following
-        // line should still be executed for each change to the input bindings.
-        this.setDataSource(this.data)
-    }
-
-    public ngAfterContentChecked(): void {
-        this.setColumns()
-        this.setDataSource(this.data)
-    }
-
     public trackByFn(_index: number, item: TableRecord<TRecord>): unknown {
         return item.trackByValue
-    }
-
-    private setColumns(): void {
-        if (!this.columnDirectives) {
-            return
-        }
-
-        // Generate the columns from the found ppw-column instances in the content children.
-        this.columns = this.columnDirectives.map((columnDirective) => {
-            assert(
-                columnDirective.columnDefinition,
-                () => !!columnDirective.columnDefinition,
-                `A column definition could not be found, make sure your ppw-column templates are defined correctly.`
-            )
-            return columnDirective.columnDefinition
-        })
-        this.columnNames = this.columns.map((column) => column.name)
-
-        // The following columns available by the table component itself. Their visibility is handled by the input bindings.
-        if (this.enableRowSelection) {
-            this.columnNames.unshift('rowSelection')
-        }
-        if (this.enableRowDrag) {
-            this.columnNames.unshift('rowDrag')
-        }
-
-        // Mark the component for change detection so that the table is rendered again.
-        this.#changeDetectorRef.markForCheck()
-
-        this.columnDirectives.forEach((columnDirective) => {
-            if (columnDirective.headerTemplate) {
-                this.headerTemplates[columnDirective.name()] = columnDirective.headerTemplate
-            }
-        })
-    }
-
-    /**
-     * Initialises an entirely new data source and sets the necessary properties.
-     * @param items The items for the data source.
-     */
-    private setDataSource(items: Array<Record<string, unknown>> | FormArray<FormGroup>): void {
-        this.dataSource?.disconnect()
-        const localRecords = this._mapToLocalKeyValuePairs(items)
-        this.dataSource = new MatTableDataSource(localRecords)
     }
 
     /**
@@ -216,7 +194,8 @@ export class TableComponent<TRecord>
      * @param items The items to map.
      */
     private _mapToLocalKeyValuePairs(
-        items: Array<Record<string, unknown>> | FormArray<FormGroup>
+        items: Array<Record<string, unknown>> | FormArray<FormGroup>,
+        columns: Array<Column<TRecord, unknown>>
     ): Array<TableRecord<TRecord>> {
         let records: Array<unknown>
 
@@ -228,7 +207,7 @@ export class TableComponent<TRecord>
 
         return records.map((record, index) => {
             const mappedValues: Record<string, unknown> = {}
-            for (const column of this.columns) {
+            for (const column of columns) {
                 switch (column.type) {
                     case ColumnType.Date: {
                         const dateColumn = column as DateColumn<unknown, unknown>
@@ -267,21 +246,20 @@ export class TableComponent<TRecord>
             return {
                 initialRecord: record,
                 mappedValues,
-                trackByValue: this.trackBy(index, record as TRecord)
+                trackByValue: this.trackBy()(index, record as TRecord)
             } as TableRecord<TRecord>
         })
     }
 
     public executeRowClick(record: TRecord, columnName: string): void {
-        this.options?.rows?.onClick && (this.options?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0)
-            ? this.options.rows.onClick(record)
-            : null
+        const onClick = this.options()?.rows?.onClick
+        onClick && (this.options()?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0) ? onClick(record) : null
     }
 
     public dropTable(event: CdkDragDrop<MatTableDataSource<TableRecord<TRecord>>, any>): void {
-        moveItemInArray(this.dataSource.data, event.previousIndex, event.currentIndex)
-        this.table?.renderRows()
-        this.orderChanged.emit(this.dataSource.data)
+        moveItemInArray(this.dataSource().data, event.previousIndex, event.currentIndex)
+        this.table().renderRows()
+        this.orderChanged.emit(this.dataSource().data)
     }
 }
 

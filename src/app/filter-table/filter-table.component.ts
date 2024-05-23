@@ -12,7 +12,8 @@ import {
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
     expectPagedAsyncResultHttpSuccess,
-    PagedAsyncResult
+    PagedAsyncResult,
+    PagedEntities
 } from '@ppwcode/ng-async'
 import {
     ExpandableCardComponent,
@@ -291,8 +292,9 @@ export class FilterTableComponent
         this.selectedPlayersSignal.set(selected.map((record: TableRecord<Player>) => record.initialRecord))
     }
 
-    public orderChanged(items: TableRecord<Player>[]): void {
-        this.playersToSave = [...items.map((item: TableRecord<Player>) => item.initialRecord)]
+    public orderChanged(result: PagedEntities<Player>, items: TableRecord<Player>[]): void {
+        result.items = [...items.map((item: TableRecord<Player>) => item.initialRecord)]
+        this.playersToSave = result.items
     }
 
     public addPlayer(): void {

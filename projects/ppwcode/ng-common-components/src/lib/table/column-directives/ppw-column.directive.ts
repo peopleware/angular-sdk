@@ -1,13 +1,4 @@
-import {
-    AfterContentInit,
-    contentChild,
-    Directive,
-    inject,
-    input,
-    InputSignal,
-    Signal,
-    TemplateRef
-} from '@angular/core'
+import { computed, contentChild, Directive, inject, input, InputSignal, Signal, TemplateRef } from '@angular/core'
 import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { Column, ColumnType } from '../columns/column'
 import { DateColumn } from '../columns/date-column'
@@ -31,8 +22,7 @@ import { PpwColumnHeaderDirective } from './ppw-column-header.directive'
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'ppw-column'
 })
-export class PpwColumnDirective<TRecord> implements AfterContentInit {
-    #columnDefinition!: Column<TRecord, unknown>
+export class PpwColumnDirective<TRecord> {
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
 
     // Inputs
@@ -71,11 +61,6 @@ export class PpwColumnDirective<TRecord> implements AfterContentInit {
     /** Reference to the optional row cell template. */
     private columnCellDirective: Signal<PpwColumnCellDirective | undefined> = contentChild(PpwColumnCellDirective)
 
-    /** Gets the column definition that is determined by the input bindings and content children. */
-    public get columnDefinition(): Column<TRecord, unknown> {
-        return this.#columnDefinition
-    }
-
     /** Gets the template reference from the found header cell directive. */
     public get headerTemplate(): TemplateRef<unknown> | undefined {
         return this.headerCellDirective()?.templateRef
@@ -91,7 +76,7 @@ export class PpwColumnDirective<TRecord> implements AfterContentInit {
         return this.dateFormatFn() ?? this.#tableDefaultOptions?.dateColumnFormatter
     }
 
-    public ngAfterContentInit(): void {
+    public columnDefinition: Signal<Column<TRecord, unknown> | undefined> = computed(() => {
         /**
          * When a column cell is given, the column should always be a TemplateColumn. Other columns have no support
          * for custom templates to be used.
@@ -104,12 +89,11 @@ export class PpwColumnDirective<TRecord> implements AfterContentInit {
                     }, the column type should be set to ${ColumnType.Template}}`
                 )
             }
-            this.#columnDefinition = new TemplateColumn(
+            return new TemplateColumn(
                 this.name() as string,
                 this.label() ?? '',
                 () => notUndefined(this.columnCellDirective()).templateRef
             )
-            return
         }
 
         switch (this.type()) {
@@ -120,37 +104,33 @@ export class PpwColumnDirective<TRecord> implements AfterContentInit {
                     )
                 }
 
-                this.#columnDefinition = new DateColumn(
+                return new DateColumn(
                     this.name() as string,
                     this.label() ?? '',
                     this.dateFormatter,
                     this.valueRetrieval() ?? (this.name() as string)
                 )
-                break
             case ColumnType.Number:
-                this.#columnDefinition = new NumberColumn(
+                return new NumberColumn(
                     this.name() as string,
                     this.label() ?? '',
                     (this.valueRetrieval() as string | ((record: TRecord) => number)) ?? (this.name() as string),
                     this.numberFormatter
                 )
-                break
             case ColumnType.Template:
-                this.#columnDefinition = new TemplateColumn(
+                return new TemplateColumn(
                     this.name() as string,
                     this.label() ?? '',
                     () => notUndefined(this.columnCellDirective()).templateRef
                 )
-                break
             case ColumnType.Text:
-                this.#columnDefinition = new TextColumn(
+                return new TextColumn(
                     this.name() as string,
                     this.label() ?? '',
                     (this.valueRetrieval() as string | ((record: TRecord) => string)) ?? (this.name() as string)
                 )
-                break
             default:
                 throw new Error(`Unsupported column type ${this.type}`)
         }
-    }
+    })
 }

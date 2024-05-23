@@ -1,20 +1,19 @@
 <section class="ppw-table-container" [class.fixed-height]="hasFixedHeight">
     <table
         mat-table
-        #dataTable
         class="ppw-table"
-        [class.ppw-table-header-hidden]="!!options?.header?.hidden"
+        [class.ppw-table-header-hidden]="!!options()?.header?.hidden"
         [class.ppw-table-header-hidden-first-row-add-top-border]="
-            !!options?.header?.hidden && !!options?.header?.showFirstRowTopBorder
+            !!options()?.header?.hidden && !!options()?.header?.showFirstRowTopBorder
         "
-        [dataSource]="dataSource"
+        [dataSource]="dataSource()"
         [trackBy]="trackByFn"
         cdkDropList
-        [cdkDropListData]="dataSource"
+        [cdkDropListData]="dataSource()"
         (cdkDropListDropped)="dropTable($event)"
     >
         <!-- Draghandle column -->
-        @if (enableRowDrag) {
+        @if (enableRowDrag()) {
             <ng-container matColumnDef="rowDrag">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" class="drag-table-cell">
@@ -33,13 +32,13 @@
         }
 
         <!-- Checkbox Column -->
-        @if (enableRowSelection) {
+        @if (enableRowSelection()) {
             <ng-container matColumnDef="rowSelection">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox
                         color="primary"
-                        [disabled]="dataSource.data.length === 0"
-                        [style.width]="options?.columns?.widths?.['rowSelection']"
+                        [disabled]="dataSource().data.length === 0"
+                        [style.width]="options()?.columns?.widths?.['rowSelection']"
                         (change)="$event ? masterToggle() : null"
                         [checked]="isAllSelected()"
                         [indeterminate]="isSomeSelected()"
@@ -49,7 +48,7 @@
                 <td mat-cell *matCellDef="let row">
                     <mat-checkbox
                         color="primary"
-                        [style.width]="options?.columns?.widths?.['rowSelection']"
+                        [style.width]="options()?.columns?.widths?.['rowSelection']"
                         (change)="$event ? selection.toggle(row) : null"
                         [checked]="selection.isSelected(row)"
                     >
@@ -58,12 +57,12 @@
             </ng-container>
         }
 
-        @for (column of columns; track column) {
+        @for (column of columns(); track column) {
             <ng-container [matColumnDef]="column.name">
                 <th
                     mat-header-cell
-                    [style.width]="options?.columns?.widths?.[column.name]"
-                    [ngStyle]="options?.header?.styles?.[column.name]?.()"
+                    [style.width]="options()?.columns?.widths?.[column.name]"
+                    [ngStyle]="options()?.header?.styles?.[column.name]?.()"
                     *matHeaderCellDef
                     class="ppw-column-type-{{ column.type }}"
                 >
@@ -75,8 +74,8 @@
                 </th>
                 <td
                     mat-cell
-                    [style.width]="options?.columns?.widths?.[column.name]"
-                    [ngStyle]="options?.columns?.styles?.[column.name]?.(record.initialRecord)"
+                    [style.width]="options()?.columns?.widths?.[column.name]"
+                    [ngStyle]="options()?.columns?.styles?.[column.name]?.(record.initialRecord)"
                     *matCellDef="let record; let idx = index"
                     (click)="executeRowClick(record.initialRecord, column.name)"
                     class="ppw-column-type-{{ column.type }}"
@@ -92,24 +91,24 @@
             </ng-container>
         }
 
-        <tr mat-header-row *matHeaderRowDef="columnNames; sticky: !!options?.header?.sticky"></tr>
+        <tr mat-header-row *matHeaderRowDef="columnNames(); sticky: !!options()?.header?.sticky"></tr>
         <tr
             mat-row
             @rowsAnimation
-            *matRowDef="let row; columns: columnNames"
+            *matRowDef="let row; columns: columnNames()"
             cdkDrag
             [cdkDragDisabled]="dragDisabled"
             (cdkDragReleased)="dragDisabled = true"
-            [class.highlight]="options?.rows?.highlightOnHover"
-            [class.clickable]="options?.rows?.onClick"
+            [class.highlight]="options()?.rows?.highlightOnHover"
+            [class.clickable]="options()?.rows?.onClick"
         ></tr>
         <tr *matNoDataRow>
             <td
-                [attr.colspan]="columnNames.length + (enableRowSelection ? 1 : 0) + (enableRowDrag ? 1 : 0)"
+                [attr.colspan]="columnNames().length + (enableRowSelection() ? 1 : 0) + (enableRowDrag() ? 1 : 0)"
                 class="ppw-table-no-data-row"
             >
-                @if (emptyPageTemplate) {
-                    <ng-container *ngTemplateOutlet="emptyPageTemplate"></ng-container>
+                @if (emptyPageTemplate(); as empty) {
+                    <ng-container *ngTemplateOutlet="empty"></ng-container>
                 } @else if (emptyPageComponent) {
                     <ng-container *ngComponentOutlet="emptyPageComponent"></ng-container>
                 }
