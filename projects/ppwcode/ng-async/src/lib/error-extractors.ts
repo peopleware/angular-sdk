@@ -10,9 +10,9 @@ export const ppwHttpErrorExtractorWithTranslatedMessages = (response: HttpErrorR
         if (messages?.length) {
             return new Error(messages.map((msg) => msg.text).join('\n'))
         } else {
-            return extractHttpError(response)
+            return extractHttpError(response, true)
         }
     } else {
-        return extractHttpError(response)
+        return extractHttpError(response, true)
     }
 }

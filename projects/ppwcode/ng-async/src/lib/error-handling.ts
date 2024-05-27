@@ -11,10 +11,10 @@ declare global {
     }
 }
 
-export const extractHttpError = (httpError: HttpErrorResponse): Error => {
+export const extractHttpError = (httpError: HttpErrorResponse, skipCustomExtractor: boolean = false): Error => {
     // When a global error handler has been defined in the application itself, we should use that one instead of the
     // default implementation that we provided here in the SDK.
-    if (window.ppwcodeHttpErrorExtractor) {
+    if (window.ppwcodeHttpErrorExtractor && !skipCustomExtractor) {
         return window.ppwcodeHttpErrorExtractor(httpError)
     }
 
