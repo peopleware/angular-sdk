@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-common-components",
-    "version": "0.0.79",
+    "version": "0.0.80",
     "peerDependencies": {
         "@angular/common": "^17.0.0",
         "@angular/core": "^17.0.0"
