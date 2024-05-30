@@ -48,6 +48,10 @@
         cursor: pointer;
         background-color: rgba(black, 4%); /* same as #F5F5F5 */
     }
+
+    &:focus-visible {
+        outline: unset;
+    }
 }
 
 .ppw-sidenav-navigation-item {

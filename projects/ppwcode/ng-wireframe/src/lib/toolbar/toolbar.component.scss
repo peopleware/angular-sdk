@@ -23,6 +23,10 @@
             background-color: var(--ppw-toolbar-button-hover-background, rgba(black, 4%)); /* same as #F5F5F5 */
             color: var(--ppw-toolbar-button-hover-text-color);
         }
+
+        &:focus-visible {
+            outline: unset;
+        }
     }
 
     .ppw-toolbar-left-section,
