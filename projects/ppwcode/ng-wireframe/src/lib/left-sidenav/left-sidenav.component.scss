@@ -43,11 +43,11 @@
     position: absolute;
     right: 0;
     color: var(--ppw-sidenav-close-button-color);
-}
 
-.ppw-sidenav-close-button:hover {
-    cursor: pointer;
-    background-color: rgba(black, 4%); /* same as #F5F5F5 */
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(black, 4%); /* same as #F5F5F5 */
+    }
 }
 
 .ppw-sidenav-navigation-item {
