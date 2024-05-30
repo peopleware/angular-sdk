@@ -103,7 +103,7 @@ export class WireframeComponent {
         const drawer: MatDrawer = notUndefined(this.matDrawer())
         if (result.matches && drawer.opened) {
             drawer.close()
-        } else if (!result.matches && !drawer.opened) {
+        } else if (!result.matches && !drawer.opened && !this.sidebarOptions()?.closedByDefaultOnLargerDevice) {
             drawer.open()
         }
     })
