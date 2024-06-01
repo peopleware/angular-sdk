@@ -26,6 +26,27 @@ export const handleAsyncResult = <T>(
 }
 
 /**
+ * Default handling for observables that return a single result but the returned entity is ignored.
+ * Converts the result to an AsyncResult and handles http errors thrown for the given http error codes.
+ *
+ * The returned observable will emit with an AsyncResult that is either in status "success" or "failed".
+ * The filters property of the async result will be `null`.
+ *
+ * The entity in the AsyncResult will always be `undefined` because the result of the service call is ignored.
+ * @param serviceCall$ The observable that returns the result.
+ * @param httpErrorCodes The http error codes that should be handled as an error. Defaults to `DEFAULT_HTTP_ERROR_CODES`.
+ */
+export const handleAsyncResultIgnoreEntity = <T>(
+    serviceCall$: Observable<T>,
+    httpErrorCodes: Array<number> = DEFAULT_HTTP_ERROR_CODES
+) => {
+    return serviceCall$.pipe(
+        map(() => createSuccessAsyncResult(void 0)),
+        expectAsyncResultHttpError(httpErrorCodes, void 0)
+    )
+}
+
+/**
  * Default handling for observables that return a paged result.
  * Converts the result to a PagedAsyncResult and handles http errors thrown for the given http error codes.
  *
