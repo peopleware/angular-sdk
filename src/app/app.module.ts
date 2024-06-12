@@ -1,5 +1,5 @@
 import { NgOptimizedImage, registerLocaleData } from '@angular/common'
-import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import localeEn from '@angular/common/locales/en-BE'
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
@@ -43,10 +43,10 @@ const ppwcodeComponents = [WireframeComponent]
 
 @NgModule({
     declarations: [AppComponent],
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule,
         MatIconModule,
         TranslateModule.forRoot({
             defaultLanguage: 'en',
@@ -84,8 +84,8 @@ const ppwcodeComponents = [WireframeComponent]
                     singleErrorDetails: 'global-error-dialog.single-error-details'
                 }
             }
-        })
-    ],
-    bootstrap: [AppComponent]
+        }),
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class AppModule {}

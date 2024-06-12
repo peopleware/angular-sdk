@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { noop, of } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -13,7 +13,7 @@ describe('http-call-tester', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
         })
 
         httpClient = TestBed.inject(HttpClient)

@@ -1,5 +1,5 @@
-import { HttpClient, HttpResponse } from '@angular/common/http'
-import { HttpClientTestingModule, TestRequest } from '@angular/common/http/testing'
+import { HttpClient, HttpResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClientTesting, TestRequest } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 
 import { expectNoOutstandingRequests, expectOneCallToUrl, ResponseOptions } from './http-client-testing-controller'
@@ -10,7 +10,7 @@ describe('http-client-testing-controller', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
         })
 
         httpClient = TestBed.inject(HttpClient)
