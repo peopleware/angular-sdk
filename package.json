@@ -29,7 +29,7 @@
         "@js-joda/extra": "0.11.3",
         "@js-joda/locale": "4.8.10",
         "@js-joda/timezone": "2.18.0",
-        "@ng-matero/extensions": "17.1.2",
+        "@ng-matero/extensions": "18.0.1",
         "@ngx-translate/core": "15.0.0",
         "@ngx-translate/http-loader": "8.0.0",
         "@ppwcode/js-ts-oddsandends": "1.4.2",
