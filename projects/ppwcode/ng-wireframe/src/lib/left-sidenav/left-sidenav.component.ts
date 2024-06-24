@@ -48,6 +48,10 @@ export class LeftSidenavComponent {
         }
     }
 
+    protected trackNavigationItem(navigationItem: NavigationItem): string {
+        return JSON.stringify(navigationItem)
+    }
+
     private toggleNavigationItemOpened(navigationItem: NavigationItem): void {
         if (this.navigationItemIsOpened(navigationItem)) {
             this.closeNavigationItem(navigationItem)

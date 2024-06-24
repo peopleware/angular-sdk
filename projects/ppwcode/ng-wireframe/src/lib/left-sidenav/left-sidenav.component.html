@@ -15,7 +15,7 @@
             <ng-content select="[ppw-sidebar-top]"></ng-content>
         </div>
         <div class="ppw-sidenav-navigation-wrapper flex-column">
-            @for (navigationItem of navigationItems(); track navigationItem) {
+            @for (navigationItem of navigationItems(); track trackNavigationItem(navigationItem)) {
                 <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
             }
         </div>
@@ -48,7 +48,7 @@
     </button>
     @if (navigationItemIsOpened(navigationItem) && navigationItem.children) {
         <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
-            @for (child of navigationItem.children; track child) {
+            @for (child of navigationItem.children; track trackNavigationItem(child)) {
                 <ng-container
                     *ngTemplateOutlet="
                         navigationItemTemplate;
