@@ -11,7 +11,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-left-sidenav
 
 | Variable name                                                  | Extra info                                                                                                    |
-|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | `--ppw-sidenav-close-button-color`                             |                                                                                                               |
 | `--ppw-sidenav-navigation-item-child-margin`                   | The default margin to apply to children have a collapsible navigation item.                                   |
 | `--ppw-sidenav-navigation-item-hover-background-color`         |                                                                                                               |
@@ -31,7 +31,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-toolbar
 
 | Variable name                           | Extra info |
-|-----------------------------------------|------------|
+| --------------------------------------- | ---------- |
 | `--ppw-toolbar-border-bottom`           |            |
 | `--ppw-toolbar-box-shadow`              |            |
 | `--ppw-toolbar-button-background`       |            |
@@ -45,7 +45,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-wireframe
 
 | Variable name                       | Extra info |
-|-------------------------------------|------------|
+| ----------------------------------- | ---------- |
 | `--ppw-app-wireframe-drawer-width`  |            |
 | `--ppw-app-wireframe-drawer-border` |            |
 | `--ppw-page-container-background`   |            |
