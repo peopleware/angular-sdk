@@ -43,16 +43,18 @@
                                 (isSmallDevice() || (!sidebarIsOpen && !isLargerDevice()))))
                     "
                 >
-                    <ng-container ppw-toolbar-left-content
-                        ><ng-content select="[ppw-toolbar-left-content]"></ng-content
-                    ></ng-container>
+                    <ng-container ppw-toolbar-left-content>
+                        <ng-content select="[ppw-toolbar-left-content]"></ng-content>
+                    </ng-container>
                     <ng-container ppw-toolbar-right-content>
                         <ng-content select="[ppw-toolbar-right-content]"></ng-content>
                     </ng-container>
                 </ppw-toolbar>
             }
             <div class="ppw-page-content">
-                <router-outlet></router-outlet>
+                <ng-content select="[ppw-page-content]">
+                    <router-outlet></router-outlet>
+                </ng-content>
             </div>
         </div>
     </mat-drawer-content>
