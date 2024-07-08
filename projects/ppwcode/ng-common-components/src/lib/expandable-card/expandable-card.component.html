@@ -4,7 +4,7 @@
         [expanded]="openAsExpanded()"
         [disabled]="!canBeCollapsed()"
         (opened)="panelOpenState = true"
-        (closed)="panelOpenState = canBeCollapsed()"
+        (closed)="panelOpenState = false"
     >
         <mat-expansion-panel-header class="ppw-expandable-panel-header">
             <mat-panel-title class="ppw-expandable-card-title">
