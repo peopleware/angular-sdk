@@ -4,6 +4,7 @@
     .ppw-app-wireframe-drawer {
         width: var(--ppw-app-wireframe-drawer-width, 300px);
         background-color: var(--ppw-sidenav-background-color);
+        border: var(--ppw-app-wireframe-drawer-border);
     }
 
     .ppw-page-container {
@@ -11,6 +12,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        background: var(--ppw-page-container-background);
 
         ppw-toolbar {
             flex-grow: 0;
