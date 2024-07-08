@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, ViewEncapsulation } from '@angular/core'
+import { Component, input, InputSignal, ViewEncapsulation, OnInit } from '@angular/core'
 
 import { MatExpansionModule } from '@angular/material/expansion'
 
@@ -10,12 +10,16 @@ import { MatExpansionModule } from '@angular/material/expansion'
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ExpandableCardComponent {
+export class ExpandableCardComponent implements OnInit {
     // Inputs
     cardTitle: InputSignal<string | undefined> = input()
     cardDescription: InputSignal<string | undefined> = input()
     canBeCollapsed: InputSignal<boolean> = input(true)
     openAsExpanded: InputSignal<boolean> = input(true)
 
-    public panelOpenState = true
+    public panelOpenState!: boolean
+
+    public ngOnInit(): void {
+        this.panelOpenState = this.openAsExpanded()
+    }
 }

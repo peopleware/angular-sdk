@@ -55,3 +55,10 @@
     </div>
     <div>card contents</div>
 </ppw-expandable-card>
+
+<ppw-expandable-card #conditionalCard cardTitle="Card with expansion state information" [openAsExpanded]="false">
+    <div ppw-expandable-card-description class="flex-grow-1 flex-row justify-content-end">
+        <span>Is expanded: {{ conditionalCard.panelOpenState }}</span>
+    </div>
+    <div>card contents</div>
+</ppw-expandable-card>
