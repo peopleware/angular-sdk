@@ -4,6 +4,7 @@
     [sidebarOptions]="sidebarOptions"
     [toolbarHeightPx]="toolbarHeightPx"
     [hideSidenavWhenNoNavigationItems]="true"
+    [class.flat]="flatWireframeStyle"
 >
     @if (showToolbarLogo) {
         <ng-container ppw-toolbar-left-content>
@@ -23,12 +24,24 @@
         }
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
+    <ng-container ppw-page-content>
+        @if (flatWireframeStyle) {
+            <mat-card class="page-content">
+                <mat-card-content>
+                    <router-outlet></router-outlet>
+                </mat-card-content>
+            </mat-card>
+        } @else {
+            <router-outlet></router-outlet>
+        }
+    </ng-container>
     <ng-container ppw-sidebar-bottom-content>
         <div class="flex-column">
             <div class="page-toggles flex-column gap-8">
                 <mat-slide-toggle [(ngModel)]="showToolbarLogo">Show logo</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="sidebarOptions.showPageTitle">Show title</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="showToolbarBackground">Show toolbar background</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="flatWireframeStyle">Flat wireframe style</mat-slide-toggle>
             </div>
             <div class="version-info">
                 <div>v18.0.0</div>

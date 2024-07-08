@@ -102,6 +102,17 @@ body {
     --ppw-toolbar-page-title-text-color: #18428c;
 }
 
+ppw-wireframe.flat {
+    background: #18428c;
+
+    --ppw-app-wireframe-drawer-border: none;
+    --ppw-page-container-background: #18428c;
+    --ppw-toolbar-background: #18428c;
+    --ppw-toolbar-page-title-text-color: white;
+    --ppw-toolbar-border-bottom: none;
+    --ppw-toolbar-box-shadow: none;
+}
+
 .no-margins {
     margin: 0;
 }

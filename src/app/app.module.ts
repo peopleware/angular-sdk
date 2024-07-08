@@ -3,6 +3,7 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import localeEn from '@angular/common/locales/en-BE'
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { MatCard, MatCardContent } from '@angular/material/card'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
@@ -60,7 +61,9 @@ const ppwcodeComponents = [WireframeComponent]
         ...ppwcodeComponents,
         NgOptimizedImage,
         MatSlideToggleModule,
-        FormsModule
+        FormsModule,
+        MatCardContent,
+        MatCard
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },

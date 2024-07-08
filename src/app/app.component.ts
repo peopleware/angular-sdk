@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core'
-import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { TranslateService } from '@ngx-translate/core'
-import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
+import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { mixinResponsiveObservers } from '../../projects/ppwcode/ng-common/src/lib/mixins/responsive-observers'
+import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
 
 @Component({
     selector: 'ppw-root',
@@ -19,6 +19,7 @@ export class AppComponent extends mixinResponsiveObservers() {
     }
     public showToolbarLogo = false
     public showToolbarBackground = false
+    public flatWireframeStyle = true
     public toolbarLogoUrl = './assets/peopleware_logo.png'
     public toolbarLogoWidth = 190
     public toolbarLogoHeight = 40
