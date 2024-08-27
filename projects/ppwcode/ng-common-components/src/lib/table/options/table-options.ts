@@ -15,6 +15,15 @@ export interface PpwTableOptions<TRecord> {
         /** CSS styles to conditionally apply to the header cells of the given columns. */
         styles?: Record<keyof Partial<TRecord> | string, () => { [key: string]: unknown }>
     }
+    /**
+     * Configuration for the footer of the table.
+     */
+    footer?: {
+        /** Whether the header should stick to the top of the table when scrolling. */
+        sticky?: boolean
+        /** CSS styles to conditionally apply to the header cells of the given columns. */
+        styles?: Record<string, () => { [key: string]: unknown }>
+    }
 
     /**
      * Configuration for the columns of the table.

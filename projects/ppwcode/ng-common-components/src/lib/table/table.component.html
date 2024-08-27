@@ -28,6 +28,9 @@
                         >drag_indicator
                     </mat-icon>
                 </td>
+                @if (footerData() !== undefined) {
+                    <td mat-footer-cell *matFooterCellDef></td>
+                }
             </ng-container>
         }
 
@@ -54,6 +57,9 @@
                     >
                     </mat-checkbox>
                 </td>
+                @if (footerData() !== undefined) {
+                    <td mat-footer-cell *matFooterCellDef></td>
+                }
             </ng-container>
         }
 
@@ -88,6 +94,25 @@
                         [value]="record.mappedValues[column.name]"
                     ></ng-container>
                 </td>
+                @if (footerData() !== undefined) {
+                    <td
+                        mat-footer-cell
+                        *matFooterCellDef="let record"
+                        [style.width]="options()?.columns?.widths?.[column.name]"
+                        [ngStyle]="options()?.footer?.styles?.[column.name]?.()"
+                        class="ppw-column-type-{{ column.type }}"
+                    >
+                        @if (footerData()?.[column.name] !== undefined) {
+                            <ng-container
+                                ppwDynamicCell
+                                [rowIndex]="0"
+                                [column]="column"
+                                [record]="notUndefined(footerData())"
+                                [value]="mapValue(column, footerData())"
+                            ></ng-container>
+                        }
+                    </td>
+                }
             </ng-container>
         }
 
@@ -102,6 +127,9 @@
             [class.highlight]="options()?.rows?.highlightOnHover"
             [class.clickable]="options()?.rows?.onClick"
         ></tr>
+        @if (footerData() !== undefined) {
+            <tr mat-footer-row *matFooterRowDef="columnNames(); sticky: !!options()?.header?.sticky"></tr>
+        }
         <tr *matNoDataRow>
             <td
                 [attr.colspan]="columnNames().length + (enableRowSelection() ? 1 : 0) + (enableRowDrag() ? 1 : 0)"

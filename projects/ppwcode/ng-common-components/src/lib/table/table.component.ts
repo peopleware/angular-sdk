@@ -65,8 +65,12 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         TemplateRef<unknown>
     >
 
+    public footerValues: Record<string | keyof TRecord, string> = {} as Record<string | keyof TRecord, string>
+
     // Inputs
     public data: InputSignal<Array<Record<string, unknown>> | FormArray<FormGroup>> = input.required()
+    public footerData: InputSignal<Record<string, unknown> | undefined> = input()
+    // public footerColumnNames: InputSignal<Array<string> | undefined> = input()
     public trackBy: InputSignal<TrackByFunction<TRecord>> = input.required()
     public enableRowSelection: InputSignal<boolean> = input(false)
     public enableRowDrag: InputSignal<boolean> = input(false)
@@ -258,6 +262,8 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         this.table().renderRows()
         this.orderChanged.emit(this.dataSource().data)
     }
+
+    protected readonly notUndefined = notUndefined
 }
 
 export interface TableRecord<T = unknown> {
