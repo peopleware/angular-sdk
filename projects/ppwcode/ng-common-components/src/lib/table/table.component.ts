@@ -208,38 +208,7 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
         return records.map((record, index) => {
             const mappedValues: Record<string, unknown> = {}
             for (const column of columns) {
-                switch (column.type) {
-                    case ColumnType.Date: {
-                        const dateColumn = column as DateColumn<unknown, unknown>
-                        const mappedDateValue: unknown | undefined = getColumnValue(dateColumn, record)
-
-                        mappedValues[dateColumn.name] = mappedDateValue
-                            ? dateColumn.formatFn(mappedDateValue)
-                            : undefined
-                        break
-                    }
-                    case ColumnType.Number: {
-                        const numberColumn = column as NumberColumn<unknown>
-                        const mappedNumberValue: unknown | undefined = getColumnValue(numberColumn, record)
-
-                        mappedValues[numberColumn.name] =
-                            numberColumn.formatFn && mappedNumberValue !== null && mappedNumberValue !== undefined
-                                ? numberColumn.formatFn(mappedNumberValue as number)
-                                : mappedNumberValue !== null && mappedNumberValue !== undefined
-                                  ? mappedNumberValue
-                                  : undefined
-                        break
-                    }
-                    case ColumnType.Template: {
-                        const templateColumn = column as TemplateColumn<unknown>
-                        mappedValues[templateColumn.name] = getColumnValue(templateColumn, record)
-                        break
-                    }
-                    case ColumnType.Text:
-                    default:
-                        mappedValues[column.name] = getColumnValue(column as TextColumn<unknown>, record)
-                        break
-                }
+                mappedValues[column.name] = this.mapValue(column, record)
             }
 
             // Ensure that properties that have no corresponding column are still available in the mapped local record.
@@ -249,6 +218,34 @@ export class TableComponent<TRecord> extends mixinHandleSubscriptions() implemen
                 trackByValue: this.trackBy()(index, record as TRecord)
             } as TableRecord<TRecord>
         })
+    }
+
+    public mapValue(column: Column<TRecord, unknown>, record: unknown) {
+        switch (column.type) {
+            case ColumnType.Date: {
+                const dateColumn = column as DateColumn<unknown, unknown>
+                const mappedDateValue: unknown | undefined = getColumnValue(dateColumn, record)
+
+                return mappedDateValue ? dateColumn.formatFn(mappedDateValue) : undefined
+            }
+            case ColumnType.Number: {
+                const numberColumn = column as NumberColumn<unknown>
+                const mappedNumberValue: unknown | undefined = getColumnValue(numberColumn, record)
+
+                return numberColumn.formatFn && mappedNumberValue !== null && mappedNumberValue !== undefined
+                    ? numberColumn.formatFn(mappedNumberValue as number)
+                    : mappedNumberValue !== null && mappedNumberValue !== undefined
+                      ? mappedNumberValue
+                      : undefined
+            }
+            case ColumnType.Template: {
+                const templateColumn = column as TemplateColumn<unknown>
+                return getColumnValue(templateColumn, record)
+            }
+            case ColumnType.Text:
+            default:
+                return getColumnValue(column as TextColumn<unknown>, record)
+        }
     }
 
     public executeRowClick(record: TRecord, columnName: string): void {
