@@ -150,6 +150,10 @@ export class FilterTableComponent
     public enableRowDrag = false
     public searchForm!: FormGroup
     public lastClickedRow?: Player
+    public footerData: Partial<Player> = {
+        firstName: 'Total:',
+        income: 168000
+    }
 
     public tableOptions: PpwTableOptions<Player> = {
         header: {
@@ -163,6 +167,14 @@ export class FilterTableComponent
                 },
                 active: () => {
                     return { 'text-align': 'center' }
+                }
+            }
+        },
+        footer: {
+            sticky: true,
+            styles: {
+                firstName: () => {
+                    return { 'text-align': 'right' }
                 }
             }
         },

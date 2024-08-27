@@ -180,6 +180,16 @@ ppw-wireframe.flat {
     text-align: right;
 }
 
+table {
+    tfoot {
+        tr {
+            td {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
 .clickable-list-item {
     transition: all 0.2s;
     cursor: pointer;
