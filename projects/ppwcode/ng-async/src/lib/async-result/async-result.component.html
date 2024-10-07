@@ -1,4 +1,4 @@
-<mtx-loader [loading]="pending()" type="progressbar">
+<ppw-loader [loading]="pending()">
     @if (asyncResult(); as result) {
         @switch (result.status) {
             @case ('failed') {
@@ -27,7 +27,7 @@
             }
         }
     }
-</mtx-loader>
+</ppw-loader>
 
 <ng-template #failed>
     <ppw-message-bar
