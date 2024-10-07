@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
-@use '@ng-matero/extensions' as mtx;
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -66,7 +65,6 @@ $ppw-ui-theme: mat.m2-define-light-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($ppw-ui-theme);
-@include mtx.all-component-themes($ppw-ui-theme);
 
 html,
 body {
@@ -237,8 +235,4 @@ div.page-toggles {
             }
         }
     }
-}
-
-mtx-loader.mtx-loader {
-    height: unset;
 }
