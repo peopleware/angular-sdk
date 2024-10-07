@@ -1,0 +1,11 @@
+<div class="ppw-loader">
+    @if (loading()) {
+        <mat-progress-bar mode="indeterminate" type="progressbar"></mat-progress-bar>
+    } @else {
+        <div class="ppw-no-loader">&nbsp;</div>
+    }
+    <div class="ppw-loader-content">
+        <ng-content></ng-content>
+    </div>
+</div>
+<div [class.ppw-content-loading]="loading()"></div>

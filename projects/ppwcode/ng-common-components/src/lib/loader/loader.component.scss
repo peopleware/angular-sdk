@@ -1,0 +1,26 @@
+.ppw-loader {
+    position: relative;
+    z-index: 2;
+
+    .ppw-no-loader {
+        height: var(--mdc-linear-progress-active-indicator-height);
+        background-color: transparent;
+    }
+
+    .ppw-loader-content {
+        margin: 0;
+        padding: var(--ppw-loader-content-padding);
+    }
+}
+.ppw-content-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+
+    background-color: white;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+    cursor: unset;
+}
