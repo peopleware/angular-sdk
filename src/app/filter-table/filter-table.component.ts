@@ -24,7 +24,7 @@ import {
 } from '@ppwcode/ng-common-components'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
-import { BehaviorSubject, combineLatest, Observable, of, switchMap, tap } from 'rxjs'
+import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
 import { AsyncResultModule } from '../../../projects/ppwcode/ng-async/src/lib/async-result/async-result.module'
 import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
 import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
@@ -230,6 +230,7 @@ export class FilterTableComponent
         switchMap(([page, pageSize, searchParameters]) =>
             this.trackPending(
                 this.mockPagedPlayers(page, pageSize, searchParameters).pipe(
+                    delay(1000),
                     tap((items) => (this.playersToSave = [...(items.entity.items as Player[])]))
                 )
             )

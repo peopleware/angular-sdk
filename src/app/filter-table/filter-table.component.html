@@ -15,13 +15,13 @@
         </div>
     </ppw-search-filter>
 }
-<ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
-    <ng-template ppw-async-result-empty>
-        <p>No result</p>
-    </ng-template>
-    <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
-        <mat-card>
-            <mat-card-content>
+<mat-card>
+    <mat-card-content class="persons-table">
+        <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
+            <ng-template ppw-async-result-empty>
+                <p>No result</p>
+            </ng-template>
+            <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
                 <ppw-table
                     [data]="players.entity.items"
                     [footerData]="footerData"
@@ -80,11 +80,10 @@
                     [pageSizeOptions]="[2, 5, 10, 20, 50]"
                     [showFirstLastButtons]="true"
                 ></ppw-pagination-bar>
-            </mat-card-content>
-        </mat-card>
-    </ng-template>
-</ppw-async-result>
-
+            </ng-template>
+        </ppw-async-result>
+    </mat-card-content>
+</mat-card>
 @if (playersToSave.length) {
     <mat-card>
         <mat-card-header>

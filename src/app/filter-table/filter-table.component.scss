@@ -5,3 +5,10 @@ mat-card {
 ppw-table {
     --ppw-table-height: 200px;
 }
+
+mat-card-content.mat-mdc-card-content.persons-table {
+    padding: 0 0 16px 0;
+    &:first-child {
+        padding-top: 0;
+    }
+}
