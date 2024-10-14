@@ -37,8 +37,13 @@
                 <i [class]="navigationItem.icon" class="ppw-sidenav-navigation-item-icon"></i>
             }
             <span class="ppw-sidenav-navigation-item-text">{{ navigationItem.label | translate }}</span>
+            @if (navigationItem.isExternalLink) {
+                <span class="ppw-sidenav-navigation-item-external-icon">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+            }
         </span>
-        @if ((navigationItem.children?.length ?? 0) > 0) {
+        @if ((navigationItem.children?.length ?? 0) > 0 && !navigationItem.isExternalLink) {
             <i
                 class="fa-solid"
                 [class.fa-angle-down]="!navigationItemIsOpened(navigationItem)"
@@ -46,7 +51,7 @@
             ></i>
         }
     </button>
-    @if (navigationItemIsOpened(navigationItem) && navigationItem.children) {
+    @if (navigationItemIsOpened(navigationItem) && navigationItem.children && !navigationItem.isExternalLink) {
         <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
             @for (child of navigationItem.children; track trackNavigationItem(child)) {
                 <ng-container

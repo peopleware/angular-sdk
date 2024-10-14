@@ -4,4 +4,5 @@ export interface NavigationItem {
     fullRouterPath?: string
     isEnabled?: boolean
     children?: Array<NavigationItem>
+    isExternalLink?: boolean
 }
