@@ -99,4 +99,46 @@ describe('Left sidenav component', () => {
         component.onClickNavigationItem(childrenNavigationItem)
         expect(component.navigationItemIsOpened(childrenNavigationItem)).toBeFalse()
     })
+
+    it('should throw when an external link navigation item contains children', () => {
+        const navigationItemsWithExternalLink: Array<NavigationItem> = [
+            ...navigationItems,
+            {
+                icon: 'fa-solid fa-globe',
+                label: 'external',
+                fullRouterPath: 'https://peopleware.be',
+                isExternalLink: true,
+                children: [...navigationItems]
+            }
+        ]
+
+        expect(() => {
+            fixture.componentRef.setInput('navigationItems', navigationItemsWithExternalLink)
+            fixture.detectChanges()
+        }).toThrowError('External link navigation items cannot have children.')
+    })
+
+    it('should throw when an external link navigation item as a child contains children on itself', () => {
+        const navigationItemsWithExternalLink: Array<NavigationItem> = [...navigationItems].map((item, index) =>
+            index === 0
+                ? {
+                      ...item,
+                      children: [
+                          {
+                              icon: 'fa-solid fa-globe',
+                              label: 'external',
+                              fullRouterPath: 'https://peopleware.be',
+                              isExternalLink: true,
+                              children: [...navigationItems]
+                          }
+                      ]
+                  }
+                : { ...item }
+        )
+
+        expect(() => {
+            fixture.componentRef.setInput('navigationItems', navigationItemsWithExternalLink)
+            fixture.detectChanges()
+        }).toThrowError('External link navigation items cannot have children.')
+    })
 })
