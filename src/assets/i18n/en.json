@@ -20,6 +20,7 @@
         "filter_table": "Filter Table",
         "global_error_handler": "Global Error Handler",
         "in_memory_logging": "In Memory Logging",
-        "message_bar": "Message Bar"
+        "message_bar": "Message Bar",
+        "peopleware_website": "PeopleWare Website"
     }
 }
