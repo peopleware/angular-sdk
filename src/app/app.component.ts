@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { NavigationItem } from '@ppwcode/ng-wireframe'
-import { mixinResponsiveObservers } from '../../projects/ppwcode/ng-common/src/lib/mixins/responsive-observers'
-import { SidebarOptions } from '../../projects/ppwcode/ng-wireframe/src/lib/model/sidebar-options'
+import { NavigationItem, SidebarOptions } from '@ppwcode/ng-wireframe'
+import { mixinResponsiveObservers } from '@ppwcode/ng-common'
 
 @Component({
     selector: 'ppw-root',
@@ -62,6 +61,12 @@ export class AppComponent extends mixinResponsiveObservers() {
                 label: this.translate.instant('navigation.global_error_handler'),
                 icon: 'fa-solid fa-bug',
                 fullRouterPath: '/global-error-handler'
+            },
+            {
+                label: this.translate.instant('navigation.peopleware_website'),
+                icon: 'fa-solid fa-earth-europe',
+                fullRouterPath: 'https://peopleware.be',
+                isExternalLink: true
             }
         ]
     }

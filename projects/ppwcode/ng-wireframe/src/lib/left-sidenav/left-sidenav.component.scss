@@ -69,6 +69,14 @@
         font-size: var(--ppw-sidenav-navigation-item-text-font-size, 16px);
     }
 
+    .ppw-sidenav-navigation-item-external-icon {
+        font-size: var(--ppw-sidenav-navigation-item-text-font-size, 16px);
+        color: var(
+            --ppw-sidenav-navigation-item-external-icon-color,
+            var(--ppw-sidenav-navigation-item-text-color, white)
+        );
+    }
+
     .ppw-sidenav-navigation-item-link {
         display: flex;
         flex-direction: row;

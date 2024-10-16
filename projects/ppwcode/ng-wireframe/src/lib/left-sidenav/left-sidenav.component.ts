@@ -1,5 +1,14 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common'
-import { Component, inject, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
+import {
+    Component,
+    inject,
+    input,
+    InputSignal,
+    OnChanges,
+    output,
+    OutputEmitterRef,
+    SimpleChanges
+} from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
 import { Router, RouterLink } from '@angular/router'
@@ -13,7 +22,7 @@ import { NavigationItem } from '../navigation-item/navigation-item.model'
     templateUrl: './left-sidenav.component.html',
     styleUrls: ['./left-sidenav.component.scss']
 })
-export class LeftSidenavComponent {
+export class LeftSidenavComponent implements OnChanges {
     // Inputs
     public navigationItems: InputSignal<Array<NavigationItem> | null> = input.required()
     public showMenuCloseButton: InputSignal<boolean> = input(true)
@@ -29,6 +38,12 @@ export class LeftSidenavComponent {
     private _router: Router = inject(Router)
     private _openedNavigationItems: Array<NavigationItem> = []
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['navigationItems']) {
+            this.validateNavigationItems(this.navigationItems())
+        }
+    }
+
     public navigationItemIsOpened(navigationItem: NavigationItem): boolean {
         return this._openedNavigationItems.includes(navigationItem)
     }
@@ -38,7 +53,10 @@ export class LeftSidenavComponent {
             return
         }
 
-        if ((navigationItem.children?.length ?? 0) > 0) {
+        if (navigationItem.isExternalLink) {
+            window.open(navigationItem.fullRouterPath, '_blank')
+            this.navigated.emit(navigationItem)
+        } else if ((navigationItem.children?.length ?? 0) > 0) {
             this.toggleNavigationItemOpened(navigationItem)
         } else if (navigationItem.fullRouterPath) {
             this._router.navigateByUrl(navigationItem.fullRouterPath)
@@ -66,5 +84,16 @@ export class LeftSidenavComponent {
 
     private openNavigationItem(navigationItem: NavigationItem): void {
         this._openedNavigationItems.push(navigationItem)
+    }
+
+    private validateNavigationItems(navigationItems: Array<NavigationItem> | null): void {
+        navigationItems ??= []
+        navigationItems.forEach((item: NavigationItem) => {
+            if (item.isExternalLink && (item.children?.length ?? 0) > 0) {
+                throw new Error('External link navigation items cannot have children.')
+            }
+
+            this.validateNavigationItems(item.children ?? [])
+        })
     }
 }
