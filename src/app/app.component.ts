@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { NavigationItem, SidebarOptions } from '@ppwcode/ng-wireframe'
 import { mixinResponsiveObservers } from '@ppwcode/ng-common'
+import { getFullRoutePath } from '@ppwcode/ng-router'
+import { NavigationItem, SidebarOptions } from '@ppwcode/ng-wireframe'
+import { ROUTE_MAP } from './app-routing.module'
 
 @Component({
     selector: 'ppw-root',
@@ -35,32 +37,32 @@ export class AppComponent extends mixinResponsiveObservers() {
             {
                 label: this.translate.instant('navigation.confirmation_dialog'),
                 icon: 'fa-solid fa-circle-question',
-                fullRouterPath: '/confirmation-dialog'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.confirmationDialog)
             },
             {
                 label: this.translate.instant('navigation.expandable_card'),
                 icon: 'fa-solid fa-house',
-                fullRouterPath: '/expandable-card'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.expandableCard)
             },
             {
                 label: this.translate.instant('navigation.filter_table'),
                 icon: 'fa-solid fa-laptop-code',
-                fullRouterPath: '/filter-table'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.filterTable)
             },
             {
                 label: this.translate.instant('navigation.message_bar'),
                 icon: 'fa-solid fa-triangle-exclamation',
-                fullRouterPath: '/message-bar'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.messageBar)
             },
             {
                 label: this.translate.instant('navigation.in_memory_logging'),
                 icon: 'fa-solid fa-file-code',
-                fullRouterPath: '/in-memory-logging'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.inMemoryLogging)
             },
             {
                 label: this.translate.instant('navigation.global_error_handler'),
                 icon: 'fa-solid fa-bug',
-                fullRouterPath: '/global-error-handler'
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.globalErrorHandler)
             },
             {
                 label: this.translate.instant('navigation.peopleware_website'),
