@@ -5,7 +5,9 @@ export const DEFAULT_HTTP_ERROR_CODES: Array<number> = [
     HttpStatusCode.Forbidden,
     HttpStatusCode.NotFound,
     HttpStatusCode.MethodNotAllowed,
-    HttpStatusCode.InternalServerError
+    HttpStatusCode.InternalServerError,
+    HttpStatusCode.PreconditionFailed,
+    HttpStatusCode.Conflict
 ]
 
 export const STATUS_CODE_MAP = new Map<number, string>([
