@@ -8,7 +8,8 @@ import { ROUTE_MAP } from './app-routing.module'
 @Component({
     selector: 'ppw-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent extends mixinResponsiveObservers() {
     private translate: TranslateService = inject(TranslateService)

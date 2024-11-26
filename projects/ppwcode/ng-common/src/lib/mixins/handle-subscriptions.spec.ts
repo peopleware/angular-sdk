@@ -42,6 +42,7 @@ describe('Handle subscriptions mixin', () => {
 })
 
 @Component({
-    template: ''
+    template: '',
+    standalone: false
 })
 class TestComponent extends mixinHandleSubscriptions() {}

@@ -13,7 +13,6 @@ import { ToolbarComponent } from '../toolbar/toolbar.component'
 
 @Component({
     selector: 'ppw-wireframe',
-    standalone: true,
     imports: [CommonModule, MatSidenavModule, LeftSidenavComponent, ToolbarComponent, RouterOutlet],
     templateUrl: './wireframe.component.html',
     styleUrls: ['./wireframe.component.scss']

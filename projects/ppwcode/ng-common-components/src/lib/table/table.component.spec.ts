@@ -192,7 +192,8 @@ export function getDateFnsFormatter(dateFormat: string): (value: Date) => string
                 ></ppw-column>
             }
         </ppw-table>
-    `
+    `,
+    standalone: false
 })
 class TestTableComponent {
     @ViewChild(TableComponent, { static: true }) tableComponent!: TableComponent<PeriodicElement>

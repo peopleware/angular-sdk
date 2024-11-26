@@ -5,6 +5,7 @@ import { Directive } from '@angular/core'
  */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[ppw-empty-page]'
+    selector: '[ppw-empty-page]',
+    standalone: false
 })
 export class PpwEmptyTablePageDirective {}

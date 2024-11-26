@@ -12,7 +12,6 @@ export interface LogLine extends Record<string, unknown> {
 
 @Component({
     selector: 'ppw-in-memory-logging-demo',
-    standalone: true,
     imports: [MatButtonModule, MatListModule, JsonPipe, PpwTableModule, MessageBarComponent],
     templateUrl: './in-memory-logging-demo.component.html',
     styleUrl: './in-memory-logging-demo.component.scss',

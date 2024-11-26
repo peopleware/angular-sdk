@@ -36,7 +36,8 @@ describe('Pagination bar component', () => {
 })
 
 @Component({
-    template: '<ppw-pagination-bar [pagedAsyncResult]="value()"></ppw-pagination-bar>'
+    template: '<ppw-pagination-bar [pagedAsyncResult]="value()"></ppw-pagination-bar>',
+    standalone: false
 })
 class TestComponent {
     value: InputSignal<PagedAsyncResult<unknown, unknown> | PagedEntities<unknown>> = input.required()

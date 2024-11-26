@@ -7,8 +7,7 @@ import { Severity } from '../enum/severity'
     selector: 'ppw-message-bar',
     templateUrl: './message-bar.component.html',
     styleUrls: ['./message-bar.component.scss'],
-    imports: [MatCardModule],
-    standalone: true
+    imports: [MatCardModule]
 })
 export class MessageBarComponent {
     public severity: InputSignal<Severity> = input.required<Severity>()

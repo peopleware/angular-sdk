@@ -13,7 +13,8 @@ import {
 
 @Component({
     selector: 'ppw-async-result',
-    templateUrl: './async-result.component.html'
+    templateUrl: './async-result.component.html',
+    standalone: false
 })
 export class AsyncResultComponent {
     // Dependencies

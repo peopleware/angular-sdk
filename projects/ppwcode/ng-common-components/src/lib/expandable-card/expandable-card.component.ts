@@ -7,8 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
     templateUrl: './expandable-card.component.html',
     styleUrls: ['./expandable-card.component.scss', './expandable-card.component.theme.scss'],
     imports: [MatExpansionModule],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ExpandableCardComponent implements OnInit {
     // Inputs

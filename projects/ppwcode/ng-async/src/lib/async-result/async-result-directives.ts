@@ -5,7 +5,8 @@ import { PpwAsyncResultSuccessContext } from './async-result-success-context'
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[ppw-async-result-initial]'
+    selector: '[ppw-async-result-initial]',
+    standalone: false
 })
 export class PpwAsyncResultInitialDirective<TResult, TFilters> {
     public contextTyper: InputSignal<
@@ -26,7 +27,8 @@ export class PpwAsyncResultInitialDirective<TResult, TFilters> {
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[ppw-async-result-success]'
+    selector: '[ppw-async-result-success]',
+    standalone: false
 })
 export class PpwAsyncResultSuccessDirective<T, U> {
     public contextTyper: InputSignal<
@@ -44,6 +46,7 @@ export class PpwAsyncResultSuccessDirective<T, U> {
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[ppw-async-result-empty]'
+    selector: '[ppw-async-result-empty]',
+    standalone: false
 })
 export class PpwAsyncResultEmptyDirective {}

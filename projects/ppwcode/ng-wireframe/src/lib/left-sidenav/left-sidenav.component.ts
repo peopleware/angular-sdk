@@ -17,7 +17,6 @@ import { NavigationItem } from '../navigation-item/navigation-item.model'
 
 @Component({
     selector: 'ppw-left-sidenav',
-    standalone: true,
     imports: [CommonModule, MatIconModule, MatListModule, RouterLink, TranslateModule, NgOptimizedImage],
     templateUrl: './left-sidenav.component.html',
     styleUrls: ['./left-sidenav.component.scss']

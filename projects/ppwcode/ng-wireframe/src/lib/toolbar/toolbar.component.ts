@@ -9,7 +9,6 @@ import { filter, startWith } from 'rxjs'
 
 @Component({
     selector: 'ppw-toolbar',
-    standalone: true,
     imports: [MatIconModule, MatMenuModule, TranslateModule, MatButtonModule],
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']

@@ -23,7 +23,6 @@ export interface ConfirmationDialogData {
 }
 
 @Component({
-    standalone: true,
     selector: 'ppw-confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
     imports: [MatDialogModule, TranslateModule, MatButtonModule],

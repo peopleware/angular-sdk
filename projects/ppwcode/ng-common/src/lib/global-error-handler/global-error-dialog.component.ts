@@ -9,7 +9,6 @@ import { GLOBAL_ERROR_DIALOG_OPTIONS, GlobalErrorDialogOptions } from './global-
 
 @Component({
     selector: 'ppw-global-error-dialog',
-    standalone: true,
     templateUrl: './global-error-dialog.component.html',
     styleUrl: './global-error-dialog.component.scss',
     imports: [MatDialogModule, TranslateModule, MatExpansionModule, MatButtonModule]

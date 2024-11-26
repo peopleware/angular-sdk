@@ -8,8 +8,7 @@ import { MatCardModule } from '@angular/material/card'
     selector: 'ppw-search-filter',
     templateUrl: './search-filter.component.html',
     styleUrls: ['./search-filter.component.scss'],
-    imports: [MatCardModule, MatButtonModule, CommonModule],
-    standalone: true
+    imports: [MatCardModule, MatButtonModule, CommonModule]
 })
 export class SearchFilterComponent {
     // Inputs

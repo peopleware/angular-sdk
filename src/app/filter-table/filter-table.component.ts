@@ -121,7 +121,6 @@ type SearchPlayersForm = {
     selector: 'ppw-filter-table',
     templateUrl: './filter-table.component.html',
     styleUrls: ['./filter-table.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         ExpandableCardComponent,
