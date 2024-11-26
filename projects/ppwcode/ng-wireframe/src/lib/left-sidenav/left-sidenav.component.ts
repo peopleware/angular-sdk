@@ -11,13 +11,13 @@ import {
 } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
-import { Router, RouterLink } from '@angular/router'
+import { Router } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 
 @Component({
     selector: 'ppw-left-sidenav',
-    imports: [CommonModule, MatIconModule, MatListModule, RouterLink, TranslateModule, NgOptimizedImage],
+    imports: [CommonModule, MatIconModule, MatListModule, TranslateModule, NgOptimizedImage],
     templateUrl: './left-sidenav.component.html',
     styleUrls: ['./left-sidenav.component.scss']
 })

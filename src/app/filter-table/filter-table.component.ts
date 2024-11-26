@@ -15,13 +15,7 @@ import {
     PagedAsyncResult,
     PagedEntities
 } from '@ppwcode/ng-async'
-import {
-    ExpandableCardComponent,
-    PpwTableModule,
-    PpwTableOptions,
-    SearchFilterComponent,
-    TableRecord
-} from '@ppwcode/ng-common-components'
+import { PpwTableModule, PpwTableOptions, SearchFilterComponent, TableRecord } from '@ppwcode/ng-common-components'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
@@ -123,7 +117,6 @@ type SearchPlayersForm = {
     styleUrls: ['./filter-table.component.scss'],
     imports: [
         CommonModule,
-        ExpandableCardComponent,
         SearchFilterComponent,
         MatCardModule,
         MatIconModule,
