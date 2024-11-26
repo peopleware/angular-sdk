@@ -29,8 +29,7 @@ export type CanTrackPendingCtor = Constructor<CanTrackPending>
  * @param isInitiallyPending Whether the pending state is true on initial creation of the class.
  * @param base An optional base class.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const mixinTrackPending = <T extends Constructor<{}>>(
+export const mixinTrackPending = <T extends Constructor<object>>(
     isInitiallyPending = true,
     base?: T
 ): T & CanTrackPendingCtor => {

@@ -1,7 +1,7 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { inject } from '@angular/core'
 import { map, Observable, shareReplay } from 'rxjs'
 import { Constructor } from './constructor'
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 
 /**
  * Defines helper functions to make responsive designed screen layouts.
@@ -27,8 +27,7 @@ export type CanResponsiveObserversCtor = Constructor<CanResponsiveObservers>
  * Provides the following:
  * - functions to know the current screensize.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const mixinResponsiveObservers = <T extends Constructor<{}>>(base?: T): CanResponsiveObserversCtor & T => {
+export const mixinResponsiveObservers = <T extends Constructor<object>>(base?: T): CanResponsiveObserversCtor & T => {
     const baseClass: T = base ?? (class {} as T)
 
     return class extends baseClass implements CanResponsiveObservers {

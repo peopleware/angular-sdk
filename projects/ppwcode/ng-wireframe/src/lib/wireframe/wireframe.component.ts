@@ -93,6 +93,7 @@ export class WireframeComponent {
     ])
 
     // Effects
+    // eslint-disable-next-line no-unused-private-class-members
     #autoCloseSidebar = effect(() => {
         const result = this.#breakpointChange()
         if (!this.matDrawer() || !result) {

@@ -20,8 +20,7 @@ export type CanHandleSubscriptionsCtor = Constructor<CanHandleSubscriptions>
  * - A function to wrap a stream with the PPW way of subscription handling.
  * - An ngOnDestroy implementation to automatically unsubscribe to all known subscriptions.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const mixinHandleSubscriptions = <T extends Constructor<{}>>(base?: T): CanHandleSubscriptionsCtor & T => {
+export const mixinHandleSubscriptions = <T extends Constructor<object>>(base?: T): CanHandleSubscriptionsCtor & T => {
     const baseClass: T = base ?? (class {} as T)
 
     return class extends baseClass implements CanHandleSubscriptions {

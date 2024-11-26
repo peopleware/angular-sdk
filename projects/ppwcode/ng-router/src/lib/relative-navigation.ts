@@ -16,8 +16,7 @@ export type RelativeNavigationCtor = Constructor<CanNavigateRelatively>
  * Enhances an optional base class with functionality to support relative navigation.
  * @param base An optional base class.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const mixinRelativeNavigation = <T extends Constructor<{}>>(base?: T): T & RelativeNavigationCtor => {
+export const mixinRelativeNavigation = <T extends Constructor<object>>(base?: T): T & RelativeNavigationCtor => {
     const baseClass = base ?? (class {} as T)
 
     return class extends baseClass implements CanNavigateRelatively {
