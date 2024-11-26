@@ -10,8 +10,8 @@
 }
 
 .ppw-table {
-    @include mat.table-density(-2); // Decreases the default spacing applied by Angular Material
     width: 100%;
+    @include mat.table-density(-2); // Decreases the default spacing applied by Angular Material
 
     &.ppw-table-header-hidden {
         .mat-mdc-header-row {
