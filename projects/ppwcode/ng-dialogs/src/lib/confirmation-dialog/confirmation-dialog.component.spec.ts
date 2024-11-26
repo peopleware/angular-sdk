@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { TranslateModule } from '@ngx-translate/core'
+import { provideTranslateService } from '@ngx-translate/core'
 import { ConfirmationDialogComponent } from './confirmation-dialog.component'
 
 describe('Confirmation dialog component', () => {
@@ -9,8 +9,9 @@ describe('Confirmation dialog component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ConfirmationDialogComponent, TranslateModule.forRoot()],
+            imports: [ConfirmationDialogComponent],
             providers: [
+                provideTranslateService({}),
                 {
                     provide: MAT_DIALOG_DATA,
                     useValue: {

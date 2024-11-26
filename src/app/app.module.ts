@@ -10,7 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TitleStrategy } from '@angular/router'
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { PPW_ASYNC_RESULT_DEFAULT_OPTIONS, PpwAsyncResultDefaultOptions } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
@@ -49,14 +49,6 @@ const ppwcodeComponents = [WireframeComponent]
         BrowserModule,
         AppRoutingModule,
         MatIconModule,
-        TranslateModule.forRoot({
-            defaultLanguage: 'en',
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
         BrowserAnimationsModule,
         ...ppwcodeComponents,
         NgOptimizedImage,
@@ -88,7 +80,11 @@ const ppwcodeComponents = [WireframeComponent]
                 }
             }
         }),
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        provideTranslateService({
+            defaultLanguage: 'en',
+            loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] }
+        })
     ]
 })
 export class AppModule {}

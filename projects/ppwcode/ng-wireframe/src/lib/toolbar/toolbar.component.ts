@@ -4,12 +4,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatMenuModule } from '@angular/material/menu'
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateService } from '@ngx-translate/core'
 import { filter, startWith } from 'rxjs'
 
 @Component({
     selector: 'ppw-toolbar',
-    imports: [MatIconModule, MatMenuModule, TranslateModule, MatButtonModule],
+    imports: [MatIconModule, MatMenuModule, MatButtonModule],
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })

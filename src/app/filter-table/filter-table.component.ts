@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { TranslateModule } from '@ngx-translate/core'
 import {
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
@@ -128,8 +127,7 @@ type SearchPlayersForm = {
         AsyncResultModule,
         FormsModule,
         MatSlideToggleModule,
-        PpwTableModule,
-        TranslateModule
+        PpwTableModule
     ]
 })
 export class FilterTableComponent

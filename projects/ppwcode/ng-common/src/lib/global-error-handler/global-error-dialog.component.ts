@@ -4,14 +4,14 @@ import { Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslatePipe } from '@ngx-translate/core'
 import { GLOBAL_ERROR_DIALOG_OPTIONS, GlobalErrorDialogOptions } from './global-error-dialog-options'
 
 @Component({
     selector: 'ppw-global-error-dialog',
     templateUrl: './global-error-dialog.component.html',
     styleUrl: './global-error-dialog.component.scss',
-    imports: [MatDialogModule, TranslateModule, MatExpansionModule, MatButtonModule]
+    imports: [MatDialogModule, TranslatePipe, MatExpansionModule, MatButtonModule]
 })
 export class GlobalErrorDialogComponent {
     #options: GlobalErrorDialogOptions = inject(GLOBAL_ERROR_DIALOG_OPTIONS)

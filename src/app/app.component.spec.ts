@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing'
-import { RouterTestingModule } from '@angular/router/testing'
-import { AppComponent } from './app.component'
-import { TranslateModule } from '@ngx-translate/core'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { MatIconModule } from '@angular/material/icon'
-import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { FormsModule } from '@angular/forms'
+import { MatIconModule } from '@angular/material/icon'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { RouterTestingModule } from '@angular/router/testing'
+import { provideTranslateService } from '@ngx-translate/core'
+import { WireframeComponent } from '@ppwcode/ng-wireframe'
+import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
     beforeEach(() =>
@@ -17,9 +17,9 @@ describe('AppComponent', () => {
                 MatIconModule,
                 MatSlideToggleModule,
                 FormsModule,
-                TranslateModule.forRoot(),
                 WireframeComponent
             ],
+            providers: [provideTranslateService({})],
             declarations: [AppComponent]
         })
     )
