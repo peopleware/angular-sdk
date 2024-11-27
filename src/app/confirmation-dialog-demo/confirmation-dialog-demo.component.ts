@@ -5,7 +5,6 @@ import { ConfirmationDialogComponent, ConfirmationDialogData } from '@ppwcode/ng
 
 @Component({
     selector: 'ppw-confirmation-dialog-demo',
-    standalone: true,
     imports: [MatDialogModule, MatButtonModule],
     templateUrl: './confirmation-dialog-demo.component.html',
     styleUrls: ['./confirmation-dialog-demo.component.scss']

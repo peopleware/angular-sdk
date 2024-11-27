@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateDirective, TranslatePipe } from '@ngx-translate/core'
 import { LoaderComponent, MessageBarComponent } from '@ppwcode/ng-common-components'
 import {
     PpwAsyncResultEmptyDirective,
@@ -22,6 +22,6 @@ import { AsyncResultComponent } from './async-result.component'
         PpwAsyncResultSuccessDirective,
         PpwAsyncResultEmptyDirective
     ],
-    imports: [CommonModule, MessageBarComponent, TranslateModule, LoaderComponent]
+    imports: [CommonModule, MessageBarComponent, TranslatePipe, TranslateDirective, LoaderComponent]
 })
 export class AsyncResultModule {}

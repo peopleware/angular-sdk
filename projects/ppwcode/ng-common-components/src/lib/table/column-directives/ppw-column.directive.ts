@@ -20,7 +20,8 @@ import { PpwColumnHeaderDirective } from './ppw-column-header.directive'
  */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'ppw-column'
+    selector: 'ppw-column',
+    standalone: false
 })
 export class PpwColumnDirective<TRecord> {
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })

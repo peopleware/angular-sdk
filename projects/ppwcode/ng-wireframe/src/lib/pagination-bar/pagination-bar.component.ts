@@ -5,7 +5,6 @@ import { isAsyncResult, PagedAsyncResult, PagedEntities } from '@ppwcode/ng-asyn
 
 @Component({
     selector: 'ppw-pagination-bar',
-    standalone: true,
     imports: [MatPaginatorModule],
     templateUrl: './pagination-bar.component.html'
 })

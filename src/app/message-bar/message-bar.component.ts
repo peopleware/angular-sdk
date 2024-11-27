@@ -4,7 +4,6 @@ import { MessageBarComponent as PpwMessageBarComponent, Severity } from '@ppwcod
 
 @Component({
     selector: 'ppw-message-bar-demo',
-    standalone: true,
     imports: [PpwMessageBarComponent],
     templateUrl: './message-bar.component.html',
     styleUrls: ['./message-bar.component.scss']

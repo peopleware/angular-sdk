@@ -5,7 +5,8 @@ import { Directive, inject, TemplateRef } from '@angular/core'
  */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[ppw-column-header]'
+    selector: '[ppw-column-header]',
+    standalone: false
 })
 export class PpwColumnHeaderDirective {
     public templateRef: TemplateRef<unknown> = inject(TemplateRef)

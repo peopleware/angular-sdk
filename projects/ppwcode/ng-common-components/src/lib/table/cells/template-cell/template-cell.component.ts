@@ -7,7 +7,6 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
 @Component({
     selector: 'ppw-template-cell',
     template: `<ng-container *ngTemplateOutlet="value; context: context"></ng-container>`,
-    standalone: true,
     imports: [CommonModule]
 })
 export class TemplateCellComponent extends mixinCellComponent<

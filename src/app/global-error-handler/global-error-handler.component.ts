@@ -4,7 +4,6 @@ import { MessageBarComponent, Severity } from '@ppwcode/ng-common-components'
 
 @Component({
     selector: 'ppw-global-error-handler',
-    standalone: true,
     imports: [MatButtonModule, MessageBarComponent],
     templateUrl: './global-error-handler.component.html'
 })

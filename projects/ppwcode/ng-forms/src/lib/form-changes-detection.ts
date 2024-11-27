@@ -23,8 +23,7 @@ export interface DetectFormChanges {
 export type DetectFormChangesCtor = Constructor<DetectFormChanges>
 type Valuable<T> = { [K in keyof T as T[K] extends null | undefined ? never : K]: T[K] }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const mixinDetectFormChanges = <T extends Constructor<{}>>(base?: T): T & DetectFormChangesCtor => {
+export const mixinDetectFormChanges = <T extends Constructor<object>>(base?: T): T & DetectFormChangesCtor => {
     const baseClass = base ?? (class {} as T)
 
     return class extends baseClass implements DetectFormChanges {
@@ -66,11 +65,7 @@ export const mixinDetectFormChanges = <T extends Constructor<{}>>(base?: T): T &
         /**
          * Removes properties with null or undefined value from the given object
          */
-        private getValuable<
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            T extends {},
-            V = Valuable<T>
-        >(obj: T): V {
+        private getValuable<T extends object, V = Valuable<T>>(obj: T): V {
             return Object.fromEntries(
                 Object.entries(obj).filter(
                     ([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined')

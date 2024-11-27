@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { TranslateModule } from '@ngx-translate/core'
 import {
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
@@ -15,13 +14,7 @@ import {
     PagedAsyncResult,
     PagedEntities
 } from '@ppwcode/ng-async'
-import {
-    ExpandableCardComponent,
-    PpwTableModule,
-    PpwTableOptions,
-    SearchFilterComponent,
-    TableRecord
-} from '@ppwcode/ng-common-components'
+import { PpwTableModule, PpwTableOptions, SearchFilterComponent, TableRecord } from '@ppwcode/ng-common-components'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
@@ -121,10 +114,8 @@ type SearchPlayersForm = {
     selector: 'ppw-filter-table',
     templateUrl: './filter-table.component.html',
     styleUrls: ['./filter-table.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
-        ExpandableCardComponent,
         SearchFilterComponent,
         MatCardModule,
         MatIconModule,
@@ -136,8 +127,7 @@ type SearchPlayersForm = {
         AsyncResultModule,
         FormsModule,
         MatSlideToggleModule,
-        PpwTableModule,
-        TranslateModule
+        PpwTableModule
     ]
 })
 export class FilterTableComponent

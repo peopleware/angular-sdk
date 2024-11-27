@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { Router, RouterModule } from '@angular/router'
-import { TranslateModule } from '@ngx-translate/core'
+import { provideTranslateService } from '@ngx-translate/core'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 import { LeftSidenavComponent } from './left-sidenav.component'
 
@@ -43,7 +43,8 @@ describe('Left sidenav component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [LeftSidenavComponent, TranslateModule.forRoot(), RouterModule]
+            imports: [LeftSidenavComponent, RouterModule],
+            providers: [provideTranslateService({})]
         })
 
         router = TestBed.inject(Router)

@@ -54,7 +54,8 @@ import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit {
     #elementRef: ElementRef = inject(ElementRef)

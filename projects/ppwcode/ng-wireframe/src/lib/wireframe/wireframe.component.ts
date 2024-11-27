@@ -13,7 +13,6 @@ import { ToolbarComponent } from '../toolbar/toolbar.component'
 
 @Component({
     selector: 'ppw-wireframe',
-    standalone: true,
     imports: [CommonModule, MatSidenavModule, LeftSidenavComponent, ToolbarComponent, RouterOutlet],
     templateUrl: './wireframe.component.html',
     styleUrls: ['./wireframe.component.scss']
@@ -94,6 +93,7 @@ export class WireframeComponent {
     ])
 
     // Effects
+    // eslint-disable-next-line no-unused-private-class-members
     #autoCloseSidebar = effect(() => {
         const result = this.#breakpointChange()
         if (!this.matDrawer() || !result) {
