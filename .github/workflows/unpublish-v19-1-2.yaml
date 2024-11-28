@@ -1,0 +1,41 @@
+name: Unpublish v19.1.2
+
+on: [workflow_dispatch]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+                  cache: 'npm'
+                  registry-url: 'https://registry.npmjs.org'
+            - run: npm unpublish @ppwcode/ng-async@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-common@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-common-components@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-dialogs@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-forms@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-router@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-state-management@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-unit-testing@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm unpublish @ppwcode/ng-wireframe@19.1.2
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
