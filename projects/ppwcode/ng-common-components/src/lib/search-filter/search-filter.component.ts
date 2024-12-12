@@ -19,5 +19,9 @@ export class SearchFilterComponent {
 
     // Outputs
     public search: OutputEmitterRef<void> = output<void>()
-    public reset: OutputEmitterRef<void> = output<void>()
+    public clear: OutputEmitterRef<void> = output<void>()
+    /**
+     * @deprecated This output will be removed in v20. It should be replaced with the `restart` output.
+     */
+    public reset: OutputEmitterRef<void> = this.clear
 }

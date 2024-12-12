@@ -1,5 +1,5 @@
 @if (searchForm) {
-    <ppw-search-filter (search)="performSearch()" (reset)="performReset()" [submitDisabled]="searchForm.invalid">
+    <ppw-search-filter (search)="performSearch()" (clear)="performReset()" [submitDisabled]="searchForm.invalid">
         <form [formGroup]="searchForm" class="flex-row gap-8">
             <mat-form-field>
                 <mat-label>firstName</mat-label>
