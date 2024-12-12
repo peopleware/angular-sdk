@@ -254,3 +254,20 @@ div.page-toggles {
         }
     }
 }
+
+ppw-search-filter {
+    mat-card {
+        margin: 8px;
+    }
+}
+
+mat-expansion-panel.ppw-expandable-panel {
+    margin: 8px;
+
+    &.mat-expansion-panel-spacing:first-child {
+        margin-top: 8px !important;
+    }
+    &.mat-expansion-panel-spacing:last-child {
+        margin-bottom: 8px !important;
+    }
+}
