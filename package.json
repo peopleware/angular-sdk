@@ -11,7 +11,8 @@
         "ci:test-libs": "./scripts/ci/test-libs.sh",
         "ci:lint": "npm run lint:prettier && npm run lint:lint",
         "ci:build": "ng build ppwcode",
-        "ci:build-libs": "./scripts/ci/build-libs.sh"
+        "ci:build-libs": "./scripts/ci/build-libs.sh",
+        "retire": "retire --outputformat cyclonedx"
     },
     "private": true,
     "dependencies": {
@@ -68,6 +69,7 @@
         "ng-packagr": "19.0.1",
         "prettier": "3.1.1",
         "prettier-config-standard": "7.0.0",
+        "retire": "5.2.5",
         "typescript": "5.6.3"
     },
     "overrides": {
