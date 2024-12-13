@@ -10,6 +10,7 @@
                 "plugin:@angular-eslint/recommended",
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
+            "plugins": ["no-secrets"],
             "rules": {
                 "@angular-eslint/directive-selector": [
                     "error",
@@ -26,13 +27,25 @@
                         "prefix": "ppw",
                         "style": "kebab-case"
                     }
-                ]
+                ],
+                "no-secrets/no-secrets": ["error", { "tolerance": 4.3 }]
             }
         },
         {
             "files": ["*.html"],
             "extends": ["plugin:@angular-eslint/template/recommended", "plugin:@angular-eslint/template/accessibility"],
-            "rules": {}
+            "plugins": ["no-secrets"],
+            "rules": {
+                "no-secrets/no-secrets": ["error", { "tolerance": 4.3 }]
+            }
+        },
+        {
+            "files": ["**/*.json"],
+            "extends": ["eslint:recommended"],
+            "plugins": ["no-secrets"],
+            "rules": {
+                "no-secrets/no-secrets": ["error", { "tolerance": 4.3 }]
+            }
         }
     ]
 }
