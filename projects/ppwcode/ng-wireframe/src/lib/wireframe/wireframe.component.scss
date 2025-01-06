@@ -23,4 +23,8 @@
             overflow: auto;
         }
     }
+
+    mat-drawer-content.ppw-app-drawer-content {
+        margin-left: var(--ppw-app-wireframe-drawer-width, 300px) !important;
+    }
 }
