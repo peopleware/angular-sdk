@@ -8,20 +8,20 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import {
+    AsyncResultModule,
     DEFAULT_HTTP_ERROR_CODES,
     expectPagedAsyncResultHttpError,
     expectPagedAsyncResultHttpSuccess,
     PagedAsyncResult,
     PagedEntities
 } from '@ppwcode/ng-async'
-import { PpwTableModule, PpwTableOptions, SearchFilterComponent, TableRecord } from '@ppwcode/ng-common-components'
+import { PpwTableModule, PpwTableOptions, SearchFilterComponent } from '@ppwcode/ng-common-components'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
-import { AsyncResultModule } from '../../../projects/ppwcode/ng-async/src/lib/async-result/async-result.module'
-import { mixinTrackPending } from '../../../projects/ppwcode/ng-common/src/lib/mixins/track-pending'
-import { mixinPagination } from '../../../projects/ppwcode/ng-router/src/lib/mixins/pagination'
-import { mixinRelativeNavigation } from '../../../projects/ppwcode/ng-router/src/lib/relative-navigation'
+import { mixinTrackPending } from '@ppwcode/ng-common'
+import { mixinPagination, mixinRelativeNavigation } from '@ppwcode/ng-router'
+import { TableRecord } from '../../../projects/ppwcode/ng-common-components/src/lib/table/abstract-table.component'
 
 export interface Player extends Record<string, unknown> {
     id: number

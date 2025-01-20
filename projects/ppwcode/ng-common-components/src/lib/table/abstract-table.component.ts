@@ -1,3 +1,5 @@
+import { SelectionModel } from '@angular/cdk/collections'
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import {
     computed,
     contentChild,
@@ -16,39 +18,32 @@ import {
     Type,
     viewChild
 } from '@angular/core'
-import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
-import {
-    PPW_TABLE_DEFAULT_OPTIONS,
-    PpwColumnDirective,
-    PpwEmptyTablePageDirective,
-    PpwTableDefaultOptions,
-    PpwTableOptions
-} from '@ppwcode/ng-common-components'
 import { FormArray, FormGroup } from '@angular/forms'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
-import { Column, ColumnType } from './columns/column'
 import { assert, notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
-import { SelectionModel } from '@angular/cdk/collections'
+import { mixinHandleSubscriptions } from 'projects/ppwcode/ng-common/src/public-api'
+import { PpwColumnDirective } from './column-directives/ppw-column.directive'
+import { Column, ColumnType } from './columns/column'
 import { DateColumn } from './columns/date-column'
 import { NumberColumn } from './columns/number-column'
 import { TemplateColumn } from './columns/template-column'
 import { TextColumn } from './columns/text-column'
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
+import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.directive'
+import { PpwTableOptions } from './options/table-options'
+import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
 
 @Directive()
-export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() implements OnInit {
-    #elementRef: ElementRef = inject(ElementRef)
-    #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
-
+export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGroup> | Array<Record<string, unknown>>>
+    extends mixinHandleSubscriptions()
+    implements OnInit
+{
     public headerTemplates: Record<string | keyof TRecord, TemplateRef<unknown>> = {} as Record<
         string | keyof TRecord,
         TemplateRef<unknown>
     >
-
     public footerValues: Record<string | keyof TRecord, string> = {} as Record<string | keyof TRecord, string>
-
     // Inputs
-    public data: InputSignal<Array<Record<string, unknown>> | FormArray<FormGroup>> = input.required()
+    public data: InputSignal<TData> = input.required()
     public footerData: InputSignal<Record<string, unknown> | undefined> = input()
     // public footerColumnNames: InputSignal<Array<string> | undefined> = input()
     public trackBy: InputSignal<TrackByFunction<TRecord>> = input.required()
@@ -57,30 +52,16 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
     public options: InputSignal<PpwTableOptions<TRecord> | undefined> = input<PpwTableOptions<TRecord> | undefined>(
         undefined
     )
-
     // Outputs
     public selectionChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
     public orderChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
-
     // Content children
     public emptyPageTemplate: Signal<TemplateRef<unknown> | undefined> = contentChild(PpwEmptyTablePageDirective, {
         read: TemplateRef
     })
     public columnDirectives: Signal<readonly PpwColumnDirective<TRecord>[]> = contentChildren(PpwColumnDirective)
-
     // View children
     table: Signal<MatTable<TRecord>> = viewChild.required(MatTable)
-
-    public get emptyPageComponent(): Type<unknown> | undefined {
-        return this.#tableDefaultOptions?.emptyPageComponent
-    }
-
-    /** Gets whether a custom height has been set by the --ppw-table-height CSS variable. */
-    public get hasFixedHeight(): boolean {
-        const cssHeightValue = getComputedStyle(this.#elementRef.nativeElement).getPropertyValue('--ppw-table-height')
-        return cssHeightValue !== 'auto' && cssHeightValue !== ''
-    }
-
     public columns: Signal<Array<Column<TRecord, unknown>>> = computed(() => {
         const columnDirectives = this.columnDirectives()
 
@@ -100,7 +81,6 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
             return notUndefined(columnDirective.columnDefinition())
         })
     })
-
     /** The names of the columns that are displayed. */
     public columnNames: Signal<Array<string>> = computed(() => {
         const names = this.columns().map((column) => column.name)
@@ -115,13 +95,11 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
 
         return names
     })
-
     /** The data source for the material table. */
     public dataSource: Signal<MatTableDataSource<TableRecord<TRecord>>> = computed(() => {
         const localRecords = this._mapToLocalKeyValuePairs(this.data(), this.columns())
         return new MatTableDataSource(localRecords)
     })
-
     dragDisabled = true
     public selection = new SelectionModel<TableRecord<TRecord>>(
         true,
@@ -131,6 +109,19 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
             return o1.trackByValue === o2.trackByValue
         }
     )
+    protected readonly notUndefined = notUndefined
+    #elementRef: ElementRef = inject(ElementRef)
+    #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
+
+    public get emptyPageComponent(): Type<unknown> | undefined {
+        return this.#tableDefaultOptions?.emptyPageComponent
+    }
+
+    /** Gets whether a custom height has been set by the --ppw-table-height CSS variable. */
+    public get hasFixedHeight(): boolean {
+        const cssHeightValue = getComputedStyle(this.#elementRef.nativeElement).getPropertyValue('--ppw-table-height')
+        return cssHeightValue !== 'auto' && cssHeightValue !== ''
+    }
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
@@ -173,39 +164,6 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
         return item.trackByValue
     }
 
-    /**
-     * Maps the given items into a local key-value pair to be used within
-     * the template. The original record is left intact so that it can still
-     * be passed along where necessary.
-     * @param items The items to map.
-     */
-    private _mapToLocalKeyValuePairs(
-        items: Array<Record<string, unknown>> | FormArray<FormGroup>,
-        columns: Array<Column<TRecord, unknown>>
-    ): Array<TableRecord<TRecord>> {
-        let records: Array<unknown>
-
-        if (items instanceof FormArray) {
-            records = items.controls
-        } else {
-            records = items ?? []
-        }
-
-        return records.map((record, index) => {
-            const mappedValues: Record<string, unknown> = {}
-            for (const column of columns) {
-                mappedValues[column.name] = this.mapValue(column, record)
-            }
-
-            // Ensure that properties that have no corresponding column are still available in the mapped local record.
-            return {
-                initialRecord: record,
-                mappedValues,
-                trackByValue: this.trackBy()(index, record as TRecord)
-            } as TableRecord<TRecord>
-        })
-    }
-
     public mapValue(column: Column<TRecord, unknown>, record: unknown) {
         switch (column.type) {
             case ColumnType.Date: {
@@ -246,6 +204,17 @@ export class AbstractTableComponent<TRecord> extends mixinHandleSubscriptions() 
         this.table().renderRows()
         this.orderChanged.emit(this.dataSource().data)
     }
+
+    /**
+     * Maps the given items into a local key-value pair to be used within
+     * the template. The original record is left intact so that it can still
+     * be passed along where necessary.
+     * @param items The items to map.
+     */
+    protected abstract _mapToLocalKeyValuePairs(
+        items: TData,
+        columns: Array<Column<TRecord, unknown>>
+    ): Array<TableRecord<TRecord>>
 }
 
 export interface TableRecord<T = unknown> {

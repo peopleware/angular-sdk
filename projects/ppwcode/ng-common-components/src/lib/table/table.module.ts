@@ -11,10 +11,12 @@ import { PpwColumnHeaderDirective } from './column-directives/ppw-column-header.
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.directive'
 import { TableComponent } from './table.component'
+import { FormTableComponent } from './form-table.component'
 
 @NgModule({
     declarations: [
         TableComponent,
+        FormTableComponent,
         PpwColumnDirective,
         PpwColumnHeaderDirective,
         PpwColumnCellDirective,
@@ -38,6 +40,7 @@ import { TableComponent } from './table.component'
     ],
     exports: [
         TableComponent,
+        FormTableComponent,
         PpwColumnDirective,
         PpwColumnHeaderDirective,
         PpwColumnCellDirective,

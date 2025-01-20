@@ -1,6 +1,6 @@
 import { TestRequest } from '@angular/common/http/testing'
 import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
-import { FileDownload } from '@ppwcode/ng-async'
+import { FileDownload } from 'projects/ppwcode/ng-async/src/public-api'
 import { noop, Observable } from 'rxjs'
 
 import { expectOneCallToUrl, ResponseOptions } from './http-client-testing-controller'
