@@ -1,0 +1,17 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+      "paths": {
+          "@ppwcode/ng-async": ["projects/ppwcode/ng-async/src/public-api"],
+          "@ppwcode/ng-common": ["projects/ppwcode/ng-common/src/public-api"],
+          "@ppwcode/ng-common-components": ["projects/ppwcode/ng-common-components/src/public-api"],
+          "@ppwcode/ng-dialogs": ["projects/ppwcode/ng-dialogs/src/public-api"],
+          "@ppwcode/ng-forms": ["projects/ppwcode/ng-forms/src/public-api"],
+          "@ppwcode/ng-router": ["projects/ppwcode/ng-router/src/public-api"],
+          "@ppwcode/ng-state-management": ["projects/ppwcode/ng-state-management/src/public-api"],
+          "@ppwcode/ng-unit-testing": ["projects/ppwcode/ng-unit-testing/src/public-api"],
+          "@ppwcode/ng-wireframe": ["projects/ppwcode/ng-wireframe/src/public-api"]
+      }
+  }
+}
