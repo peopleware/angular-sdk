@@ -3,25 +3,6 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 The src folder contains a demo project to showcase the components offered in the various projects.
 
-## Important note
-
-To run the demo app on your local machine, make sure to update tsconfig.json in the root folder of the project.
-The paths object should be updated to look like this:
-
-    "paths": {
-        "@ppwcode/ng-async": ["projects/ppwcode/ng-async/src/public-api"],
-        "@ppwcode/ng-common": ["projects/ppwcode/ng-common/src/public-api"],
-        "@ppwcode/ng-common-components": ["projects/ppwcode/ng-common-components/src/public-api"],
-        "@ppwcode/ng-dialogs": ["projects/ppwcode/ng-dialogs/src/public-api"],
-        "@ppwcode/ng-forms": ["projects/ppwcode/ng-forms/src/public-api"],
-        "@ppwcode/ng-router": ["projects/ppwcode/ng-router/src/public-api"],
-        "@ppwcode/ng-state-management": ["projects/ppwcode/ng-state-management/src/public-api"],
-        "@ppwcode/ng-unit-testing": ["projects/ppwcode/ng-unit-testing/src/public-api"],
-        "@ppwcode/ng-wireframe": ["projects/ppwcode/ng-wireframe/src/public-api"]
-    },
-
-Do not commit these changes to Git, it will fail the build pipeline.
-
 ## Development server
 
 Run `npm run start` for a dev server running the demo project. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
