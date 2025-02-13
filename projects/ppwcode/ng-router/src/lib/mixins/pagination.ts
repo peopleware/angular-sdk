@@ -3,6 +3,8 @@ import { distinctUntilChanged, map, Observable } from 'rxjs'
 import { watchNumberQueryParam } from '../routing'
 import { Constructor } from '@ppwcode/ng-common'
 import { RelativeNavigationCtor } from '../relative-navigation'
+import { PaginationOptions, PAGINATION_OPTIONS } from '../pagination-options'
+import { inject } from '@angular/core'
 
 /**
  * Interface describing something that supports pagination.
@@ -35,6 +37,8 @@ export type CanPageCtor = Constructor<CanPage>
  */
 export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & CanPageCtor => {
     return class extends base implements CanPage {
+        private readonly paginationOptions: PaginationOptions = inject(PAGINATION_OPTIONS)
+
         public page$ = this.watchPageIndexParam('page')
         public pageSize$ = this.watchPageSizeParam('pageSize')
         public defaultPageSize = 20
@@ -62,7 +66,9 @@ export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & 
                 queryParams: {
                     [queryParamName]: page
                 },
-                queryParamsHandling: 'merge'
+                queryParamsHandling: 'merge',
+                skipLocationChange: this.paginationOptions.skipLocationChange,
+                replaceUrl: this.paginationOptions.replaceUrl
             })
         }
     }

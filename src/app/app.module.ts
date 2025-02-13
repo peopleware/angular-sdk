@@ -15,7 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { PPW_ASYNC_RESULT_DEFAULT_OPTIONS, PpwAsyncResultDefaultOptions } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
-import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { TranslatedPageTitleStrategy, providePaginationOptions } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -84,6 +84,10 @@ const ppwcodeComponents = [WireframeComponent]
         provideTranslateService({
             defaultLanguage: 'en',
             loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] }
+        }),
+        providePaginationOptions({
+            skipLocationChange: false,
+            replaceUrl: true
         })
     ]
 })
