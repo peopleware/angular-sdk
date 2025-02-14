@@ -51,6 +51,11 @@ export class AppComponent extends mixinResponsiveObservers() {
                 fullRouterPath: getFullRoutePath(ROUTE_MAP.filterTable)
             },
             {
+                label: this.translate.instant('navigation.form_table'),
+                icon: 'fa-solid fa-table-list',
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.formTable)
+            },
+            {
                 label: this.translate.instant('navigation.message_bar'),
                 icon: 'fa-solid fa-triangle-exclamation',
                 fullRouterPath: getFullRoutePath(ROUTE_MAP.messageBar)

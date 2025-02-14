@@ -162,6 +162,10 @@ ppw-wireframe.flat {
     align-content: space-between;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .gap-8 {
     gap: 8px;
 }
@@ -189,6 +193,12 @@ table {
                 font-weight: bold;
             }
         }
+    }
+}
+
+ppw-form-table {
+    mat-form-field {
+        margin: 4px 0;
     }
 }
 
