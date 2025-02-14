@@ -55,7 +55,7 @@
                             "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
-                            "tsConfig": "tsconfig.local.json"
+                            "tsConfig": "tsconfig.json"
                         }
                     },
                     "defaultConfiguration": "production"

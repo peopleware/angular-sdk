@@ -1,0 +1,41 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "paths": {
+            "@ppwcode/ng-async": ["dist/ppwcode/ng-async"],
+            "@ppwcode/ng-common": ["dist/ppwcode/ng-common"],
+            "@ppwcode/ng-common-components": ["dist/ppwcode/ng-common-components"],
+            "@ppwcode/ng-dialogs": ["dist/ppwcode/ng-dialogs"],
+            "@ppwcode/ng-forms": ["dist/ppwcode/ng-forms"],
+            "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
+            "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
+            "@ppwcode/ng-unit-testing": ["dist/ppwcode/ng-unit-testing"],
+            "@ppwcode/ng-wireframe": ["dist/ppwcode/ng-wireframe"]
+        },
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "sourceMap": true,
+        "declaration": false,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
+        "lib": ["ES2022", "dom"]
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
+    }
+}
