@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-content class="form-table">
+        <form [formGroup]="todoForm">
+            <ppw-form-table [data]="todos" [options]="tableOptions" [trackBy]="trackByFn">
+                <ppw-column name="label" type="template" label="Todo's">
+                    <ng-template ppw-column-cell let-record>
+                        <mat-form-field class="full-width"
+                            ><mat-label>Enter a todo item</mat-label
+                            ><input matInput [formControl]="record.get('label')"
+                        /></mat-form-field>
+                    </ng-template>
+                </ppw-column>
+                <ppw-column name="actions" type="template">
+                    <ng-template ppw-column-cell let-record>
+                        <button mat-icon-button (click)="removeItem(record)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </ng-template>
+                    <ng-template ppw-column-header>
+                        <button mat-icon-button (click)="addItem()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </ng-template>
+                </ppw-column>
+            </ppw-form-table>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Current form array value:</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="form-table-results">
+        <div>
+            <pre
+                >{{ todoForm.getRawValue().todos | json }}
+                </pre
+            >
+        </div>
+    </mat-card-content>
+</mat-card>

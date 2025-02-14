@@ -7,11 +7,13 @@ import { FilterTableComponent } from './filter-table/filter-table.component'
 import { GlobalErrorHandlerComponent } from './global-error-handler/global-error-handler.component'
 import { InMemoryLoggingDemoComponent } from './logging/in-memory-logging-demo/in-memory-logging-demo.component'
 import { MessageBarComponent } from './message-bar/message-bar.component'
+import EditableTableComponent from './editable-table/editable-table.component'
 
 export const ROUTE_MAP = {
     confirmationDialog: defineRoute('confirmation-dialog'),
     expandableCard: defineRoute('expandable-card'),
     filterTable: defineRoute('filter-table'),
+    formTable: defineRoute('form-table'),
     globalErrorHandler: defineRoute('global-error-handler'),
     inMemoryLogging: defineRoute('in-memory-logging'),
     messageBar: defineRoute('message-bar')
@@ -30,6 +32,7 @@ const routes: Routes = [
         title: 'navigation.expandable_card'
     },
     { path: getRouteSegment(ROUTE_MAP.filterTable), component: FilterTableComponent, title: 'navigation.filter_table' },
+    { path: getRouteSegment(ROUTE_MAP.formTable), component: EditableTableComponent, title: 'navigation.form_table' },
     { path: getRouteSegment(ROUTE_MAP.messageBar), component: MessageBarComponent, title: 'navigation.message_bar' },
     {
         path: getRouteSegment(ROUTE_MAP.inMemoryLogging),
