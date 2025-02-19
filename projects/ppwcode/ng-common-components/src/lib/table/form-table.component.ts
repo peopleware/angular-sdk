@@ -1,18 +1,19 @@
 import { animate, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectionStrategy, Component, forwardRef, OnInit } from '@angular/core'
-import { NG_VALUE_ACCESSOR } from '@angular/forms'
+import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { MatTableDataSource } from '@angular/material/table'
+import { TableRecord } from '@ppwcode/ng-common-components'
 import { AbstractTableComponent } from './abstract-table.component'
 import { Column } from './columns/column'
-import { TableRecord } from './models/table-record.model'
 
 @Component({
-    selector: 'ppw-table',
+    selector: 'ppw-form-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TableComponent),
+            useExisting: forwardRef(() => FormTableComponent),
             multi: true
         }
     ],
@@ -27,10 +28,7 @@ import { TableRecord } from './models/table-record.model'
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class TableComponent<TRecord>
-    extends AbstractTableComponent<TRecord, Array<Record<string, unknown>>>
-    implements OnInit
-{
+export class FormTableComponent<TRecord> extends AbstractTableComponent<TRecord> implements OnInit {
     /**
      * Maps the given items into a local key-value pair to be used within
      * the template. The original record is left intact so that it can still
@@ -38,10 +36,10 @@ export class TableComponent<TRecord>
      * @param items The items to map.
      */
     protected _mapToLocalKeyValuePairs(
-        items: Array<Record<string, unknown>>,
+        items: FormArray<FormGroup>,
         columns: Array<Column<TRecord, unknown>>
     ): Array<TableRecord<TRecord>> {
-        const records: Array<Record<string, unknown>> = items ?? []
+        const records: FormGroup[] = items.controls ?? []
 
         return records.map((record, index) => {
             const mappedValues: Record<string, unknown> = {}
@@ -56,5 +54,22 @@ export class TableComponent<TRecord>
                 trackByValue: this.trackBy()(index, record as TRecord)
             } as TableRecord<TRecord>
         })
+    }
+
+    public addControl(control: FormGroup): void {
+        const formGroups = this.data() as FormArray<FormGroup>
+        formGroups.push(control)
+        this.refreshDataSource(formGroups)
+    }
+
+    public removeControl(control: FormGroup): void {
+        const formGroups = (this.data() as FormArray<FormGroup>) ?? []
+        formGroups.removeAt(formGroups.controls.findIndex((fg) => fg === control))
+        this.refreshDataSource(formGroups)
+    }
+
+    private refreshDataSource(control: FormArray<FormGroup>): void {
+        const localRecords = this._mapToLocalKeyValuePairs(control, this.columns())
+        this.dataSource.set(new MatTableDataSource(localRecords))
     }
 }
