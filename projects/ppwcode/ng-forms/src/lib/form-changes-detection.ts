@@ -63,13 +63,25 @@ export const mixinDetectFormChanges = <T extends Constructor<object>>(base?: T):
         }
 
         /**
-         * Removes properties with null or undefined value from the given object
+         * Removes properties with null or undefined value from the given object,
+         * including nested objects
          */
         private getValuable<T extends object, V = Valuable<T>>(obj: T): V {
             return Object.fromEntries(
-                Object.entries(obj).filter(
-                    ([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined')
-                )
+                Object.entries(obj)
+                    .map(([key, value]) => {
+                        if (value && typeof value === 'object' && !Array.isArray(value)) {
+                            // Recursively clean nested objects
+                            const valuable: V | undefined = Object.keys(value).length
+                                ? this.getValuable(value)
+                                : undefined
+                            return [key, valuable]
+                        }
+                        return [key, value]
+                    })
+                    .filter(
+                        ([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined')
+                    )
             ) as V
         }
     }
