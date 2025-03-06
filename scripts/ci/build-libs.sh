@@ -16,6 +16,7 @@ for library in ${LIBRARIES_LIST[@]}; do
   # The return value/exit code of the last command is gained through $?
   if [ "$?" == "1" ]; then
     echo 'Failed'
+    exit 1
   fi
 done
 
