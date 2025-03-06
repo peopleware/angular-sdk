@@ -1,6 +1,19 @@
 {
     "extends": "../../../.eslintrc.json",
     "ignorePatterns": ["!**/*"],
+    "rules": {
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "@ppwcode/ng-router",
+                        "message": "Use a relative import instead. Importing from @ppwcode/ng-router is not allowed inside this lib directory."
+                    }
+                ]
+            }
+        ]
+    },
     "overrides": [
         {
             "files": ["*.ts"],
