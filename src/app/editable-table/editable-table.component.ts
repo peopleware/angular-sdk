@@ -7,8 +7,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field'
 import { MatIcon } from '@angular/material/icon'
 import { MatInput } from '@angular/material/input'
 import { AsyncResultModule } from '@ppwcode/ng-async'
-import { PpwTableModule, PpwTableOptions } from '@ppwcode/ng-common-components'
-import { FormTableComponent } from '../../../projects/ppwcode/ng-common-components/src/lib/table/form-table.component'
+import { FormTableComponent, PpwTableModule, PpwTableOptions } from '@ppwcode/ng-common-components'
 
 export interface Todo {
     label: string
