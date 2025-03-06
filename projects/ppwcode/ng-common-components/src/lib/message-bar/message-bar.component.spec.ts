@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { Severity } from '@ppwcode/ng-common-components'
+import { Severity } from '../enum/severity'
 
 import { MessageBarComponent } from './message-bar.component'
 

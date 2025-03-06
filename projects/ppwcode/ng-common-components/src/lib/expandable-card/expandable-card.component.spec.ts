@@ -4,7 +4,7 @@ import { InputSignal, Type } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatExpansionPanelHarness } from '@angular/material/expansion/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { ExpandableCardComponent } from '@ppwcode/ng-common-components'
+import { ExpandableCardComponent } from './expandable-card.component'
 
 type InputSignalValues<T> = {
     [K in keyof T]: T[K] extends InputSignal<infer U> ? U : never

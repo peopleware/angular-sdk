@@ -2,9 +2,9 @@ import { animate, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectionStrategy, Component, forwardRef, OnInit } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatTableDataSource } from '@angular/material/table'
-import { TableRecord } from '@ppwcode/ng-common-components'
 import { AbstractTableComponent } from './abstract-table.component'
 import { Column } from './columns/column'
+import { TableRecord } from './models/table-record.model'
 
 @Component({
     selector: 'ppw-form-table',
