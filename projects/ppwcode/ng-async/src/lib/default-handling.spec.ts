@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http'
-import { createEmptyPagedEntities, createPagedEntitiesMock } from '@ppwcode/ng-async'
 import { firstValueFrom, of, throwError } from 'rxjs'
 import { handleAsyncResult, handleAsyncResultIgnoreEntity, handlePagedAsyncResult } from './default-handling'
+import { createEmptyPagedEntities } from './models/paged-entities'
+import { createPagedEntitiesMock } from './models/paged-entities.mock'
 
 describe('default async result handling', () => {
     describe('async result', () => {

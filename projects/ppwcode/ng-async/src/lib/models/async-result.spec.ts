@@ -1,4 +1,4 @@
-import { isAsyncResult } from '@ppwcode/ng-async'
+import { isAsyncResult } from './async-result'
 
 describe('AsyncResult', () => {
     it('should detect invalid async result models', () => {
