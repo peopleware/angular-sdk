@@ -28,6 +28,13 @@ After generating the new library make sure to:
 
 ## Build
 
+### Preparation (on Windows only)
+
+When on Windows, the following should be configured:
+`npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"`
+
+### Execution
+
 Run `ng ci:build-libs` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
