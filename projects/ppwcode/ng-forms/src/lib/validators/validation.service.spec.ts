@@ -1,5 +1,5 @@
 import { UntypedFormControl } from '@angular/forms'
-import { ValidationService } from '@ppwcode/ng-forms'
+import { ValidationService } from './validation.service'
 
 describe('ValidationService should work properly', () => {
     describe('notOnlySpacesValidator should work properly', () => {

@@ -1,7 +1,7 @@
 import { LOCALE_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
-import { PpwApiTranslatePipe } from '@ppwcode/ng-common'
 import { PpwTranslationMap } from '../models/ppw-translation-map.model'
+import { PpwApiTranslatePipe } from './api-translate.pipe'
 
 const mockTranslationMap: PpwTranslationMap = {
     nl: 'testnl',

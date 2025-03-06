@@ -1,6 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing'
-import { CanTrackPending, CanTrackPendingCtor, mixinTrackPending } from '@ppwcode/ng-common'
 import { delay, firstValueFrom, of } from 'rxjs'
+import { CanTrackPending, CanTrackPendingCtor, mixinTrackPending } from './track-pending'
 
 describe('Track pending mixin', () => {
     class BaseClass {

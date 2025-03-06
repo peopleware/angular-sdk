@@ -1,7 +1,7 @@
 import { Component, input, InputSignal, Signal, viewChild } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { createEmptyPagedEntities, createSuccessAsyncResult, PagedAsyncResult, PagedEntities } from '@ppwcode/ng-async'
-import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
+import { PaginationBarComponent } from './pagination-bar.component'
 
 describe('Pagination bar component', () => {
     const createTestComponent = async (value: PagedAsyncResult<unknown, unknown> | PagedEntities<unknown>) => {

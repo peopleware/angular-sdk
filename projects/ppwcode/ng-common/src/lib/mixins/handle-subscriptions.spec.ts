@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
-import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 import { interval } from 'rxjs'
+import { mixinHandleSubscriptions } from './handle-subscriptions'
 
 describe('Handle subscriptions mixin', () => {
     let fixture: ComponentFixture<TestComponent>
