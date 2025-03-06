@@ -23,7 +23,7 @@ import {
 import { FormArray, FormGroup } from '@angular/forms'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
 import { assert, notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
-import { mixinHandleSubscriptions } from 'projects/ppwcode/ng-common/src/public-api'
+import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { Column, ColumnType } from './columns/column'
 import { DateColumn } from './columns/date-column'
