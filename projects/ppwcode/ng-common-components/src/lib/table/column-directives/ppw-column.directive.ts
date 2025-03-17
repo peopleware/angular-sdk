@@ -1,4 +1,14 @@
-import { computed, contentChild, Directive, inject, input, InputSignal, Signal, TemplateRef } from '@angular/core'
+import {
+    booleanAttribute,
+    computed,
+    contentChild,
+    Directive,
+    inject,
+    input,
+    InputSignal, InputSignalWithTransform,
+    Signal,
+    TemplateRef
+} from '@angular/core'
 import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { Column, ColumnType } from '../columns/column'
 import { DateColumn } from '../columns/date-column'
@@ -35,6 +45,12 @@ export class PpwColumnDirective<TRecord> {
 
     /** The label of the column, this is shown in the header of the column if no header template is set. */
     public label: InputSignal<string | undefined> = input<string | undefined>(undefined)
+
+    /** Whether the column should be sticky. */
+    public sticky: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute })
+
+    /** Whether the column should be sticky at the end of the row. */
+    public stickyEnd: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute })
 
     /** The formatting function to format number values. When not provided, the default from PPW_TABLE_OPTIONS is used. */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -93,6 +109,8 @@ export class PpwColumnDirective<TRecord> {
             return new TemplateColumn(
                 this.name() as string,
                 this.label() ?? '',
+                this.sticky(),
+                this.stickyEnd(),
                 () => notUndefined(this.columnCellDirective()).templateRef
             )
         }
@@ -108,6 +126,8 @@ export class PpwColumnDirective<TRecord> {
                 return new DateColumn(
                     this.name() as string,
                     this.label() ?? '',
+                    this.sticky(),
+                    this.stickyEnd(),
                     this.dateFormatter,
                     this.valueRetrieval() ?? (this.name() as string)
                 )
@@ -115,6 +135,8 @@ export class PpwColumnDirective<TRecord> {
                 return new NumberColumn(
                     this.name() as string,
                     this.label() ?? '',
+                    this.sticky(),
+                    this.stickyEnd(),
                     (this.valueRetrieval() as string | ((record: TRecord) => number)) ?? (this.name() as string),
                     this.numberFormatter
                 )
@@ -122,12 +144,16 @@ export class PpwColumnDirective<TRecord> {
                 return new TemplateColumn(
                     this.name() as string,
                     this.label() ?? '',
+                    this.sticky(),
+                    this.stickyEnd(),
                     () => notUndefined(this.columnCellDirective()).templateRef
                 )
             case ColumnType.Text:
                 return new TextColumn(
                     this.name() as string,
                     this.label() ?? '',
+                    this.sticky(),
+                    this.stickyEnd(),
                     (this.valueRetrieval() as string | ((record: TRecord) => string)) ?? (this.name() as string)
                 )
             default:
