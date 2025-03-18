@@ -23,5 +23,11 @@ export interface Column<TRecord, TValue> {
     /** The label to display in the column header. */
     label: string
 
+    /** Whether the column should be sticky. */
+    sticky: boolean
+
+    /** Whether the column should be sticky at the end of the row. */
+    stickyEnd: boolean
+
     value?: string | ((record: TRecord) => TValue)
 }

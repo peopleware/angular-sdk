@@ -5,7 +5,6 @@
 
     &.fixed-height {
         max-height: var(--ppw-table-height, auto);
-        padding-right: 16px;
     }
 }
 
@@ -59,6 +58,10 @@
 
 .highlight:hover {
     background: var(--ppw-table-row-highlight-background-color, rgba(0, 0, 0, 0.03));
+
+    .ppw-table-sticky-column {
+        background-color: var(--ppw-table-row-highlight-sticky-background-color, rgb(239, 239, 255));
+    }
 }
 
 .cdk-drag-preview {

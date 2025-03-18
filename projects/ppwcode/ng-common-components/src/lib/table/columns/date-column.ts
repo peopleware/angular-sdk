@@ -18,6 +18,16 @@ export class DateColumn<TDate, TRecord> implements Column<TRecord, TDate> {
         public label: string,
 
         /**
+         * Whether the column should be sticky.
+         */
+        public sticky: boolean,
+
+        /**
+         * Whether the column should be sticky at the end of the row.
+         */
+        public stickyEnd: boolean,
+
+        /**
          * The format to show the date value.
          */
         public formatFn: (value: TDate) => string,

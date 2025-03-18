@@ -19,6 +19,16 @@ export class TemplateColumn<TRecord> implements Column<TRecord, TemplateRef<any>
         public label: string,
 
         /**
+         * Whether the column should be sticky.
+         */
+        public sticky: boolean,
+
+        /**
+         * Whether the column should be sticky at the end of the row.
+         */
+        public stickyEnd: boolean,
+
+        /**
          * The name of the property to get the value from or a function that can be called
          * to retrieve the value from the current record.
          */

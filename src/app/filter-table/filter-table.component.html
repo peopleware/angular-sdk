@@ -1,127 +1,286 @@
-@if (searchForm) {
-    <ppw-search-filter (search)="performSearch()" (clear)="performReset()" [submitDisabled]="searchForm.invalid">
-        <form [formGroup]="searchForm" class="flex-row gap-8">
-            <mat-form-field>
-                <mat-label>firstName</mat-label>
-                <input matInput formControlName="firstName" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>lastName</mat-label>
-                <input matInput formControlName="lastName" />
-            </mat-form-field>
-        </form>
-        <div>
-            <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
+<div class="flex-column gap-8 padding-8">
+    <h1>Filter table</h1>
+    @if (searchForm) {
+        <ppw-search-filter (search)="performSearch()" (clear)="performReset()" [submitDisabled]="searchForm.invalid">
+            <form [formGroup]="searchForm" class="flex-row gap-8">
+                <mat-form-field>
+                    <mat-label>firstName</mat-label>
+                    <input matInput formControlName="firstName" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>lastName</mat-label>
+                    <input matInput formControlName="lastName" />
+                </mat-form-field>
+            </form>
+            <div>
+                <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
+            </div>
+        </ppw-search-filter>
+    }
+    <mat-card>
+        <mat-card-content class="persons-table">
+            <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
+                <ng-template ppw-async-result-empty>
+                    <p>No result</p>
+                </ng-template>
+                <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
+                    <ppw-table
+                        [data]="players.entity.items"
+                        [footerData]="footerData"
+                        [enableRowSelection]="true"
+                        [enableRowDrag]="enableRowDrag"
+                        [options]="tableOptions"
+                        [trackBy]="trackByFn"
+                        (orderChanged)="orderChanged(players.entity, $event)"
+                        (selectionChanged)="updateSelected($event)"
+                    >
+                        <ppw-column name="firstName" type="text" label="First name"></ppw-column>
+                        <ppw-column name="lastName" type="text" label="Last name"></ppw-column>
+                        <ppw-column name="birthDate" type="date" label="Birth date"></ppw-column>
+                        <ppw-column name="age" type="number" label="Age"></ppw-column>
+                        <ppw-column
+                            name="income"
+                            type="number"
+                            label="Income"
+                            [numberFormatFn]="formatIncome.bind(this)"
+                        ></ppw-column>
+                        <ppw-column
+                            name="bonus"
+                            type="number"
+                            label="Bonus"
+                            [numberFormatFn]="formatBonus.bind(this)"
+                        ></ppw-column>
+                        <ppw-column name="rowIndex" type="template" label="Row index">
+                            <ng-template ppw-column-cell let-rowIndex="rowIndex">
+                                <span>{{ rowIndex }}</span>
+                            </ng-template>
+                        </ppw-column>
+                        <ppw-column name="active" type="template">
+                            <ng-template ppw-column-header>
+                                <button mat-icon-button (click)="addPlayer()">
+                                    <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+                                </button>
+                            </ng-template>
+                            <ng-template ppw-column-cell let-record>
+                                @switch (record.active) {
+                                    @case (true) {
+                                        <mat-icon>check</mat-icon>
+                                    }
+                                    @case (false) {
+                                        <mat-icon>close</mat-icon>
+                                    }
+                                }
+                            </ng-template>
+                        </ppw-column>
+                        <ng-template ppw-empty-page>
+                            <p>The current page has no data to display.</p>
+                        </ng-template>
+                    </ppw-table>
+                    <ppw-pagination-bar
+                        [pagedAsyncResult]="players.entity"
+                        (page)="handlePageEvent($event)"
+                        [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                        [showFirstLastButtons]="true"
+                    ></ppw-pagination-bar>
+                </ng-template>
+            </ppw-async-result>
+        </mat-card-content>
+    </mat-card>
+    @if (playersToSave.length) {
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Players after reordering</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                @for (p of playersToSave; track p) {
+                    <div>{{ p | json }}</div>
+                }
+            </mat-card-content>
+        </mat-card>
+    }
+
+    @if (lastClickedRow) {
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Last clicked row</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div>{{ lastClickedRow | json }}</div>
+            </mat-card-content>
+        </mat-card>
+    }
+
+    @if (selectedPlayersSignal().length) {
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Selected ID's</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                @for (item of selectedPlayersSignal(); track item; let last = $last) {
+                    <span>
+                        <span>{{ item.id }}</span>
+                        @if (!last) {
+                            <span>, </span>
+                        }
+                    </span>
+                }
+            </mat-card-content>
+        </mat-card>
+    }
+</div>
+
+<div class="flex-column gap-8 padding-8">
+    <h1>Table with sticky columns</h1>
+    <div class="flex-row">
+        <div [style.width]="'500px'">
+            <h2>With sticky column</h2>
+            <mat-card>
+                <mat-card-content class="persons-table">
+                    <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
+                        <ng-template ppw-async-result-empty>
+                            <p>No result</p>
+                        </ng-template>
+                        <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
+                            <ppw-table
+                                [data]="players.entity.items"
+                                [footerData]="footerData"
+                                [options]="tableOptions"
+                                [trackBy]="trackByFn"
+                                (orderChanged)="orderChanged(players.entity, $event)"
+                                (selectionChanged)="updateSelected($event)"
+                            >
+                                <ppw-column
+                                    name="firstName"
+                                    type="text"
+                                    label="First name"
+                                    sticky
+                                ></ppw-column>
+                                <ppw-column name="lastName" type="text" label="Last name"></ppw-column>
+                                <ppw-column name="birthDate" type="date" label="Birth date"></ppw-column>
+                                <ppw-column name="age" type="number" label="Age"></ppw-column>
+                                <ppw-column
+                                    name="income"
+                                    type="number"
+                                    label="Income"
+                                    [numberFormatFn]="formatIncome.bind(this)"
+                                ></ppw-column>
+                                <ppw-column
+                                    name="bonus"
+                                    type="number"
+                                    label="Bonus"
+                                    [numberFormatFn]="formatBonus.bind(this)"
+                                ></ppw-column>
+                                <ppw-column name="rowIndex" type="template" label="Row index">
+                                    <ng-template ppw-column-cell let-rowIndex="rowIndex">
+                                        <span>{{ rowIndex }}</span>
+                                    </ng-template>
+                                </ppw-column>
+                                <ppw-column name="active" type="template">
+                                    <ng-template ppw-column-header>
+                                        <button mat-icon-button (click)="addPlayer()">
+                                            <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+                                        </button>
+                                    </ng-template>
+                                    <ng-template ppw-column-cell let-record>
+                                        @switch (record.active) {
+                                            @case (true) {
+                                                <mat-icon>check</mat-icon>
+                                            }
+                                            @case (false) {
+                                                <mat-icon>close</mat-icon>
+                                            }
+                                        }
+                                    </ng-template>
+                                </ppw-column>
+                                <ng-template ppw-empty-page>
+                                    <p>The current page has no data to display.</p>
+                                </ng-template>
+                            </ppw-table>
+                            <ppw-pagination-bar
+                                [pagedAsyncResult]="players.entity"
+                                (page)="handlePageEvent($event)"
+                                [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                                [showFirstLastButtons]="true"
+                            ></ppw-pagination-bar>
+                        </ng-template>
+                    </ppw-async-result>
+                </mat-card-content>
+            </mat-card>
         </div>
-    </ppw-search-filter>
-}
-<mat-card>
-    <mat-card-content class="persons-table">
-        <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
-            <ng-template ppw-async-result-empty>
-                <p>No result</p>
-            </ng-template>
-            <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
-                <ppw-table
-                    [data]="players.entity.items"
-                    [footerData]="footerData"
-                    [enableRowSelection]="true"
-                    [enableRowDrag]="enableRowDrag"
-                    [options]="tableOptions"
-                    [trackBy]="trackByFn"
-                    (orderChanged)="orderChanged(players.entity, $event)"
-                    (selectionChanged)="updateSelected($event)"
-                >
-                    <ppw-column name="firstName" type="text" label="First name"></ppw-column>
-                    <ppw-column name="lastName" type="text" label="Last name"></ppw-column>
-                    <ppw-column name="birthDate" type="date" label="Birth date"></ppw-column>
-                    <ppw-column name="age" type="number" label="Age"></ppw-column>
-                    <ppw-column
-                        name="income"
-                        type="number"
-                        label="Income"
-                        [numberFormatFn]="formatIncome.bind(this)"
-                    ></ppw-column>
-                    <ppw-column
-                        name="bonus"
-                        type="number"
-                        label="Bonus"
-                        [numberFormatFn]="formatBonus.bind(this)"
-                    ></ppw-column>
-                    <ppw-column name="rowIndex" type="template" label="Row index">
-                        <ng-template ppw-column-cell let-rowIndex="rowIndex">
-                            <span>{{ rowIndex }}</span>
-                        </ng-template>
-                    </ppw-column>
-                    <ppw-column name="active" type="template">
-                        <ng-template ppw-column-header>
-                            <button mat-icon-button (click)="addPlayer()">
-                                <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
-                            </button>
-                        </ng-template>
-                        <ng-template ppw-column-cell let-record>
-                            @switch (record.active) {
-                                @case (true) {
-                                    <mat-icon>check</mat-icon>
-                                }
-                                @case (false) {
-                                    <mat-icon>close</mat-icon>
-                                }
-                            }
-                        </ng-template>
-                    </ppw-column>
-                    <ng-template ppw-empty-page>
-                        <p>The current page has no data to display.</p>
-                    </ng-template>
-                </ppw-table>
-                <ppw-pagination-bar
-                    [pagedAsyncResult]="players.entity"
-                    (page)="handlePageEvent($event)"
-                    [pageSizeOptions]="[2, 5, 10, 20, 50]"
-                    [showFirstLastButtons]="true"
-                ></ppw-pagination-bar>
-            </ng-template>
-        </ppw-async-result>
-    </mat-card-content>
-</mat-card>
-@if (playersToSave.length) {
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Players after reordering</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            @for (p of playersToSave; track p) {
-                <div>{{ p | json }}</div>
-            }
-        </mat-card-content>
-    </mat-card>
-}
 
-@if (lastClickedRow) {
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Last clicked row</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div>{{ lastClickedRow | json }}</div>
-        </mat-card-content>
-    </mat-card>
-}
-
-@if (selectedPlayersSignal().length) {
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Selected ID's</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            @for (item of selectedPlayersSignal(); track item; let last = $last) {
-                <span>
-                    <span>{{ item.id }}</span>
-                    @if (!last) {
-                        <span>, </span>
-                    }
-                </span>
-            }
-        </mat-card-content>
-    </mat-card>
-}
+        <div [style.width]="'500px'">
+            <h2>With sticky column at the end</h2>
+            <mat-card>
+                <mat-card-content class="persons-table">
+                    <ppw-async-result [asyncResult]="players$ | async" [pending]="pending$ | async">
+                        <ng-template ppw-async-result-empty>
+                            <p>No result</p>
+                        </ng-template>
+                        <ng-template ppw-async-result-success [contextTyper]="players$" let-players>
+                            <ppw-table
+                                [data]="players.entity.items"
+                                [footerData]="footerData"
+                                [options]="tableOptions"
+                                [trackBy]="trackByFn"
+                                (orderChanged)="orderChanged(players.entity, $event)"
+                                (selectionChanged)="updateSelected($event)"
+                            >
+                                <ppw-column
+                                    name="firstName"
+                                    type="text"
+                                    label="First name"
+                                ></ppw-column>
+                                <ppw-column name="lastName" type="text" label="Last name"></ppw-column>
+                                <ppw-column name="birthDate" type="date" label="Birth date"></ppw-column>
+                                <ppw-column name="age" type="number" label="Age"></ppw-column>
+                                <ppw-column
+                                    name="income"
+                                    type="number"
+                                    label="Income"
+                                    [numberFormatFn]="formatIncome.bind(this)"
+                                ></ppw-column>
+                                <ppw-column
+                                    name="bonus"
+                                    type="number"
+                                    label="Bonus"
+                                    [numberFormatFn]="formatBonus.bind(this)"
+                                ></ppw-column>
+                                <ppw-column name="rowIndex" type="template" label="Row index">
+                                    <ng-template ppw-column-cell let-rowIndex="rowIndex">
+                                        <span>{{ rowIndex }}</span>
+                                    </ng-template>
+                                </ppw-column>
+                                <ppw-column name="active" type="template" sticky stickyEnd>
+                                    <ng-template ppw-column-header>
+                                        <button mat-icon-button (click)="addPlayer()">
+                                            <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+                                        </button>
+                                    </ng-template>
+                                    <ng-template ppw-column-cell let-record>
+                                        @switch (record.active) {
+                                            @case (true) {
+                                                <mat-icon>check</mat-icon>
+                                            }
+                                            @case (false) {
+                                                <mat-icon>close</mat-icon>
+                                            }
+                                        }
+                                    </ng-template>
+                                </ppw-column>
+                                <ng-template ppw-empty-page>
+                                    <p>The current page has no data to display.</p>
+                                </ng-template>
+                            </ppw-table>
+                            <ppw-pagination-bar
+                                [pagedAsyncResult]="players.entity"
+                                (page)="handlePageEvent($event)"
+                                [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                                [showFirstLastButtons]="true"
+                            ></ppw-pagination-bar>
+                        </ng-template>
+                    </ppw-async-result>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

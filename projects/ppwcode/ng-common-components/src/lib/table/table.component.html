@@ -64,7 +64,7 @@
         }
 
         @for (column of columns(); track column) {
-            <ng-container [matColumnDef]="column.name">
+            <ng-container [matColumnDef]="column.name" [sticky]="column.sticky" [stickyEnd]="column.stickyEnd">
                 <th
                     mat-header-cell
                     [style.width]="options()?.columns?.widths?.[column.name]"
@@ -81,6 +81,7 @@
                 <td
                     mat-cell
                     [style.width]="options()?.columns?.widths?.[column.name]"
+                    [class.ppw-table-sticky-column]="column.sticky"
                     [ngStyle]="options()?.columns?.styles?.[column.name]?.(record.initialRecord)"
                     *matCellDef="let record; let idx = index"
                     (click)="executeRowClick(record.initialRecord, column.name)"
