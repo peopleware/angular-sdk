@@ -70,7 +70,7 @@ The following CSS variables are available for theming. Just add them to the `bod
 #### ppw-table
 
 | Variable name                                       | Extra info                                                                  |
-|-----------------------------------------------------|-----------------------------------------------------------------------------|
+| --------------------------------------------------- | --------------------------------------------------------------------------- |
 | `--ppw-table-height`                                |                                                                             |
 | `--ppw-table-row-highlight-background-color`        |                                                                             |
 | `--ppw-table-row-highlight-sticky-background-color` | This can't be a transparent color since this would show overlapping content |

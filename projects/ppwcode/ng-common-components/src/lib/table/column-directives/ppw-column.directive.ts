@@ -5,7 +5,8 @@ import {
     Directive,
     inject,
     input,
-    InputSignal, InputSignalWithTransform,
+    InputSignal,
+    InputSignalWithTransform,
     Signal,
     TemplateRef
 } from '@angular/core'
