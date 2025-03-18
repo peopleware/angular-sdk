@@ -99,6 +99,7 @@ body {
     --ppw-sidenav-navigation-item-external-icon-color: rgba(255, 255, 255, 0.15);
 
     --ppw-table-row-highlight-background-color: rgba(0, 0, 255, 0.03);
+    // This can't be a transparent color since this would show overlapping content
     --ppw-table-row-highlight-sticky-background-color: rgb(239, 239, 255);
 
     --ppw-toolbar-page-title-font-size: 20px;
