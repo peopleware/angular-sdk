@@ -1,10 +1,10 @@
 {
     "name": "@ppwcode/ng-common-components",
-    "version": "19.1.1",
+    "version": "19.1.2",
     "peerDependencies": {
         "@angular/common": "^19.0.0",
         "@angular/core": "^19.0.0",
-        "@ppwcode/ng-common": "^19.1.1"
+        "@ppwcode/ng-common": "^19.1.2"
     },
     "dependencies": {
         "tslib": "^2.3.0"
