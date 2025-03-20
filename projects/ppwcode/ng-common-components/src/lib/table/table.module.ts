@@ -12,6 +12,7 @@ import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.directive'
 import { TableComponent } from './table.component'
 import { FormTableComponent } from './form-table.component'
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import { FormTableComponent } from './form-table.component'
         CdkDragHandle,
         MatRippleModule,
         MatCheckboxModule,
+        MatButtonModule,
         NgStyle,
         DynamicCellDirective,
         CdkDrag,

@@ -95,3 +95,31 @@
 .cdk-drop-list-dragging .mat-row:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.ppw-table-expanded-row {
+    height: 0 !important;
+    td {
+        border-bottom-width: 0;
+    }
+    &-container {
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: 0fr;
+        grid-template-columns: 100%;
+        transition: grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1);
+        &--expanded {
+            grid-template-rows: 1fr;
+        }
+    }
+    &-content {
+        display: flex;
+        min-height: 0;
+    }
+}
+
+.ppw-table-expand-toggle-button {
+    transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    &--expanded {
+        transform: rotate(180deg);
+    }
+}
