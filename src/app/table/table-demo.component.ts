@@ -111,9 +111,9 @@ type SearchPlayersForm = {
 }
 
 @Component({
-    selector: 'ppw-filter-table',
-    templateUrl: './filter-table.component.html',
-    styleUrls: ['./filter-table.component.scss'],
+    selector: 'ppw-table-demo',
+    templateUrl: './table-demo.component.html',
+    styleUrls: ['./table-demo.component.scss'],
     imports: [
         CommonModule,
         SearchFilterComponent,
@@ -131,7 +131,7 @@ type SearchPlayersForm = {
         ExpandableTableComponent
     ]
 })
-export class FilterTableComponent
+export class TableDemoComponent
     extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))
     implements OnInit
 {

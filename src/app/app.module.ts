@@ -19,8 +19,8 @@ import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { EmptyAsyncResultComponent } from './filter-table/empty-async-result.component'
-import { getLuxonFormatter } from './filter-table/filter-table.component'
+import { EmptyAsyncResultComponent } from './table/empty-async-result.component'
+import { getLuxonFormatter } from './table/table-demo.component'
 
 registerLocaleData(localeEn)
 

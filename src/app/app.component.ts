@@ -46,9 +46,9 @@ export class AppComponent extends mixinResponsiveObservers() {
                 fullRouterPath: getFullRoutePath(ROUTE_MAP.expandableCard)
             },
             {
-                label: this.translate.instant('navigation.filter_table'),
+                label: this.translate.instant('navigation.table'),
                 icon: 'fa-solid fa-laptop-code',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.filterTable)
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.table)
             },
             {
                 label: this.translate.instant('navigation.form_table'),
