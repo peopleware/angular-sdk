@@ -103,12 +103,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ]
 
 @Component({
-    selector: 'ppw-expandable-table',
+    selector: 'ppw-expandable-table-demo',
     imports: [PpwTableModule, MatCard, MatCardContent],
-    templateUrl: './expandable-table.component.html',
-    styleUrl: './expandable-table.component.scss'
+    templateUrl: './expandable-table-demo.component.html',
+    styleUrl: './expandable-table-demo.component.scss'
 })
-export class ExpandableTableComponent {
+export class ExpandableTableDemoComponent {
     dataSource = ELEMENT_DATA
     public resultOptions: PpwTableOptions<PeriodicElement> = {
         header: {

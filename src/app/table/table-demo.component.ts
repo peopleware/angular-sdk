@@ -21,7 +21,7 @@ import { mixinPagination, mixinRelativeNavigation } from '@ppwcode/ng-router'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
-import { ExpandableTableComponent } from './expandable-table/expandable-table.component'
+import { ExpandableTableDemoComponent } from './expandable-table-demo/expandable-table-demo.component'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -128,7 +128,7 @@ type SearchPlayersForm = {
         FormsModule,
         MatSlideToggleModule,
         PpwTableModule,
-        ExpandableTableComponent
+        ExpandableTableDemoComponent
     ]
 })
 export class TableDemoComponent
