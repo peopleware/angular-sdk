@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { defineRoute, getRouteSegment } from '@ppwcode/ng-router'
 import { ConfirmationDialogDemoComponent } from './confirmation-dialog-demo/confirmation-dialog-demo.component'
 import { ExpandableCardDemoComponent } from './expandable-card/expandable-card-demo.component'
-import { FilterTableComponent } from './filter-table/filter-table.component'
+import { TableDemoComponent } from './table/table-demo.component'
 import { GlobalErrorHandlerComponent } from './global-error-handler/global-error-handler.component'
 import { InMemoryLoggingDemoComponent } from './logging/in-memory-logging-demo/in-memory-logging-demo.component'
 import { MessageBarComponent } from './message-bar/message-bar.component'
@@ -12,7 +12,7 @@ import EditableTableComponent from './editable-table/editable-table.component'
 export const ROUTE_MAP = {
     confirmationDialog: defineRoute('confirmation-dialog'),
     expandableCard: defineRoute('expandable-card'),
-    filterTable: defineRoute('filter-table'),
+    table: defineRoute('table'),
     formTable: defineRoute('form-table'),
     globalErrorHandler: defineRoute('global-error-handler'),
     inMemoryLogging: defineRoute('in-memory-logging'),
@@ -31,7 +31,7 @@ const routes: Routes = [
         component: ExpandableCardDemoComponent,
         title: 'navigation.expandable_card'
     },
-    { path: getRouteSegment(ROUTE_MAP.filterTable), component: FilterTableComponent, title: 'navigation.filter_table' },
+    { path: getRouteSegment(ROUTE_MAP.table), component: TableDemoComponent, title: 'navigation.table' },
     { path: getRouteSegment(ROUTE_MAP.formTable), component: EditableTableComponent, title: 'navigation.form_table' },
     { path: getRouteSegment(ROUTE_MAP.messageBar), component: MessageBarComponent, title: 'navigation.message_bar' },
     {

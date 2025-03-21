@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import {
+    booleanAttribute,
     computed,
     contentChild,
     contentChildren,
@@ -9,10 +10,12 @@ import {
     inject,
     input,
     InputSignal,
+    InputSignalWithTransform,
     linkedSignal,
     OnInit,
     output,
     OutputEmitterRef,
+    signal,
     Signal,
     TemplateRef,
     TrackByFunction,
@@ -50,6 +53,8 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     public trackBy: InputSignal<TrackByFunction<TRecord>> = input.required()
     public enableRowSelection: InputSignal<boolean> = input(false)
     public enableRowDrag: InputSignal<boolean> = input(false)
+    public expandable: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute })
+    public expandableTemplate: InputSignal<TemplateRef<{ $implicit: TRecord }> | undefined> = input()
     public options: InputSignal<PpwTableOptions<TRecord> | undefined> = input<PpwTableOptions<TRecord> | undefined>(
         undefined
     )
@@ -93,6 +98,9 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
         if (this.enableRowDrag()) {
             names.unshift('rowDrag')
         }
+        if (this.expandable()) {
+            names.push('expand')
+        }
 
         return names
     })
@@ -113,6 +121,7 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     protected readonly notUndefined = notUndefined
     #elementRef: ElementRef = inject(ElementRef)
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
+    #expandedRecord: WritableSignal<TRecord | undefined> = signal(undefined)
 
     public get emptyPageComponent(): Type<unknown> | undefined {
         return this.#tableDefaultOptions?.emptyPageComponent
@@ -135,6 +144,11 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
             return this.selection.isSelected(record)
         })
         return (selectedRecords?.length ?? 0) === numRows
+    }
+
+    /** Whether the given record is expanded. */
+    isExpanded(record: TRecord): boolean {
+        return this.#expandedRecord() === record
     }
 
     /** Whether the number of selected elements is greater than 0 but not equals to the total number of rows. */
@@ -194,10 +208,18 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     }
 
     public executeRowClick(record: TRecord, columnName: string): void {
-        const onClick = this.options()?.rows?.onClick
-        if (onClick && (this.options()?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0)) {
-            onClick(record)
+        if (this.expandable()) {
+            this.toggleExpand(record)
+        } else {
+            const onClick = this.options()?.rows?.onClick
+            if (onClick && (this.options()?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0)) {
+                onClick(record)
+            }
         }
+    }
+
+    public toggleExpand(record: TRecord): void {
+        this.#expandedRecord.update((expandedRecord) => (expandedRecord === record ? undefined : record))
     }
 
     public dropTable(event: CdkDragDrop<MatTableDataSource<TableRecord<TRecord>>, unknown>): void {

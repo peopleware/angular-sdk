@@ -21,6 +21,7 @@ import { mixinPagination, mixinRelativeNavigation } from '@ppwcode/ng-router'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
+import { ExpandableTableDemoComponent } from './expandable-table-demo/expandable-table-demo.component'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -110,9 +111,9 @@ type SearchPlayersForm = {
 }
 
 @Component({
-    selector: 'ppw-filter-table',
-    templateUrl: './filter-table.component.html',
-    styleUrls: ['./filter-table.component.scss'],
+    selector: 'ppw-table-demo',
+    templateUrl: './table-demo.component.html',
+    styleUrls: ['./table-demo.component.scss'],
     imports: [
         CommonModule,
         SearchFilterComponent,
@@ -126,10 +127,11 @@ type SearchPlayersForm = {
         AsyncResultModule,
         FormsModule,
         MatSlideToggleModule,
-        PpwTableModule
+        PpwTableModule,
+        ExpandableTableDemoComponent
     ]
 })
-export class FilterTableComponent
+export class TableDemoComponent
     extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))
     implements OnInit
 {

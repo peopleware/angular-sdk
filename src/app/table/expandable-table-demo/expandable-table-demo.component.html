@@ -1,0 +1,33 @@
+<h1>Table with expandable rows</h1>
+<mat-card>
+    <mat-card-content>
+        <ppw-table
+            [data]="dataSource"
+            [trackBy]="trackBy"
+            expandable
+            [expandableTemplate]="expandableTemplate"
+            [options]="resultOptions"
+        >
+            <ppw-column name="position" type="number" label="Position"></ppw-column>
+            <ppw-column name="name" type="text" label="Name"></ppw-column>
+            <ppw-column name="weight" type="number" label="Weight"></ppw-column>
+            <ppw-column name="symbol" type="text" label="Symbol"></ppw-column>
+        </ppw-table>
+        <ng-template #expandableTemplate let-element>
+            <div class="example-element-detail-wrapper">
+                <div class="example-element-detail">
+                    <div class="example-element-diagram">
+                        <div class="example-element-position">{{ element.position }}</div>
+                        <div class="example-element-symbol">{{ element.symbol }}</div>
+                        <div class="example-element-name">{{ element.name }}</div>
+                        <div class="example-element-weight">{{ element.weight }}</div>
+                    </div>
+                    <div class="example-element-description">
+                        {{ element.description }}
+                        <span class="example-element-description-attribution"> -- Wikipedia </span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </mat-card-content>
+</mat-card>
