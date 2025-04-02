@@ -42,6 +42,11 @@ export class AppComponent extends mixinResponsiveObservers() {
     public getNavigationItems(): NavigationItem[] {
         return [
             {
+                label: this.translate.instant('navigation.dashboard_item'),
+                icon: 'fa-solid fa-grip',
+                fullRouterPath: getFullRoutePath(ROUTE_MAP.dashboardItem)
+            },
+            {
                 label: this.translate.instant('navigation.confirmation_dialog'),
                 icon: 'fa-solid fa-circle-question',
                 fullRouterPath: getFullRoutePath(ROUTE_MAP.confirmationDialog)

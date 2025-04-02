@@ -1,0 +1,26 @@
+<ppw-dashboard-items-table
+    [dashboardItems]="dashboardItems"
+    (executeAction)="$event ? $event.clickFn() : undefined"
+></ppw-dashboard-items-table>
+
+<ng-template #confirmationDemoTemplate>
+    <div class="ppw-confirmation-demo-grid">
+        <div class="ppw-confirmation-demo-tl ppw-grid-item">
+            <mat-icon fontSet="fa" fontIcon="fa-circle-question"></mat-icon>
+        </div>
+        <div class="ppw-confirmation-demo-tr ppw-grid-item">
+            <div class="flex-column">
+                <span class="ppw-dashboard-number">2</span>
+                <span class="ppw-dashboard-text">Confirmation buttons</span>
+            </div>
+        </div>
+        <div class="ppw-confirmation-demo-bl ppw-grid-item">
+            <div class="ppw-dashboard-item-spinner-wrapper flex-column align-items-center">
+                <mat-spinner diameter="64"></mat-spinner>
+            </div>
+        </div>
+        <div class="ppw-confirmation-demo-br ppw-grid-item">
+            <mat-icon fontSet="fa" fontIcon="fa-check"></mat-icon>
+        </div>
+    </div>
+</ng-template>

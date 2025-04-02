@@ -1,0 +1,53 @@
+.ppw-confirmation-demo-tl {
+    grid-area: tl;
+}
+.ppw-confirmation-demo-tr {
+    grid-area: tr;
+}
+.ppw-confirmation-demo-bl {
+    grid-area: bl;
+}
+.ppw-confirmation-demo-br {
+    grid-area: br;
+}
+
+.ppw-confirmation-demo-grid {
+    display: grid;
+    background-color: var(--ppw-dashboard-items-table-primary-color);
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'tl tr'
+        'bl br';
+}
+
+.ppw-grid-item {
+    padding: 32px;
+    background-color: var(--ppw-dashboard-items-table-background-color);
+    cursor: pointer;
+
+    .ppw-dashboard-number {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .ppw-dashboard-text {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        margin-top: 8px;
+    }
+
+    mat-icon {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        font-size: 60px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ppw-dashboard-item-spinner-wrapper {
+        text-align: center;
+        --mdc-circular-progress-active-indicator-color: var(--ppw-dashboard-items-table-primary-color);
+    }
+}
