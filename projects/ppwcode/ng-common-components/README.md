@@ -20,6 +20,10 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 An enum that indicates the severity of a message
 
+#### Dashboard items table
+
+A grid that hosts dashboard items.
+
 #### Expandable card
 
 A card with a colored top-bar. The card can be expanded and collapsed which can optionally be disabled.
@@ -74,3 +78,10 @@ The following CSS variables are available for theming. Just add them to the `bod
 | `--ppw-table-height`                                |                                                                             |
 | `--ppw-table-row-highlight-background-color`        |                                                                             |
 | `--ppw-table-row-highlight-sticky-background-color` | This can't be a transparent color since this would show overlapping content |
+
+#### ppw-dashboard-items-table
+
+| Variable name                                  | Extra info |
+| ---------------------------------------------- | ---------- |
+| `--ppw-dashboard-items-table-primary-color`    |            |
+| `--ppw-dashboard-items-table-background-color` |            |
