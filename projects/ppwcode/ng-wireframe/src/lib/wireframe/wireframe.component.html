@@ -28,7 +28,10 @@
             </ppw-left-sidenav>
         </mat-drawer>
     }
-    <mat-drawer-content class="ppw-app-drawer-content">
+    <mat-drawer-content
+        class="ppw-app-drawer-content"
+        [class.drawer-content-no-margin]="!!sidebarOptions()?.closedByDefaultOnLargerDevice"
+    >
         <div class="ppw-page-container">
             @if (showWireframe()) {
                 <ppw-toolbar
