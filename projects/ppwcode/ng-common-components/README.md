@@ -26,7 +26,7 @@ A card with a colored top-bar. The card can be expanded and collapsed which can 
 
 #### Message bar
 
-A card that can show a message of a specific severity. It is colored depending on the secerity.
+A card that can show a message of a specific severity. It is colored depending on the severity.
 
 #### Search filter
 
