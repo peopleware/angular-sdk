@@ -15,6 +15,7 @@ export class AppComponent extends mixinResponsiveObservers() {
     private translate: TranslateService = inject(TranslateService)
     public title = 'ppwcode'
     public sidebarOptions: SidebarOptions = {
+        closedByDefaultOnLargerDevice: false,
         logoUrl: './assets/ppwcode_logo.png',
         centerLogo: false,
         showPageTitle: true
@@ -22,6 +23,7 @@ export class AppComponent extends mixinResponsiveObservers() {
     public showToolbarLogo = false
     public showToolbarBackground = false
     public flatWireframeStyle = true
+    public closedByDefaultOnLargerDevice = false
     public toolbarLogoUrl = './assets/peopleware_logo.png'
     public toolbarLogoWidth = 190
     public toolbarLogoHeight = 40
@@ -31,6 +33,10 @@ export class AppComponent extends mixinResponsiveObservers() {
         super()
         this.translate.setDefaultLang('en')
         this.translate.use('en')
+    }
+
+    getSidebarOptions(): SidebarOptions {
+        return { ...this.sidebarOptions, closedByDefaultOnLargerDevice: this.closedByDefaultOnLargerDevice }
     }
 
     public getNavigationItems(): NavigationItem[] {
