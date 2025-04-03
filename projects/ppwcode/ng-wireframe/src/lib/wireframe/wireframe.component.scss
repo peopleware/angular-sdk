@@ -24,9 +24,11 @@
         }
     }
 
-    @media only screen and (min-width: 960px) {
-        mat-drawer-content.ppw-app-drawer-content {
-            margin-left: var(--ppw-app-wireframe-drawer-width, 300px) !important;
+    mat-drawer-content.ppw-app-drawer-content {
+        @media only screen and (min-width: 960px) {
+            &:not(.drawer-content-no-margin) {
+                margin-left: var(--ppw-app-wireframe-drawer-width, 300px) !important;
+            }
         }
     }
 }
