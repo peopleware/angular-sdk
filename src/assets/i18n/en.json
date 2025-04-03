@@ -1,8 +1,15 @@
 {
     "APP_TITLE": "PPW Code",
+    "button": {
+        "open": "Open"
+    },
     "confirmation-dialog": {
         "body": "Are you sure you want to execute this action?\n\nThis action cannot be undone.",
         "title": "Confirm execution?"
+    },
+    "dashboard": {
+        "confirmation-dialog-description": "A demo page showcasing the confirm dialog component",
+        "expandable-card-description": "A demo page that shows all possibilities with the expandable card component"
     },
     "global-error-dialog": {
         "copy-all-errors": "Copy All Errors",
@@ -16,6 +23,7 @@
     },
     "navigation": {
         "confirmation_dialog": "Confirmation Dialog",
+        "dashboard_item": "Dashboard Item",
         "expandable_card": "Expandable Card",
         "table": "Table",
         "form_table": "Form Table",
