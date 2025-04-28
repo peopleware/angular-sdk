@@ -8,6 +8,8 @@ import { interpolateRouteSegment } from '../route-retrieval'
  * <a [routerLink]="ROUTE_MAP.student.create | ppwRouteMapSegment">Navigate relatively</a>
  * @example
  * <a [routerLink]="ROUTE_MAP.student.edit | ppwRouteMapSegment:[student.id]">Navigate relatively with parameters replaced</a>
+ * @example
+ * <a [routerLink]="ROUTE_MAP.student.edit | ppwRouteMapSegment:{id: student.id}">Navigate relatively with named parameters</a>
  * @param route The route to interpolate.
  * @param interpolationParams The parameters to interpolate the path with.
  */
@@ -16,7 +18,7 @@ import { interpolateRouteSegment } from '../route-retrieval'
     standalone: true
 })
 export class RouteMapSegmentPipe implements PipeTransform {
-    public transform(route: RouteMapRoute, ...interpolationParams: Array<unknown>): string {
-        return interpolateRouteSegment(route, interpolationParams)
+    public transform(route: RouteMapRoute, interpolationParams?: Array<unknown> | Record<string, unknown>): string {
+        return interpolateRouteSegment(route, interpolationParams ?? [])
     }
 }

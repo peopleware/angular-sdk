@@ -8,6 +8,8 @@ import { interpolateRoutePath } from '../route-retrieval'
  * <a [routerLink]="ROUTE_MAP.students | ppwRouteMapRoute">Navigate to the full url</a>
  * @example
  * <a [routerLink]="ROUTE_MAP.students.detail | ppwRouteMapRoute:[student.id]">Navigate to the full url with parameters replaced</a>
+ * @example
+ * <a [routerLink]="ROUTE_MAP.students.detail | ppwRouteMapRoute:{id: student.id}">Navigate to the full url with named parameters</a>
  * @param route The route to interpolate.
  * @param interpolationParams The parameters to interpolate the full path with.
  */
@@ -16,7 +18,7 @@ import { interpolateRoutePath } from '../route-retrieval'
     standalone: true
 })
 export class RouteMapRoutePipe implements PipeTransform {
-    public transform(route: RouteMapRoute, ...interpolationParams: Array<unknown>): string {
-        return interpolateRoutePath(route, interpolationParams)
+    public transform(route: RouteMapRoute, interpolationParams?: Array<unknown> | Record<string, unknown>): string {
+        return interpolateRoutePath(route, interpolationParams ?? [])
     }
 }

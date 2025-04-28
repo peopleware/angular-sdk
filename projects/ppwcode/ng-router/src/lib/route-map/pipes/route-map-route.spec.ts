@@ -8,11 +8,18 @@ describe('RouteMapRoutePipe', () => {
         pipe = new RouteMapRoutePipe()
     })
 
-    it('should interpolate the full route path', () => {
+    it('should interpolate the full route path with array parameters', () => {
         const listRoute: RouteMapRoute = { __path: 'students', __isContainer: false }
         const detailRoute: RouteMapRoute = { __path: ':id', __parent: listRoute, __isContainer: false }
 
         expect(pipe.transform(detailRoute)).toBe('/students/undefined') // no value given for :id
-        expect(pipe.transform(detailRoute, 16)).toBe('/students/16')
+        expect(pipe.transform(detailRoute, [16])).toBe('/students/16')
+    })
+
+    it('should interpolate the full route path with object parameters', () => {
+        const listRoute: RouteMapRoute = { __path: 'students', __isContainer: false }
+        const detailRoute: RouteMapRoute = { __path: ':id', __parent: listRoute, __isContainer: false }
+
+        expect(pipe.transform(detailRoute, { id: 16 })).toBe('/students/16')
     })
 })

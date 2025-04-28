@@ -59,9 +59,15 @@ describe('Route Retrieval Functions', () => {
     })
 
     describe('interpolateRouteSegment', () => {
-        it('should replace parameters in the path segment', () => {
+        it('should replace parameters in the path segment with array parameters', () => {
             const route = defineRoute('users/:userId/posts/:postId')
             const result = interpolateRouteSegment(route, [123, 456])
+            expect(result).toBe('users/123/posts/456')
+        })
+
+        it('should replace parameters in the path segment with object parameters', () => {
+            const route = defineRoute('users/:userId/posts/:postId')
+            const result = interpolateRouteSegment(route, { userId: 123, postId: 456 })
             expect(result).toBe('users/123/posts/456')
         })
 
@@ -80,12 +86,21 @@ describe('Route Retrieval Functions', () => {
     })
 
     describe('interpolateRoutePath', () => {
-        it('should replace parameters in the full path with leading slash by default', () => {
+        it('should replace parameters in the full path with array parameters', () => {
             const rootRoute = defineRoute('api', {
                 childRoute: defineRoute('users/:userId')
             })
 
             const result = interpolateRoutePath(rootRoute.childRoute, [123])
+            expect(result).toBe('/api/users/123')
+        })
+
+        it('should replace parameters in the full path with object parameters', () => {
+            const rootRoute = defineRoute('api', {
+                childRoute: defineRoute('users/:userId')
+            })
+
+            const result = interpolateRoutePath(rootRoute.childRoute, { userId: 123 })
             expect(result).toBe('/api/users/123')
         })
 
@@ -98,7 +113,7 @@ describe('Route Retrieval Functions', () => {
             expect(result).toBe('api/users/123')
         })
 
-        it('should handle nested routes with multiple parameters', () => {
+        it('should handle nested routes with multiple array parameters', () => {
             const rootRoute = defineRoute('api', {
                 childRoute: defineRoute('users/:userId', {
                     grandChildRoute: defineRoute('posts/:postId')
@@ -106,6 +121,17 @@ describe('Route Retrieval Functions', () => {
             })
 
             const result = interpolateRoutePath(rootRoute.childRoute.grandChildRoute, [123, 456])
+            expect(result).toBe('/api/users/123/posts/456')
+        })
+
+        it('should handle nested routes with multiple object parameters', () => {
+            const rootRoute = defineRoute('api', {
+                childRoute: defineRoute('users/:userId', {
+                    grandChildRoute: defineRoute('posts/:postId')
+                })
+            })
+
+            const result = interpolateRoutePath(rootRoute.childRoute.grandChildRoute, { userId: 123, postId: 456 })
             expect(result).toBe('/api/users/123/posts/456')
         })
 

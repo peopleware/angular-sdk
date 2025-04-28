@@ -49,24 +49,29 @@ export const getFullRoutePath = (route: RouteMapRoute, options: RoutePathOptions
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to be in the same order as they appear in the path.
+ * The parameters can be provided either as an array (in order) or as an object with named parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @throws Error if the route is a container
  */
-export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParams: Array<unknown>): string => {
+export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParams: Array<unknown> | Record<string, unknown>): string => {
     if (route.__isContainer) {
         throw new Error('Cannot interpolate path for a container route')
     }
 
     const path = getRouteSegment(route)
-    const params = [...interpolationParams]
-    return path.replace(/:\w+/g, () => `${params.shift()}`)
+    
+    if (Array.isArray(interpolationParams)) {
+        const params = [...interpolationParams]
+        return path.replace(/:\w+/g, () => `${params.shift()}`)
+    } else {
+        return path.replace(/:(\w+)/g, (_, paramName) => `${interpolationParams[paramName]}`)
+    }
 }
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to be in the same order as they appear in the path.
+ * The parameters can be provided either as an array (in order) or as an object with named parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @param options Optional configuration for path generation.
@@ -74,7 +79,7 @@ export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParam
  */
 export const interpolateRoutePath = (
     route: RouteMapRoute,
-    interpolationParams: Array<unknown>,
+    interpolationParams: Array<unknown> | Record<string, unknown>,
     options: RoutePathOptions = {}
 ): string => {
     if (route.__isContainer) {
@@ -82,6 +87,11 @@ export const interpolateRoutePath = (
     }
 
     const path = getFullRoutePath(route, { ...options, skipContainerCheck: true })
-    const params = [...interpolationParams]
-    return path.replace(/:\w+/g, () => `${params.shift()}`)
+    
+    if (Array.isArray(interpolationParams)) {
+        const params = [...interpolationParams]
+        return path.replace(/:\w+/g, () => `${params.shift()}`)
+    } else {
+        return path.replace(/:(\w+)/g, (_, paramName) => `${interpolationParams[paramName]}`)
+    }
 }
