@@ -1,11 +1,3 @@
-mat-card {
-    margin: 8px;
-}
-
-.mat-mdc-card-title {
-    --mat-card-title-text-size: 20px;
-}
-
 .ppw-dashboard-wrapper-container {
     margin: 32px auto;
     text-align: center;
@@ -17,48 +9,51 @@ mat-card {
         gap: 16px;
         align-items: stretch;
 
-        mat-card-header {
-            padding-bottom: 16px;
-        }
-
         mat-card.dashboard-item {
+            margin: 8px;
+
+            mat-card-header {
+                padding-bottom: 16px;
+
+                mat-card-title {
+                    color: var(--ppw-dashboard-items-table-primary-color);
+                    --mat-card-title-text-size: 20px;
+                }
+            }
+
             .ppw-dashboard-anchor {
                 text-decoration: none;
                 color: unset;
             }
-        }
 
-        mat-card-title {
-            color: var(--ppw-dashboard-items-table-primary-color);
-        }
+            .ppw-dashboard-card-image {
+                padding: 32px;
+                font-size: 140px;
+                color: var(--ppw-dashboard-items-table-primary-color);
+                background-color: var(--ppw-dashboard-items-table-background-color);
+                cursor: pointer;
 
-        .ppw-dashboard-card-image {
-            padding: 32px;
-            font-size: 140px;
-            color: var(--ppw-dashboard-items-table-primary-color);
-            background-color: var(--ppw-dashboard-items-table-background-color);
-            cursor: pointer;
-
-            &:focus,
-            &:active,
-            &:focus-visible {
-                outline: none;
+                &:focus,
+                &:active,
+                &:focus-visible {
+                    outline: none;
+                }
+                &:focus {
+                    border-color: var(--ppw-dashboard-items-table-primary-color);
+                }
             }
-            &:focus {
-                border-color: var(--ppw-dashboard-items-table-primary-color);
+
+            mat-card-content.ppw-dashboard-item-content {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                text-align: left;
+                margin-top: 16px;
             }
-        }
 
-        mat-card-content.ppw-dashboard-item-content {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            text-align: left;
-            margin-top: 16px;
-        }
-
-        mat-card-actions.ppw-dashboard-item-actions {
-            gap: 8px;
+            mat-card-actions.ppw-dashboard-item-actions {
+                gap: 8px;
+            }
         }
     }
 }
