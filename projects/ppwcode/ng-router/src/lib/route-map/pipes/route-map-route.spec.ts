@@ -9,8 +9,8 @@ describe('RouteMapRoutePipe', () => {
     })
 
     it('should interpolate the full route path', () => {
-        const listRoute: RouteMapRoute = { __path: 'students' }
-        const detailRoute: RouteMapRoute = { __path: ':id', __parent: listRoute }
+        const listRoute: RouteMapRoute = { __path: 'students', __isContainer: false }
+        const detailRoute: RouteMapRoute = { __path: ':id', __parent: listRoute, __isContainer: false }
 
         expect(pipe.transform(detailRoute)).toBe('/students/undefined') // no value given for :id
         expect(pipe.transform(detailRoute, 16)).toBe('/students/16')

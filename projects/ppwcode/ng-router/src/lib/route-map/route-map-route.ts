@@ -6,7 +6,9 @@ export type RouteMapRoute = {
     __path: string
     /** Internal. Reference to the parent route map route. */
     __parent?: RouteMapRoute
-    [key: string]: RouteMapRoute | RouteMapNestedRoute | string | undefined
+    /** Internal. Whether this route is a container that cannot be navigated to. */
+    __isContainer: boolean
+    [key: string]: RouteMapRoute | RouteMapNestedRoute | string | boolean | undefined
 }
 
 /**

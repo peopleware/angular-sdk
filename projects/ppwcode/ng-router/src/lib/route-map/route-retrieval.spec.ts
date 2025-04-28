@@ -1,4 +1,4 @@
-import { defineRoute } from './define-route'
+import { defineRoute, defineContainer } from './define-route'
 import { getRouteSegment, getFullRoutePath, interpolateRouteSegment, interpolateRoutePath } from './route-retrieval'
 
 describe('Route Retrieval Functions', () => {
@@ -8,9 +8,20 @@ describe('Route Retrieval Functions', () => {
                 grandChildRoute: defineRoute('grandchild')
             })
         })
+
+        const containerRoute = defineContainer('container', {
+            childRoute: defineRoute('child', {
+                grandChildRoute: defineRoute('grandchild')
+            })
+        })
+
         describe('getRouteSegment', () => {
             it('should return the path segment of a route', () => {
                 expect(getRouteSegment(rootRoute.childRoute)).toBe('child')
+            })
+
+            it('should return the path segment of a container route', () => {
+                expect(getRouteSegment(containerRoute)).toBe('container')
             })
         })
 
@@ -24,6 +35,25 @@ describe('Route Retrieval Functions', () => {
             it('should return the full path without leading slash when specified', () => {
                 expect(getFullRoutePath(rootRoute, { includeLeadingSlash: false })).toBe('root')
                 expect(getFullRoutePath(rootRoute.childRoute, { includeLeadingSlash: false })).toBe('root/child')
+            })
+
+            it('should throw an error when getting path for a container route', () => {
+                expect(() => getFullRoutePath(containerRoute)).toThrow(
+                    new Error('Cannot get path for a container route')
+                )
+            })
+
+            it('should still work for child routes of a container when skipContainerCheck is true', () => {
+                expect(getFullRoutePath(containerRoute.childRoute, { skipContainerCheck: true })).toBe(
+                    '/container/child'
+                )
+                expect(getFullRoutePath(containerRoute.childRoute.grandChildRoute, { skipContainerCheck: true })).toBe(
+                    '/container/child/grandchild'
+                )
+            })
+
+            it('should not throw an error for child routes of a container when skipContainerCheck is false', () => {
+                expect(() => getFullRoutePath(containerRoute.childRoute)).not.toThrow()
             })
         })
     })
@@ -39,6 +69,13 @@ describe('Route Retrieval Functions', () => {
             const route = defineRoute('users/posts')
             const result = interpolateRouteSegment(route, [])
             expect(result).toBe('users/posts')
+        })
+
+        it('should throw an error when interpolating a container route', () => {
+            const container = defineContainer('users/:userId')
+            expect(() => interpolateRouteSegment(container, [123])).toThrow(
+                new Error('Cannot interpolate path for a container route')
+            )
         })
     })
 
@@ -69,6 +106,36 @@ describe('Route Retrieval Functions', () => {
             })
 
             const result = interpolateRoutePath(rootRoute.childRoute.grandChildRoute, [123, 456])
+            expect(result).toBe('/api/users/123/posts/456')
+        })
+
+        it('should throw an error when interpolating a container route', () => {
+            const container = defineContainer('api', {
+                childRoute: defineRoute('users/:userId')
+            })
+
+            expect(() => interpolateRoutePath(container, [])).toThrow(
+                new Error('Cannot interpolate path for a container route')
+            )
+        })
+
+        it('should still work for child routes of a container', () => {
+            const container = defineContainer('api', {
+                childRoute: defineRoute('users/:userId')
+            })
+
+            const result = interpolateRoutePath(container.childRoute, [123])
+            expect(result).toBe('/api/users/123')
+        })
+
+        it('should handle nested routes with container parents', () => {
+            const container = defineContainer('api', {
+                childRoute: defineRoute('users/:userId', {
+                    grandChildRoute: defineRoute('posts/:postId')
+                })
+            })
+
+            const result = interpolateRoutePath(container.childRoute.grandChildRoute, [123, 456])
             expect(result).toBe('/api/users/123/posts/456')
         })
     })
