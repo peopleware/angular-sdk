@@ -9,6 +9,11 @@ export interface RoutePathOptions {
      * @default true
      */
     includeLeadingSlash?: boolean
+    /**
+     * Whether to skip checking if the route is a container route.
+     * @default false
+     */
+    skipContainerCheck?: boolean
 }
 
 /**
@@ -23,12 +28,21 @@ export const getRouteSegment = (route: RouteMapRoute): string => {
  * Gets the full path to the given route, starting from the root of the application.
  * @param route The route to get the full path for.
  * @param options Optional configuration for path generation.
+ * @throws Error if the route is a container and skipContainerCheck is false
  */
 export const getFullRoutePath = (route: RouteMapRoute, options: RoutePathOptions = {}): string => {
-    const { includeLeadingSlash = true } = options
+    const { includeLeadingSlash = true, skipContainerCheck = false } = options
+
+    if (!skipContainerCheck && route.__isContainer) {
+        throw new Error('Cannot get path for a container route')
+    }
+
     const path = !route.__parent
         ? getRouteSegment(route)
-        : `${getFullRoutePath(route.__parent, { includeLeadingSlash: false })}/${getRouteSegment(route)}`
+        : `${getFullRoutePath(route.__parent, {
+              includeLeadingSlash: false,
+              skipContainerCheck: true
+          })}/${getRouteSegment(route)}`
 
     return includeLeadingSlash ? `/${path}` : path
 }
@@ -38,13 +52,15 @@ export const getFullRoutePath = (route: RouteMapRoute, options: RoutePathOptions
  * The parameters are expected to be in the same order as they appear in the path.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
+ * @throws Error if the route is a container
  */
 export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParams: Array<unknown>): string => {
+    if (route.__isContainer) {
+        throw new Error('Cannot interpolate path for a container route')
+    }
+
     const path = getRouteSegment(route)
-
-    // Create a copy to ensure that we are not modifying the parameter using the .shift method.
     const params = [...interpolationParams]
-
     return path.replace(/:\w+/g, () => `${params.shift()}`)
 }
 
@@ -54,16 +70,18 @@ export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParam
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @param options Optional configuration for path generation.
+ * @throws Error if the route is a container
  */
 export const interpolateRoutePath = (
     route: RouteMapRoute,
     interpolationParams: Array<unknown>,
     options: RoutePathOptions = {}
 ): string => {
-    const path = getFullRoutePath(route, options)
+    if (route.__isContainer) {
+        throw new Error('Cannot interpolate path for a container route')
+    }
 
-    // Create a copy to ensure that we are not modifying the parameter using the .shift method.
+    const path = getFullRoutePath(route, { ...options, skipContainerCheck: true })
     const params = [...interpolationParams]
-
     return path.replace(/:\w+/g, () => `${params.shift()}`)
 }
