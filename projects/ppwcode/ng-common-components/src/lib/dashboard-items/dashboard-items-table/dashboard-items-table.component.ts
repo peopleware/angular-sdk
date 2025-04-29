@@ -7,6 +7,7 @@ import { MatRipple } from '@angular/material/core'
 import { TranslatePipe } from '@ngx-translate/core'
 import { DashboardItemAction } from '../models/dashboard-item-action.model'
 import { DashboardItem } from '../models/dashboard-item.model'
+import { DashboardOptions } from '../models/dashboard-options.model'
 
 @Component({
     selector: 'ppw-dashboard-items-table',
@@ -28,5 +29,6 @@ import { DashboardItem } from '../models/dashboard-item.model'
 })
 export class DashboardItemsTableComponent {
     public dashboardItems: InputSignal<Array<DashboardItem>> = input.required()
+    public dashboardOptions: InputSignal<DashboardOptions | undefined> = input()
     public executeAction: OutputEmitterRef<DashboardItemAction | undefined> = output()
 }
