@@ -22,7 +22,7 @@ export const ROUTE_MAP = {
 }
 
 const routes: Routes = [
-    { path: '', redirectTo: getRouteSegment(ROUTE_MAP.expandableCard), pathMatch: 'full' },
+    { path: '', redirectTo: getRouteSegment(ROUTE_MAP.dashboardItem), pathMatch: 'full' },
     {
         path: getRouteSegment(ROUTE_MAP.confirmationDialog),
         component: ConfirmationDialogDemoComponent,
