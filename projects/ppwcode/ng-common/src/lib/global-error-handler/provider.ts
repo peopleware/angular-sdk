@@ -1,6 +1,7 @@
 import { ErrorHandler, Provider } from '@angular/core'
 import { GLOBAL_ERROR_DIALOG_OPTIONS, GlobalErrorDialogOptions } from './global-error-dialog-options'
 import { GlobalErrorHandler } from './global-error-handler'
+import { ERROR_HANDLERS, MultiErrorHandler } from './multi-error-handler'
 
 export const provideGlobalErrorHandler = ({
     errorDialogOptions
@@ -22,8 +23,13 @@ export const provideGlobalErrorHandler = ({
 
     return [
         {
+            provide: ERROR_HANDLERS,
+            useClass: GlobalErrorHandler,
+            multi: true
+        },
+        {
             provide: ErrorHandler,
-            useClass: GlobalErrorHandler
+            useClass: MultiErrorHandler
         },
         {
             provide: GLOBAL_ERROR_DIALOG_OPTIONS,
