@@ -81,7 +81,8 @@ The following CSS variables are available for theming. Just add them to the `bod
 
 #### ppw-dashboard-items-table
 
-| Variable name                                  | Extra info |
-| ---------------------------------------------- | ---------- |
-| `--ppw-dashboard-items-table-primary-color`    |            |
-| `--ppw-dashboard-items-table-background-color` |            |
+| Variable name                                  | Extra info        |
+| ---------------------------------------------- | ----------------- |
+| `--ppw-dashboard-items-table-primary-color`    |                   |
+| `--ppw-dashboard-items-table-background-color` |                   |
+| `--ppw-dashboard-items-table-width`            | Defaults to 800px |
