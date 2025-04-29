@@ -1,4 +1,7 @@
-<div class="ppw-dashboard-wrapper-container">
+<div
+    class="ppw-dashboard-wrapper-container"
+    [class.ppw-dashboard-items-left]="dashboardOptions()?.cardsAlignment === 'left'"
+>
     <div class="ppw-dashboard-wrapper">
         @for (item of dashboardItems(); track item) {
             <mat-card class="dashboard-item">
