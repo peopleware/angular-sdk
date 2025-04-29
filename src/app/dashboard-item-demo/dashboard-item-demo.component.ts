@@ -33,7 +33,7 @@ export class DashboardItemDemoComponent {
     private getConfirmationDemoItem() {
         const item: DashboardItem = {
             template: this.confirmationDemoTemplate(),
-            titleKey: 'navigation.confirmation_dialog',
+            titleKey: 'navigation.confirmation_dialog_with_long_title',
             descriptionKey: 'dashboard.confirmation-dialog-description',
             actions: []
         }
