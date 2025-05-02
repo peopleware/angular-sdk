@@ -1,11 +1,14 @@
 import { ErrorHandler, Provider } from '@angular/core'
 import { GLOBAL_ERROR_DIALOG_OPTIONS, GlobalErrorDialogOptions } from './global-error-dialog-options'
 import { GlobalErrorHandler } from './global-error-handler'
+import { ERROR_HANDLERS, MultiErrorHandler } from './multi-error-handler'
 
 export const provideGlobalErrorHandler = ({
-    errorDialogOptions
+    errorDialogOptions,
+    errorHandlers = []
 }: {
     errorDialogOptions: GlobalErrorDialogOptions
+    errorHandlers?: Array<typeof ErrorHandler>
 }): Array<Provider> => {
     const { messages, copy, navigation } = errorDialogOptions
 
@@ -20,10 +23,22 @@ export const provideGlobalErrorHandler = ({
     assertMessageNecessity(navigation?.reload ?? true, messages.reload, 'reloading the page')
     assertMessageNecessity(errorDialogOptions.allowIgnore, messages.ignore, 'ignoring the error')
 
+    const errorHandlerProviders: Array<Provider> = errorHandlers.map((handler) => ({
+        provide: ERROR_HANDLERS,
+        useClass: handler,
+        multi: true
+    }))
+
     return [
         {
+            provide: ERROR_HANDLERS,
+            useClass: GlobalErrorHandler,
+            multi: true
+        },
+        ...errorHandlerProviders,
+        {
             provide: ErrorHandler,
-            useClass: GlobalErrorHandler
+            useClass: MultiErrorHandler
         },
         {
             provide: GLOBAL_ERROR_DIALOG_OPTIONS,
