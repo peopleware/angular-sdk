@@ -11,7 +11,26 @@ export const defineRoute = <TNested extends Record<string, RouteMapRoute | Route
     pathSegment: string,
     nestedRoutes?: TNested
 ): RouteMapRoute & TNested => {
-    const route = { __path: pathSegment }
+    const route: RouteMapRoute = { __path: pathSegment, __isContainer: false }
+    const nested = nestedRoutes ?? ({} as TNested)
+
+    Object.keys(nested).forEach((key) => {
+        nested[key].__parent = route
+    })
+
+    return Object.assign(route, nestedRoutes ?? ({} as TNested))
+}
+
+/**
+ * Creates a container route that cannot be navigated to, but can contain nested routes.
+ * @param pathSegment The path segment of the container.
+ * @param nestedRoutes The nested routes of the container.
+ */
+export const defineContainer = <TNested extends Record<string, RouteMapRoute | RouteMapNestedRoute>>(
+    pathSegment: string,
+    nestedRoutes?: TNested
+): RouteMapRoute & TNested => {
+    const route: RouteMapRoute = { __path: pathSegment, __isContainer: true }
     const nested = nestedRoutes ?? ({} as TNested)
 
     Object.keys(nested).forEach((key) => {
