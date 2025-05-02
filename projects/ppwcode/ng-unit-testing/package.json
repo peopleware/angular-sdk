@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-unit-testing",
-    "version": "19.4.3",
+    "version": "19.5.0",
     "peerDependencies": {
         "@angular/common": "^19.0.0",
         "@angular/core": "^19.0.0",
