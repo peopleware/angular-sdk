@@ -17,7 +17,7 @@ export interface CanTrackPending {
     trackPending<T>(stream$: Observable<T>, trackingName?: string): Observable<T>
 
     /** Gets an observable emitting the pending state of the tracker. */
-    isPending: (trackingName?: string) => Observable<boolean>
+    isPending: (trackingName?: string, isInitiallyPending?: boolean) => Observable<boolean>
 }
 
 /** A constructable type that implements the CanPage interface. */
@@ -58,8 +58,8 @@ export const mixinTrackPending = <T extends Constructor<object>>(
             )
         }
 
-        public isPending(trackingName = 'pending'): Observable<boolean> {
-            return this.#pendingTrackers$.pipe(map((trackers) => trackers[trackingName] ?? false))
+        public isPending(trackingName = 'pending', isInitiallyPending: boolean = false): Observable<boolean> {
+            return this.#pendingTrackers$.pipe(map((trackers) => trackers[trackingName] ?? isInitiallyPending))
         }
 
         #updateTracker(trackingName: string, isPending: boolean): void {
