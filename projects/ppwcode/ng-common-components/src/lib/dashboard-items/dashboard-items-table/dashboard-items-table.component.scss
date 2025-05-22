@@ -69,6 +69,24 @@
 
             mat-card-actions.ppw-dashboard-item-actions {
                 gap: 8px;
+                &.ppw-dashboard-item-actions-direction--row {
+                    flex-direction: row;
+                }
+                &.ppw-dashboard-item-actions-direction--column {
+                    flex-direction: column;
+                    gap: 0;
+                }
+                &.ppw-dashboard-item-actions-alignment--start {
+                    justify-content: flex-start;
+                    align-items: start;
+                }
+                &.ppw-dashboard-item-actions-alignment--center {
+                    justify-content: center;
+                }
+                &.ppw-dashboard-item-actions-alignment--end {
+                    justify-content: flex-end;
+                    align-items: end;
+                }
             }
         }
     }
