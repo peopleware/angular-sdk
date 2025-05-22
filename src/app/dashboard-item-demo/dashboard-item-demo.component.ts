@@ -35,7 +35,8 @@ export class DashboardItemDemoComponent {
             template: this.confirmationDemoTemplate(),
             titleKey: 'navigation.confirmation_dialog_with_long_title',
             descriptionKey: 'dashboard.confirmation-dialog-description',
-            actions: []
+            actions: [],
+            actionsAlignment: 'start'
         }
         item.defaultAction = {
             labelKey: 'button.open',
@@ -53,7 +54,8 @@ export class DashboardItemDemoComponent {
             iconClass: 'fa-solid fa-house',
             titleKey: 'navigation.expandable_card',
             descriptionKey: 'dashboard.expandable-card-description',
-            actions: []
+            actions: [],
+            actionsAlignment: 'center'
         }
         item.defaultAction = {
             labelKey: 'button.open',
@@ -71,7 +73,9 @@ export class DashboardItemDemoComponent {
             iconClass: 'fa-solid fa-laptop-code',
             titleKey: 'navigation.table',
             descriptionKey: '',
-            actions: []
+            actions: [],
+            actionsAlignment: 'end',
+            actionsDirection: 'column'
         }
         item.defaultAction = {
             labelKey: 'navigation.table',
