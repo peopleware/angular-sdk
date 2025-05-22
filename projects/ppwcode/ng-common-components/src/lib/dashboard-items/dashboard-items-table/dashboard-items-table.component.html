@@ -37,10 +37,9 @@
                     <p>{{ item.descriptionKey | translate }}</p>
                 </mat-card-content>
                 <mat-card-actions
-                    align="end"
                     class="ppw-dashboard-item-actions ppw-dashboard-item-actions-direction--{{
                         item.actionsDirection ?? 'row'
-                    }}"
+                    }} ppw-dashboard-item-actions-alignment--{{ item.actionsAlignment ?? 'end' }}"
                 >
                     @for (action of item.actions; track action) {
                         <button mat-button color="primary" (click)="executeAction.emit(action)">
