@@ -36,7 +36,12 @@
                 <mat-card-content class="ppw-dashboard-item-content">
                     <p>{{ item.descriptionKey | translate }}</p>
                 </mat-card-content>
-                <mat-card-actions align="end" class="ppw-dashboard-item-actions">
+                <mat-card-actions
+                    align="end"
+                    class="ppw-dashboard-item-actions ppw-dashboard-item-actions-direction--{{
+                        item.actionsDirection ?? 'row'
+                    }}"
+                >
                     @for (action of item.actions; track action) {
                         <button mat-button color="primary" (click)="executeAction.emit(action)">
                             {{ action.labelKey | translate | uppercase }}

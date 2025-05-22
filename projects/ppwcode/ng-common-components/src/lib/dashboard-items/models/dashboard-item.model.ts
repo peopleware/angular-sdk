@@ -19,4 +19,6 @@ export interface DashboardItem {
     actions?: DashboardItemAction[]
     /** An optional badge that can be shown on a dashboard item. */
     badgeContent?: string
+    /** Indicates in what direction the action buttons should be displayed */
+    actionsDirection?: 'row' | 'column'
 }
