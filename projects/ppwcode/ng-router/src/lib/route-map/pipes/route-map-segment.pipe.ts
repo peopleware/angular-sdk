@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
+import { Params } from '@angular/router'
 import { RouteMapRoute } from '../route-map-route'
 import { interpolateRouteSegment } from '../route-retrieval'
 
@@ -16,7 +17,7 @@ import { interpolateRouteSegment } from '../route-retrieval'
     standalone: true
 })
 export class RouteMapSegmentPipe implements PipeTransform {
-    public transform(route: RouteMapRoute, ...interpolationParams: Array<unknown>): string {
+    public transform(route: RouteMapRoute, interpolationParams: Params): string {
         return interpolateRouteSegment(route, interpolationParams)
     }
 }
