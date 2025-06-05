@@ -1,5 +1,5 @@
-import { RouteMapRoute } from './route-map-route'
 import { Params } from '@angular/router'
+import { RouteMapRoute } from './route-map-route'
 
 /**
  * Options for route path generation.
