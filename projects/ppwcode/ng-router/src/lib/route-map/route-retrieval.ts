@@ -1,4 +1,5 @@
 import { RouteMapRoute } from './route-map-route'
+import { Params } from '@angular/router'
 
 /**
  * Options for route path generation.
@@ -49,24 +50,26 @@ export const getFullRoutePath = (route: RouteMapRoute, options: RoutePathOptions
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to be in the same order as they appear in the path.
+ * The parameters are expected to have properties matching the names of the path parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @throws Error if the route is a container
  */
-export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParams: Array<unknown>): string => {
+export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParams: Params): string => {
     if (route.__isContainer) {
         throw new Error('Cannot interpolate path for a container route')
     }
 
-    const path = getRouteSegment(route)
-    const params = [...interpolationParams]
-    return path.replace(/:\w+/g, () => `${params.shift()}`)
+    let path = getRouteSegment(route)
+    Object.keys(interpolationParams).forEach((key) => {
+        path = path.replace(`:${key}`, interpolationParams[key])
+    })
+    return path
 }
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to be in the same order as they appear in the path.
+ * The parameters are expected to have properties matching the names of the path parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @param options Optional configuration for path generation.
@@ -74,14 +77,16 @@ export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParam
  */
 export const interpolateRoutePath = (
     route: RouteMapRoute,
-    interpolationParams: Array<unknown>,
+    interpolationParams: Params,
     options: RoutePathOptions = {}
 ): string => {
     if (route.__isContainer) {
         throw new Error('Cannot interpolate path for a container route')
     }
 
-    const path = getFullRoutePath(route, { ...options, skipContainerCheck: true })
-    const params = [...interpolationParams]
-    return path.replace(/:\w+/g, () => `${params.shift()}`)
+    let path = getFullRoutePath(route, { ...options, skipContainerCheck: true })
+    Object.keys(interpolationParams).forEach((key) => {
+        path = path.replace(`:${key}`, interpolationParams[key])
+    })
+    return path
 }

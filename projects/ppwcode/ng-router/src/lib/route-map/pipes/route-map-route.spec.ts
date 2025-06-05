@@ -12,7 +12,7 @@ describe('RouteMapRoutePipe', () => {
         const listRoute: RouteMapRoute = { __path: 'students', __isContainer: false }
         const detailRoute: RouteMapRoute = { __path: ':id', __parent: listRoute, __isContainer: false }
 
-        expect(pipe.transform(detailRoute)).toBe('/students/undefined') // no value given for :id
-        expect(pipe.transform(detailRoute, 16)).toBe('/students/16')
+        expect(pipe.transform(detailRoute, {})).toBe('/students/:id') // no value given for :id
+        expect(pipe.transform(detailRoute, { id: 16 })).toBe('/students/16')
     })
 })
