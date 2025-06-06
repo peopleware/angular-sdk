@@ -50,7 +50,8 @@ export const getFullRoutePath = (route: RouteMapRoute, options: RoutePathOptions
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to have properties matching the names of the path parameters.
+ * When passing in an array, the parameters are expected to be in the same order as they appear in the path.
+ * When passing in a Params object, the properties are expected to  match the names of the path parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @throws Error if the route is a container
@@ -65,7 +66,8 @@ export const interpolateRouteSegment = (route: RouteMapRoute, interpolationParam
 
 /**
  * Gets the route segment for the given route map route and replaces the parameters with the provided values.
- * The parameters are expected to have properties matching the names of the path parameters.
+ * When passing in an array, the parameters are expected to be in the same order as they appear in the path.
+ * When passing in a Params object, the properties are expected to  match the names of the path parameters.
  * @param route The route to get the path for.
  * @param interpolationParams The values for the parameters to replace in the path.
  * @param options Optional configuration for path generation.
