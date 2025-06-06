@@ -1,5 +1,5 @@
-import { defineRoute, defineContainer } from './define-route'
-import { getRouteSegment, getFullRoutePath, interpolateRouteSegment, interpolateRoutePath } from './route-retrieval'
+import { defineContainer, defineRoute } from './define-route'
+import { getFullRoutePath, getRouteSegment, interpolateRoutePath, interpolateRouteSegment } from './route-retrieval'
 
 describe('Route Retrieval Functions', () => {
     describe('path retrieval', () => {
@@ -63,6 +63,9 @@ describe('Route Retrieval Functions', () => {
             const route = defineRoute('users/:userId/posts/:postId')
             const result = interpolateRouteSegment(route, [123, 456])
             expect(result).toBe('users/123/posts/456')
+
+            const resultWithParams = interpolateRouteSegment(route, { userId: 123, postId: 456 })
+            expect(resultWithParams).toBe('users/123/posts/456')
         })
 
         it('should handle paths without parameters', () => {
@@ -73,7 +76,7 @@ describe('Route Retrieval Functions', () => {
 
         it('should throw an error when interpolating a container route', () => {
             const container = defineContainer('users/:userId')
-            expect(() => interpolateRouteSegment(container, [123])).toThrow(
+            expect(() => interpolateRouteSegment(container, { userId: 123 })).toThrow(
                 new Error('Cannot interpolate path for a container route')
             )
         })
@@ -87,6 +90,9 @@ describe('Route Retrieval Functions', () => {
 
             const result = interpolateRoutePath(rootRoute.childRoute, [123])
             expect(result).toBe('/api/users/123')
+
+            const resultWithParams = interpolateRoutePath(rootRoute.childRoute, { userId: 123 })
+            expect(resultWithParams).toBe('/api/users/123')
         })
 
         it('should replace parameters in the full path without leading slash when specified', () => {
@@ -96,6 +102,13 @@ describe('Route Retrieval Functions', () => {
 
             const result = interpolateRoutePath(rootRoute.childRoute, [123], { includeLeadingSlash: false })
             expect(result).toBe('api/users/123')
+
+            const resultWithParams = interpolateRoutePath(
+                rootRoute.childRoute,
+                { userId: 123 },
+                { includeLeadingSlash: false }
+            )
+            expect(resultWithParams).toBe('api/users/123')
         })
 
         it('should handle nested routes with multiple parameters', () => {
@@ -107,6 +120,12 @@ describe('Route Retrieval Functions', () => {
 
             const result = interpolateRoutePath(rootRoute.childRoute.grandChildRoute, [123, 456])
             expect(result).toBe('/api/users/123/posts/456')
+
+            const resultWithParams = interpolateRoutePath(rootRoute.childRoute.grandChildRoute, {
+                userId: 123,
+                postId: 456
+            })
+            expect(resultWithParams).toBe('/api/users/123/posts/456')
         })
 
         it('should throw an error when interpolating a container route', () => {
@@ -126,6 +145,9 @@ describe('Route Retrieval Functions', () => {
 
             const result = interpolateRoutePath(container.childRoute, [123])
             expect(result).toBe('/api/users/123')
+
+            const resultWithParams = interpolateRoutePath(container.childRoute, { userId: 123 })
+            expect(resultWithParams).toBe('/api/users/123')
         })
 
         it('should handle nested routes with container parents', () => {
@@ -137,6 +159,12 @@ describe('Route Retrieval Functions', () => {
 
             const result = interpolateRoutePath(container.childRoute.grandChildRoute, [123, 456])
             expect(result).toBe('/api/users/123/posts/456')
+
+            const resultWithParams = interpolateRoutePath(container.childRoute.grandChildRoute, {
+                userId: 123,
+                postId: 456
+            })
+            expect(resultWithParams).toBe('/api/users/123/posts/456')
         })
     })
 })
