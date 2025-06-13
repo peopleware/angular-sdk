@@ -47,29 +47,35 @@ export class AppComponent extends mixinResponsiveObservers() {
                 fullRouterPath: getFullRoutePath(ROUTE_MAP.dashboardItem)
             },
             {
-                label: this.translate.instant('navigation.confirmation_dialog'),
-                icon: 'fa-solid fa-circle-question',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.confirmationDialog)
-            },
-            {
-                label: this.translate.instant('navigation.expandable_card'),
-                icon: 'fa-solid fa-house',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.expandableCard)
-            },
-            {
-                label: this.translate.instant('navigation.table'),
-                icon: 'fa-solid fa-laptop-code',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.table)
-            },
-            {
-                label: this.translate.instant('navigation.form_table'),
-                icon: 'fa-solid fa-table-list',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.formTable)
-            },
-            {
-                label: this.translate.instant('navigation.message_bar'),
-                icon: 'fa-solid fa-triangle-exclamation',
-                fullRouterPath: getFullRoutePath(ROUTE_MAP.messageBar)
+                label: this.translate.instant('navigation.components'),
+                icon: 'fa-solid fa-cubes',
+                children: [
+                    {
+                        label: this.translate.instant('navigation.confirmation_dialog'),
+                        icon: 'fa-solid fa-circle-question',
+                        fullRouterPath: getFullRoutePath(ROUTE_MAP.confirmationDialog)
+                    },
+                    {
+                        label: this.translate.instant('navigation.expandable_card'),
+                        icon: 'fa-solid fa-house',
+                        fullRouterPath: getFullRoutePath(ROUTE_MAP.expandableCard)
+                    },
+                    {
+                        label: this.translate.instant('navigation.table'),
+                        icon: 'fa-solid fa-laptop-code',
+                        fullRouterPath: getFullRoutePath(ROUTE_MAP.table)
+                    },
+                    {
+                        label: this.translate.instant('navigation.form_table'),
+                        icon: 'fa-solid fa-table-list',
+                        fullRouterPath: getFullRoutePath(ROUTE_MAP.formTable)
+                    },
+                    {
+                        label: this.translate.instant('navigation.message_bar'),
+                        icon: 'fa-solid fa-triangle-exclamation',
+                        fullRouterPath: getFullRoutePath(ROUTE_MAP.messageBar)
+                    }
+                ]
             },
             {
                 label: this.translate.instant('navigation.in_memory_logging'),

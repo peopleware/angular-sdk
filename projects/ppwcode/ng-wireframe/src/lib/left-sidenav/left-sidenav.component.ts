@@ -35,7 +35,7 @@ export class LeftSidenavComponent implements OnChanges {
     public navigated: OutputEmitterRef<NavigationItem> = output()
 
     private _router: Router = inject(Router)
-    private _openedNavigationItems: Array<NavigationItem> = []
+    private _openedNavigationItems: Array<string> = []
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['navigationItems']) {
@@ -44,7 +44,7 @@ export class LeftSidenavComponent implements OnChanges {
     }
 
     public navigationItemIsOpened(navigationItem: NavigationItem): boolean {
-        return this._openedNavigationItems.includes(navigationItem)
+        return this._openedNavigationItems.includes(JSON.stringify(navigationItem))
     }
 
     public onClickNavigationItem(navigationItem: NavigationItem): void {
@@ -78,11 +78,11 @@ export class LeftSidenavComponent implements OnChanges {
     }
 
     private closeNavigationItem(navigationItem: NavigationItem): void {
-        this._openedNavigationItems = this._openedNavigationItems.filter((ni) => ni !== navigationItem)
+        this._openedNavigationItems = this._openedNavigationItems.filter((ni) => ni !== JSON.stringify(navigationItem))
     }
 
     private openNavigationItem(navigationItem: NavigationItem): void {
-        this._openedNavigationItems.push(navigationItem)
+        this._openedNavigationItems.push(JSON.stringify(navigationItem))
     }
 
     private validateNavigationItems(navigationItems: Array<NavigationItem> | null): void {
