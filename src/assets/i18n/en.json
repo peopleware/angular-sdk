@@ -24,7 +24,7 @@
     "navigation": {
         "confirmation_dialog": "Confirmation Dialog",
         "confirmation_dialog_with_long_title": "Confirmation Dialog With Long Title Being Cut Off",
-        "dashboard_item": "Dashboard Item",
+        "dashboard_item": "Dashboard",
         "expandable_card": "Expandable Card",
         "table": "Table",
         "form_table": "Form Table",
