@@ -22,6 +22,7 @@
         "title": "Unexpected error"
     },
     "navigation": {
+        "components": "Components",
         "confirmation_dialog": "Confirmation Dialog",
         "confirmation_dialog_with_long_title": "Confirmation Dialog With Long Title Being Cut Off",
         "dashboard_item": "Dashboard",
