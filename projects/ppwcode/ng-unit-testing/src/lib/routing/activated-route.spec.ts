@@ -8,7 +8,10 @@ import {
     expectSnapshotData,
     expectSnapshotParams,
     expectSnapshotQueryParams,
-    provideActivatedRoute
+    provideActivatedRoute,
+    updateActivatedRouteData,
+    updateActivatedRouteParams,
+    updateActivatedRouteQueryParams
 } from './activated-route'
 
 describe('activated route', () => {
@@ -94,6 +97,90 @@ describe('activated route', () => {
 
             await expectParamMapValue('id', '1')
             await expectQueryParamMapValue('id', '2')
+        })
+
+        it('should add activated route params', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ routeParams: { id: '1' } })]
+            })
+
+            expectSnapshotParams({ id: '1' })
+            await expectParams({ id: '1' })
+
+            updateActivatedRouteParams({ name: 'test' })
+
+            expectSnapshotParams({ id: '1', name: 'test' })
+            await expectParams({ id: '1', name: 'test' })
+        })
+
+        it('should update the activated route params', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ routeParams: { id: '1' } })]
+            })
+
+            expectSnapshotParams({ id: '1' })
+            await expectParams({ id: '1' })
+
+            updateActivatedRouteParams({ id: '2' })
+
+            expectSnapshotParams({ id: '2' })
+            await expectParams({ id: '2' })
+        })
+
+        it('should add activated route query params', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ queryParams: { id: '1' } })]
+            })
+
+            expectSnapshotQueryParams({ id: '1' })
+            await expectQueryParams({ id: '1' })
+
+            updateActivatedRouteQueryParams({ name: 'test' })
+
+            expectSnapshotQueryParams({ id: '1', name: 'test' })
+            await expectQueryParams({ id: '1', name: 'test' })
+        })
+
+        it('should update the activated route query params', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ queryParams: { id: '1' } })]
+            })
+
+            expectSnapshotQueryParams({ id: '1' })
+            await expectQueryParams({ id: '1' })
+
+            updateActivatedRouteQueryParams({ id: '2' })
+
+            expectSnapshotQueryParams({ id: '2' })
+            await expectQueryParams({ id: '2' })
+        })
+
+        it('should add activated route data', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ data: { id: '1' } })]
+            })
+
+            expectSnapshotData({ id: '1' })
+            await expectData({ id: '1' })
+
+            updateActivatedRouteData({ name: 'test' })
+
+            expectSnapshotData({ id: '1', name: 'test' })
+            await expectData({ id: '1', name: 'test' })
+        })
+
+        it('should update the activated route data', async () => {
+            TestBed.configureTestingModule({
+                providers: [provideActivatedRoute({ data: { id: '1' } })]
+            })
+
+            expectSnapshotData({ id: '1' })
+            await expectData({ id: '1' })
+
+            updateActivatedRouteData({ id: '2' })
+
+            expectSnapshotData({ id: '2' })
+            await expectData({ id: '2' })
         })
     })
 })
