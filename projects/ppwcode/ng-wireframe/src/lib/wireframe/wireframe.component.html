@@ -30,7 +30,7 @@
     }
     <mat-drawer-content
         class="ppw-app-drawer-content"
-        [class.drawer-content-no-margin]="!!sidebarOptions()?.closedByDefaultOnLargerDevice"
+        [class.drawer-content-no-margin]="!!sidebarOptions()?.closedByDefaultOnLargerDevice || forceHiddenSidenav()"
     >
         <div class="ppw-page-container">
             @if (showWireframe()) {
