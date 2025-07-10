@@ -1,19 +1,19 @@
 <ppw-wireframe
-    [style.--ppw-toolbar-background]="showToolbarBackground ? 'orange' : 'unset'"
+    [style.--ppw-toolbar-background]="showToolbarBackground() ? 'orange' : 'unset'"
     [navigationItems]="navigationItems()"
-    [sidebarOptions]="getSidebarOptions()"
-    [toolbarHeightPx]="toolbarHeightPx"
+    [sidebarOptions]="sidebarOptions()"
+    [toolbarHeightPx]="toolbarHeightPx()"
     [hideSidenavWhenNoNavigationItems]="true"
-    [class.flat]="flatWireframeStyle"
+    [class.flat]="flatWireframeStyle()"
 >
-    @if (showToolbarLogo) {
+    @if (showToolbarLogo()) {
         <ng-container ppw-toolbar-left-content>
             <img
                 class="toolbar-left-logo"
-                ngSrc="{{ toolbarLogoUrl }}"
+                ngSrc="{{ toolbarLogoUrl() }}"
                 alt="Logo"
-                height="{{ toolbarLogoHeight }}"
-                width="{{ toolbarLogoWidth }}"
+                height="{{ toolbarLogoHeight() }}"
+                width="{{ toolbarLogoWidth() }}"
                 priority="eager"
         /></ng-container>
     }
@@ -25,7 +25,7 @@
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
     <ng-container ppw-page-content>
-        @if (flatWireframeStyle) {
+        @if (flatWireframeStyle()) {
             <mat-card class="page-content">
                 <mat-card-content>
                     <router-outlet></router-outlet>
@@ -39,7 +39,7 @@
         <div class="flex-column">
             <div class="page-toggles flex-column gap-8">
                 <mat-slide-toggle [(ngModel)]="showToolbarLogo">Show logo</mat-slide-toggle>
-                <mat-slide-toggle [(ngModel)]="sidebarOptions.showPageTitle">Show title</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="showPageTitle">Show title</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="showToolbarBackground">Show toolbar background</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="flatWireframeStyle">Flat wireframe style</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="closedByDefaultOnLargerDevice">Menu closed by default</mat-slide-toggle>

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core'
+import { Component, computed, inject, signal, Signal } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { mixinResponsiveObservers } from '@ppwcode/ng-common'
 import { SidebarOptions } from '@ppwcode/ng-wireframe'
@@ -11,22 +11,27 @@ import { getNavigationItems } from './app.navigation'
     standalone: false
 })
 export class AppComponent extends mixinResponsiveObservers() {
-    private translate: TranslateService = inject(TranslateService)
-    public title = 'ppwcode'
-    public sidebarOptions: SidebarOptions = {
-        closedByDefaultOnLargerDevice: false,
-        logoUrl: './assets/ppwcode_logo.png',
-        centerLogo: false,
-        showPageTitle: true
-    }
-    public showToolbarLogo = false
-    public showToolbarBackground = false
-    public flatWireframeStyle = true
-    public closedByDefaultOnLargerDevice = false
-    public toolbarLogoUrl = './assets/peopleware_logo.png'
-    public toolbarLogoWidth = 190
-    public toolbarLogoHeight = 40
-    public toolbarHeightPx = 60
+    readonly #translate: TranslateService = inject(TranslateService)
+
+    protected readonly showToolbarLogo = signal(false)
+    protected readonly showToolbarBackground = signal(false)
+    protected readonly showPageTitle = signal(true)
+    protected readonly flatWireframeStyle = signal(true)
+    protected readonly closedByDefaultOnLargerDevice = signal(false)
+
+    protected readonly sidebarOptions: Signal<SidebarOptions> = computed(() => {
+        return {
+            logoUrl: './assets/ppwcode_logo.png',
+            centerLogo: false,
+            closedByDefaultOnLargerDevice: this.closedByDefaultOnLargerDevice(),
+            showPageTitle: this.showPageTitle()
+        }
+    })
+
+    protected readonly toolbarLogoUrl = signal('./assets/peopleware_logo.png')
+    protected readonly toolbarLogoWidth = signal(190)
+    protected readonly toolbarLogoHeight = signal(40)
+    protected readonly toolbarHeightPx = signal(60)
 
     public navigationItems = computed(() => {
         // Even though this a function that is being called, the items array will only change if a reactive property
@@ -41,11 +46,7 @@ export class AppComponent extends mixinResponsiveObservers() {
 
     constructor() {
         super()
-        this.translate.setDefaultLang('en')
-        this.translate.use('en')
-    }
-
-    getSidebarOptions(): SidebarOptions {
-        return { ...this.sidebarOptions, closedByDefaultOnLargerDevice: this.closedByDefaultOnLargerDevice }
+        this.#translate.setDefaultLang('en')
+        this.#translate.use('en')
     }
 }
