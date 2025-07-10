@@ -212,7 +212,13 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
             this.toggleExpand(record)
         } else {
             const onClick = this.options()?.rows?.onClick
-            if (onClick && (this.options()?.columns?.ignoreClick?.indexOf(columnName) ?? -1 < 0)) {
+            // A click on the column should not be ignored if
+            // - There are no columns to ignore (ignoreClick is undefined) -> fallback -1
+            // - The column could not be found in the array of ignoreClick -> Array.indexOf returns -1
+            // Only if the column is found in the ignoreClick array will the value be different from -1
+            const indexOfColumnInColumnsToIgnore = this.options()?.columns?.ignoreClick?.indexOf(columnName) ?? -1
+            const columnClickShouldNotBeIgnored = indexOfColumnInColumnsToIgnore === -1
+            if (onClick && columnClickShouldNotBeIgnored) {
                 onClick(record)
             }
         }
