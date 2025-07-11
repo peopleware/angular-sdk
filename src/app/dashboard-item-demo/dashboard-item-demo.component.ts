@@ -1,8 +1,8 @@
-import { Component, effect, inject, Signal, TemplateRef, viewChild } from '@angular/core'
+import { Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
 import { MatIcon } from '@angular/material/icon'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { Router } from '@angular/router'
-import { DashboardItem, DashboardItemsTableComponent } from '@ppwcode/ng-common-components'
+import { DashboardItem, DashboardItemAction, DashboardItemsTableComponent } from '@ppwcode/ng-common-components'
 import { getFullRoutePath } from '@ppwcode/ng-router'
 import { ROUTE_MAP } from '../app-routing.module'
 
@@ -14,115 +14,98 @@ import { ROUTE_MAP } from '../app-routing.module'
 })
 export class DashboardItemDemoComponent {
     #router: Router = inject(Router)
+
     private readonly confirmationDemoTemplate: Signal<TemplateRef<unknown>> =
         viewChild.required('confirmationDemoTemplate')
 
-    public dashboardItems: DashboardItem[] = []
+    protected readonly dashboardItems: Signal<DashboardItem[]> = computed(() => [
+        this.#getConfirmationDemoItem(),
+        this.#getExpandableCardDemoItem(),
+        this.#getTableDemoItem(),
+        this.#getMessageBarDemoItem()
+    ])
 
-    constructor() {
-        effect(() => {
-            this.dashboardItems = [
-                this.getConfirmationDemoItem(),
-                this.getExpandableCardDemoItem(),
-                this.getTableDemoItem(),
-                this.getMessageBarDemoItem()
-            ]
-        })
-    }
-
-    private getConfirmationDemoItem() {
-        const item: DashboardItem = {
+    #getConfirmationDemoItem(): DashboardItem {
+        const openDemoAction: DashboardItemAction = {
+            labelKey: 'button.open',
+            clickFn: this.#openConfirmationDialogDemo.bind(this)
+        }
+        return {
             template: this.confirmationDemoTemplate(),
             titleKey: 'navigation.confirmation_dialog_with_long_title',
             descriptionKey: 'dashboard.confirmation-dialog-description',
-            actions: [],
-            actionsAlignment: 'start'
+            actions: [openDemoAction],
+            actionsAlignment: 'start',
+            defaultAction: openDemoAction
         }
-        item.defaultAction = {
-            labelKey: 'button.open',
-            clickFn: this.openConfirmationDialogDemo.bind(this)
-        }
-        item.actions?.push({
-            labelKey: 'button.open',
-            clickFn: this.openConfirmationDialogDemo.bind(this)
-        })
-        return item
     }
 
-    private getExpandableCardDemoItem() {
-        const item: DashboardItem = {
+    #getExpandableCardDemoItem(): DashboardItem {
+        const openDemoAction: DashboardItemAction = {
+            labelKey: 'button.open',
+            clickFn: this.#openExpandableCardDemo.bind(this)
+        }
+        return {
             iconClass: 'fa-solid fa-house',
             titleKey: 'navigation.expandable_card',
             descriptionKey: 'dashboard.expandable-card-description',
-            actions: [],
-            actionsAlignment: 'center'
+            actions: [openDemoAction],
+            actionsAlignment: 'center',
+            defaultAction: openDemoAction
         }
-        item.defaultAction = {
-            labelKey: 'button.open',
-            clickFn: this.openExpandableCardDemo.bind(this)
-        }
-        item.actions?.push({
-            labelKey: 'button.open',
-            clickFn: this.openExpandableCardDemo.bind(this)
-        })
-        return item
     }
 
-    private getTableDemoItem() {
-        const item: DashboardItem = {
+    #getTableDemoItem(): DashboardItem {
+        const openTableDemoAction: DashboardItemAction = {
+            labelKey: 'button.open',
+            clickFn: this.#openTableDemo.bind(this)
+        }
+        const openFormTableDemoAction: DashboardItemAction = {
+            labelKey: 'navigation.form_table',
+            clickFn: this.#openFormTableDemo.bind(this)
+        }
+        return {
             iconClass: 'fa-solid fa-laptop-code',
             titleKey: 'navigation.table',
             descriptionKey: '',
-            actions: [],
+            actions: [openTableDemoAction, openFormTableDemoAction],
             actionsAlignment: 'end',
-            actionsDirection: 'column'
+            actionsDirection: 'column',
+            defaultAction: openTableDemoAction
         }
-        item.defaultAction = {
-            labelKey: 'navigation.table',
-            clickFn: this.openTableDemo.bind(this)
-        }
-        item.actions?.push({
-            labelKey: 'navigation.table',
-            clickFn: this.openTableDemo.bind(this)
-        })
-        item.actions?.push({
-            labelKey: 'navigation.form_table',
-            clickFn: this.openFormTableDemo.bind(this)
-        })
-        return item
     }
 
-    private getMessageBarDemoItem() {
-        const item: DashboardItem = {
+    #getMessageBarDemoItem(): DashboardItem {
+        const openDemoAction: DashboardItemAction = {
+            labelKey: 'navigation.message_bar',
+            clickFn: this.#openMessageBarDemo.bind(this)
+        }
+        return {
             iconClass: 'fa-solid fa-triangle-exclamation',
             titleKey: 'navigation.message_bar',
             descriptionKey: '',
-            actions: []
+            actions: [],
+            defaultAction: openDemoAction
         }
-        item.defaultAction = {
-            labelKey: 'navigation.message_bar',
-            clickFn: this.openMessageBarDemo.bind(this)
-        }
-        return item
     }
 
-    private openConfirmationDialogDemo(): void {
+    #openConfirmationDialogDemo(): void {
         this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.confirmationDialog))
     }
 
-    private openExpandableCardDemo(): void {
+    #openExpandableCardDemo(): void {
         this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.expandableCard))
     }
 
-    private openTableDemo(): void {
+    #openTableDemo(): void {
         this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.table))
     }
 
-    private openFormTableDemo(): void {
+    #openFormTableDemo(): void {
         this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.formTable))
     }
 
-    private openMessageBarDemo(): void {
+    #openMessageBarDemo(): void {
         this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.messageBar))
     }
 }
