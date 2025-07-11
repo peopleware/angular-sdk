@@ -1,13 +1,13 @@
 {
     "name": "@ppwcode/ng-async",
-    "version": "19.7.1",
+    "version": "19.8.0",
     "peerDependencies": {
         "@angular/common": "^19.0.0",
         "@angular/core": "^19.0.0",
         "@ngx-translate/core": "^15.0.0 || ^16.0.0",
         "file-saver-es": "^2.0.5",
         "@ppwcode/js-ts-oddsandends": "^1.4.2",
-        "@ppwcode/ng-common-components": "^19.7.1"
+        "@ppwcode/ng-common-components": "^19.8.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
