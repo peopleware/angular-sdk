@@ -521,6 +521,32 @@
               }
             }
           }
+        },
+        "@ppwcode/ng-ppw-ds": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-ppw-ds",
+            "sourceRoot": "projects/ppwcode/ng-ppw-ds/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-ppw-ds/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-ppw-ds/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "tsConfig": "projects/ppwcode/ng-ppw-ds/tsconfig.spec.json"
+                    }
+                }
+            }
         }
     },
     "cli": {
