@@ -8,6 +8,7 @@
             "@ppwcode/ng-common-components": ["dist/ppwcode/ng-common-components"],
             "@ppwcode/ng-dialogs": ["dist/ppwcode/ng-dialogs"],
             "@ppwcode/ng-forms": ["dist/ppwcode/ng-forms"],
+            "@ppwcode/ng-pds": ["dist/ppwcode/ng-pds"],
             "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
             "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
             "@ppwcode/ng-unit-testing": ["dist/ppwcode/ng-unit-testing"],
