@@ -69,7 +69,8 @@ export const mixinPagination = <T extends RelativeNavigationCtor>(base: T): T & 
                     [queryParamName]: page
                 },
                 queryParamsHandling: 'merge',
-                skipLocationChange: this.#defaultOptions.skipLocationChange ?? false
+                skipLocationChange: this.#defaultOptions.skipLocationChange ?? false,
+                replaceUrl: this.#defaultOptions.replaceUrl ?? false
             })
         }
     }

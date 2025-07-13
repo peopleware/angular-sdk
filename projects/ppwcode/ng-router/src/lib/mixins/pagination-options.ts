@@ -11,6 +11,13 @@ export interface PaginationOptions {
      * This defaults to `false`, meaning that the URL query parameters will be visible in the URL.
      */
     skipLocationChange?: boolean
+    /**
+     * This defaults to `false`, meaning you want to add a new entry to the history stack instead of replacing the current one,
+     * meaning that the user navigates to the previous page of the data set in the table when using the back button.
+     * Set this to `true` when the state in history should be replaced with the new URL.
+     * It ensures that the user navigates to the previous page of the application when using the back button.
+     */
+    replaceUrl?: boolean
 }
 
 /** Injection token for the pagination options. */
