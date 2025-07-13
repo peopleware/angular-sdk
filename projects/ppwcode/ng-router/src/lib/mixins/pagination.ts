@@ -12,6 +12,8 @@ export interface CanPage {
     page$: Observable<number>
     /** The number of items on a single page. */
     pageSize$: Observable<number>
+    /** The default page size to use when no page size is specified. */
+    defaultPageSize: number
 
     /** Handler for when the page should be changed. */
     handlePageEvent(e: PageEvent, queryParamName?: string): Promise<void>
