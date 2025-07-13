@@ -50,6 +50,18 @@ const componentsNavigationItemContainer: NavigationItem = {
     ]
 }
 
+const shapesNavigationItem: NavigationItem = {
+    label: 'navigation.shapes',
+    icon: 'fa-solid fa-shapes',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.designSystem.shapes)
+}
+
+const designSystemNavigationItem: NavigationItem = {
+    label: 'navigation.design_system',
+    icon: 'fa-solid fa-palette',
+    children: [shapesNavigationItem]
+}
+
 const inMemoryLoggingNavigationItem: NavigationItem = {
     label: 'navigation.in_memory_logging',
     icon: 'fa-solid fa-file-code',
@@ -73,6 +85,7 @@ export const getNavigationItems = () => {
     return [
         dashboardNavigationItem,
         componentsNavigationItemContainer,
+        designSystemNavigationItem,
         inMemoryLoggingNavigationItem,
         globalErrorHandlerNavigationItem,
         peoplewareWebsiteNavigationItem

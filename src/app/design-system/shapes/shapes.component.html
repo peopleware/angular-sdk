@@ -1,0 +1,10 @@
+<p>
+    Shapes define the corners within the application. Add one of the following classes to your component or use the
+    appropriate CSS variables to achieve the same result.
+</p>
+
+<div class="shape-example-element-container">
+    @for (shape of shapes; track shape) {
+        <div class="shape-example-element-container__element pds-radius-{{ shape }}">{{ shape }}</div>
+    }
+</div>

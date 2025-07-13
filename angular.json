@@ -33,6 +33,9 @@
                           "@angular/material/prebuilt-themes/purple-green.css",
                           "src/styles.scss"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/ppwcode/ng-pds/src"]
+                        },
                         "scripts": []
                     },
                     "configurations": {
