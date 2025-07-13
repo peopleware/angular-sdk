@@ -81,7 +81,9 @@ const ppwcodeComponents = [WireframeComponent]
             }
         }),
         providePaginationOptions({
-            skipLocationChange: true
+            // Defaults
+            skipLocationChange: false,
+            replaceUrl: true
         }),
         provideHttpClient(withInterceptorsFromDi()),
         provideTranslateService({
