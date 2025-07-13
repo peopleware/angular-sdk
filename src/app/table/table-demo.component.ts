@@ -138,8 +138,7 @@ export class TableDemoComponent
     implements OnInit
 {
     // Below variable is an override of the defaultPageSize property in the mixinPagination
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public defaultPageSize = 5
+    public override defaultPageSize = 5
     public enableRowDrag = false
     public enableAnimations = true
     public searchForm!: FormGroup
