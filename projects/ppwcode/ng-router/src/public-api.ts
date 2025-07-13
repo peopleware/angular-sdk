@@ -4,6 +4,7 @@
 
 export * from './lib/routing'
 export * from './lib/relative-navigation'
+export { PaginationOptions, providePaginationOptions } from './lib/mixins/pagination-options'
 export * from './lib/mixins/pagination'
 export * from './lib/translated-page-title-strategy'
 export * from './lib/route-map/testing/get-full-route-map-urls'
