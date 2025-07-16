@@ -33,5 +33,14 @@
         "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar",
         "peopleware_website": "PeopleWare Website"
+    },
+    "table": {
+        "age": "Age",
+        "bonus": "Bonus",
+        "birthdate": "Birth date",
+        "firstname": "First name",
+        "income": "Income",
+        "lastname": "Last name",
+        "row-index": "Row index"
     }
 }
