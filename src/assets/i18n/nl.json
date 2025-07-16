@@ -1,0 +1,37 @@
+{
+    "APP_TITLE": "PPW Code",
+    "button": {
+        "open": "Openen"
+    },
+    "confirmation-dialog": {
+        "body": "Bent u zeker dat u deze actie wil uitvoeren?\n\nDeze actie kan niet ongedaan gemaakt worden.",
+        "title": "Bevestig uitvoering?"
+    },
+    "dashboard": {
+        "confirmation-dialog-description": "Een demo pagina die de confirmation dialog component laat zien",
+        "expandable-card-description": "Een demo pagina die alle mogelijkheden met de expandable card component laat zien"
+    },
+    "global-error-dialog": {
+        "copy-all-errors": "Kopieer alle fouten",
+        "copy-single-error": "Kopieer fout",
+        "generic-error-message": "Er was een onverwachte fout. Gelieve de applicatie opnieuw in te laden.",
+        "go-home": "Ga naar de startpagina",
+        "ignore": "Negeer",
+        "reload": "Opnieuw laden",
+        "single-error-details": "Fout details",
+        "title": "Onverwachte fout"
+    },
+    "navigation": {
+        "components": "Componenten",
+        "confirmation_dialog": "Confirmation Dialog",
+        "confirmation_dialog_with_long_title": "Confirmation Dialog met een lange tekst die zou moeten afgebroken worden",
+        "dashboard_item": "Dashboard",
+        "expandable_card": "Expandable Card",
+        "table": "Table",
+        "form_table": "Form Table",
+        "global_error_handler": "Global Error Handler",
+        "in_memory_logging": "In Memory Logging",
+        "message_bar": "Message Bar",
+        "peopleware_website": "PeopleWare Website"
+    }
+}

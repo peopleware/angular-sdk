@@ -1,6 +1,7 @@
 import { NgOptimizedImage, registerLocaleData } from '@angular/common'
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import localeEn from '@angular/common/locales/en-BE'
+import localeNl from '@angular/common/locales/nl-BE'
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatCard, MatCardContent } from '@angular/material/card'
@@ -19,10 +20,12 @@ import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+import LanguageSelectComponent from './language-select/language-select.component'
 import { EmptyAsyncResultComponent } from './table/empty-async-result.component'
 import { getLuxonFormatter } from './table/table-demo.component'
 
 registerLocaleData(localeEn)
+registerLocaleData(localeNl)
 
 export const DATE_FORMATS: MatDateFormats = {
     ...MAT_NATIVE_DATE_FORMATS,
@@ -55,7 +58,8 @@ const ppwcodeComponents = [WireframeComponent]
         MatSlideToggleModule,
         FormsModule,
         MatCardContent,
-        MatCard
+        MatCard,
+        LanguageSelectComponent
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },
