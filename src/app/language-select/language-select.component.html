@@ -1,0 +1,18 @@
+<div id="language-selector">
+    <mat-form-field>
+        <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="changeSelectedLanguage()">
+            <mat-select-trigger>
+                <div class="ppw-language-option-container">
+                    <span class="ppw-language-code">{{ selectedLanguage }}</span>
+                </div>
+            </mat-select-trigger>
+            @for (language of ALL_LANGUAGES_VALUES; track language) {
+                <mat-option [value]="language">
+                    <div class="ppw-language-option-container">
+                        <span class="ppw-language-code">{{ language }}</span>
+                    </div>
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</div>

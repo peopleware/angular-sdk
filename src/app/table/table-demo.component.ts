@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { TranslatePipe } from '@ngx-translate/core'
 import {
     AsyncResultModule,
     DEFAULT_HTTP_ERROR_CODES,
@@ -128,7 +129,8 @@ type SearchPlayersForm = {
         FormsModule,
         MatSlideToggleModule,
         PpwTableModule,
-        ExpandableTableDemoComponent
+        ExpandableTableDemoComponent,
+        TranslatePipe
     ]
 })
 export class TableDemoComponent

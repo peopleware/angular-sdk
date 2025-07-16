@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { provideTranslateService } from '@ngx-translate/core'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppComponent } from './app.component'
+import LanguageSelectComponent from './language-select/language-select.component'
 
 describe('AppComponent', () => {
     beforeEach(() =>
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
                 MatIconModule,
                 MatSlideToggleModule,
                 FormsModule,
-                WireframeComponent
+                WireframeComponent,
+                LanguageSelectComponent
             ],
             providers: [provideTranslateService({})],
             declarations: [AppComponent]
