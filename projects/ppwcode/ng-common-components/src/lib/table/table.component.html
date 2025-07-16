@@ -76,7 +76,9 @@
                     @if (headerTemplates[column.name]) {
                         <ng-container *ngTemplateOutlet="headerTemplates[column.name]"></ng-container>
                     } @else {
-                        <ng-container *ngTemplateOutlet="headerTextCellTemplate; context: { column }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="headerTextCellTemplate; context: { column: columns()[$index] }"
+                        ></ng-container>
                     }
                 </th>
                 <td
