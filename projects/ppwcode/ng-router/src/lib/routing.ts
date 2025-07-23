@@ -5,6 +5,9 @@ import { map, Observable } from 'rxjs'
 /**
  * Watches for changes to the given `paramName` in the query string of the activated route.
  * @param paramName The name of the parameter to watch.
+ *
+ * @deprecated It is advised to start using the `withComponentInputBinding` setting on the router.
+ * More info on https://angular.dev/api/router/withComponentInputBinding
  */
 export const watchQueryParam = (paramName: string): Observable<string | null> => {
     const activatedRoute = inject(ActivatedRoute)
@@ -15,6 +18,12 @@ export const watchQueryParam = (paramName: string): Observable<string | null> =>
  * Watches for changes to the given `paramName` in the query string of the activated route.
  * Converts the value for the parameter to a number.
  * @param paramName The name of the parameter to watch.
+ *
+ * @deprecated It is advised to start using the `withComponentInputBinding` setting on the router.
+ * To convert the string to a number, the transform function can be used on the input.
+ * More info: https://angular.dev/api/router/withComponentInputBinding
+ * More info on transform: https://angular.dev/api/core/InputSignalWithTransform
+ * Numeric transform function: https://angular.dev/api/core/numberAttribute
  */
 export const watchNumberQueryParam = (paramName: string): Observable<number> => {
     return watchQueryParam(paramName).pipe(map(Number))
@@ -23,6 +32,9 @@ export const watchNumberQueryParam = (paramName: string): Observable<number> => 
 /**
  * Watches for changes to the given `paramName` in the route of the activated route.
  * @param paramName The name of the parameter to watch.
+ *
+ * @deprecated It is advised to start using the `withComponentInputBinding` setting on the router.
+ * More info on https://angular.dev/api/router/withComponentInputBinding
  */
 export const watchRouteParam = (paramName: string): Observable<string | null> => {
     const activatedRoute = inject(ActivatedRoute)
@@ -33,6 +45,12 @@ export const watchRouteParam = (paramName: string): Observable<string | null> =>
  * Watches for changes to the given `paramName` in the route of the activated route.
  * Converts the value for the parameter to a number.
  * @param paramName The name of the parameter to watch.
+ *
+ * @deprecated It is advised to start using the `withComponentInputBinding` setting on the router.
+ * To convert the string to a number, the transform function can be used on the input.
+ * More info: https://angular.dev/api/router/withComponentInputBinding
+ * More info on transform: https://angular.dev/api/core/InputSignalWithTransform
+ * Numeric transform function: https://angular.dev/api/core/numberAttribute
  */
 export const watchNumberRouteParam = (paramName: string): Observable<number> => {
     return watchRouteParam(paramName).pipe(map(Number))
