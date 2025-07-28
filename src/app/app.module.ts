@@ -16,7 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { PPW_ASYNC_RESULT_DEFAULT_OPTIONS, PpwAsyncResultDefaultOptions } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
-import { TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -83,6 +83,11 @@ const ppwcodeComponents = [WireframeComponent]
                     singleErrorDetails: 'global-error-dialog.single-error-details'
                 }
             }
+        }),
+        providePaginationOptions({
+            // Defaults
+            skipLocationChange: false,
+            replaceUrl: true
         }),
         provideHttpClient(withInterceptorsFromDi()),
         provideTranslateService({
