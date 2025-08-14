@@ -39,6 +39,16 @@ export interface CanResponsiveObservers {
     isAtLeastLarge: Signal<boolean>
     /** Signal to see if screen size is at least XLarge. */
     isAtLeastXLarge: Signal<boolean>
+    /** Signal to see if screen size is XSmall. */
+    isXSmall: Signal<boolean>
+    /** Signal to see if screen size is Small. */
+    isSmall: Signal<boolean>
+    /** Signal to see if screen size is Medium. */
+    isMedium: Signal<boolean>
+    /** Signal to see if screen size is Large. */
+    isLarge: Signal<boolean>
+    /** Signal to see if screen size is XLarge. */
+    isXLarge: Signal<boolean>
 }
 
 /** Constructable type that offers responsive observers helper functions. */
@@ -113,5 +123,10 @@ export const mixinResponsiveObservers = <T extends Constructor<object>>(base?: T
             Breakpoints.Large,
             Breakpoints.XLarge
         ])
+        public isXSmall: Signal<boolean> = this.observeBreakpoint(Breakpoints.XSmall)
+        public isSmall: Signal<boolean> = this.observeBreakpoint(Breakpoints.Small)
+        public isMedium: Signal<boolean> = this.observeBreakpoint(Breakpoints.Medium)
+        public isLarge: Signal<boolean> = this.observeBreakpoint(Breakpoints.Large)
+        public isXLarge: Signal<boolean> = this.observeBreakpoint(Breakpoints.XLarge)
     }
 }
