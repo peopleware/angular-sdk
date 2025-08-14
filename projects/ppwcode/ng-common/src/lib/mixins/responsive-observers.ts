@@ -5,17 +5,23 @@ import { Constructor } from './constructor'
 
 /**
  * Defines helper functions to make responsive designed screen layouts.
+ * For screensizes see here: https://material.angular.dev/cdk/layout/overview#predefined-breakpoints
  */
 export interface CanResponsiveObservers {
-    /** Observable to see if screen size is Small. */
+    /** Observable to see if screen size is at least Small.
+     */
     isSmallScreen$: Observable<boolean>
-    /** Observable to see if screen size is XSmall. */
+    /** Observable to see if screen size is at least XSmall.
+     */
     isXSmallScreen$: Observable<boolean>
-    /** Observable to see if screen size is Medium. */
+    /** Observable to see if screen size is at least Medium.
+     */
     isMediumScreen$: Observable<boolean>
-    /** Observable to see if screen size is Large. */
+    /** Observable to see if screen size is at least Large.
+     */
     isLargeScreen$: Observable<boolean>
-    /** Observable to see if screen size is XLarge. */
+    /** Observable to see if screen size is at least XLarge.
+     */
     isXLargeScreen$: Observable<boolean>
 }
 
