@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-dialogs",
-    "version": "19.9.0",
+    "version": "19.10.0",
     "peerDependencies": {
         "@angular/common": "^19.0.0",
         "@angular/core": "^19.0.0"
