@@ -157,6 +157,7 @@
         <tr mat-header-row *matHeaderRowDef="columnNames(); sticky: !!options()?.header?.sticky"></tr>
         <tr
             mat-row
+            [@.disabled]="disableAnimations()"
             @rowsAnimation
             *matRowDef="let row; columns: columnNames()"
             cdkDrag
