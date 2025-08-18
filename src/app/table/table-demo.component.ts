@@ -203,6 +203,9 @@ export class TableDemoComponent
             highlightOnHover: true,
             onClick: (row: Player) => {
                 this.lastClickedRow = row
+            },
+            onCtrlClick: (row: Player) => {
+                this.lastClickedRow = { ...row, CTRL: true }
             }
         }
     }
