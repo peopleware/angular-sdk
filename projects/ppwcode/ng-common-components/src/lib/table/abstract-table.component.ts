@@ -51,6 +51,7 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     public data: InputSignal<TData> = input.required()
     public footerData: InputSignal<Record<string, unknown> | undefined> = input()
     public trackBy: InputSignal<TrackByFunction<TRecord>> = input.required()
+    public disableAnimations: InputSignal<boolean> = input(false)
     public enableRowSelection: InputSignal<boolean> = input(false)
     public enableRowDrag: InputSignal<boolean> = input(false)
     public expandable: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute })

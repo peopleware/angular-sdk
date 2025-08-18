@@ -141,6 +141,7 @@ export class TableDemoComponent
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public defaultPageSize = 5
     public enableRowDrag = false
+    public enableAnimations = true
     public searchForm!: FormGroup
     public lastClickedRow?: Player
     public footerData: Partial<Player> = {
