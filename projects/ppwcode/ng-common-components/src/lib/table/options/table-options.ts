@@ -50,5 +50,7 @@ export interface PpwTableOptions<TRecord> {
         highlightOnHover?: boolean
         /** Function to be executed when the row is clicked. */
         onClick?: (row: TRecord) => void
+        /** Function to be executed when the row is CTRL-clicked. */
+        onCtrlClick?: (row: TRecord) => void
     }
 }
