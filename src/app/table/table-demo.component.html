@@ -12,8 +12,9 @@
                     <input matInput formControlName="lastName" />
                 </mat-form-field>
             </form>
-            <div>
+            <div class="flex-row gap-16">
                 <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="enableAnimations">Enable table animations</mat-slide-toggle>
             </div>
         </ppw-search-filter>
     }
@@ -27,6 +28,7 @@
                     <ppw-table
                         [data]="players.entity.items"
                         [footerData]="footerData"
+                        [disableAnimations]="!enableAnimations"
                         [enableRowSelection]="true"
                         [enableRowDrag]="enableRowDrag"
                         [options]="tableOptions"
