@@ -208,11 +208,11 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
         }
     }
 
-    public executeRowClick(record: TRecord, columnName: string): void {
+    public executeRowClick(event: MouseEvent, record: TRecord, columnName: string): void {
         if (this.expandable()) {
             this.toggleExpand(record)
         } else {
-            const onClick = this.options()?.rows?.onClick
+            const onClick = event.ctrlKey ? this.options()?.rows?.onCtrlClick : this.options()?.rows?.onClick
             // A click on the column should not be ignored if
             // - There are no columns to ignore (ignoreClick is undefined) -> fallback -1
             // - The column could not be found in the array of ignoreClick -> Array.indexOf returns -1

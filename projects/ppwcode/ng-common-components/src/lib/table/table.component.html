@@ -87,7 +87,7 @@
                     [class.ppw-table-sticky-column]="column.sticky"
                     [ngStyle]="options()?.columns?.styles?.[column.name]?.(record.initialRecord)"
                     *matCellDef="let record; let idx = index"
-                    (click)="executeRowClick(record.initialRecord, column.name)"
+                    (click)="executeRowClick($event, record.initialRecord, column.name)"
                     class="ppw-column-type-{{ column.type }}"
                 >
                     <ng-container
@@ -164,7 +164,7 @@
             [cdkDragDisabled]="dragDisabled"
             (cdkDragReleased)="dragDisabled = true"
             [class.highlight]="options()?.rows?.highlightOnHover"
-            [class.clickable]="options()?.rows?.onClick || expandable()"
+            [class.clickable]="options()?.rows?.onClick || options()?.rows?.onCtrlClick || expandable()"
         ></tr>
         @if (expandable()) {
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="ppw-table-expanded-row"></tr>
