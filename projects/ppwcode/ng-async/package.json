@@ -2,8 +2,8 @@
     "name": "@ppwcode/ng-async",
     "version": "19.10.0",
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
+        "@angular/common": "^20.0.0",
+        "@angular/core": "^20.0.0",
         "@ngx-translate/core": "^15.0.0 || ^16.0.0",
         "file-saver-es": "^2.0.5",
         "@ppwcode/js-ts-oddsandends": "^1.4.2",
