@@ -43,6 +43,7 @@ describe('Handle subscriptions mixin', () => {
 
 @Component({
     template: '',
+    /* eslint-disable @angular-eslint/prefer-standalone */
     standalone: false
 })
 class TestComponent extends mixinHandleSubscriptions() {}
