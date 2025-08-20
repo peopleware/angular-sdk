@@ -46,7 +46,7 @@ export class AppComponent extends mixinResponsiveObservers() {
 
     constructor() {
         super()
-        this.#translate.setDefaultLang('en')
+        this.#translate.setFallbackLang('en')
         this.#translate.use('en')
     }
 }

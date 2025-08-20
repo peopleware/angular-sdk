@@ -20,7 +20,7 @@ export default class LanguageSelectComponent extends mixinHandleSubscriptions() 
     private cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
 
     protected readonly ALL_LANGUAGES_VALUES = ['en', 'nl']
-    private currentLanguage = this.translate.getDefaultLang()
+    private currentLanguage = this.translate.getCurrentLang()
     public selectedLanguage = this.isValidLanguage(this.currentLanguage) ? this.currentLanguage : null
 
     ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { NgOptimizedImage, registerLocaleData } from '@angular/common'
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import localeEn from '@angular/common/locales/en-BE'
 import localeNl from '@angular/common/locales/nl-BE'
 import { LOCALE_ID, NgModule } from '@angular/core'
@@ -11,8 +11,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TitleStrategy } from '@angular/router'
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core'
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+import { provideTranslateService } from '@ngx-translate/core'
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader'
 import { PPW_ASYNC_RESULT_DEFAULT_OPTIONS, PpwAsyncResultDefaultOptions } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
@@ -37,10 +37,6 @@ export const DATE_FORMATS: MatDateFormats = {
             day: '2-digit'
         } as Intl.DateTimeFormatOptions
     }
-}
-
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http)
 }
 
 const ppwcodeComponents = [WireframeComponent]
@@ -86,8 +82,11 @@ const ppwcodeComponents = [WireframeComponent]
         }),
         provideHttpClient(withInterceptorsFromDi()),
         provideTranslateService({
-            defaultLanguage: 'en',
-            loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] }
+            fallbackLang: 'en',
+            loader: provideTranslateHttpLoader({
+                prefix: '/assets/i18n/',
+                suffix: '.json'
+            })
         })
     ]
 })
