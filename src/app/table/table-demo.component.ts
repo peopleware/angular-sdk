@@ -1,4 +1,4 @@
-import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
+import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
