@@ -1,5 +1,5 @@
-import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common';
-import { Component, Inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
+import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
+import { Component, inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -236,9 +236,7 @@ export class TableDemoComponent
     public selectedPlayersSignal: WritableSignal<Player[]> = signal([])
     public playersToSave: Player[] = []
 
-    constructor(@Inject(LOCALE_ID) public locale: string) {
-        super()
-    }
+    public locale: string = inject(LOCALE_ID)
 
     private mockPagedPlayers(
         page: number,

@@ -6,10 +6,7 @@ import { Title } from '@angular/platform-browser'
 @Injectable()
 export class TranslatedPageTitleStrategy extends TitleStrategy {
     private translate: TranslateService = inject(TranslateService)
-
-    constructor(private readonly title: Title) {
-        super()
-    }
+    private title: Title = inject(Title)
 
     override updateTitle(snapshot: RouterStateSnapshot): void {
         const titleKey = this.buildTitle(snapshot)

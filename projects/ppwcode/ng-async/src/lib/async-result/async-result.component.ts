@@ -14,6 +14,7 @@ import {
 @Component({
     selector: 'ppw-async-result',
     templateUrl: './async-result.component.html',
+    /* eslint-disable @angular-eslint/prefer-standalone */
     standalone: false
 })
 export class AsyncResultComponent {
