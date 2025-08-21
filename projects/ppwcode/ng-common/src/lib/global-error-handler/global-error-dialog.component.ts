@@ -1,6 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard'
-import { DOCUMENT } from '@angular/common'
-import { Component, inject } from '@angular/core'
+import { Component, inject, DOCUMENT } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'

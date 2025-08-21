@@ -37,6 +37,7 @@ describe('Pagination bar component', () => {
 
 @Component({
     template: '<ppw-pagination-bar [pagedAsyncResult]="value()"></ppw-pagination-bar>',
+    /* eslint-disable @angular-eslint/prefer-standalone */
     standalone: false
 })
 class TestComponent {

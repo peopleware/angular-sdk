@@ -8,6 +8,7 @@ import { getNavigationItems } from './app.navigation'
     selector: 'ppw-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    /* eslint-disable @angular-eslint/prefer-standalone */
     standalone: false
 })
 export class AppComponent extends mixinResponsiveObservers() {
@@ -46,7 +47,7 @@ export class AppComponent extends mixinResponsiveObservers() {
 
     constructor() {
         super()
-        this.#translate.setDefaultLang('en')
+        this.#translate.setFallbackLang('en')
         this.#translate.use('en')
     }
 }

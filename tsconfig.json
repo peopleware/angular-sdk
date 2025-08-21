@@ -2,6 +2,7 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "esModuleInterop": true,
       "paths": {
           "@ppwcode/ng-async": ["projects/ppwcode/ng-async/src/public-api"],
           "@ppwcode/ng-common": ["projects/ppwcode/ng-common/src/public-api"],

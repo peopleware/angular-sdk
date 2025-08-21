@@ -1,5 +1,5 @@
-import { Constructor } from '@angular/cdk/table'
 import { Column } from '../../columns/column'
+import { Constructor } from '@ppwcode/ng-common'
 
 /**
  * Defines that the implementation has the API of a cell component.

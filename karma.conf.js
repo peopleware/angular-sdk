@@ -1,27 +1,10 @@
-const { FindTestsPlugin } = require('@angular-devkit/build-angular/src/builders/karma/find-tests-plugin')
-
 module.exports = function (config) {
-    // Before entering this function, the Angular CLI sets a Webpack plugin to detect the tests.
-    // We can leverage the configuration of this plugin to determine the directory of the project in which we are
-    // executing the tests. This directory name can then be used in the configuration below to put test results and coverage
-    // results in a separate directory for that project.
-    const findTestsPlugin = config.buildWebpack.webpackConfig.plugins.find(
-        (plugin) => plugin instanceof FindTestsPlugin
-    )
-    let subdir = '.'
-    if (findTestsPlugin) {
-        const options = findTestsPlugin.options
+    // Get project name from environment variable, fallback to default
+    let subdir = process.env.ANGULAR_PROJECT_NAME || '+application+'
 
-        const relativeProjectSourceRoot = options.projectSourceRoot.replace(options.workspaceRoot, '')
-        console.log('\nRELATIVE PROJECT SOURCE ROOT', relativeProjectSourceRoot)
-        let matchResult = /[\\,\/]projects[\\,\/]ppwcode[\\,\/]([a-z,-]{1,})[\\,\/]src/gm.exec(
-            relativeProjectSourceRoot
-        )
-        if (matchResult) {
-            subdir = matchResult[1]
-        } else {
-            subdir = '+application+'
-        }
+    // Try to determine the project from the karma config if available (as backup)
+    if (config.projectName) {
+        subdir = config.projectName
     }
 
     console.log('TEST RESULTS SUBDIR', subdir)
@@ -34,8 +17,7 @@ module.exports = function (config) {
             require('karma-coverage'),
             require('karma-chrome-launcher'),
             require('karma-jasmine-html-reporter'),
-            require('karma-junit-reporter'),
-            require('@angular-devkit/build-angular/plugins/karma')
+            require('karma-junit-reporter')
         ],
         client: {
             clearContext: false
