@@ -108,6 +108,8 @@ body {
     --ppw-dashboard-items-table-width: 750px;
     --ppw-dashboard-items-table-primary-color: #18428c;
     --ppw-dashboard-items-table-background-color: #6eb343;
+    --ppw-dashboard-wrapper-container-vertical-margin: 32px;
+    --ppw-dashboard-items-card-margin: 8px;
 }
 
 ppw-wireframe.flat {
@@ -252,5 +254,22 @@ div.page-toggles {
                 color: white;
             }
         }
+    }
+}
+
+ppw-search-filter {
+    mat-card {
+        margin: 8px;
+    }
+}
+
+mat-expansion-panel.ppw-expandable-panel {
+    margin: 8px;
+
+    &.mat-expansion-panel-spacing:first-child {
+        margin-top: 8px !important;
+    }
+    &.mat-expansion-panel-spacing:last-child {
+        margin-bottom: 8px !important;
     }
 }

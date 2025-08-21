@@ -1,5 +1,5 @@
 .ppw-dashboard-wrapper-container {
-    margin: 32px auto;
+    margin: var(--ppw-dashboard-wrapper-container-vertical-margin, 0) auto;
     text-align: center;
     max-width: var(--ppw-dashboard-items-table-width, 800px);
 
@@ -19,7 +19,7 @@
 
         mat-card.dashboard-item {
             width: calc(var(--ppw-dashboard-items-table-width, 800px) / 2);
-            margin: 8px;
+            margin: var(--ppw-dashboard-item-card-margin, 8px);
 
             mat-card-header {
                 padding-bottom: 16px;
