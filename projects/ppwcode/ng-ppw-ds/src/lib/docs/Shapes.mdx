@@ -1,0 +1,18 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as ShapesStories from '../stories/shapes.stories'
+
+<Meta of={ShapesStories} />
+
+# Shapes
+
+Shape defines the geometry of components throughout the design system, primarily through corner radius and outline style. Consistent shape tokens create a cohesive visual language, reinforce brand identity, and ensure components such as buttons, cards, inputs, and dialogs share a unified appearance. By using shape tokens instead of hardcoded values, the overall look and feel can be updated consistently across the entire application.
+
+## Usage
+
+The ppwcode design system provides CSS tokens that can be used for consistent shapes in your application.
+
+The CSS tokens follow the syntax `--ppw-ds-radius-[level]`, where `[level]` indicates a shaping level.
+
+A shaping level is one of the following demonstrated levels, where each greater level means a more rounded shape.
+
+<Canvas of={ShapesStories.AllLevels} />
