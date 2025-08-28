@@ -34,7 +34,7 @@
                           "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["projects/ppwcode/ng-pds/src"]
+                            "includePaths": ["projects/ppwcode/ng-pds"]
                         },
                         "scripts": []
                     },
@@ -100,7 +100,7 @@
                           "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["projects/ppwcode/ng-pds/src"]
+                            "includePaths": ["projects/ppwcode/ng-pds"]
                         },
                         "scripts": []
                     }
