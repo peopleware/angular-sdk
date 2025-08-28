@@ -1,0 +1,45 @@
+$_radii: (
+    'none': 0,
+    'small': 4px,
+    'medium': 8px,
+    'large': 20px,
+    'full': 1000px
+);
+
+$_positions: (
+    '': (
+        border-radius
+    ),
+    '-top': (
+        border-top-left-radius,
+        border-top-right-radius
+    ),
+    '-bottom': (
+        border-bottom-left-radius,
+        border-bottom-right-radius
+    ),
+    '-left': (
+        border-top-left-radius,
+        border-bottom-left-radius
+    ),
+    '-right': (
+        border-top-right-radius,
+        border-bottom-right-radius
+    )
+);
+
+:root {
+    @each $radius, $value in $_radii {
+        --pds-radius-#{$radius}: #{$value};
+    }
+}
+
+@each $position, $properties in $_positions {
+    @each $radius, $value in $_radii {
+        :where(.pds-radius-#{$radius}#{$position}) {
+            @each $property in $properties {
+                #{$property}: var(--pds-radius-#{$radius});
+            }
+        }
+    }
+}
