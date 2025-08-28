@@ -10,6 +10,7 @@ import { InMemoryLoggingDemoComponent } from './logging/in-memory-logging-demo/i
 import { MessageBarComponent } from './message-bar/message-bar.component'
 import { TableDemoComponent } from './table/table-demo.component'
 import { ShapesComponent } from './design-system/shapes/shapes.component'
+import { SpacingsComponent } from './design-system/spacings/spacings.component'
 
 export const ROUTE_MAP = {
     confirmationDialog: defineRoute('confirmation-dialog'),
@@ -21,7 +22,8 @@ export const ROUTE_MAP = {
     inMemoryLogging: defineRoute('in-memory-logging'),
     messageBar: defineRoute('message-bar'),
     designSystem: defineContainer('design-system', {
-        shapes: defineRoute('shapes')
+        shapes: defineRoute('shapes'),
+        spacings: defineRoute('spacings')
     })
 }
 
@@ -59,6 +61,11 @@ const routes: Routes = [
         path: getRouteSegment(ROUTE_MAP.designSystem) + '/' + getRouteSegment(ROUTE_MAP.designSystem.shapes),
         component: ShapesComponent,
         title: 'navigation.shapes'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.designSystem) + '/' + getRouteSegment(ROUTE_MAP.designSystem.spacings),
+        component: SpacingsComponent,
+        title: 'navigation.spacings'
     }
 ]
 

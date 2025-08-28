@@ -1,0 +1,30 @@
+<p>Spacings define distance inside of between elements.</p>
+
+<h2>Examples</h2>
+<ppw-example-items-container [columns]="4">
+    @for (spacing of spacings; track spacing) {
+        <ppw-example-item [label]="'pds-gap-' + spacing">
+            <div class="flex-row pds-gap-{{ spacing }}">
+                <div class="space-element"></div>
+                <div class="space-element"></div>
+            </div>
+        </ppw-example-item>
+    }
+</ppw-example-items-container>
+
+<h2>CSS usage</h2>
+<pre>
+    .my-element &#123;
+        display: flex;
+        flex-direction: row;
+        gap: var(--pds-spacing-4);
+    &#125;
+</pre>
+
+<h2>HTML usage</h2>
+<pre>
+    &lt;div class="pds-gap-4"&gt;...&lt;/div&gt;
+    &lt;div class="pds-ms-4"&gt;...&lt;/div&gt;
+    &lt;div class="pds-mx-4"&gt;...&lt;/div&gt;
+    &lt;div class="pds-py-4"&gt;...&lt;/div&gt;
+</pre>

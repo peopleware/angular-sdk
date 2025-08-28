@@ -56,10 +56,16 @@ const shapesNavigationItem: NavigationItem = {
     fullRouterPath: getFullRoutePath(ROUTE_MAP.designSystem.shapes)
 }
 
+const spacingsNavigationItem: NavigationItem = {
+    label: 'navigation.spacings',
+    icon: 'fa-solid fa-arrows-up-down-left-right',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.designSystem.spacings)
+}
+
 const designSystemNavigationItem: NavigationItem = {
     label: 'navigation.design_system',
     icon: 'fa-solid fa-palette',
-    children: [shapesNavigationItem]
+    children: [shapesNavigationItem, spacingsNavigationItem]
 }
 
 const inMemoryLoggingNavigationItem: NavigationItem = {
