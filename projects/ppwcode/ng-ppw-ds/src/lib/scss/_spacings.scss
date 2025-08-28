@@ -1,0 +1,14 @@
+$_base-spacing: 4px;
+
+:root {
+    // The following CSS tokens are explicit spacing tokens that don't take part in the base-spacing linearity.
+    // They are a specifically targeted at situations where space is limited and decreasing density would otherwise
+    // bring visual items far too close to each other.
+    --ppw-ds-spacing-1px: 1px;
+    --ppw-ds-spacing-2px: 2px;
+
+    // Generate CSS tokens for a linear scale from 0 to 20 for increased spacing.
+    @for $i from 0 through 20 {
+        --ppw-ds-spacing-#{$i}: #{$i * $_base-spacing};
+    }
+}
