@@ -1,0 +1,25 @@
+<p>
+    Shapes define the corners within the application. Add one of the following classes to your component or use the
+    appropriate CSS variables to achieve the same result.
+</p>
+
+<h2>Examples</h2>
+<ppw-example-items-container [columns]="3">
+    @for (shape of shapes; track shape) {
+        <ppw-example-item [label]="'pds-radius-' + shape">
+            <div class="shape-element pds-radius-{{ shape }}"></div>
+        </ppw-example-item>
+    }
+</ppw-example-items-container>
+
+<h2>CSS usage</h2>
+<pre>
+    .my-element &#123;
+        border-radius: var(--pds-radius-medium);
+    &#125;
+</pre>
+
+<h2>HTML usage</h2>
+<pre>
+    &lt;div class="pds-radius-medium"&gt;...&lt;/div&gt;
+</pre>

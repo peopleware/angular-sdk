@@ -1,0 +1,36 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+}
+
+.example-item__label {
+    background: var(--ppw-secondary-color);
+    position: relative;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    color: var(--ppw-secondary-contrast-color);
+
+    // Line leading up to the circle.
+    &:before {
+        content: '';
+        height: 8px;
+        border: 1px solid var(--ppw-secondary-color);
+        position: absolute;
+        left: calc(50% - 1px);
+        top: -8px;
+    }
+
+    // Circle pointing towards the example.
+    &:after {
+        content: '';
+        border: 2px solid var(--ppw-primary-color);
+        border-radius: 100%;
+        position: absolute;
+        left: calc(50% - 2px);
+        top: -10px;
+    }
+}

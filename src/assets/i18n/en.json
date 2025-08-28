@@ -26,13 +26,15 @@
         "confirmation_dialog": "Confirmation Dialog",
         "confirmation_dialog_with_long_title": "Confirmation Dialog With Long Title Being Cut Off",
         "dashboard_item": "Dashboard",
+        "design_system": "Design System",
         "expandable_card": "Expandable Card",
-        "table": "Table",
         "form_table": "Form Table",
         "global_error_handler": "Global Error Handler",
         "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar",
-        "peopleware_website": "PeopleWare Website"
+        "peopleware_website": "PeopleWare Website",
+        "shapes": "Shapes",
+        "table": "Table"
     },
     "table": {
         "age": "Age",

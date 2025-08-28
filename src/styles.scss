@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+@use 'pds-global';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -70,6 +71,11 @@ $ppw-ui-theme: mat.m2-define-light-theme(
 html,
 body {
     height: 100%;
+
+    --ppw-primary-color: #18428c;
+    --ppw-primary-contrast-color: white;
+    --ppw-secondary-color: #6eb343;
+    --ppw-secondary-contrast-color: white;
 }
 
 body {
@@ -85,17 +91,17 @@ body {
     --ppw-confirmation-dialog-header-background-color: #{mat.m2-get-color-from-palette($ppw-primary-palette, 500)};
     --ppw-confirmation-dialog-header-text-color: #{mat.m2-get-contrast-color-from-palette($ppw-primary-palette, 500)};
 
-    --ppw-expandable-card-header-text-color: white;
-    --ppw-expandable-card-header-background-color: #6eb343;
-    --ppw-expandable-card-header-indicator-color: white;
+    --ppw-expandable-card-header-text-color: var(--ppw-secondary-contrast-color);
+    --ppw-expandable-card-header-background-color: var(--ppw-secondary-color);
+    --ppw-expandable-card-header-indicator-color: var(--ppw-secondary-contrast-color);
 
     --ppw-loader-content-padding: 16px;
 
     --ppw-message-bar-warning-text-color: black;
 
-    --ppw-sidenav-background-color: #18428c;
-    --ppw-sidenav-navigation-item-icon-color: #6eb343;
-    --ppw-sidenav-close-button-color: white;
+    --ppw-sidenav-background-color: var(--ppw-primary-color);
+    --ppw-sidenav-navigation-item-icon-color: var(--ppw-secondary-color);
+    --ppw-sidenav-close-button-color: var(--ppw-primary-contrast-color);
     --ppw-sidenav-navigation-item-external-icon-color: rgba(255, 255, 255, 0.15);
 
     --ppw-table-row-highlight-background-color: rgba(0, 0, 255, 0.03);
@@ -103,22 +109,22 @@ body {
     --ppw-table-row-highlight-sticky-background-color: rgb(239, 239, 255);
 
     --ppw-toolbar-page-title-font-size: 20px;
-    --ppw-toolbar-page-title-text-color: #18428c;
+    --ppw-toolbar-page-title-text-color: var(--ppw-primary-color);
 
     --ppw-dashboard-items-table-width: 750px;
-    --ppw-dashboard-items-table-primary-color: #18428c;
-    --ppw-dashboard-items-table-background-color: #6eb343;
+    --ppw-dashboard-items-table-primary-color: var(--ppw-primary-color);
+    --ppw-dashboard-items-table-background-color: var(--ppw-secondary-color);
     --ppw-dashboard-wrapper-container-vertical-margin: 32px;
     --ppw-dashboard-items-card-margin: 8px;
 }
 
 ppw-wireframe.flat {
-    background: #18428c;
+    background: var(--ppw-primary-color);
 
     --ppw-app-wireframe-drawer-border: none;
-    --ppw-page-container-background: #18428c;
-    --ppw-toolbar-background: #18428c;
-    --ppw-toolbar-page-title-text-color: white;
+    --ppw-page-container-background: var(--ppw-primary-color);
+    --ppw-toolbar-background: var(--ppw-primary-color);
+    --ppw-toolbar-page-title-text-color: var(--ppw-primary-contrast-color);
     --ppw-toolbar-border-bottom: none;
     --ppw-toolbar-box-shadow: none;
 }
@@ -251,7 +257,7 @@ div.page-toggles {
     mat-slide-toggle {
         div.mdc-form-field {
             label {
-                color: white;
+                color: var(--ppw-primary-contrast-color);
             }
         }
     }
