@@ -1,0 +1,81 @@
+$_base-spacing: 4px;
+
+$_types: (
+    'gap': (
+        'gap'
+    ),
+    'mx': (
+        'margin-left',
+        'margin-right'
+    ),
+    'my': (
+        'margin-top',
+        'margin-bottom'
+    ),
+    'm': (
+        'margin'
+    ),
+    'mt': (
+        'margin-top'
+    ),
+    'ml': (
+        'margin-left'
+    ),
+    'mr': (
+        'margin-right'
+    ),
+    'mb': (
+        'margin-bottom'
+    ),
+    'ms': (
+        'margin-inline-start'
+    ),
+    'me': (
+        'margin-inline-end'
+    ),
+    'px': (
+        'padding-left',
+        'padding-right'
+    ),
+    'py': (
+        'padding-top',
+        'padding-bottom'
+    ),
+    'p': (
+        'padding'
+    ),
+    'pt': (
+        'padding-top'
+    ),
+    'pl': (
+        'padding-left'
+    ),
+    'pr': (
+        'padding-right'
+    ),
+    'pb': (
+        'padding-bottom'
+    ),
+    'ps': (
+        'padding-inline-start'
+    ),
+    'pe': (
+        'padding-inline-end'
+    )
+);
+
+:root {
+    @for $i from 0 through 16 {
+        --pds-spacing-#{$i}: #{$i * $_base-spacing};
+    }
+}
+
+@for $i from 0 through 16 {
+    @each $type, $cssProps in $_types {
+        :where(.pds-#{$type}-#{$i}) {
+            @each $cssProp in $cssProps {
+                #{$cssProp}: var(--pds-spacing-#{$i});
+            }
+        }
+    }
+}
