@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
-@use 'pds-global';
+@use 'ppw-ds';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -123,7 +123,7 @@ body {
 }
 
 ppw-wireframe.flat {
-    background:var(--ppw-primary-color);
+    background: var(--ppw-primary-color);
 
     --ppw-app-wireframe-drawer-border: none;
     --ppw-page-container-background: var(--ppw-primary-color);

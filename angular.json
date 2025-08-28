@@ -35,7 +35,7 @@
                         ],
                         "scripts": [],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["projects/ppwcode/ng-ppw-ds/src"]
+                            "includePaths": ["projects/ppwcode/ng-ppw-ds"]
                         }
                     },
                     "configurations": {
