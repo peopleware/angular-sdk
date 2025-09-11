@@ -11,6 +11,7 @@ jobs:
               with:
                   node-version: '22.18.0'
                   cache: 'npm'
+            - run: npm run ci:check-production-vulnerabilities
             - run: npm install
             - run: npm run ci:lint
             - run: npm run ci:build-libs

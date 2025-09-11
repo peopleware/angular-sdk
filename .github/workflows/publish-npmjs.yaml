@@ -14,6 +14,7 @@ jobs:
                   node-version: '22.18.0'
                   cache: 'npm'
                   registry-url: 'https://registry.npmjs.org'
+            - run: npm run ci:check-production-vulnerabilities
             - run: npm install
             - run: npm run ci:lint
             - run: npm run ci:build-libs
