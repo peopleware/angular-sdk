@@ -12,6 +12,12 @@ jobs:
                   node-version: '22.18.0'
                   cache: 'npm'
             - run: npm run ci:check-production-vulnerabilities
+            - name: Cache node modules
+              uses: actions/cache@v3
+              with:
+                path: node_modules
+                key: node_modules-${{hashFiles('package-lock.json')}} # Cache based on package-lock.json
+                restore-keys: node_modules- # Take any latest cache if failed to find it for current package-lock.json
             - run: npm install
             - run: npm run ci:lint
             - run: npm run ci:build-libs
