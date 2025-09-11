@@ -8,7 +8,7 @@
         "format:prettier": "cross-env prettier --write \"**/*.{ts,js,md,html,scss}\"",
         "lint:lint": "ng lint",
         "format:lint": "ng lint --fix",
-        "ci:test-libs": "./scripts/ci/test-libs.sh",
+        "ci:test-libs": "node ./scripts/ci/test-libs.js",
         "ci:lint": "npm run lint:prettier && npm run lint:lint",
         "ci:build": "ng build ppwcode",
         "ci:build-libs": "./scripts/ci/build-libs.sh",
