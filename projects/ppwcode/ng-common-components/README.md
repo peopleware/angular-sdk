@@ -81,10 +81,16 @@ The following CSS variables are available for theming. Just add them to the `bod
 
 #### ppw-dashboard-items-table
 
-| Variable name                                       | Extra info        |
-| --------------------------------------------------- | ----------------- |
-| `--ppw-dashboard-items-table-primary-color`         |                   |
-| `--ppw-dashboard-items-table-background-color`      |                   |
-| `--ppw-dashboard-items-table-width`                 | Defaults to 800px |
-| `--ppw-dashboard-wrapper-container-vertical-margin` | Defaults to 0     |
-| `--ppw-dashboard-item-card-margin`                  | Defaults to 8px   |
+> TIP: If you want the dashboard items to use all available width, set the `--ppw-dashboard-items-table-width` to `100%`.
+
+| Variable name                                        | Default | Screen max-width 840px | Screen max-width 425px |
+| ---------------------------------------------------- | ------- | ---------------------- | ---------------------- |
+| `--ppw-dashboard-wrapper-container-vertical-margin`  | 0       |                        |                        |
+| `--ppw-dashboard-items-table-width`                  | 800px   |                        |                        |
+| `--ppw-dashboard-item-card-margin`                   | 8px     |                        |                        |
+| `--ppw-dashboard-item-card-image-vertical-padding`   | 32px    | 32px                   | 16px                   |
+| `--ppw-dashboard-item-card-image-horizontal-padding` | 32px    | 0                      | 0                      |
+| `--ppw-dashboard-item-card-image-font-size`          | 140px   |                        | 60px                   |
+| `--ppw-dashboard-item-card-header-text-align`        | start   |                        | center                 |
+| `--ppw-dashboard-items-table-primary-color`          |         |                        |                        |
+| `--ppw-dashboard-items-table-background-color`       |         |                        |                        |
