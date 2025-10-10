@@ -36,6 +36,9 @@ const DATE_FORMATS: MatDateFormats = {
     }
 }
 
+const translationLocationPrefix =
+    window.location.host === 'peopleware.github.io' ? '/angular-sdk/assets/i18n/' : '/assets/i18n/'
+
 bootstrapApplication(AppComponent, {
     providers: [
         { provide: LOCALE_ID, useValue: 'en-US' },
@@ -70,7 +73,7 @@ bootstrapApplication(AppComponent, {
         provideTranslateService({
             fallbackLang: 'en',
             loader: provideTranslateHttpLoader({
-                prefix: '/assets/i18n/',
+                prefix: translationLocationPrefix,
                 suffix: '.json'
             })
         })

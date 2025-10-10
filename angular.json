@@ -17,6 +17,7 @@
                 "build": {
                     "builder": "@angular/build:application",
                     "options": {
+                        "baseHref": "/angular-sdk/",
                         "outputPath": "dist/ppwcode",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
