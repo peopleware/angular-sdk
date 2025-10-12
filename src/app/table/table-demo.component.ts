@@ -23,6 +23,7 @@ import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
 import { ExpandableTableDemoComponent } from './expandable-table-demo/expandable-table-demo.component'
+import { MatTab, MatTabGroup } from '@angular/material/tabs'
 
 export interface Player extends Record<string, unknown> {
     id: number
@@ -130,7 +131,9 @@ type SearchPlayersForm = {
         MatSlideToggleModule,
         PpwTableModule,
         ExpandableTableDemoComponent,
-        TranslatePipe
+        TranslatePipe,
+        MatTabGroup,
+        MatTab
     ]
 })
 export class TableDemoComponent
