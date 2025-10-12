@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectionStrategy, Component, forwardRef, OnInit } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 import { AbstractTableComponent } from './abstract-table.component'
@@ -15,14 +14,6 @@ import { TableRecord } from './models/table-record.model'
             useExisting: forwardRef(() => TableComponent),
             multi: true
         }
-    ],
-    animations: [
-        trigger('rowsAnimation', [
-            transition(':enter', [
-                style({ transform: 'translateY(-10%)', opacity: 0 }),
-                animate('.25s ease-in-out', style({ transform: 'translateY(0)', opacity: 1 }))
-            ])
-        ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

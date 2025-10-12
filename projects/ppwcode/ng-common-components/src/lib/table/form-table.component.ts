@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectionStrategy, Component, forwardRef, OnInit } from '@angular/core'
 import { FormArray, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { MatTableDataSource } from '@angular/material/table'
@@ -16,14 +15,6 @@ import { TableRecord } from './models/table-record.model'
             useExisting: forwardRef(() => FormTableComponent),
             multi: true
         }
-    ],
-    animations: [
-        trigger('rowsAnimation', [
-            transition(':enter', [
-                style({ transform: 'translateY(-10%)', opacity: 0 }),
-                animate('.25s ease-in-out', style({ transform: 'translateY(0)', opacity: 1 }))
-            ])
-        ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
