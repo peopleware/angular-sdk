@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { Routes } from '@angular/router'
 import { defineRoute, getRouteSegment } from '@ppwcode/ng-router'
 import { ConfirmationDialogDemoComponent } from './confirmation-dialog-demo/confirmation-dialog-demo.component'
 import { DashboardItemDemoComponent } from './dashboard-item-demo/dashboard-item-demo.component'
@@ -21,7 +20,7 @@ export const ROUTE_MAP = {
     messageBar: defineRoute('message-bar')
 }
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: getRouteSegment(ROUTE_MAP.dashboardItem), pathMatch: 'full' },
     {
         path: getRouteSegment(ROUTE_MAP.confirmationDialog),
@@ -52,9 +51,3 @@ const routes: Routes = [
         title: 'navigation.global_error_handler'
     }
 ]
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {}
