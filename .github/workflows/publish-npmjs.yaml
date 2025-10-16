@@ -13,11 +13,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
                   node-version: '22.19.0'
                   cache: 'npm'
                   registry-url: 'https://registry.npmjs.org'
+            - name: Update npm
+              run: npm install -g npm@latest
             - run: npm run ci:check-production-vulnerabilities
             - name: Cache node modules
               uses: actions/cache@v3
