@@ -4,6 +4,10 @@ on:
     release:
         types: [published]
 
+permissions:
+    id-token: write  # Required for OIDC
+    contents: read
+
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -26,29 +30,11 @@ jobs:
             - run: npm run ci:build-libs
             - run: npm run ci:test-libs
             - run: npm publish dist/ppwcode/ng-async --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-common --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-common-components --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-dialogs --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-forms --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-router --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-state-management --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-unit-testing --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm publish dist/ppwcode/ng-wireframe --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
