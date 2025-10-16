@@ -48,6 +48,7 @@
                 color: var(--ppw-dashboard-items-table-primary-color);
                 background-color: var(--ppw-dashboard-items-table-background-color);
                 cursor: pointer;
+                width: calc(100% - 64px);
 
                 &:focus,
                 &:active,
@@ -160,6 +161,7 @@
 
                 .ppw-dashboard-card-image {
                     padding: 32px 0 32px 0;
+                    width: 100%;
                 }
             }
         }
@@ -194,6 +196,7 @@
                 .ppw-dashboard-card-image {
                     padding: 16px 0 16px 0;
                     font-size: 60px;
+                    width: 100%;
                 }
             }
         }
