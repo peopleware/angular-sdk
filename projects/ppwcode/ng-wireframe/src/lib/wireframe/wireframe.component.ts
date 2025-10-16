@@ -1,10 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
-import { Component, computed, effect, inject, input, InputSignal, Signal, viewChild } from '@angular/core'
+import { Component, computed, inject, input, InputSignal, Signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav'
 import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router'
-import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { filter } from 'rxjs'
 import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { SidebarOptions } from '../model/sidebar-options'
@@ -91,22 +90,6 @@ export class WireframeComponent {
         Breakpoints.Large,
         Breakpoints.XLarge
     ])
-
-    // Effects
-    // eslint-disable-next-line no-unused-private-class-members
-    #autoCloseSidebar = effect(() => {
-        const result = this.#breakpointChange()
-        if (!this.matDrawer() || !result) {
-            return
-        }
-
-        const drawer: MatDrawer = notUndefined(this.matDrawer())
-        if (result.matches && drawer.opened) {
-            drawer.close()
-        } else if (!result.matches && !drawer.opened && !this.sidebarOptions()?.closedByDefaultOnLargerDevice) {
-            drawer.open()
-        }
-    })
 
     // Methods
     public async onNavigate(): Promise<void> {
