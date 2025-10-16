@@ -1,6 +1,9 @@
 {
     "name": "ppwcode",
     "version": "0.0.0",
+    "repository": {
+        "url": "https://github.com/peopleware/angular-sdk"
+    },
     "scripts": {
         "start": "ng serve",
         "start:remote": "ng serve --host 0.0.0.0",

@@ -1,6 +1,9 @@
 {
     "name": "@ppwcode/ng-async",
     "version": "20.0.3",
+    "repository": {
+        "url": "https://github.com/peopleware/angular-sdk"
+    },
     "peerDependencies": {
         "@angular/common": "^20.0.0",
         "@angular/core": "^20.0.0",
