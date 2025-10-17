@@ -1,26 +1,12 @@
-.ppw-confirmation-demo-tl {
-    grid-area: tl;
-}
-.ppw-confirmation-demo-tr {
-    grid-area: tr;
-}
-.ppw-confirmation-demo-bl {
-    grid-area: bl;
-}
-.ppw-confirmation-demo-br {
-    grid-area: br;
+ppw-dashboard-items-table {
+    --ppw-dashboard-items-table-width: 1920px;
 }
 
 .ppw-confirmation-demo-grid {
     display: grid;
     background-color: var(--ppw-dashboard-items-table-primary-color);
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 1px;
-    grid-row-gap: 1px;
-    grid-template-rows: auto;
-    grid-template-areas:
-        'tl tr'
-        'bl br';
+    grid-gap: 1px;
 }
 
 .ppw-grid-item {
