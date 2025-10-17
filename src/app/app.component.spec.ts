@@ -13,6 +13,7 @@ describe('AppComponent', () => {
     beforeEach(() =>
         TestBed.configureTestingModule({
             imports: [
+                AppComponent,
                 NoopAnimationsModule,
                 RouterTestingModule,
                 MatIconModule,
@@ -21,8 +22,7 @@ describe('AppComponent', () => {
                 WireframeComponent,
                 LanguageSelectComponent
             ],
-            providers: [provideTranslateService({})],
-            declarations: [AppComponent]
+            providers: [provideTranslateService({})]
         })
     )
 
