@@ -30,14 +30,6 @@ jobs:
             - run: npm install
             - run: npm run ci:lint
             - run: npm run ci:build-libs
-            - run: npm run ci:build
-            - name: Copy index.html to 404.html # For GitHub Pages SPA support
-              run: cp dist/ppwcode/browser/index.html dist/ppwcode/browser/404.html
-            - name: 'Upload static docs as artifact'
-              id: deployment
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  path: dist/ppwcode/browser
             - run: npm run ci:test-libs
             - run: npm publish dist/ppwcode/ng-async --access public
             - run: npm publish dist/ppwcode/ng-common --access public
@@ -48,6 +40,14 @@ jobs:
             - run: npm publish dist/ppwcode/ng-state-management --access public
             - run: npm publish dist/ppwcode/ng-unit-testing --access public
             - run: npm publish dist/ppwcode/ng-wireframe --access public
+            - run: npm run ci:build
+            - name: Copy index.html to 404.html # For GitHub Pages SPA support
+              run: cp dist/ppwcode/browser/index.html dist/ppwcode/browser/404.html
+            - name: 'Upload static docs as artifact'
+              id: deployment
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: dist/ppwcode/browser
     # Deployment job
     deploy:
         permissions:
