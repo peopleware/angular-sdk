@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-async",
-    "version": "20.1.0",
+    "version": "20.1.1",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
@@ -10,7 +10,7 @@
         "@ngx-translate/core": "^17.0.0",
         "file-saver-es": "^2.0.5",
         "@ppwcode/js-ts-oddsandends": "^1.4.2",
-        "@ppwcode/ng-common-components": "^20.1.0"
+        "@ppwcode/ng-common-components": "^20.1.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
