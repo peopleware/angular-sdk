@@ -72,8 +72,8 @@ export const expectPagedAsyncResultHttpError = <TEntity, TFilters = object | nul
     function <T>(source: Observable<T>): Observable<T> {
         // This is syntactic sugar for handling the error case of a paged async result. It will create a failed paged async
         // result, meaning that the result type of the handler is actually the same as the value received in the source.
-        // That's the reason why T is used twice in the generics of createHttpErrorReponseOperatorObservable.
-        return createHttpErrorReponseOperatorObservable<T, T>(
+        // That's the reason why T is used twice in the generics of createHttpErrorResponseOperatorObservable.
+        return createHttpErrorResponseOperatorObservable<T, T>(
             source,
             statusCodes,
             (httpError: HttpErrorResponse) => {
@@ -94,10 +94,10 @@ export const expectHttpError = <TResult>(
     complete = false
 ) =>
     function <T>(source: Observable<T>): Observable<T | TResult> {
-        return createHttpErrorReponseOperatorObservable(source, statusCodes, handler, complete)
+        return createHttpErrorResponseOperatorObservable(source, statusCodes, handler, complete)
     }
 
-const createHttpErrorReponseOperatorObservable = <T, TResult>(
+const createHttpErrorResponseOperatorObservable = <T, TResult>(
     source: Observable<T>,
     statusCodes: Array<number>,
     handler: (httpError: HttpErrorResponse) => TResult,
