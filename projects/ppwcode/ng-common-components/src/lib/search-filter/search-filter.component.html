@@ -1,5 +1,8 @@
 <mat-card>
-    <mat-card-content (keyup.enter)="search.emit()" (keyup.control.enter)="allowReset() ? reset.emit() : undefined">
+    <mat-card-content
+        (keyup.enter)="submitDisabled() ? undefined : search.emit()"
+        (keyup.control.enter)="allowReset() ? reset.emit() : undefined"
+    >
         <ng-content></ng-content>
     </mat-card-content>
     <mat-card-actions align="end" class="gap-8">
