@@ -33,10 +33,10 @@ export class DynamicCellDirective<TRecord> implements OnInit {
     public ngOnInit(): void {
         this._instantiateComponent(this._componentTypeMap[this.column().type ?? ColumnType.Text])
 
-        this.componentRef.instance.rowIndex = this.rowIndex()
-        this.componentRef.instance.column = this.column()
-        this.componentRef.instance.record = this.record()
-        this.componentRef.instance.value = this.value()
+        this.componentRef.instance.rowIndex = this.rowIndex
+        this.componentRef.instance.column = this.column
+        this.componentRef.instance.record = this.record
+        this.componentRef.instance.value = this.value
     }
 
     /**

@@ -11,8 +11,8 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
  */
 @Component({
     selector: 'ppw-date-cell',
-    template: `{{ value }}`,
+    template: `{{ value() }}`,
     standalone: true
 })
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/ban-types
-export class DateCellComponent extends mixinCellComponent<DateColumn<any, any>, Constructor<{}>, string>() {}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class DateCellComponent extends mixinCellComponent<DateColumn<any, any>, Constructor<object>, string>() {}
