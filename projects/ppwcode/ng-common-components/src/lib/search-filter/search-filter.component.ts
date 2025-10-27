@@ -12,15 +12,20 @@ import { MatCardModule } from '@angular/material/card'
 export class SearchFilterComponent {
     // Inputs
     public submitDisabled: InputSignal<boolean> = input(false)
+    public clearDisabled: InputSignal<boolean> = input(false)
     public allowReset: InputSignal<boolean> = input(true)
     public searchLabel: InputSignal<string> = input('Search')
     public resetLabel: InputSignal<string> = input('Reset')
 
     // Outputs
-    public search: OutputEmitterRef<void> = output<void>()
+    public performSearch: OutputEmitterRef<void> = output<void>()
     public clear: OutputEmitterRef<void> = output<void>()
     /**
-     * @deprecated This output will be removed in v20. It should be replaced with the `restart` output.
+     * @deprecated This output will be removed in v21. It should be replaced with the `performSearch` output.
+     */
+    public search: OutputEmitterRef<void> = this.performSearch
+    /**
+     * @deprecated This output will be removed in v20. It should be replaced with the `clear` output.
      */
     public reset: OutputEmitterRef<void> = this.clear
 }
