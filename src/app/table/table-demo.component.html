@@ -7,6 +7,7 @@
                     (search)="performSearch()"
                     (clear)="performReset()"
                     [submitDisabled]="searchForm.invalid"
+                    [clearDisabled]="(pending$ | async) === true"
                 >
                     <form [formGroup]="searchForm" class="flex-row gap-8">
                         <mat-form-field>

@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card'
 export class SearchFilterComponent {
     // Inputs
     public submitDisabled: InputSignal<boolean> = input(false)
+    public clearDisabled: InputSignal<boolean> = input(false)
     public allowReset: InputSignal<boolean> = input(true)
     public searchLabel: InputSignal<string> = input('Search')
     public resetLabel: InputSignal<string> = input('Reset')
