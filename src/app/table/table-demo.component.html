@@ -4,7 +4,7 @@
             <h1>Filter table</h1>
             @if (searchForm) {
                 <ppw-search-filter
-                    (search)="performSearch()"
+                    (performSearch)="performSearch()"
                     (clear)="performReset()"
                     [submitDisabled]="searchForm.invalid"
                     [clearDisabled]="(pending$ | async) === true"
