@@ -25,7 +25,7 @@ export class SearchFilterComponent {
      */
     public search: OutputEmitterRef<void> = this.performSearch
     /**
-     * @deprecated This output will be removed in v20. It should be replaced with the `clear` output.
+     * @deprecated This output will be removed in v21. It should be replaced with the `clear` output.
      */
     public reset: OutputEmitterRef<void> = this.clear
 }
