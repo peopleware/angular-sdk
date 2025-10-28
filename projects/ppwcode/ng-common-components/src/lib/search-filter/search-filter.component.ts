@@ -23,9 +23,21 @@ export class SearchFilterComponent {
     /**
      * @deprecated This output will be removed in v21. It should be replaced with the `performSearch` output.
      */
-    public search: OutputEmitterRef<void> = this.performSearch
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public search: OutputEmitterRef<void> = output<void>()
     /**
      * @deprecated This output will be removed in v21. It should be replaced with the `clear` output.
      */
-    public reset: OutputEmitterRef<void> = this.clear
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public reset: OutputEmitterRef<void> = output<void>()
+
+    protected executeSearch(): void {
+        this.performSearch.emit()
+        this.search.emit()
+    }
+
+    protected executeClear(): void {
+        this.clear.emit()
+        this.reset.emit()
+    }
 }
