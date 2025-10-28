@@ -26,11 +26,11 @@ module.exports = function (config) {
         reporters: ['kjhtml', 'progress', 'coverage', 'junit'],
         dir: 'coverage',
         coverageReporter: {
-            dir: 'coverage',
+            dir: require('path').join(__dirname, `./coverage/${subdir}`),
             reporters: [
-                { type: 'text-summary', subdir: `${subdir}/text-summary` },
-                { type: 'html', subdir: `${subdir}/html` },
-                { type: 'cobertura', subdir: `${subdir}/cobertura` }
+                { type: 'text-summary', subdir: 'text-summary' },
+                { type: 'html', subdir: 'html' },
+                { type: 'cobertura', subdir: 'cobertura' }
             ],
             combineBrowserReports: true,
             fixWebpackSourcePaths: true,
