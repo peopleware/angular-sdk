@@ -26,6 +26,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Library contents
 
+### Components
+
+#### Breadcrumb
+
+A breadcrumb component that can be used to indicate the current location in the application.
+
 ### Services
 
 #### BreadcrumbService
@@ -89,3 +95,33 @@ export const PERSON_ROUTES: Routes = [
 ##### enableAnimations
 
 Set to true to enable animations.
+
+## Usage
+
+A link to the application home page can be passed to the breadcrumb component.
+Example:
+
+```
+        <ppw-breadcrumb>
+            <ng-container ppw-breadcrumb-home>
+                <mat-icon routerLink="/">home</mat-icon>
+            </ng-container>
+        </ppw-breadcrumb>
+```
+
+Depending on your content, some extra styling might be needed.
+
+### Theming
+
+The following CSS variables are available for theming. Add them to the `body` selector.
+
+#### ppw-breadcrumb
+
+| Variable name                       | Extra info                            |
+| ----------------------------------- | ------------------------------------- |
+| `--ppw-breadcrumb-background-color` | Defaults to white                     |
+| `--ppw-breadcrumb-box-shadow-color` | Defaults to --mat-sys-outline-variant |
+| `--ppw-breadcrumb-spacing`          | Defaults to 1em                       |
+| `--ppw-breadcrumb-text-color`       | Defaults to --mat-sys-on-background   |
+| `--ppw-breadcrumb-text-hover-color` | Defaults to --mat-sys-primary         |
+| `--ppw-breadcrumb-separator-color`  | Defaults to --mat-sys-outline-variant |
