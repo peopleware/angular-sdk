@@ -11,3 +11,16 @@
 .page-content {
     margin: 8px;
 }
+
+a.ppw-home-page-breadcrumb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--ppw-breadcrumb-text-color, var(--mat-sys-on-background));
+
+    &:hover {
+        color: var(--ppw-breadcrumb-text-hover-color, var(--mat-sys-primary, var(--mat-primary-color)));
+    }
+}

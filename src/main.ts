@@ -15,7 +15,7 @@ import {
 } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
-import { providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { provideBreadcrumbOptions, providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { AppComponent } from './app/app.component'
 import { routes } from './app/app.routes'
 import { EmptyAsyncResultComponent } from './app/table/empty-async-result.component'
@@ -76,7 +76,8 @@ bootstrapApplication(AppComponent, {
                 prefix: translationLocationPrefix,
                 suffix: '.json'
             })
-        })
+        }),
+        provideBreadcrumbOptions()
     ]
 }).catch((err) => console.error(err))
 
