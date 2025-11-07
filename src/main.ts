@@ -1,25 +1,25 @@
+import { registerLocaleData } from '@angular/common'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import localeEn from '@angular/common/locales/en-BE'
+import localeNl from '@angular/common/locales/nl-BE'
+import { LOCALE_ID } from '@angular/core'
+import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
+import { bootstrapApplication } from '@angular/platform-browser'
+import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router'
+import { provideTranslateService } from '@ngx-translate/core'
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader'
 import {
     PPW_ASYNC_RESULT_DEFAULT_OPTIONS,
     PpwAsyncResultDefaultOptions,
     ppwHttpErrorExtractorWithTranslatedMessages
 } from '@ppwcode/ng-async'
-import { bootstrapApplication } from '@angular/platform-browser'
-import { AppComponent } from './app/app.component'
-import { LOCALE_ID } from '@angular/core'
-import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router'
-import { providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
-import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
-import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
-import { getLuxonFormatter } from './app/table/table-demo.component'
-import { EmptyAsyncResultComponent } from './app/table/empty-async-result.component'
-import { routes } from './app/app-routing.module'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
-import { provideTranslateService } from '@ngx-translate/core'
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader'
-import { registerLocaleData } from '@angular/common'
-import localeEn from '@angular/common/locales/en-BE'
-import localeNl from '@angular/common/locales/nl-BE'
+import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
+import { providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { routes } from './app/app-routing.module'
+import { AppComponent } from './app/app.component'
+import { EmptyAsyncResultComponent } from './app/table/empty-async-result.component'
+import { getLuxonFormatter } from './app/table/table-demo.component'
 
 registerLocaleData(localeEn)
 registerLocaleData(localeNl)
