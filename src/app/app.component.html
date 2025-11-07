@@ -26,6 +26,11 @@
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
     <ng-container ppw-page-content>
+        <ppw-breadcrumb>
+            <ng-container ppw-breadcrumb-home>
+                <a routerLink="/" class="ppw-home-page-breadcrumb"><mat-icon>home</mat-icon></a>
+            </ng-container>
+        </ppw-breadcrumb>
         @if (flatWireframeStyle()) {
             <mat-card class="page-content">
                 <mat-card-content>
