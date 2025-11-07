@@ -15,6 +15,7 @@ export const createPagedEntitiesDtoMock = <TDto>(dtoEntities: Array<TDto>): Page
 export const createPagedEntitiesMock = <TModel>(models: Array<TModel>): PagedEntities<TModel> => {
     return {
         pageIndex: 1,
+        page: 1,
         pageSize: models.length ?? 20,
         totalCount: models.length,
         totalPages: 1,
