@@ -1,22 +1,24 @@
-<!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
-<h3 mat-dialog-title [translate]="data.titleKey" [translateParams]="data.titleParams"></h3>
-<mat-dialog-content
-    class="mat-typography"
-    [translate]="data.bodyKey"
-    [translateParams]="data.bodyParams"
-></mat-dialog-content>
-<mat-dialog-actions align="end">
-    @if (!data.allowConfirmOnly) {
-        <button mat-stroked-button class="ppw-confirmation-dialog__action" [mat-dialog-close]="false">
-            <i class="fa-solid fa-ban"></i> {{ data.cancelKey | translate }}
+<div ppwDraggableDialog>
+    <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
+    <h3 cdkDragHandle mat-dialog-title [translate]="data.titleKey" [translateParams]="data.titleParams"></h3>
+    <mat-dialog-content
+        class="mat-typography"
+        [translate]="data.bodyKey"
+        [translateParams]="data.bodyParams"
+    ></mat-dialog-content>
+    <mat-dialog-actions align="end">
+        @if (!data.allowConfirmOnly) {
+            <button mat-stroked-button class="ppw-confirmation-dialog__action" [mat-dialog-close]="false">
+                <i class="fa-solid fa-ban"></i> {{ data.cancelKey | translate }}
+            </button>
+        }
+        <button
+            mat-raised-button
+            class="ppw-confirmation-dialog__action"
+            [mat-dialog-close]="true"
+            [color]="confirmationThemePalette"
+        >
+            <i class="fa-solid fa-check"></i> {{ data.confirmationKey | translate }}
         </button>
-    }
-    <button
-        mat-raised-button
-        class="ppw-confirmation-dialog__action"
-        [mat-dialog-close]="true"
-        [color]="confirmationThemePalette"
-    >
-        <i class="fa-solid fa-check"></i> {{ data.confirmationKey | translate }}
-    </button>
-</mat-dialog-actions>
+    </mat-dialog-actions>
+</div>

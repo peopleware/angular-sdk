@@ -2,10 +2,9 @@ import { Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { ThemePalette } from '@angular/material/core'
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
-import {
-    TranslateDirective,
-    TranslatePipe
-} from '@ngx-translate/core' /* NgxTranslate expects any for params. tslint should stop complaining */
+import { TranslateDirective, TranslatePipe } from '@ngx-translate/core'
+import { DraggableDialogDirective } from '../directives/draggable-dialog.directive'
+import { CdkDragHandle } from '@angular/cdk/drag-drop' /* NgxTranslate expects any for params. tslint should stop complaining */
 
 /* NgxTranslate expects any for params. tslint should stop complaining */
 export interface ConfirmationDialogData {
@@ -28,7 +27,14 @@ export interface ConfirmationDialogData {
 @Component({
     selector: 'ppw-confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
-    imports: [MatDialogModule, TranslatePipe, TranslateDirective, MatButtonModule],
+    imports: [
+        MatDialogModule,
+        TranslatePipe,
+        TranslateDirective,
+        MatButtonModule,
+        DraggableDialogDirective,
+        CdkDragHandle
+    ],
     styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent {
