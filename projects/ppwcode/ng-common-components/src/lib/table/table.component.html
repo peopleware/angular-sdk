@@ -55,6 +55,7 @@
                         [style.width]="options()?.columns?.widths?.['rowSelection']"
                         (change)="$event ? selection.toggle(row) : null"
                         [checked]="selection.isSelected(row)"
+                        [disabled]="isRowSelectionDisabled(row)"
                     >
                     </mat-checkbox>
                 </td>

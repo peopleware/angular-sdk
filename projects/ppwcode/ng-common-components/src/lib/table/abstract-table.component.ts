@@ -136,14 +136,11 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
-        const numRows = this.dataSource().data.length
+        const numRows = this.#getNumberOfSelectableRows()
         if (numRows === 0) {
             return false
         }
-
-        const selectedRecords = this.dataSource().data.filter((record: TableRecord<TRecord>) => {
-            return this.selection.isSelected(record)
-        })
+        const selectedRecords = this.#getCurrentlySelectedRows()
         return (selectedRecords?.length ?? 0) === numRows
     }
 
@@ -154,19 +151,47 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
 
     /** Whether the number of selected elements is greater than 0 but not equals to the total number of rows. */
     isSomeSelected() {
-        const numRows = this.dataSource().data.length
-        const selectedRecords = this.dataSource().data.filter((record: TableRecord<TRecord>) => {
-            return this.selection.isSelected(record)
-        })
+        const numRows = this.#getNumberOfSelectableRows()
+        if (numRows === 0) {
+            return false
+        }
+        const selectedRecords = this.#getCurrentlySelectedRows()
         return (selectedRecords?.length ?? 0) > 0 && (selectedRecords?.length ?? 0) < numRows
     }
 
+    #getCurrentlySelectedRows() {
+        return this.dataSource().data.filter((record: TableRecord<TRecord>) => {
+            return this.selection.isSelected(record)
+        })
+    }
+
+    #getNumberOfSelectableRows() {
+        const disabledRowSelectionFn = this.options()?.rows?.disableRowSelection
+        return (
+            !disabledRowSelectionFn
+                ? this.dataSource().data
+                : this.dataSource().data.filter((item) => !disabledRowSelectionFn(item.initialRecord))
+        ).length
+    }
+
+    public isRowSelectionDisabled(row: TableRecord<TRecord>): boolean {
+        const disabledRowSelectionFn = this.options()?.rows?.disableRowSelection
+        if (!disabledRowSelectionFn) {
+            return false
+        }
+        return disabledRowSelectionFn(row.initialRecord)
+    }
+
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
+    public masterToggle() {
         if (this.isAllSelected()) {
             this.selection.clear()
         } else {
-            this.dataSource().data.forEach((row: TableRecord<TRecord>) => this.selection.select(row))
+            this.dataSource().data.forEach((row: TableRecord<TRecord>) => {
+                if (!this.isRowSelectionDisabled(row)) {
+                    this.selection.select(row)
+                }
+            })
         }
     }
 
