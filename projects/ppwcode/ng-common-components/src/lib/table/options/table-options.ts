@@ -52,5 +52,7 @@ export interface PpwTableOptions<TRecord> {
         onClick?: (row: TRecord) => void
         /** Function to be executed when the row is CTRL-clicked. */
         onCtrlClick?: (row: TRecord) => void
+        /** Disable selection of the current row. */
+        disableRowSelection?: (row: TRecord) => boolean
     }
 }
