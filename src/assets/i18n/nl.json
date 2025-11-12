@@ -8,8 +8,11 @@
         "title": "Bevestig uitvoering?"
     },
     "dashboard": {
+        "components-description": "Opent de dashboard pagina van de PPW components",
         "confirmation-dialog-description": "Een demo pagina die de confirmation dialog component laat zien",
-        "expandable-card-description": "Een demo pagina die alle mogelijkheden met de expandable card component laat zien"
+        "expandable-card-description": "Een demo pagina die alle mogelijkheden met de expandable card component laat zien",
+        "global-error-handler-description": "Een demo pagina die alle mogelijkheden van de global error handler laat zien",
+        "in-memory-logging-description": "Een demo pagina die alle mogelijkheden van de in-memory logging provider laat zien"
     },
     "global-error-dialog": {
         "copy-all-errors": "Kopieer alle fouten",

@@ -1,0 +1,39 @@
+ppw-dashboard-items-table {
+    --ppw-dashboard-items-table-width: 1920px;
+}
+
+.ppw-confirmation-demo-grid {
+    display: grid;
+    background-color: var(--ppw-dashboard-items-table-primary-color);
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1px;
+}
+
+.ppw-grid-item {
+    padding: 32px;
+    background-color: var(--ppw-dashboard-items-table-background-color);
+    cursor: pointer;
+
+    .ppw-dashboard-number {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .ppw-dashboard-text {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        margin-top: 8px;
+    }
+
+    mat-icon {
+        color: var(--ppw-dashboard-items-table-primary-color);
+        font-size: 60px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ppw-dashboard-item-spinner-wrapper {
+        text-align: center;
+        --mat-progress-spinner-active-indicator-color: var(--ppw-dashboard-items-table-primary-color);
+    }
+}

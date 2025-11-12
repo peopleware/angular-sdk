@@ -1,111 +1,80 @@
 import { Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
-import { MatIcon } from '@angular/material/icon'
-import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { Router } from '@angular/router'
 import { DashboardItem, DashboardItemAction, DashboardItemsTableComponent } from '@ppwcode/ng-common-components'
 import { getFullRoutePath } from '@ppwcode/ng-router'
-import { ROUTE_MAP } from '../app-routing.module'
+import { ROUTE_MAP } from '../app.routes'
 
 @Component({
     selector: 'ppw-dashboard-item-demo',
-    imports: [DashboardItemsTableComponent, MatIcon, MatProgressSpinner],
+    imports: [DashboardItemsTableComponent],
     templateUrl: './dashboard-item-demo.component.html',
     styleUrl: './dashboard-item-demo.component.scss'
 })
 export class DashboardItemDemoComponent {
     #router: Router = inject(Router)
 
-    private readonly confirmationDemoTemplate: Signal<TemplateRef<unknown>> =
-        viewChild.required('confirmationDemoTemplate')
+    private readonly componentsDemoTemplate: Signal<TemplateRef<unknown>> = viewChild.required('componentsDemoTemplate')
 
     protected readonly dashboardItems: Signal<DashboardItem[]> = computed(() => [
-        this.#getConfirmationDemoItem(),
-        this.#getExpandableCardDemoItem(),
-        this.#getTableDemoItem(),
-        this.#getMessageBarDemoItem()
+        this.#getComponentsDemoItem(),
+        this.#getInMemoryLoggingDemoItem(),
+        this.#getGlobalErrorHandlerDemoItem()
     ])
 
-    #getConfirmationDemoItem(): DashboardItem {
+    #getComponentsDemoItem(): DashboardItem {
         const openDemoAction: DashboardItemAction = {
             labelKey: 'button.open',
-            clickFn: this.#openConfirmationDialogDemo.bind(this)
+            clickFn: this.#openComponentsDemo.bind(this)
         }
         return {
-            template: this.confirmationDemoTemplate(),
-            titleKey: 'navigation.confirmation_dialog_with_long_title',
-            descriptionKey: 'dashboard.confirmation-dialog-description',
+            iconClass: 'fa-solid fa-boxes-stacked',
+            titleKey: 'navigation.components',
+            descriptionKey: 'dashboard.components-description',
             actions: [openDemoAction],
             actionsAlignment: 'start',
             defaultAction: openDemoAction
         }
     }
 
-    #getExpandableCardDemoItem(): DashboardItem {
+    #getInMemoryLoggingDemoItem(): DashboardItem {
         const openDemoAction: DashboardItemAction = {
             labelKey: 'button.open',
-            clickFn: this.#openExpandableCardDemo.bind(this)
+            clickFn: this.#openInMemoryLoggingDemo.bind(this)
         }
         return {
-            iconClass: 'fa-solid fa-house',
-            titleKey: 'navigation.expandable_card',
-            descriptionKey: 'dashboard.expandable-card-description',
+            iconClass: 'fa-solid fa-file-code',
+            titleKey: 'navigation.in_memory_logging',
+            descriptionKey: 'dashboard.in-memory-logging-description',
             actions: [openDemoAction],
             actionsAlignment: 'center',
             defaultAction: openDemoAction
         }
     }
 
-    #getTableDemoItem(): DashboardItem {
-        const openTableDemoAction: DashboardItemAction = {
-            labelKey: 'button.open',
-            clickFn: this.#openTableDemo.bind(this)
-        }
-        const openFormTableDemoAction: DashboardItemAction = {
-            labelKey: 'navigation.form_table',
-            clickFn: this.#openFormTableDemo.bind(this)
-        }
-        return {
-            iconClass: 'fa-solid fa-laptop-code',
-            titleKey: 'navigation.table',
-            descriptionKey: '',
-            actions: [openTableDemoAction, openFormTableDemoAction],
-            actionsAlignment: 'end',
-            actionsDirection: 'column',
-            defaultAction: openTableDemoAction
-        }
-    }
-
-    #getMessageBarDemoItem(): DashboardItem {
+    #getGlobalErrorHandlerDemoItem(): DashboardItem {
         const openDemoAction: DashboardItemAction = {
-            labelKey: 'navigation.message_bar',
-            clickFn: this.#openMessageBarDemo.bind(this)
+            labelKey: 'button.open',
+            clickFn: this.#openGlobalErrorHandlerDemo.bind(this)
         }
         return {
-            iconClass: 'fa-solid fa-triangle-exclamation',
-            titleKey: 'navigation.message_bar',
-            descriptionKey: '',
-            actions: [],
+            iconClass: 'fa-solid fa-bug',
+            titleKey: 'navigation.global_error_handler',
+            descriptionKey: 'dashboard.global-error-handler-description',
+            actions: [openDemoAction],
+            actionsAlignment: 'center',
             defaultAction: openDemoAction
         }
     }
 
-    #openConfirmationDialogDemo(): void {
-        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.confirmationDialog))
+    #openComponentsDemo(): void {
+        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.components))
     }
 
-    #openExpandableCardDemo(): void {
-        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.expandableCard))
+    #openInMemoryLoggingDemo(): void {
+        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.inMemoryLogging))
     }
 
-    #openTableDemo(): void {
-        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.table))
-    }
-
-    #openFormTableDemo(): void {
-        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.formTable))
-    }
-
-    #openMessageBarDemo(): void {
-        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.messageBar))
+    #openGlobalErrorHandlerDemo(): void {
+        this.#router.navigateByUrl(getFullRoutePath(ROUTE_MAP.globalErrorHandler))
     }
 }

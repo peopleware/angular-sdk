@@ -136,7 +136,7 @@ type SearchPlayersForm = {
         MatTab
     ]
 })
-export class TableDemoComponent
+export default class TableDemoComponent
     extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))
     implements OnInit
 {

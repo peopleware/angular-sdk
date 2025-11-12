@@ -8,6 +8,6 @@ import { MessageBarComponent as PpwMessageBarComponent, Severity } from '@ppwcod
     templateUrl: './message-bar.component.html',
     styleUrls: ['./message-bar.component.scss']
 })
-export class MessageBarComponent {
+export default class MessageBarComponent {
     public readonly severity: typeof Severity = Severity
 }

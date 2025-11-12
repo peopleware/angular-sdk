@@ -1,6 +1,6 @@
-import { NavigationItem } from '@ppwcode/ng-wireframe'
 import { getFullRoutePath } from '@ppwcode/ng-router'
-import { ROUTE_MAP } from './app-routing.module'
+import { NavigationItem } from '@ppwcode/ng-wireframe'
+import { ROUTE_MAP } from './app.routes'
 
 const dashboardNavigationItem: NavigationItem = {
     label: 'navigation.dashboard_item',
@@ -11,31 +11,31 @@ const dashboardNavigationItem: NavigationItem = {
 const confirmationDialogNavigationItem: NavigationItem = {
     label: 'navigation.confirmation_dialog',
     icon: 'fa-solid fa-circle-question',
-    fullRouterPath: getFullRoutePath(ROUTE_MAP.confirmationDialog)
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.confirmationDialog)
 }
 
 const expandableCardNavigationItem: NavigationItem = {
     label: 'navigation.expandable_card',
     icon: 'fa-solid fa-house',
-    fullRouterPath: getFullRoutePath(ROUTE_MAP.expandableCard)
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.expandableCard)
 }
 
 const tableNavigationItem: NavigationItem = {
     label: 'navigation.table',
     icon: 'fa-solid fa-laptop-code',
-    fullRouterPath: getFullRoutePath(ROUTE_MAP.table)
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.table)
 }
 
 const formTableNavigationItem: NavigationItem = {
     label: 'navigation.form_table',
     icon: 'fa-solid fa-table-list',
-    fullRouterPath: getFullRoutePath(ROUTE_MAP.formTable)
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.formTable)
 }
 
 const messageBarNavigationItem: NavigationItem = {
     label: 'navigation.message_bar',
     icon: 'fa-solid fa-triangle-exclamation',
-    fullRouterPath: getFullRoutePath(ROUTE_MAP.messageBar)
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.messageBar)
 }
 
 const componentsNavigationItemContainer: NavigationItem = {

@@ -1,15 +1,15 @@
+import { AsyncPipe, NgOptimizedImage } from '@angular/common'
 import { Component, computed, inject, signal, Signal } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { MatCard, MatCardContent } from '@angular/material/card'
+import { MatIcon } from '@angular/material/icon'
+import { MatSlideToggle } from '@angular/material/slide-toggle'
+import { RouterOutlet } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { mixinResponsiveObservers } from '@ppwcode/ng-common'
 import { SidebarOptions, WireframeComponent } from '@ppwcode/ng-wireframe'
 import { getNavigationItems } from './app.navigation'
-import { RouterOutlet } from '@angular/router'
-import { MatIcon } from '@angular/material/icon'
 import LanguageSelectComponent from './language-select/language-select.component'
-import { MatCard, MatCardContent } from '@angular/material/card'
-import { MatSlideToggle } from '@angular/material/slide-toggle'
-import { FormsModule } from '@angular/forms'
-import { AsyncPipe, NgOptimizedImage } from '@angular/common'
 
 @Component({
     selector: 'ppw-root',
