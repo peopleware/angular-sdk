@@ -7,4 +7,4 @@ import { ExpandableCardComponent } from '@ppwcode/ng-common-components'
     styleUrls: ['./expandable-card-demo.component.scss'],
     imports: [ExpandableCardComponent]
 })
-export class ExpandableCardDemoComponent {}
+export default class ExpandableCardDemoComponent {}

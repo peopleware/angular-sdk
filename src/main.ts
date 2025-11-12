@@ -16,8 +16,8 @@ import {
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
 import { providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
-import { routes } from './app/app-routing.module'
 import { AppComponent } from './app/app.component'
+import { routes } from './app/app.routes'
 import { EmptyAsyncResultComponent } from './app/table/empty-async-result.component'
 import { getLuxonFormatter } from './app/table/table-demo.component'
 

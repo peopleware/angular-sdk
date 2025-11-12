@@ -9,7 +9,7 @@ import { ConfirmationDialogComponent, ConfirmationDialogData } from '@ppwcode/ng
     templateUrl: './confirmation-dialog-demo.component.html',
     styleUrls: ['./confirmation-dialog-demo.component.scss']
 })
-export class ConfirmationDialogDemoComponent {
+export default class ConfirmationDialogDemoComponent {
     private matDialog: MatDialog = inject(MatDialog)
 
     public openConfirmationDialog(): void {

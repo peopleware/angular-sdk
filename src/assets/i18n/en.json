@@ -8,8 +8,11 @@
         "title": "Confirm execution?"
     },
     "dashboard": {
+        "components-description": "Opens the dashboard page for the PPW components",
         "confirmation-dialog-description": "A demo page showcasing the confirm dialog component",
-        "expandable-card-description": "A demo page that shows all possibilities with the expandable card component"
+        "expandable-card-description": "A demo page that shows all possibilities with the expandable card component",
+        "global-error-handler-description": "A demo page that shows all possibilities with the global error handler",
+        "in-memory-logging-description": "A demo page that shows all possibilities with the in-memory logging provider"
     },
     "global-error-dialog": {
         "copy-all-errors": "Copy All Errors",
