@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatTab, MatTabGroup } from '@angular/material/tabs'
 import { TranslatePipe } from '@ngx-translate/core'
 import {
     AsyncResultModule,
@@ -23,7 +24,6 @@ import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
 import { BehaviorSubject, combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs'
 import { ExpandableTableDemoComponent } from './expandable-table-demo/expandable-table-demo.component'
-import { MatTab, MatTabGroup } from '@angular/material/tabs'
 
 export interface Player extends Record<string, unknown> {
     id: number
