@@ -208,6 +208,9 @@ export class TableDemoComponent
             },
             onCtrlClick: (row: Player) => {
                 this.lastClickedRow = { ...row, CTRL: true }
+            },
+            disableRowSelection: (row: Player) => {
+                return row.age > 32
             }
         }
     }
