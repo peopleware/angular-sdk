@@ -2,8 +2,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
 import { Component, computed, inject, input, InputSignal, Signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
+import { MatIcon } from '@angular/material/icon'
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav'
-import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router'
+import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router'
+import { BreadcrumbComponent } from '@ppwcode/ng-router'
 import { filter } from 'rxjs'
 import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { SidebarOptions } from '../model/sidebar-options'
@@ -12,7 +14,16 @@ import { ToolbarComponent } from '../toolbar/toolbar.component'
 
 @Component({
     selector: 'ppw-wireframe',
-    imports: [CommonModule, MatSidenavModule, LeftSidenavComponent, ToolbarComponent, RouterOutlet],
+    imports: [
+        CommonModule,
+        MatSidenavModule,
+        LeftSidenavComponent,
+        ToolbarComponent,
+        RouterOutlet,
+        BreadcrumbComponent,
+        MatIcon,
+        RouterLink
+    ],
     templateUrl: './wireframe.component.html',
     styleUrls: ['./wireframe.component.scss']
 })
@@ -30,6 +41,7 @@ export class WireframeComponent {
     public sidebarOptions: InputSignal<SidebarOptions | undefined> = input()
     public toolbarHeightPx: InputSignal<number | undefined> = input()
     public hideSidenavWhenNoNavigationItems: InputSignal<boolean> = input(false)
+    public showBreadcrumb: InputSignal<boolean> = input(false)
 
     // View children
     public matDrawer: Signal<MatDrawer | undefined> = viewChild(MatDrawer)
