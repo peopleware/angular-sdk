@@ -19,7 +19,7 @@
     }
     <ng-container ppw-toolbar-right-content>
         <mat-icon>person</mat-icon>
-        @if ((isSmallScreen$ | async) === false) {
+        @if (!isAtLeastSmall()) {
             <span>Username</span>
         }
         <ppw-language-select></ppw-language-select>
