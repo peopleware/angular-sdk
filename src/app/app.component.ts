@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { MatCard, MatCardContent } from '@angular/material/card'
 import { MatIcon } from '@angular/material/icon'
 import { MatSlideToggle } from '@angular/material/slide-toggle'
-import { RouterOutlet } from '@angular/router'
+import { RouterLink, RouterOutlet } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { mixinResponsiveObservers } from '@ppwcode/ng-common'
 import { SidebarOptions, WireframeComponent } from '@ppwcode/ng-wireframe'
@@ -25,7 +25,8 @@ import LanguageSelectComponent from './language-select/language-select.component
         FormsModule,
         WireframeComponent,
         NgOptimizedImage,
-        AsyncPipe
+        AsyncPipe,
+        RouterLink
     ]
 })
 export class AppComponent extends mixinResponsiveObservers() {
@@ -34,6 +35,7 @@ export class AppComponent extends mixinResponsiveObservers() {
     protected readonly showToolbarLogo = signal(false)
     protected readonly showToolbarBackground = signal(false)
     protected readonly showPageTitle = signal(true)
+    protected readonly showBreadcrumb = signal(true)
     protected readonly flatWireframeStyle = signal(true)
     protected readonly closedByDefaultOnLargerDevice = signal(false)
 

@@ -1,0 +1,104 @@
+ul.ppw-breadcrumb {
+    width: 100%;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ppw-breadcrumb-spacing, 1em);
+    font-size: 1em;
+    line-height: 1.5em;
+    margin: 0;
+    padding: 0;
+    background-color: var(--ppw-breadcrumb-background-color, white);
+    box-shadow: 0 2px 10px
+        var(--ppw-breadcrumb-box-shadow-color, var(--mat-sys-outline-variant, var(--mat-divider-color)));
+
+    li {
+        position: relative;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        padding: 0.5em 0.5em 0.5em 1em;
+
+        &.ppw-breadcrumb__home-item {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        &:empty {
+            display: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--ppw-breadcrumb-text-color, var(--mat-sys-on-background));
+
+            &:hover {
+                color: var(--ppw-breadcrumb-text-hover-color, var(--mat-sys-primary, var(--mat-primary-color)));
+            }
+        }
+
+        // Overlay 2 triangles created by borders to create the arrow effect
+        &:not(:last-child) {
+            &:before,
+            &:after {
+                // The full height of the breadcrumb item is 1.5em (line-height), combined with a padding top and bottom of 0.5em each, gives a total of 2.5em.
+                // Since the "arrow" is a combination of two borders, we need to divide this height by 2 to get the border height --> 1.25em
+                // The extra pixel is used to offset by 1px so that it connects nicely with the container.
+                --calculated-border-height: calc(1.25em + 1px);
+                content: '';
+                position: absolute;
+                right: -1em;
+                top: -1px;
+                z-index: 1;
+                border-left: 10px solid
+                    var(--ppw-breadcrumb-background-color, var(--mat-sys-outline-variant, var(--mat-divider-color)));
+                border-top: var(--calculated-border-height) solid transparent;
+                border-bottom: var(--calculated-border-height) solid transparent;
+            }
+
+            &:before {
+                z-index: 2;
+                right: calc(-1em + 1px); // move 1px to the left to show 1px of the underlying after element
+            }
+
+            &:after {
+                border-left-color: var(
+                    --ppw-breadcrumb-separator-color,
+                    var(--mat-sys-outline-variant, var(--mat-divider-color))
+                );
+            }
+        }
+    }
+}
+
+.enable-animation {
+    &.show-breadcrumb-item-animation {
+        animation: showBreadcrumbItem 0.5s;
+    }
+    &.hide-breadcrumb-item-animation {
+        animation: hideBreadcrumbItem 0.5s;
+    }
+}
+
+@keyframes showBreadcrumbItem {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hideBreadcrumbItem {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
