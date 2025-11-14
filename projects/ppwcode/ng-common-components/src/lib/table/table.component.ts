@@ -30,8 +30,11 @@ export class TableComponent<TRecord>
      */
     protected _mapToLocalKeyValuePairs(
         items: Array<Record<string, unknown>>,
-        columns: Array<Column<TRecord, unknown>>
+        columns: Array<Column<TRecord, unknown>>,
+        disabledFn?: (record: TRecord) => boolean
     ): Array<TableRecord<TRecord>> {
+        disabledFn ??= () => false
+
         const records: Array<Record<string, unknown>> = items ?? []
 
         return records.map((record, index) => {
@@ -44,7 +47,8 @@ export class TableComponent<TRecord>
             return {
                 initialRecord: record,
                 mappedValues,
-                trackByValue: this.trackBy()(index, record as TRecord)
+                trackByValue: this.trackBy()(index, record as TRecord),
+                selectable: !disabledFn(record as TRecord)
             } as TableRecord<TRecord>
         })
     }
