@@ -262,6 +262,7 @@ export default class TableDemoComponent
         return of({
             pageSize: pageSize,
             pageIndex: page,
+            page,
             totalPages: Math.ceil(players.length / pageSize),
             totalCount: players.length,
             hasPreviousPage: false,

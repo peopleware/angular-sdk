@@ -2,7 +2,7 @@
     (page)="handlePageEvent($event)"
     [length]="entity().totalCount"
     [pageSize]="entity().pageSize"
-    [pageIndex]="entity().pageIndex - 1"
+    [pageIndex]="entity().page - 1"
     [pageSizeOptions]="pageSizeOptions()"
     [showFirstLastButtons]="showFirstLastButtons()"
     [hidePageSize]="hidePageSize()"
