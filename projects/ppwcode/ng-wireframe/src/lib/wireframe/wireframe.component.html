@@ -54,6 +54,15 @@
                     </ng-container>
                 </ppw-toolbar>
             }
+            @if (showBreadcrumb()) {
+                <ppw-breadcrumb>
+                    <ng-container ppw-breadcrumb-home>
+                        <ng-content select="[ppw-breadcrumb-home]">
+                            <a routerLink="/" class="ppw-home-page-breadcrumb"><mat-icon>home</mat-icon></a>
+                        </ng-content></ng-container
+                    >
+                </ppw-breadcrumb>
+            }
             <div class="ppw-page-content">
                 <ng-content select="[ppw-page-content]">
                     <router-outlet></router-outlet>

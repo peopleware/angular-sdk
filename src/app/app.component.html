@@ -5,6 +5,7 @@
     [toolbarHeightPx]="toolbarHeightPx()"
     [hideSidenavWhenNoNavigationItems]="true"
     [class.flat]="flatWireframeStyle()"
+    [showBreadcrumb]="showBreadcrumb()"
 >
     @if (showToolbarLogo()) {
         <ng-container ppw-toolbar-left-content>
@@ -25,12 +26,10 @@
         <ppw-language-select></ppw-language-select>
     </ng-container>
     <ng-container ppw-sidebar-top-content></ng-container>
+    <ng-container ppw-breadcrumb-home>
+        <a routerLink="/" class="ppw-home-page-breadcrumb">Go Home</a>
+    </ng-container>
     <ng-container ppw-page-content>
-        <ppw-breadcrumb>
-            <ng-container ppw-breadcrumb-home>
-                <a routerLink="/" class="ppw-home-page-breadcrumb"><mat-icon>home</mat-icon></a>
-            </ng-container>
-        </ppw-breadcrumb>
         @if (flatWireframeStyle()) {
             <mat-card class="page-content">
                 <mat-card-content>
@@ -46,6 +45,7 @@
             <div class="page-toggles flex-column gap-8">
                 <mat-slide-toggle [(ngModel)]="showToolbarLogo">Show logo</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="showPageTitle">Show title</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="showBreadcrumb">Show breadcrumb</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="showToolbarBackground">Show toolbar background</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="flatWireframeStyle">Flat wireframe style</mat-slide-toggle>
                 <mat-slide-toggle [(ngModel)]="closedByDefaultOnLargerDevice">Menu closed by default</mat-slide-toggle>
