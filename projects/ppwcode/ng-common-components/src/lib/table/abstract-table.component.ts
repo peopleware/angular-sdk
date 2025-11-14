@@ -37,6 +37,8 @@ import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.di
 import { TableRecord } from './models/table-record.model'
 import { PpwTableOptions } from './options/table-options'
 import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
+import { toSignal } from '@angular/core/rxjs-interop'
+import { map } from 'rxjs'
 
 @Directive()
 export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGroup> | Array<Record<string, unknown>>>
@@ -105,10 +107,16 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
 
         return names
     })
+
+    protected readonly localRecords = computed(() =>
+        this._mapToLocalKeyValuePairs(this.data(), this.columns(), this.options()?.rows?.disableRowSelection)
+    )
+
+    protected readonly selectableRows = computed(() => this.localRecords().filter((record) => record.selectable))
+
     /** The data source for the material table. */
     public dataSource: WritableSignal<MatTableDataSource<TableRecord<TRecord>>> = linkedSignal(() => {
-        const localRecords = this._mapToLocalKeyValuePairs(this.data(), this.columns())
-        return new MatTableDataSource(localRecords)
+        return new MatTableDataSource(this.localRecords())
     })
     dragDisabled = true
     public selection = new SelectionModel<TableRecord<TRecord>>(
@@ -119,6 +127,33 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
             return o1.trackByValue === o2.trackByValue
         }
     )
+
+    readonly #selectedRows = toSignal(
+        this.stopOnDestroy(this.selection.changed).pipe(map(() => this.selection.selected)),
+        { initialValue: this.selection.selected }
+    )
+
+    readonly #currentPageSelectedRows = computed(() => {
+        const selected = this.#selectedRows().map((r) => r.initialRecord)
+        const selectable = this.selectableRows().map((r) => r.initialRecord)
+
+        return selectable.filter((row) => selected.includes(row))
+    })
+
+    public readonly isAllSelected = computed(() => {
+        const selectableCount = this.selectableRows().length
+        const selectedCount = this.#currentPageSelectedRows().length
+
+        return selectableCount > 0 && selectableCount === selectedCount
+    })
+
+    public readonly isSomeSelected = computed(() => {
+        const selectableCount = this.selectableRows().length
+        const selectedCount = this.#currentPageSelectedRows().length
+
+        return selectedCount > 0 && selectedCount < selectableCount
+    })
+
     protected readonly notUndefined = notUndefined
     #elementRef: ElementRef = inject(ElementRef)
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
@@ -134,52 +169,13 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
         return cssHeightValue !== 'auto' && cssHeightValue !== ''
     }
 
-    /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
-        const numRows = this.#getNumberOfSelectableRows()
-        if (numRows === 0) {
-            return false
-        }
-        const selectedRecords = this.#getCurrentlySelectedRows()
-        return (selectedRecords?.length ?? 0) === numRows
-    }
-
     /** Whether the given record is expanded. */
     isExpanded(record: TRecord): boolean {
         return this.#expandedRecord() === record
     }
 
-    /** Whether the number of selected elements is greater than 0 but not equals to the total number of rows. */
-    isSomeSelected() {
-        const numRows = this.#getNumberOfSelectableRows()
-        if (numRows === 0) {
-            return false
-        }
-        const selectedRecords = this.#getCurrentlySelectedRows()
-        return (selectedRecords?.length ?? 0) > 0 && (selectedRecords?.length ?? 0) < numRows
-    }
-
-    #getCurrentlySelectedRows() {
-        return this.dataSource().data.filter((record: TableRecord<TRecord>) => {
-            return this.selection.isSelected(record)
-        })
-    }
-
-    #getNumberOfSelectableRows() {
-        const disabledRowSelectionFn = this.options()?.rows?.disableRowSelection
-        return (
-            !disabledRowSelectionFn
-                ? this.dataSource().data
-                : this.dataSource().data.filter((item) => !disabledRowSelectionFn(item.initialRecord))
-        ).length
-    }
-
     public isRowSelectionDisabled(row: TableRecord<TRecord>): boolean {
-        const disabledRowSelectionFn = this.options()?.rows?.disableRowSelection
-        if (!disabledRowSelectionFn) {
-            return false
-        }
-        return disabledRowSelectionFn(row.initialRecord)
+        return !row.selectable
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -188,7 +184,7 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
             this.selection.clear()
         } else {
             this.dataSource().data.forEach((row: TableRecord<TRecord>) => {
-                if (!this.isRowSelectionDisabled(row)) {
+                if (row.selectable) {
                     this.selection.select(row)
                 }
             })
@@ -268,7 +264,8 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
      */
     protected abstract _mapToLocalKeyValuePairs(
         items: TData,
-        columns: Array<Column<TRecord, unknown>>
+        columns: Array<Column<TRecord, unknown>>,
+        disabledFn?: (record: TRecord) => boolean
     ): Array<TableRecord<TRecord>>
 }
 

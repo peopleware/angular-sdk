@@ -5,4 +5,6 @@ export interface TableRecord<T = unknown> {
     mappedValues: Record<string, unknown>
     /** The value generated for the trackBy function. */
     trackByValue: unknown
+    /** Whether the record can be selected. */
+    selectable: boolean
 }

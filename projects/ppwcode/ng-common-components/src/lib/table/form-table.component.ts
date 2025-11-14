@@ -28,8 +28,11 @@ export class FormTableComponent<TRecord> extends AbstractTableComponent<TRecord>
      */
     protected _mapToLocalKeyValuePairs(
         items: FormArray<FormGroup>,
-        columns: Array<Column<TRecord, unknown>>
+        columns: Array<Column<TRecord, unknown>>,
+        disabledFn?: (record: TRecord) => boolean
     ): Array<TableRecord<TRecord>> {
+        disabledFn ??= () => false
+
         const records: FormGroup[] = items.controls ?? []
 
         return records.map((record, index) => {
@@ -42,7 +45,8 @@ export class FormTableComponent<TRecord> extends AbstractTableComponent<TRecord>
             return {
                 initialRecord: record,
                 mappedValues,
-                trackByValue: this.trackBy()(index, record as TRecord)
+                trackByValue: this.trackBy()(index, record as TRecord),
+                selectable: !disabledFn(record as TRecord)
             } as TableRecord<TRecord>
         })
     }
