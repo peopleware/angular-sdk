@@ -1,0 +1,23 @@
+<ul class="ppw-breadcrumb">
+    <li
+        class="ppw-breadcrumb__home-item"
+        [class.enable-animation]="options.enableAnimations"
+        animate.enter="show-breadcrumb-item-animation"
+        animate.leave="hide-breadcrumb-item-animation"
+    >
+        <ng-content select="[ppw-breadcrumb-home]" />
+    </li>
+    @for (breadcrumb of breadcrumbs(); track breadcrumb.url; let last = $last) {
+        <li
+            [class.enable-animation]="options.enableAnimations"
+            animate.enter="show-breadcrumb-item-animation"
+            animate.leave="hide-breadcrumb-item-animation"
+        >
+            @if (!last) {
+                <a [routerLink]="breadcrumb.url">{{ breadcrumb.label | translate }}</a>
+            } @else {
+                {{ breadcrumb.label }}
+            }
+        </li>
+    }
+</ul>

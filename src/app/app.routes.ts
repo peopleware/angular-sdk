@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router'
+import { BREADCRUMB_KEY } from '@ppwcode/ng-router'
 import { defineRoute } from '../../projects/ppwcode/ng-router/src/lib/route-map/define-route'
 import { getRouteSegment } from '../../projects/ppwcode/ng-router/src/lib/route-map/route-retrieval'
 import { DashboardItemDemoComponent } from './dashboard-item-demo/dashboard-item-demo.component'
@@ -25,7 +26,8 @@ export const routes: Routes = [
         title: 'navigation.components',
         loadComponent: () =>
             import('./components-page-container/components-page-container.component').then((it) => it.default),
-        loadChildren: () => import('./components.routes').then((it) => it.componentsRoutes)
+        loadChildren: () => import('./components.routes').then((it) => it.componentsRoutes),
+        data: { [BREADCRUMB_KEY]: 'navigation.components' }
     },
     {
         path: getRouteSegment(ROUTE_MAP.dashboardItem),

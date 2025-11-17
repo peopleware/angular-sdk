@@ -57,21 +57,39 @@ The following CSS variables are available for theming. Just add them to the `bod
 The wireframe places an application layout with responsive left navigation and a toolbar on your web page.
 You can hide the wireframe by adding a flag in the route configuration - In data add the `'showWireframe: false'` flag - If this flag is not added it will by default be true and show the wireframe
 
+#### Parameters
+
+-   navigationItems: An array of `NavigationItem` objects.
+-   sidebarOptions: The options for the sidebar.
+-   toolbarHeightPx: The height of the toolbar in pixels.
+-   hideSidenavWhenNoNavigationItems: If true, the sidenav will be hidden when there are no navigation items.
+-   showBreadcrumb: If true, the breadcrumb will be shown.
+
 #### Content
 
-Content can be added in 3 places:
+Content can be added in 5 places:
 
 -   The left side of the toolbar: `ppw-toolbar-left-content`
 -   The right side of the toolbar: `ppw-toolbar-right-content`
 -   Above the navigation menu items: `ppw-sidebar-top-content`
 -   At the bottom of the drawer: `ppw-sidebar-bottom-content`
+-   The breadcrumb home link: `ppw-breadcrumb-home`
 
 Complete example:
 
-    <ppw-wireframe [navigationItems]="getNavigationItems()" [sidebarOptions]="sidebarOptions">
+    <ppw-wireframe [navigationItems]="getNavigationItems()" [sidebarOptions]="sidebarOptions" [toolbarHeightPx]="60" [hideSidenavWhenNoNavigationItems]="true" [showBreadcrumb]="true">
+        <ng-container ppw-toolbar-left-content><img
+                class="toolbar-left-logo"
+                ngSrc="{{ toolbarLogoUrl() }}"
+                alt="Logo"
+                height="{{ toolbarLogoHeight() }}"
+                width="{{ toolbarLogoWidth() }}"
+                priority="eager"
+        /></ng-container>
         <ng-container ppw-toolbar-right-content><mat-icon>person</mat-icon></ng-container>
         <ng-container ppw-sidebar-top-content></ng-container>
         <ng-container ppw-sidebar-bottom-content><div class="version-info"><div>v0.0.2</div></div></ng-container>
+        <ng-container ppw-breadcrumb-home><a routerLink="/" class="ppw-home-page-breadcrumb">Go Home</a></ng-container>
     </ppw-wireframe>
 
 #### Logo

@@ -5,6 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterTestingModule } from '@angular/router/testing'
 import { provideTranslateService } from '@ngx-translate/core'
+import { provideBreadcrumbOptions } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
 import { AppComponent } from './app.component'
 import LanguageSelectComponent from './language-select/language-select.component'
@@ -22,7 +23,7 @@ describe('AppComponent', () => {
                 WireframeComponent,
                 LanguageSelectComponent
             ],
-            providers: [provideTranslateService({})]
+            providers: [provideTranslateService({}), provideBreadcrumbOptions()]
         })
     )
 
