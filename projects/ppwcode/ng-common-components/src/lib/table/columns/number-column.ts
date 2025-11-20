@@ -1,3 +1,4 @@
+import { Signal } from '@angular/core'
 import { Column, ColumnType } from './column'
 
 /**
@@ -26,6 +27,11 @@ export class NumberColumn<TRecord> implements Column<TRecord, number> {
          * Whether the column should be sticky at the end of the row.
          */
         public stickyEnd: boolean,
+
+        /**
+         * Whether the column is sortable.
+         */
+        public sortable: Signal<boolean>,
 
         /**
          * The name of the property to get the value from or a function that can be called

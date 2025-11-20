@@ -13,6 +13,7 @@ import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.di
 import { TableComponent } from './table.component'
 import { FormTableComponent } from './form-table.component'
 import { MatButtonModule } from '@angular/material/button'
+import { MatSortModule } from '@angular/material/sort'
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { MatButtonModule } from '@angular/material/button'
         NgForOf,
         NgTemplateOutlet,
         CdkDragPlaceholder,
-        NgComponentOutlet
+        NgComponentOutlet,
+        MatSortModule
     ],
     exports: [
         TableComponent,
@@ -46,7 +48,8 @@ import { MatButtonModule } from '@angular/material/button'
         PpwColumnDirective,
         PpwColumnHeaderDirective,
         PpwColumnCellDirective,
-        PpwEmptyTablePageDirective
+        PpwEmptyTablePageDirective,
+        MatSortModule
     ]
 })
 export class PpwTableModule {}

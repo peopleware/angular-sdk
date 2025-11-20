@@ -1,3 +1,5 @@
+import { Signal } from '@angular/core'
+
 /**
  * Enum containing the different column types supported by the DataTablesModule.
  */
@@ -28,6 +30,9 @@ export interface Column<TRecord, TValue> {
 
     /** Whether the column should be sticky at the end of the row. */
     stickyEnd: boolean
+
+    /** Whether the column is sortable. */
+    sortable: Signal<boolean>
 
     value?: string | ((record: TRecord) => TValue)
 }
