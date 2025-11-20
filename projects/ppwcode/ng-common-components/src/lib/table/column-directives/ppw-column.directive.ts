@@ -72,6 +72,9 @@ export class PpwColumnDirective<TRecord> {
         string | ((record: TRecord) => unknown) | undefined
     >(undefined)
 
+    /** Whether the column is sortable. */
+    public sortable: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute })
+
     // Content children
     /** Reference to the optional header cell template. */
     private headerCellDirective: Signal<PpwColumnHeaderDirective | undefined> = contentChild(PpwColumnHeaderDirective)
@@ -112,6 +115,7 @@ export class PpwColumnDirective<TRecord> {
                 this.label() ?? '',
                 this.sticky(),
                 this.stickyEnd(),
+                this.sortable,
                 () => notUndefined(this.columnCellDirective()).templateRef
             )
         }
@@ -130,6 +134,7 @@ export class PpwColumnDirective<TRecord> {
                     this.sticky(),
                     this.stickyEnd(),
                     this.dateFormatter,
+                    this.sortable,
                     this.valueRetrieval() ?? (this.name() as string)
                 )
             case ColumnType.Number:
@@ -138,6 +143,7 @@ export class PpwColumnDirective<TRecord> {
                     this.label() ?? '',
                     this.sticky(),
                     this.stickyEnd(),
+                    this.sortable,
                     (this.valueRetrieval() as string | ((record: TRecord) => number)) ?? (this.name() as string),
                     this.numberFormatter
                 )
@@ -147,6 +153,7 @@ export class PpwColumnDirective<TRecord> {
                     this.label() ?? '',
                     this.sticky(),
                     this.stickyEnd(),
+                    this.sortable,
                     () => notUndefined(this.columnCellDirective()).templateRef
                 )
             case ColumnType.Text:
@@ -155,6 +162,7 @@ export class PpwColumnDirective<TRecord> {
                     this.label() ?? '',
                     this.sticky(),
                     this.stickyEnd(),
+                    this.sortable,
                     (this.valueRetrieval() as string | ((record: TRecord) => string)) ?? (this.name() as string)
                 )
             default:

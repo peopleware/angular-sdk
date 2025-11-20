@@ -1,3 +1,4 @@
+import { Signal } from '@angular/core'
 import { Column, ColumnType } from './column'
 
 /**
@@ -31,6 +32,11 @@ export class DateColumn<TDate, TRecord> implements Column<TRecord, TDate> {
          * The format to show the date value.
          */
         public formatFn: (value: TDate) => string,
+
+        /**
+         * Whether the column is sortable.
+         */
+        public sortable: Signal<boolean>,
 
         /**
          * The name of the property to get the value from or a function that can be called

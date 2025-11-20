@@ -25,6 +25,7 @@ import {
 } from '@angular/core'
 import { FormArray, FormGroup } from '@angular/forms'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
+import { Sort } from '@angular/material/sort'
 import { assert, notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
@@ -39,6 +40,7 @@ import { PpwTableOptions } from './options/table-options'
 import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { map } from 'rxjs'
+import { SortChange } from './models/sort-change.model'
 
 @Directive()
 export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGroup> | Array<Record<string, unknown>>>
@@ -61,9 +63,12 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     public options: InputSignal<PpwTableOptions<TRecord> | undefined> = input<PpwTableOptions<TRecord> | undefined>(
         undefined
     )
+    public sort: InputSignal<Sort | undefined> = input<Sort | undefined>(undefined)
+
     // Outputs
     public selectionChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
     public orderChanged: OutputEmitterRef<TableRecord<TRecord>[]> = output<TableRecord<TRecord>[]>()
+    public sortChanged: OutputEmitterRef<SortChange> = output<SortChange>()
     // Content children
     public emptyPageTemplate: Signal<TemplateRef<unknown> | undefined> = contentChild(PpwEmptyTablePageDirective, {
         read: TemplateRef
@@ -254,6 +259,13 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
         moveItemInArray(this.dataSource().data, event.previousIndex, event.currentIndex)
         this.table().renderRows()
         this.orderChanged.emit(this.dataSource().data)
+    }
+
+    public handleSortChange(sort: Sort): void {
+        this.sortChanged.emit({
+            column: sort.active,
+            direction: sort.direction
+        })
     }
 
     /**

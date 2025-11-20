@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core'
+import { Signal, TemplateRef } from '@angular/core'
 import { Column, ColumnType } from './column'
 
 /**
@@ -27,6 +27,11 @@ export class TemplateColumn<TRecord> implements Column<TRecord, TemplateRef<any>
          * Whether the column should be sticky at the end of the row.
          */
         public stickyEnd: boolean,
+
+        /**
+         * Whether the column is sortable.
+         */
+        public sortable: Signal<boolean>,
 
         /**
          * The name of the property to get the value from or a function that can be called

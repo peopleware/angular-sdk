@@ -1,6 +1,10 @@
 <section class="ppw-table-container" [class.fixed-height]="hasFixedHeight">
     <table
         mat-table
+        matSort
+        [matSortActive]="sort()?.active ?? ''"
+        [matSortDirection]="sort()?.direction ?? ''"
+        (matSortChange)="handleSortChange($event)"
         class="ppw-table"
         [class.ppw-table-header-hidden]="!!options()?.header?.hidden"
         [class.ppw-table-header-hidden-first-row-add-top-border]="
@@ -69,6 +73,8 @@
             <ng-container [matColumnDef]="column.name" [sticky]="column.sticky" [stickyEnd]="column.stickyEnd">
                 <th
                     mat-header-cell
+                    mat-sort-header
+                    [disabled]="!column.sortable()"
                     [style.width]="options()?.columns?.widths?.[column.name]"
                     [ngStyle]="options()?.header?.styles?.[column.name]?.()"
                     *matHeaderCellDef
