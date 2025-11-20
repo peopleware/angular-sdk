@@ -18,7 +18,13 @@ import {
     PagedEntities
 } from '@ppwcode/ng-async'
 import { mixinTrackPending } from '@ppwcode/ng-common'
-import { PpwTableModule, PpwTableOptions, SearchFilterComponent, TableRecord } from '@ppwcode/ng-common-components'
+import {
+    PpwTableModule,
+    PpwTableOptions,
+    SearchFilterComponent,
+    TableRecord,
+    SortChange
+} from '@ppwcode/ng-common-components'
 import { mixinPagination, mixinRelativeNavigation } from '@ppwcode/ng-router'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
 import { DateTime } from 'luxon'
@@ -144,6 +150,7 @@ export default class TableDemoComponent
     public override defaultPageSize = 5
     public enableRowDrag = false
     public enableAnimations = true
+    public enableSorting = true
     public searchForm!: FormGroup
     public lastClickedRow?: Player
     public footerData: Partial<Player> = {
@@ -223,15 +230,17 @@ export default class TableDemoComponent
         firstName: string
     }>(this.initialSearchParams)
     private refreshPlayers$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0)
+    private sort$: BehaviorSubject<SortChange | undefined> = new BehaviorSubject<SortChange | undefined>(undefined)
     public players$: Observable<PagedAsyncResult<Player, PlayerFilters>> = combineLatest([
         this.page$,
         this.pageSize$,
         this.searchParameters$,
+        this.sort$,
         this.refreshPlayers$
     ]).pipe(
-        switchMap(([page, pageSize, searchParameters]) =>
+        switchMap(([page, pageSize, searchParameters, sort]) =>
             this.trackPending(
-                this.mockPagedPlayers(page, pageSize, searchParameters).pipe(
+                this.mockPagedPlayers(page, pageSize, searchParameters, sort).pipe(
                     delay(1000),
                     tap((items) => (this.playersToSave = [...(items.entity.items as Player[])]))
                 )
@@ -246,7 +255,8 @@ export default class TableDemoComponent
     private mockPagedPlayers(
         page: number,
         pageSize: number,
-        filters?: PlayerFilters
+        filters?: PlayerFilters,
+        sort?: SortChange
     ): Observable<PagedAsyncResult<Player, PlayerFilters>> {
         const players = !filters
             ? PLAYERS_DATA
@@ -258,6 +268,19 @@ export default class TableDemoComponent
                           value.lastName.toLowerCase().startsWith(filters.lastName?.toLowerCase() ?? ''))
                   )
               })
+        if (sort) {
+            players.sort((a, b) => {
+                if ((a[sort.column] as string | number | DateTime) < (b[sort.column] as string | number | DateTime)) {
+                    return sort.direction === 'asc' ? -1 : 1
+                } else if (
+                    (a[sort.column] as string | number | DateTime) > (b[sort.column] as string | number | DateTime)
+                ) {
+                    return sort.direction === 'asc' ? 1 : -1
+                } else {
+                    return 0
+                }
+            })
+        }
         const playersPage = players.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
         return of({
             pageSize: pageSize,
@@ -323,5 +346,9 @@ export default class TableDemoComponent
             active: true
         })
         this.refreshPlayers$.next()
+    }
+
+    public sortChanged(sort: SortChange): void {
+        this.sort$.next(sort.direction ? sort : undefined)
     }
 }

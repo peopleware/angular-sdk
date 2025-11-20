@@ -22,6 +22,7 @@
                     <div class="flex-row gap-16">
                         <mat-slide-toggle [(ngModel)]="enableRowDrag">Allow row dragging</mat-slide-toggle>
                         <mat-slide-toggle [(ngModel)]="enableAnimations">Enable table animations</mat-slide-toggle>
+                        <mat-slide-toggle [(ngModel)]="enableSorting">Enable sorting</mat-slide-toggle>
                     </div>
                 </ppw-search-filter>
             }
@@ -42,21 +43,25 @@
                                 [trackBy]="trackByFn"
                                 (orderChanged)="orderChanged(players.entity, $event)"
                                 (selectionChanged)="updateSelected($event)"
+                                (sortChanged)="sortChanged($event)"
                             >
                                 <ppw-column
                                     name="firstName"
                                     type="text"
                                     [label]="'table.firstname' | translate"
+                                    [sortable]="enableSorting"
                                 ></ppw-column>
                                 <ppw-column
                                     name="lastName"
                                     type="text"
                                     [label]="'table.lastname' | translate"
+                                    [sortable]="enableSorting"
                                 ></ppw-column>
                                 <ppw-column
                                     name="birthDate"
                                     type="date"
                                     [label]="'table.birthdate' | translate"
+                                    [sortable]="enableSorting"
                                 ></ppw-column>
                                 <ppw-column name="age" type="number" [label]="'table.age' | translate"></ppw-column>
                                 <ppw-column
@@ -64,12 +69,14 @@
                                     type="number"
                                     [label]="'table.income' | translate"
                                     [numberFormatFn]="formatIncome.bind(this)"
+                                    [sortable]="enableSorting"
                                 ></ppw-column>
                                 <ppw-column
                                     name="bonus"
                                     type="number"
                                     [label]="'table.bonus' | translate"
                                     [numberFormatFn]="formatBonus.bind(this)"
+                                    [sortable]="enableSorting"
                                 ></ppw-column>
                                 <ppw-column name="rowIndex" type="template" [label]="'table.row-index' | translate">
                                     <ng-template ppw-column-cell let-rowIndex="rowIndex">
