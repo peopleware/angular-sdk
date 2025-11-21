@@ -4,10 +4,6 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Optional dependencies
 
-    "@js-joda/core": "^5.5.3",
-    "@js-joda/extra": "^0.11.3",
-    "@js-joda/locale": "^4.8.10",
-    "@js-joda/timezone": "^2.18.0",
     "date-fns": "^2.30.0"
 
 ## Library contents

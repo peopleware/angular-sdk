@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { DateTimeFormatter, LocalDate } from '@js-joda/core'
 import { addMonths, format } from 'date-fns'
 import { ColumnType } from './columns/column'
 
@@ -14,7 +13,6 @@ export interface PeriodicElement extends Record<string, unknown> {
     weight: number
     symbol: string
     jsDate: Date
-    jsJodaDate: LocalDate
     fnsDate: Date
 }
 
@@ -25,7 +23,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 1.0079,
         symbol: 'H',
         jsDate: new Date(2023, 0, 1),
-        jsJodaDate: LocalDate.of(2023, 1, 1),
         fnsDate: new Date(2023, 0, 1)
     },
     {
@@ -34,7 +31,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 4.0026,
         symbol: 'He',
         jsDate: new Date(2023, 1, 1),
-        jsJodaDate: LocalDate.of(2023, 2, 1),
         fnsDate: new Date(2023, 1, 1)
     },
     {
@@ -43,7 +39,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 6.941,
         symbol: 'Li',
         jsDate: new Date(2023, 2, 1),
-        jsJodaDate: LocalDate.of(2023, 3, 1),
         fnsDate: new Date(2023, 2, 1)
     },
     {
@@ -52,7 +47,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 9.0122,
         symbol: 'Be',
         jsDate: new Date(2023, 3, 1),
-        jsJodaDate: LocalDate.of(2023, 4, 1),
         fnsDate: new Date(2023, 3, 1)
     },
     {
@@ -61,7 +55,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 10.811,
         symbol: 'B',
         jsDate: new Date(2023, 4, 1),
-        jsJodaDate: LocalDate.of(2023, 5, 1),
         fnsDate: new Date(2023, 4, 1)
     },
     {
@@ -70,7 +63,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 12.0107,
         symbol: 'C',
         jsDate: new Date(2023, 5, 1),
-        jsJodaDate: LocalDate.of(2023, 6, 1),
         fnsDate: new Date(2023, 5, 1)
     },
     {
@@ -79,7 +71,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 14.0067,
         symbol: 'N',
         jsDate: new Date(2023, 6, 1),
-        jsJodaDate: LocalDate.of(2023, 7, 1),
         fnsDate: new Date(2023, 6, 1)
     },
     {
@@ -88,7 +79,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 15.9994,
         symbol: 'O',
         jsDate: new Date(2023, 7, 1),
-        jsJodaDate: LocalDate.of(2023, 8, 1),
         fnsDate: new Date(2023, 7, 1)
     },
     {
@@ -97,7 +87,6 @@ const MOCK_ELEMENT_DATA = [
         weight: 18.9984,
         symbol: 'F',
         jsDate: new Date(2023, 8, 1),
-        jsJodaDate: LocalDate.of(2023, 9, 1),
         fnsDate: new Date(2023, 8, 1)
     },
     {
@@ -106,17 +95,12 @@ const MOCK_ELEMENT_DATA = [
         weight: 20.1797,
         symbol: 'Ne',
         jsDate: new Date(2023, 9, 1),
-        jsJodaDate: LocalDate.of(2023, 10, 1),
         fnsDate: new Date(2023, 9, 1)
     }
 ]
 
 export function getJsDateFormatter(): (value: Date) => string {
     return (value: Date) => value.toDateString()
-}
-
-export function getJsJodaFormatter(pattern: string): (value: LocalDate) => string {
-    return (value: LocalDate) => DateTimeFormatter.ofPattern(pattern).format(value)
 }
 
 export function getDateFnsFormatter(dateFormat: string): (value: Date) => string {
@@ -201,7 +185,6 @@ describe('TableComponent', () => {
             weight: 2.023,
             position: 11,
             jsDate: new Date(2024, 10, 1),
-            jsJodaDate: LocalDate.of(2024, 10, 1),
             fnsDate: new Date(2024, 10, 1)
         }
         const newData = [...fixture.componentInstance.data, testObj]
@@ -371,67 +354,6 @@ describe('TableComponent', () => {
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
-    })
-
-    it('should map undefined js-joda date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsJodaDate',
-            label: 'jsJodaTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string
-        })
-        fixture.componentInstance.columns.push({
-            name: 'jsJodaDateFromUndefinedProp',
-            label: 'jsJodaTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual([
-            'elementName',
-            'symbol',
-            'jsJodaDate',
-            'jsJodaDateFromUndefinedProp'
-        ])
-        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe('01-04-2023')
-        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDateFromUndefinedProp']).toBe(undefined)
-    })
-
-    it('should map string js-joda date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsJodaDate',
-            label: 'jsJodaTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: 'value'
-        })
-        fixture.componentInstance.columns.push({
-            name: 'jsJodaDateFromProp',
-            label: 'jsJodaDateFromProp',
-            type: ColumnType.Date,
-            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: 'jsJodaDate'
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsJodaDate', 'jsJodaDateFromProp'])
-        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe(undefined)
-        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDateFromProp']).toBe('01-04-2023')
-    })
-
-    it('should map function js-joda date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsJodaDate',
-            label: 'jsJodaTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsJodaFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: (record: PeriodicElement) => record.jsJodaDate.plusDays(4)
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsJodaDate'])
-        expect(tableComponent.dataSource().data[3].mappedValues['jsJodaDate']).toBe('05-04-2023')
     })
 
     it('should map undefined date-fns date column property', () => {
