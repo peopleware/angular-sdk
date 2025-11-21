@@ -213,6 +213,7 @@ class TestTableComponent {
 }
 
 describe('TableComponent', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let tableComponent: TableComponent<any>
     let fixture: ComponentFixture<TestTableComponent>
 
