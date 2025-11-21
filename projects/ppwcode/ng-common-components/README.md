@@ -2,16 +2,6 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
-## Optional dependencies
-
-    "@js-joda/core": "^5.5.3",
-    "@js-joda/extra": "^0.11.3",
-    "@js-joda/locale": "^4.8.10",
-    "@js-joda/timezone": "^2.18.0",
-    "@types/luxon": "^3.3.2",
-    "date-fns": "^2.30.0",
-    "luxon": "^3.4.3"
-
 ## Library contents
 
 ### enum
