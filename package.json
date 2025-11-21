@@ -35,7 +35,6 @@
         "@ngx-translate/http-loader": "17.0.0",
         "@ppwcode/js-ts-oddsandends": "1.4.2",
         "@types/luxon": "3.7.1",
-        "date-fns": "2.30.0",
         "file-saver-es": "2.0.5",
         "luxon": "3.7.1",
         "rxjs": "7.8.1",

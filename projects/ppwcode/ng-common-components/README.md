@@ -2,10 +2,6 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
-## Optional dependencies
-
-    "date-fns": "^2.30.0"
-
 ## Library contents
 
 ### enum

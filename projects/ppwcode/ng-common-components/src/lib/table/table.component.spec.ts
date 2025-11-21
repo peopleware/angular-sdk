@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { addMonths, format } from 'date-fns'
 import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
@@ -13,7 +12,6 @@ export interface PeriodicElement extends Record<string, unknown> {
     weight: number
     symbol: string
     jsDate: Date
-    fnsDate: Date
 }
 
 const MOCK_ELEMENT_DATA = [
@@ -22,89 +20,75 @@ const MOCK_ELEMENT_DATA = [
         name: 'Hydrogen',
         weight: 1.0079,
         symbol: 'H',
-        jsDate: new Date(2023, 0, 1),
-        fnsDate: new Date(2023, 0, 1)
+        jsDate: new Date(2023, 0, 1)
     },
     {
         position: 2,
         name: 'Helium',
         weight: 4.0026,
         symbol: 'He',
-        jsDate: new Date(2023, 1, 1),
-        fnsDate: new Date(2023, 1, 1)
+        jsDate: new Date(2023, 1, 1)
     },
     {
         position: 3,
         name: 'Lithium',
         weight: 6.941,
         symbol: 'Li',
-        jsDate: new Date(2023, 2, 1),
-        fnsDate: new Date(2023, 2, 1)
+        jsDate: new Date(2023, 2, 1)
     },
     {
         position: 4,
         name: 'Beryllium',
         weight: 9.0122,
         symbol: 'Be',
-        jsDate: new Date(2023, 3, 1),
-        fnsDate: new Date(2023, 3, 1)
+        jsDate: new Date(2023, 3, 1)
     },
     {
         position: 5,
         name: 'Boron',
         weight: 10.811,
         symbol: 'B',
-        jsDate: new Date(2023, 4, 1),
-        fnsDate: new Date(2023, 4, 1)
+        jsDate: new Date(2023, 4, 1)
     },
     {
         position: 6,
         name: 'Carbon',
         weight: 12.0107,
         symbol: 'C',
-        jsDate: new Date(2023, 5, 1),
-        fnsDate: new Date(2023, 5, 1)
+        jsDate: new Date(2023, 5, 1)
     },
     {
         position: 7,
         name: 'Nitrogen',
         weight: 14.0067,
         symbol: 'N',
-        jsDate: new Date(2023, 6, 1),
-        fnsDate: new Date(2023, 6, 1)
+        jsDate: new Date(2023, 6, 1)
     },
     {
         position: 8,
         name: 'Oxygen',
         weight: 15.9994,
         symbol: 'O',
-        jsDate: new Date(2023, 7, 1),
-        fnsDate: new Date(2023, 7, 1)
+        jsDate: new Date(2023, 7, 1)
     },
     {
         position: 9,
         name: 'Fluorine',
         weight: 18.9984,
         symbol: 'F',
-        jsDate: new Date(2023, 8, 1),
-        fnsDate: new Date(2023, 8, 1)
+        jsDate: new Date(2023, 8, 1)
     },
     {
         position: 10,
         name: 'Neon',
         weight: 20.1797,
         symbol: 'Ne',
-        jsDate: new Date(2023, 9, 1),
-        fnsDate: new Date(2023, 9, 1)
+        jsDate: new Date(2023, 9, 1)
     }
 ]
 
 export function getJsDateFormatter(): (value: Date) => string {
     return (value: Date) => value.toDateString()
-}
-
-export function getDateFnsFormatter(dateFormat: string): (value: Date) => string {
-    return (value: Date) => format(value, dateFormat)
 }
 
 @Component({
@@ -184,8 +168,7 @@ describe('TableComponent', () => {
             symbol: 'T',
             weight: 2.023,
             position: 11,
-            jsDate: new Date(2024, 10, 1),
-            fnsDate: new Date(2024, 10, 1)
+            jsDate: new Date(2024, 10, 1)
         }
         const newData = [...fixture.componentInstance.data, testObj]
         fixture.componentInstance.data = newData
@@ -354,61 +337,5 @@ describe('TableComponent', () => {
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
-    })
-
-    it('should map undefined date-fns date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'fnsDate',
-            label: 'fnsTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string
-        })
-        fixture.componentInstance.columns.push({
-            name: 'fnsDateFromUndefinedProp',
-            label: 'fnsTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromUndefinedProp'])
-        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe('01-04-2023')
-        expect(tableComponent.dataSource().data[3].mappedValues['fnsDateFromUndefinedProp']).toBe(undefined)
-    })
-
-    it('should map string date-fns date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'fnsDate',
-            label: 'fnsDate',
-            type: ColumnType.Date,
-            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: 'date'
-        })
-        fixture.componentInstance.columns.push({
-            name: 'fnsDateFromProp',
-            label: 'fnsDateFromProp',
-            type: ColumnType.Date,
-            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: 'fnsDate'
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate', 'fnsDateFromProp'])
-        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe(undefined)
-        expect(tableComponent.dataSource().data[3].mappedValues['fnsDateFromProp']).toBe('01-04-2023')
-    })
-
-    it('should map function date-fns date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'fnsDate',
-            label: 'fnsDate',
-            type: ColumnType.Date,
-            dateFormatter: getDateFnsFormatter('dd-MM-yyyy') as (value: unknown) => string,
-            valueRetrieval: (record: PeriodicElement) => addMonths(record.fnsDate, 4)
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'fnsDate'])
-        expect(tableComponent.dataSource().data[3].mappedValues['fnsDate']).toBe('01-08-2023')
     })
 })
