@@ -27,7 +27,7 @@ export const extractHttpError = (httpError: HttpErrorResponse, skipCustomExtract
         if (Array.isArray(httpError.error.messages) && httpError.error.messages.length > 0) {
             const firstErrorMessage = httpError.error.messages[0]
             if (firstErrorMessage.text === 'DB_UQ_CONSTRAINT_VIOLATION') {
-                const parameter = firstErrorMessage.parameters?.find((param: string) => param.startsWith('UQ_'))
+                const parameter = firstErrorMessage.parameters.length > 0 ? firstErrorMessage.parameters[0] : null
                 if (parameter) {
                     return new Error(parameter)
                 } else {

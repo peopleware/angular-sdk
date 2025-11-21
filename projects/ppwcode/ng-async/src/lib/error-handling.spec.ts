@@ -81,7 +81,7 @@ describe('extractHttpError', () => {
         })
 
         const error = extractHttpError(httpError)
-        expect(error.message).toBe('DB_UQ_CONSTRAINT_VIOLATION')
+        expect(error.message).toBe('other_param')
     })
 
     it('should extract title from error object', () => {
