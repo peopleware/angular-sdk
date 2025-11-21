@@ -8,9 +8,7 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
     "@js-joda/extra": "^0.11.3",
     "@js-joda/locale": "^4.8.10",
     "@js-joda/timezone": "^2.18.0",
-    "@types/luxon": "^3.3.2",
-    "date-fns": "^2.30.0",
-    "luxon": "^3.4.3"
+    "date-fns": "^2.30.0"
 
 ## Library contents
 

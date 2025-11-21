@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { DateTimeFormatter, LocalDate } from '@js-joda/core'
 import { addMonths, format } from 'date-fns'
-import { DateTime } from 'luxon'
 import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
@@ -14,7 +13,6 @@ export interface PeriodicElement extends Record<string, unknown> {
     position: number
     weight: number
     symbol: string
-    luxDate: DateTime
     jsDate: Date
     jsJodaDate: LocalDate
     fnsDate: Date
@@ -26,11 +24,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Hydrogen',
         weight: 1.0079,
         symbol: 'H',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 1,
-            day: 1
-        }),
         jsDate: new Date(2023, 0, 1),
         jsJodaDate: LocalDate.of(2023, 1, 1),
         fnsDate: new Date(2023, 0, 1)
@@ -40,11 +33,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Helium',
         weight: 4.0026,
         symbol: 'He',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 2,
-            day: 1
-        }),
         jsDate: new Date(2023, 1, 1),
         jsJodaDate: LocalDate.of(2023, 2, 1),
         fnsDate: new Date(2023, 1, 1)
@@ -54,11 +42,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Lithium',
         weight: 6.941,
         symbol: 'Li',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 3,
-            day: 1
-        }),
         jsDate: new Date(2023, 2, 1),
         jsJodaDate: LocalDate.of(2023, 3, 1),
         fnsDate: new Date(2023, 2, 1)
@@ -68,11 +51,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Beryllium',
         weight: 9.0122,
         symbol: 'Be',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 4,
-            day: 1
-        }),
         jsDate: new Date(2023, 3, 1),
         jsJodaDate: LocalDate.of(2023, 4, 1),
         fnsDate: new Date(2023, 3, 1)
@@ -82,11 +60,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Boron',
         weight: 10.811,
         symbol: 'B',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 5,
-            day: 1
-        }),
         jsDate: new Date(2023, 4, 1),
         jsJodaDate: LocalDate.of(2023, 5, 1),
         fnsDate: new Date(2023, 4, 1)
@@ -96,11 +69,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Carbon',
         weight: 12.0107,
         symbol: 'C',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 6,
-            day: 1
-        }),
         jsDate: new Date(2023, 5, 1),
         jsJodaDate: LocalDate.of(2023, 6, 1),
         fnsDate: new Date(2023, 5, 1)
@@ -110,11 +78,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Nitrogen',
         weight: 14.0067,
         symbol: 'N',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 7,
-            day: 1
-        }),
         jsDate: new Date(2023, 6, 1),
         jsJodaDate: LocalDate.of(2023, 7, 1),
         fnsDate: new Date(2023, 6, 1)
@@ -124,11 +87,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Oxygen',
         weight: 15.9994,
         symbol: 'O',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 8,
-            day: 1
-        }),
         jsDate: new Date(2023, 7, 1),
         jsJodaDate: LocalDate.of(2023, 8, 1),
         fnsDate: new Date(2023, 7, 1)
@@ -138,11 +96,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Fluorine',
         weight: 18.9984,
         symbol: 'F',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 9,
-            day: 1
-        }),
         jsDate: new Date(2023, 8, 1),
         jsJodaDate: LocalDate.of(2023, 9, 1),
         fnsDate: new Date(2023, 8, 1)
@@ -152,11 +105,6 @@ const MOCK_ELEMENT_DATA = [
         name: 'Neon',
         weight: 20.1797,
         symbol: 'Ne',
-        luxDate: DateTime.fromObject({
-            year: 2023,
-            month: 10,
-            day: 1
-        }),
         jsDate: new Date(2023, 9, 1),
         jsJodaDate: LocalDate.of(2023, 10, 1),
         fnsDate: new Date(2023, 9, 1)
@@ -165,10 +113,6 @@ const MOCK_ELEMENT_DATA = [
 
 export function getJsDateFormatter(): (value: Date) => string {
     return (value: Date) => value.toDateString()
-}
-
-export function getLuxonFormatter(format: string): (value: DateTime) => string {
-    return (value: DateTime) => value.toFormat(format)
 }
 
 export function getJsJodaFormatter(pattern: string): (value: LocalDate) => string {
@@ -256,7 +200,6 @@ describe('TableComponent', () => {
             symbol: 'T',
             weight: 2.023,
             position: 11,
-            luxDate: DateTime.fromObject({ year: 2024, month: 11, day: 1 }),
             jsDate: new Date(2024, 10, 1),
             jsJodaDate: LocalDate.of(2024, 10, 1),
             fnsDate: new Date(2024, 10, 1)
@@ -364,67 +307,6 @@ describe('TableComponent', () => {
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.01)
-    })
-
-    it('should map undefined luxon date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'luxDate',
-            label: 'luxonTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string
-        })
-        fixture.componentInstance.columns.push({
-            name: 'luxonTestDateFromUndefinedProp',
-            label: 'luxonTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual([
-            'elementName',
-            'symbol',
-            'luxDate',
-            'luxonTestDateFromUndefinedProp'
-        ])
-        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe('01/04/2023')
-        expect(tableComponent.dataSource().data[3].mappedValues['luxonTestDateFromUndefinedProp']).toBe(undefined)
-    })
-
-    it('should map string luxon date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'luxDate',
-            label: 'Luxon date',
-            type: ColumnType.Date,
-            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
-            valueRetrieval: 'date'
-        })
-        fixture.componentInstance.columns.push({
-            name: 'luxDateFromProp',
-            label: 'Luxon date',
-            type: ColumnType.Date,
-            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
-            valueRetrieval: 'luxDate'
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'luxDate', 'luxDateFromProp'])
-        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe(undefined)
-        expect(tableComponent.dataSource().data[3].mappedValues['luxDateFromProp']).toBe('01/04/2023')
-    })
-
-    it('should map function luxon date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'luxDate',
-            label: 'Luxon date',
-            type: ColumnType.Date,
-            dateFormatter: getLuxonFormatter('dd/MM/yyyy') as (value: unknown) => string,
-            valueRetrieval: (record: PeriodicElement) => record.luxDate.plus({ days: 1 })
-        })
-        fixture.detectChanges()
-
-        expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'luxDate'])
-        expect(tableComponent.dataSource().data[3].mappedValues['luxDate']).toBe('02/04/2023')
     })
 
     it('should map undefined js date column property', () => {
