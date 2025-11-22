@@ -22,16 +22,7 @@
             <ng-container matColumnDef="rowDrag">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" class="drag-table-cell">
-                    <mat-icon
-                        cdkDragHandle
-                        mat-ripple
-                        class="drag-handle"
-                        (touchstart)="dragDisabled = false"
-                        (touchend)="dragDisabled = true"
-                        (mousedown)="dragDisabled = false"
-                        (mouseup)="dragDisabled = true"
-                        >drag_indicator
-                    </mat-icon>
+                    <mat-icon cdkDragHandle mat-ripple class="drag-handle">drag_indicator </mat-icon>
                 </td>
                 @if (footerData() !== undefined) {
                     <td mat-footer-cell *matFooterCellDef></td>
@@ -165,11 +156,9 @@
         <tr mat-header-row *matHeaderRowDef="columnNames(); sticky: !!options()?.header?.sticky"></tr>
         <tr
             mat-row
-            [class.ppw-table-row-enter]="!disableAnimations()"
-            *matRowDef="let row; columns: columnNames()"
             cdkDrag
-            [cdkDragDisabled]="dragDisabled"
-            (cdkDragReleased)="dragDisabled = true"
+            *matRowDef="let row; columns: columnNames()"
+            [class.ppw-table-row-enter]="!disableAnimations()"
             [class.highlight]="options()?.rows?.highlightOnHover"
             [class.clickable]="options()?.rows?.onClick || options()?.rows?.onCtrlClick || expandable()"
             [cdkDragLockAxis]="'y'"
