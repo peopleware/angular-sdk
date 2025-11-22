@@ -123,7 +123,7 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     public dataSource: WritableSignal<MatTableDataSource<TableRecord<TRecord>>> = linkedSignal(() => {
         return new MatTableDataSource(this.localRecords())
     })
-    dragDisabled = true
+
     public selection = new SelectionModel<TableRecord<TRecord>>(
         true,
         [],
