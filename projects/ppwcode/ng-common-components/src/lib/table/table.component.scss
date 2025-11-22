@@ -124,7 +124,7 @@
     }
 }
 
-.ppw-table-row-enter {
+.ppw-table-row-enter:not(.cdk-drag-preview) {
     animation: slide-in-row 0.25s ease-in-out;
 }
 
