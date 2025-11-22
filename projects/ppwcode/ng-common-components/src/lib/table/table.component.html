@@ -160,6 +160,8 @@
             [class.ppw-table-row-enter]="!disableAnimations()"
             [class.highlight]="options()?.rows?.highlightOnHover"
             [class.clickable]="options()?.rows?.onClick || options()?.rows?.onCtrlClick || expandable()"
+            [cdkDragLockAxis]="'y'"
+            [cdkDragBoundary]="'tbody'"
         ></tr>
         @if (expandable()) {
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="ppw-table-expanded-row"></tr>
