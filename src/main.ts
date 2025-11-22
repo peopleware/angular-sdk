@@ -2,7 +2,7 @@ import { registerLocaleData } from '@angular/common'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import localeEn from '@angular/common/locales/en-BE'
 import localeNl from '@angular/common/locales/nl-BE'
-import { LOCALE_ID, provideZoneChangeDetection } from '@angular/core'
+import { LOCALE_ID, provideZonelessChangeDetection } from '@angular/core'
 import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router'
@@ -41,7 +41,7 @@ const translationLocationPrefix =
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideZoneChangeDetection(),
+        provideZonelessChangeDetection(),
         { provide: LOCALE_ID, useValue: 'en-US' },
         { provide: TitleStrategy, useClass: TranslatedPageTitleStrategy },
         { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
