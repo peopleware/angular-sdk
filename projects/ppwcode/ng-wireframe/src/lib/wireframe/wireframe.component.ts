@@ -1,6 +1,15 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
-import { Component, computed, inject, input, InputSignal, Signal, viewChild } from '@angular/core'
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    input,
+    InputSignal,
+    Signal,
+    viewChild
+} from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { MatIcon } from '@angular/material/icon'
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav'
@@ -25,7 +34,8 @@ import { ToolbarComponent } from '../toolbar/toolbar.component'
         RouterLink
     ],
     templateUrl: './wireframe.component.html',
-    styleUrls: ['./wireframe.component.scss']
+    styleUrls: ['./wireframe.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WireframeComponent {
     #observer: BreakpointObserver = inject(BreakpointObserver)

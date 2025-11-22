@@ -29,6 +29,9 @@
                         "style": "kebab-case"
                     }
                 ],
+                "@angular-eslint/prefer-on-push-component-change-detection": [
+                    "error"
+                ],
                 "no-secrets/no-secrets": ["error", { "tolerance": 4.3 }]
             }
         },

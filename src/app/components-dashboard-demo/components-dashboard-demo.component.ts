@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
 import { MatIcon } from '@angular/material/icon'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { Router } from '@angular/router'
@@ -10,7 +10,8 @@ import { ROUTE_MAP } from '../app.routes'
     selector: 'ppw-components-dashboard-demo',
     imports: [DashboardItemsTableComponent, MatIcon, MatProgressSpinner],
     templateUrl: './components-dashboard-demo.component.html',
-    styleUrl: './components-dashboard-demo.component.scss'
+    styleUrl: './components-dashboard-demo.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ComponentsDashboardDemoComponent {
     #router: Router = inject(Router)

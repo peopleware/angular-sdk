@@ -1,4 +1,14 @@
-import { Component, computed, inject, input, InputSignal, output, OutputEmitterRef, Signal } from '@angular/core'
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    input,
+    InputSignal,
+    output,
+    OutputEmitterRef,
+    Signal
+} from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -11,7 +21,8 @@ import { filter, startWith } from 'rxjs'
     selector: 'ppw-toolbar',
     imports: [MatIconModule, MatMenuModule, MatButtonModule],
     templateUrl: './toolbar.component.html',
-    styleUrls: ['./toolbar.component.scss']
+    styleUrls: ['./toolbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
     #translateService: TranslateService = inject(TranslateService)

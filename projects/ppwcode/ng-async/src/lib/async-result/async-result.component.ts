@@ -1,4 +1,14 @@
-import { Component, contentChild, inject, input, InputSignal, Signal, TemplateRef, Type } from '@angular/core'
+import {
+    ChangeDetectionStrategy,
+    Component,
+    contentChild,
+    inject,
+    input,
+    InputSignal,
+    Signal,
+    TemplateRef,
+    Type
+} from '@angular/core'
 import { Severity } from '@ppwcode/ng-common-components'
 import { AsyncResult } from '../models/async-result'
 import {
@@ -15,7 +25,8 @@ import {
     selector: 'ppw-async-result',
     templateUrl: './async-result.component.html',
     /* eslint-disable @angular-eslint/prefer-standalone */
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AsyncResultComponent {
     // Dependencies

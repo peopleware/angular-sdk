@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { PpwTableModule } from '../../../../projects/ppwcode/ng-common-components/src/lib/table/table.module'
 import { PpwTableOptions } from '@ppwcode/ng-common-components'
 import { MatCard, MatCardContent } from '@angular/material/card'
@@ -106,7 +106,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     selector: 'ppw-expandable-table-demo',
     imports: [PpwTableModule, MatCard, MatCardContent],
     templateUrl: './expandable-table-demo.component.html',
-    styleUrl: './expandable-table-demo.component.scss'
+    styleUrl: './expandable-table-demo.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpandableTableDemoComponent {
     dataSource = ELEMENT_DATA

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatListModule } from '@angular/material/list'
 import { InMemoryLogger, PPW_LOGGER, provideInMemoryLogger } from '@ppwcode/ng-common'
@@ -14,7 +14,8 @@ export interface LogLine extends Record<string, unknown> {
     imports: [MatButtonModule, MatListModule, PpwTableModule, MessageBarComponent],
     templateUrl: './in-memory-logging-demo.component.html',
     styleUrl: './in-memory-logging-demo.component.scss',
-    providers: [provideInMemoryLogger({ debug: true })]
+    providers: [provideInMemoryLogger({ debug: true })],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InMemoryLoggingDemoComponent {
     #logger: InMemoryLogger = inject(PPW_LOGGER) as InMemoryLogger
