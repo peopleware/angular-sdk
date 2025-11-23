@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, signal, ViewChild, WritableSignal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { ColumnType } from './columns/column'
@@ -93,8 +93,8 @@ export function getJsDateFormatter(): (value: Date) => string {
 
 @Component({
     template: `
-        <ppw-table [data]="data" [trackBy]="trackBy">
-            @for (column of columns; track column) {
+        <ppw-table [data]="data()" [trackBy]="trackBy">
+            @for (column of columns(); track column) {
                 <ppw-column
                     [name]="column.name"
                     [label]="column.label"
@@ -105,22 +105,25 @@ export function getJsDateFormatter(): (value: Date) => string {
             }
         </ppw-table>
     `,
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestTableComponent {
     @ViewChild(TableComponent, { static: true }) tableComponent!: TableComponent<PeriodicElement>
 
-    public columns: Array<{
-        name: string
-        label: string
-        type: ColumnType
-        valueRetrieval?: string | ((record: PeriodicElement) => unknown)
-        dateFormatter?: (value: PeriodicElement) => string
-    }> = [
+    public columns: WritableSignal<
+        Array<{
+            name: string
+            label: string
+            type: ColumnType
+            valueRetrieval?: string | ((record: PeriodicElement) => unknown)
+            dateFormatter?: (value: PeriodicElement) => string
+        }>
+    > = signal([
         { name: 'elementName', label: 'Element name', type: ColumnType.Text, valueRetrieval: 'name' },
         { name: 'symbol', label: 'Symbol', type: ColumnType.Text }
-    ]
-    public data: Array<PeriodicElement> = MOCK_ELEMENT_DATA
+    ])
+    public data: WritableSignal<Array<PeriodicElement>> = signal(MOCK_ELEMENT_DATA)
     public trackBy = (index: number, record: PeriodicElement) => record.position
 }
 
@@ -136,7 +139,7 @@ describe('TableComponent', () => {
         })
 
         fixture = TestBed.createComponent(TestTableComponent)
-        fixture.componentInstance.data = [...MOCK_ELEMENT_DATA]
+        fixture.componentInstance.data.set([...MOCK_ELEMENT_DATA])
         tableComponent = (fixture.componentInstance as TestTableComponent).tableComponent
         fixture.detectChanges()
     })
@@ -148,14 +151,21 @@ describe('TableComponent', () => {
         expect(tableComponent.dataSource().data[3].mappedValues['symbol']).toBe('Be')
     })
 
-    it('should detect column changes', () => {
-        fixture.componentInstance.columns[1] = {
-            name: 'testName',
-            label: 'testLabel',
-            type: ColumnType.Text,
-            valueRetrieval: 'symbol'
-        }
-        fixture.detectChanges()
+    it('should detect column changes', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            const [firstColumn, , ...restColumns] = cols
+            return [
+                firstColumn,
+                {
+                    name: 'testName',
+                    label: 'testLabel',
+                    type: ColumnType.Text,
+                    valueRetrieval: 'symbol'
+                },
+                ...restColumns
+            ]
+        })
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()[1]).toBe('testName')
         expect(tableComponent.dataSource().data[3].mappedValues['symbol']).toBe(undefined)
@@ -170,170 +180,215 @@ describe('TableComponent', () => {
             position: 11,
             jsDate: new Date(2024, 10, 1)
         }
-        const newData = [...fixture.componentInstance.data, testObj]
-        fixture.componentInstance.data = newData
+        const newData = [...fixture.componentInstance.data(), testObj]
+        fixture.componentInstance.data.set(newData)
         fixture.detectChanges()
 
         expect(tableComponent.dataSource().data[10].initialRecord).toBe(testObj)
     })
 
-    it('should map undefined text column property', () => {
-        fixture.componentInstance.columns.push({ name: 'weight', label: 'Weight', type: ColumnType.Text })
-        fixture.componentInstance.columns.push({
-            name: 'weightFromUndefinedProp',
-            label: 'Weight',
-            type: ColumnType.Text
+    it('should map undefined text column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                { name: 'weight', label: 'Weight', type: ColumnType.Text },
+                {
+                    name: 'weightFromUndefinedProp',
+                    label: 'Weight',
+                    type: ColumnType.Text
+                }
+            ]
         })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.0122)
         expect(tableComponent.dataSource().data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
-    it('should map string text column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'weight',
-            label: 'Weight',
-            type: ColumnType.Text,
-            valueRetrieval: 'string'
+    it('should map string text column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'weight',
+                    label: 'Weight',
+                    type: ColumnType.Text,
+                    valueRetrieval: 'string'
+                },
+                {
+                    name: 'weightFromProp',
+                    label: 'Weight',
+                    type: ColumnType.Text,
+                    valueRetrieval: 'weight'
+                }
+            ]
         })
-        fixture.componentInstance.columns.push({
-            name: 'weightFromProp',
-            label: 'Weight',
-            type: ColumnType.Text,
-            valueRetrieval: 'weight'
-        })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(undefined)
         expect(tableComponent.dataSource().data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
-    it('should map function text column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'weight',
-            label: 'Weight',
-            type: ColumnType.Text,
-            valueRetrieval: (record: PeriodicElement) => record.weight.toFixed(2)
+    it('should map function text column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'weight',
+                    label: 'Weight',
+                    type: ColumnType.Text,
+                    valueRetrieval: (record: PeriodicElement) => record.weight.toFixed(2)
+                }
+            ]
         })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe('9.01')
     })
 
-    it('should map undefined number column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'weight',
-            label: 'Weight',
-            type: ColumnType.Number
+    it('should map undefined number column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'weight',
+                    label: 'Weight',
+                    type: ColumnType.Number
+                },
+                {
+                    name: 'weightFromUndefinedProp',
+                    label: 'Weight',
+                    type: ColumnType.Number
+                }
+            ]
         })
-        fixture.componentInstance.columns.push({
-            name: 'weightFromUndefinedProp',
-            label: 'Weight',
-            type: ColumnType.Number
-        })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromUndefinedProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.0122)
         expect(tableComponent.dataSource().data[3].mappedValues['weightFromUndefinedProp']).toBe(undefined)
     })
 
-    it('should map string number column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'weight',
-            label: 'Weight',
-            type: ColumnType.Number,
-            valueRetrieval: 'number'
+    it('should map string number column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'weight',
+                    label: 'Weight',
+                    type: ColumnType.Number,
+                    valueRetrieval: 'number'
+                },
+                {
+                    name: 'weightFromProp',
+                    label: 'Weight',
+                    type: ColumnType.Number,
+                    valueRetrieval: 'weight'
+                }
+            ]
         })
-        fixture.componentInstance.columns.push({
-            name: 'weightFromProp',
-            label: 'Weight',
-            type: ColumnType.Number,
-            valueRetrieval: 'weight'
-        })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight', 'weightFromProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(undefined)
         expect(tableComponent.dataSource().data[3].mappedValues['weightFromProp']).toBe(9.0122)
     })
 
-    it('should map function number column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'weight',
-            label: 'Weight',
-            type: ColumnType.Number,
-            valueRetrieval: (record: PeriodicElement) => Number(record.weight.toFixed(2))
+    it('should map function number column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'weight',
+                    label: 'Weight',
+                    type: ColumnType.Number,
+                    valueRetrieval: (record: PeriodicElement) => Number(record.weight.toFixed(2))
+                }
+            ]
         })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'weight'])
         expect(tableComponent.dataSource().data[3].mappedValues['weight']).toBe(9.01)
     })
 
-    it('should map undefined js date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsDate',
-            label: 'jsTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsDateFormatter() as (value: unknown) => string
+    it('should map undefined js date column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'jsDate',
+                    label: 'jsTestDate',
+                    type: ColumnType.Date,
+                    dateFormatter: getJsDateFormatter() as (value: unknown) => string
+                },
+                {
+                    name: 'jsDateFromUndefinedProp',
+                    label: 'jsTestDate',
+                    type: ColumnType.Date,
+                    dateFormatter: getJsDateFormatter() as (value: unknown) => string
+                }
+            ]
         })
-        fixture.componentInstance.columns.push({
-            name: 'jsDateFromUndefinedProp',
-            label: 'jsTestDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsDateFormatter() as (value: unknown) => string
-        })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromUndefinedProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Sat Apr 01 2023')
         expect(tableComponent.dataSource().data[3].mappedValues['jsDateFromUndefinedProp']).toBe(undefined)
     })
 
-    it('should map string js date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsDate',
-            label: 'jsDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
-            valueRetrieval: 'date'
+    it('should map string js date column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'jsDate',
+                    label: 'jsDate',
+                    type: ColumnType.Date,
+                    dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+                    valueRetrieval: 'date'
+                },
+                {
+                    name: 'jsDateFromProp',
+                    label: 'jsDateFromProp',
+                    type: ColumnType.Date,
+                    dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+                    valueRetrieval: 'jsDate'
+                }
+            ]
         })
-        fixture.componentInstance.columns.push({
-            name: 'jsDateFromProp',
-            label: 'jsDateFromProp',
-            type: ColumnType.Date,
-            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
-            valueRetrieval: 'jsDate'
-        })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate', 'jsDateFromProp'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe(undefined)
         expect(tableComponent.dataSource().data[3].mappedValues['jsDateFromProp']).toBe('Sat Apr 01 2023')
     })
 
-    it('should map function js date column property', () => {
-        fixture.componentInstance.columns.push({
-            name: 'jsDate',
-            label: 'jsDate',
-            type: ColumnType.Date,
-            dateFormatter: getJsDateFormatter() as (value: unknown) => string,
-            valueRetrieval: (record: PeriodicElement) =>
-                new Date(
-                    record.jsDate.getFullYear(),
-                    record.jsDate.getMonth() + 4,
-                    record.jsDate.getDate(),
-                    record.jsDate.getHours(),
-                    record.jsDate.getMinutes(),
-                    record.jsDate.getSeconds()
-                )
+    it('should map function js date column property', async () => {
+        fixture.componentInstance.columns.update((cols) => {
+            return [
+                ...cols,
+                {
+                    name: 'jsDate',
+                    label: 'jsDate',
+                    type: ColumnType.Date,
+                    dateFormatter: getJsDateFormatter() as (value: unknown) => string,
+                    valueRetrieval: (record: PeriodicElement) =>
+                        new Date(
+                            record.jsDate.getFullYear(),
+                            record.jsDate.getMonth() + 4,
+                            record.jsDate.getDate(),
+                            record.jsDate.getHours(),
+                            record.jsDate.getMinutes(),
+                            record.jsDate.getSeconds()
+                        )
+                }
+            ]
         })
-        fixture.detectChanges()
+        await fixture.whenStable()
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')

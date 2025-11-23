@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { interval } from 'rxjs'
 import { mixinHandleSubscriptions } from './handle-subscriptions'
+import { tickAsync } from '@ppwcode/ng-unit-testing'
 
 describe('Handle subscriptions mixin', () => {
     let fixture: ComponentFixture<TestComponent>
@@ -20,25 +21,25 @@ describe('Handle subscriptions mixin', () => {
         expect(component.stopOnDestroy).toBeDefined()
     })
 
-    it('should stop listening to the stream when the class is destroyed', fakeAsync(() => {
-        const interval$ = interval(1000)
+    it('should stop listening to the stream when the class is destroyed', async () => {
+        const interval$ = interval(100)
         let subscriptionHits = 0
 
         const subscription = component.stopOnDestroy(interval$).subscribe(() => subscriptionHits++)
         expect(subscriptionHits).toBe(0)
 
-        tick(999)
+        await tickAsync(10)
         expect(subscriptionHits).toBe(0)
 
-        tick(2)
+        await tickAsync(100) // 110ms
         expect(subscriptionHits).toBe(1)
 
         fixture.destroy()
-        tick(1000)
+        await tickAsync(1000) // 210ms
         expect(subscriptionHits).toBe(1)
 
         subscription.unsubscribe()
-    }))
+    })
 })
 
 @Component({

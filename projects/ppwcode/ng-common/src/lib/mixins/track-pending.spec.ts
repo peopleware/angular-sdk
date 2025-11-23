@@ -1,6 +1,6 @@
-import { fakeAsync, tick } from '@angular/core/testing'
 import { delay, firstValueFrom, of } from 'rxjs'
 import { CanTrackPending, CanTrackPendingCtor, mixinTrackPending } from './track-pending'
+import { tickAsync } from '@ppwcode/ng-unit-testing'
 
 describe('Track pending mixin', () => {
     class BaseClass {
@@ -23,7 +23,7 @@ describe('Track pending mixin', () => {
         expect(instanceOfExtendedClass.isPending).toBeDefined()
     })
 
-    it('should track the pending state of a single stream', fakeAsync(async () => {
+    it('should track the pending state of a single stream', async () => {
         const stream$ = of('value').pipe(delay(100))
 
         const trackedStream$ = instanceOfExtendedClass.trackPending(stream$)
@@ -32,14 +32,14 @@ describe('Track pending mixin', () => {
         expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBeTrue()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeTrue()
 
-        tick(100)
+        await tickAsync(100)
         expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBeFalse()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeFalse()
 
         subscription.unsubscribe()
-    }))
+    })
 
-    it('should track the pending state of multiple streams by name', fakeAsync(async () => {
+    it('should track the pending state of multiple streams by name', async () => {
         const stream1$ = of('value').pipe(delay(100))
         const stream2$ = of('value').pipe(delay(100))
 
@@ -52,15 +52,15 @@ describe('Track pending mixin', () => {
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBeTrue()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBeTrue()
 
-        tick(100)
+        await tickAsync(100)
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBeFalse()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBeFalse()
 
         subscription1.unsubscribe()
         subscription2.unsubscribe()
-    }))
+    })
 
-    it('should track the pending state of unnamed and named streams', fakeAsync(async () => {
+    it('should track the pending state of unnamed and named streams', async () => {
         const stream$ = of('value').pipe(delay(100))
 
         const trackedStream$ = instanceOfExtendedClass.trackPending(stream$)
@@ -72,13 +72,13 @@ describe('Track pending mixin', () => {
         expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeTrue()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBeTrue()
 
-        tick(100)
+        await tickAsync(100)
         expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeFalse()
         expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBeFalse()
 
         subscription.unsubscribe()
         namedSubscription.unsubscribe()
-    }))
+    })
 
     it('should support manual pending tracking on the default name', async () => {
         const isPending$ = instanceOfExtendedClass.pending$
