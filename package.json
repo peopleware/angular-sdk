@@ -51,8 +51,7 @@
         "@angular/cli": "21.0.0",
         "@angular/compiler-cli": "21.0.0",
         "@types/file-saver-es": "2.0.1",
-        "@types/jasmine": "4.3.5",
-        "@types/node": "22.13.14",
+        "@types/node": "24.10.1",
         "@typescript-eslint/eslint-plugin": "8.16.0",
         "@typescript-eslint/parser": "8.16.0",
         "concurrently": "8.2.1",
@@ -61,17 +60,13 @@
         "eslint-plugin-depend": "1.2.0",
         "eslint-plugin-no-secrets": "2.2.1",
         "jasmine-core": "4.6.0",
-        "karma": "6.4.2",
-        "karma-chrome-launcher": "3.2.0",
-        "karma-coverage": "2.2.1",
-        "karma-jasmine": "5.1.0",
-        "karma-jasmine-html-reporter": "2.1.0",
-        "karma-junit-reporter": "2.0.1",
+        "jsdom": "27.2.0",
         "ng-packagr": "21.0.0",
         "prettier": "3.1.1",
         "prettier-config-standard": "7.0.0",
         "retire": "5.2.5",
-        "typescript": "5.9.3"
+        "typescript": "5.9.3",
+        "vitest": "4.0.13"
     },
     "overrides": {
         "deep-equal": {

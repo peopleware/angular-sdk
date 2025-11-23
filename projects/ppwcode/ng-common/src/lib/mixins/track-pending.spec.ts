@@ -29,12 +29,12 @@ describe('Track pending mixin', () => {
         const trackedStream$ = instanceOfExtendedClass.trackPending(stream$)
         const subscription = trackedStream$.subscribe()
 
-        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBeTrue()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeTrue()
+        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBe(true)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBe(true)
 
         await tickAsync(100)
-        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBeFalse()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeFalse()
+        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBe(false)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBe(false)
 
         subscription.unsubscribe()
     })
@@ -49,12 +49,12 @@ describe('Track pending mixin', () => {
         const subscription1 = trackedStream1$.subscribe()
         const subscription2 = trackedStream2$.subscribe()
 
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBeTrue()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBeTrue()
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBe(true)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBe(true)
 
         await tickAsync(100)
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBeFalse()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBeFalse()
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream1'))).toBe(false)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('stream2'))).toBe(false)
 
         subscription1.unsubscribe()
         subscription2.unsubscribe()
@@ -69,12 +69,12 @@ describe('Track pending mixin', () => {
         const subscription = trackedStream$.subscribe()
         const namedSubscription = trackedNamedStream$.subscribe()
 
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeTrue()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBeTrue()
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBe(true)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBe(true)
 
         await tickAsync(100)
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBeFalse()
-        expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBeFalse()
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending())).toBe(false)
+        expect(await firstValueFrom(instanceOfExtendedClass.isPending('named'))).toBe(false)
 
         subscription.unsubscribe()
         namedSubscription.unsubscribe()
@@ -83,31 +83,31 @@ describe('Track pending mixin', () => {
     it('should support manual pending tracking on the default name', async () => {
         const isPending$ = instanceOfExtendedClass.pending$
 
-        expect(await firstValueFrom(isPending$)).toBeFalse()
+        expect(await firstValueFrom(isPending$)).toBe(false)
 
         await firstValueFrom(of(null).pipe(instanceOfExtendedClass.startPending()))
-        expect(await firstValueFrom(isPending$)).toBeTrue()
+        expect(await firstValueFrom(isPending$)).toBe(true)
 
         await firstValueFrom(of(null).pipe(instanceOfExtendedClass.stopPending()))
-        expect(await firstValueFrom(isPending$)).toBeFalse()
+        expect(await firstValueFrom(isPending$)).toBe(false)
     })
 
     it('should support manual pending tracking on a custom name', async () => {
         const isPending$ = instanceOfExtendedClass.isPending('custom')
 
-        expect(await firstValueFrom(isPending$)).toBeFalse()
+        expect(await firstValueFrom(isPending$)).toBe(false)
 
         await firstValueFrom(of(null).pipe(instanceOfExtendedClass.startPending('custom')))
-        expect(await firstValueFrom(isPending$)).toBeTrue()
+        expect(await firstValueFrom(isPending$)).toBe(true)
 
         await firstValueFrom(of(null).pipe(instanceOfExtendedClass.stopPending('custom')))
-        expect(await firstValueFrom(isPending$)).toBeFalse()
+        expect(await firstValueFrom(isPending$)).toBe(false)
     })
 
     it('should have true as the default pending state', async () => {
         const extendedClass = mixinTrackPending()
         const instanceOfExtendedClass = new extendedClass()
 
-        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBeTrue()
+        expect(await firstValueFrom(instanceOfExtendedClass.pending$)).toBe(true)
     })
 })

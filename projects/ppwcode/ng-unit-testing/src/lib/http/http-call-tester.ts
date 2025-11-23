@@ -2,7 +2,6 @@ import { TestRequest } from '@angular/common/http/testing'
 import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
 import { FileDownload } from '@ppwcode/ng-async'
 import { noop, Observable } from 'rxjs'
-
 import { expectOneCallToUrl, ResponseOptions } from './http-client-testing-controller'
 
 /**
@@ -203,13 +202,13 @@ export class HttpCallTester<TRequestResponse, TStreamResult> {
         expectOneCallToUrl(this.url, response, this.expectRequestFn, this.responseOptions)
 
         subscription.unsubscribe()
-        expect(subscriptionHits)
-            .withContext(
-                `Expected ${expectedSubscriptionHits} successful http stream results but got ${subscriptionHits}`
-            )
-            .toEqual(expectedSubscriptionHits)
-        expect(failureHits)
-            .withContext(`Expected ${expectedFailureHits} failed http stream results but got ${failureHits}`)
-            .toEqual(expectedFailureHits)
+        expect(
+            subscriptionHits,
+            `Expected ${expectedSubscriptionHits} successful http stream results but got ${subscriptionHits}`
+        ).toEqual(expectedSubscriptionHits)
+        expect(
+            failureHits,
+            `Expected ${expectedFailureHits} failed http stream results but got ${failureHits}`
+        ).toEqual(expectedFailureHits)
     }
 }

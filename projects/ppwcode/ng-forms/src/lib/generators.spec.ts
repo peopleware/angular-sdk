@@ -1,4 +1,4 @@
-import { FormControl, Validators, ValidationErrors } from '@angular/forms'
+import { FormControl, ValidationErrors, Validators } from '@angular/forms'
 import { Observable, of } from 'rxjs'
 import { createNonNullableControl, createNullableControl } from './generators'
 

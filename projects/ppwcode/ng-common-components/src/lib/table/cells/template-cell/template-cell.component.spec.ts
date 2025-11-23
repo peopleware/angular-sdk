@@ -1,4 +1,4 @@
-import { Component, signal, WritableSignal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { PpwTableModule } from '../../table.module'
@@ -12,7 +12,8 @@ import { PpwTableModule } from '../../table.module'
             </ng-template>
         </ppw-column>
     </ppw-table>`,
-    imports: [PpwTableModule]
+    imports: [PpwTableModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TemplateCellHostComponent {
     public data: WritableSignal<Array<{ id: number }>> = signal([{ id: 128 }, { id: 129 }])
