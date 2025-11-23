@@ -15,7 +15,7 @@ const projects = [
 
 const commands = projects.map((project) => ({
     name: project,
-    command: `ng test ${project} --browsers ChromeHeadless --watch=false --code-coverage`,
+    command: `ng test ${project} --watch=false`,
     env: { ANGULAR_PROJECT_NAME: project }
 }))
 
