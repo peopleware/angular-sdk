@@ -4,6 +4,19 @@ This file describes the steps to take when a breaking change is introduced in th
 
 Breaking changes are grouped by their major version number.
 
+## v21.0.0
+
+### Vitest and zoneless
+
+Our SDK has switched to be fully zoneless and uses Vitest for testing.
+Normally this should not impact your code, but we just want to give you a heads-up in case something unexpected happens that might relate to this.
+
+### Removal of deprecations
+
+The following have been removed:
+
+-   `ppw-search-filter` output events `search` and `reset` have been removed. Use `performSearch` and `clear` as events instead.
+
 ## v20.0.0
 
 ### Peer dependency upgrades
