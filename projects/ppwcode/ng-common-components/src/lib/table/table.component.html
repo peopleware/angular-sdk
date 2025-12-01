@@ -75,6 +75,7 @@
                     mat-header-cell
                     mat-sort-header
                     [disabled]="!column.sortable()"
+                    [disableClear]="column.disableSortClear()"
                     [style.width]="options()?.columns?.widths?.[column.name]"
                     [ngStyle]="options()?.header?.styles?.[column.name]?.()"
                     *matHeaderCellDef

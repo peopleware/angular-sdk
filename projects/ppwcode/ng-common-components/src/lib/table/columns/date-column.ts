@@ -38,6 +38,9 @@ export class DateColumn<TDate, TRecord> implements Column<TRecord, TDate> {
          */
         public sortable: Signal<boolean>,
 
+        /** Whether the sort clear should be disabled. */
+        public disableSortClear: Signal<boolean>,
+
         /**
          * The name of the property to get the value from or a function that can be called
          * to retrieve the value from the current record.

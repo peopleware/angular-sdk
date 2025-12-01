@@ -34,5 +34,8 @@ export interface Column<TRecord, TValue> {
     /** Whether the column is sortable. */
     sortable: Signal<boolean>
 
+    /** Whether the sort clear should be disabled. */
+    disableSortClear: Signal<boolean>
+
     value?: string | ((record: TRecord) => TValue)
 }
