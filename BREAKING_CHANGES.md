@@ -6,6 +6,10 @@ Breaking changes are grouped by their major version number.
 
 ## v20.0.0
 
+> :warning: **20.6.0** :warning:
+>
+> To account for vulnerabilities in Angular, starting version 20.6.0, ppwcode Angular SDK requires at least Angular 20.3.15.
+
 ### Peer dependency upgrades
 
 -   ngx-translate should now be at least v17.
