@@ -101,6 +101,7 @@ export function getJsDateFormatter(): (value: Date) => string {
                     [type]="column.type"
                     [valueRetrieval]="column.valueRetrieval"
                     [dateFormatFn]="column.dateFormatter"
+                    [disableSortClear]="column.disableSortClear"
                 ></ppw-column>
             }
         </ppw-table>
@@ -116,6 +117,7 @@ class TestTableComponent {
         type: ColumnType
         valueRetrieval?: string | ((record: PeriodicElement) => unknown)
         dateFormatter?: (value: PeriodicElement) => string
+        disableSortClear?: boolean
     }> = [
         { name: 'elementName', label: 'Element name', type: ColumnType.Text, valueRetrieval: 'name' },
         { name: 'symbol', label: 'Symbol', type: ColumnType.Text }
