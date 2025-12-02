@@ -4,6 +4,14 @@ This file describes the steps to take when a breaking change is introduced in th
 
 Breaking changes are grouped by their major version number.
 
+## v21.0.0
+
+### Removal of deprecations
+
+The following have been removed:
+
+-   `ppw-search-filter` output events `search` and `reset` have been removed. Use `performSearch` and `clear` as events instead.
+
 ## v20.0.0
 
 > :warning: **20.6.0** :warning:
