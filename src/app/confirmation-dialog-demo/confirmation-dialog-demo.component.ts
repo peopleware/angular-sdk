@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { ConfirmationDialogComponent, ConfirmationDialogData } from '@ppwcode/ng-dialogs'
@@ -7,7 +7,8 @@ import { ConfirmationDialogComponent, ConfirmationDialogData } from '@ppwcode/ng
     selector: 'ppw-confirmation-dialog-demo',
     imports: [MatDialogModule, MatButtonModule],
     templateUrl: './confirmation-dialog-demo.component.html',
-    styleUrls: ['./confirmation-dialog-demo.component.scss']
+    styleUrls: ['./confirmation-dialog-demo.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ConfirmationDialogDemoComponent {
     private matDialog: MatDialog = inject(MatDialog)

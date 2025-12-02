@@ -1,5 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import {
+    ChangeDetectionStrategy,
     Component,
     inject,
     input,
@@ -19,7 +20,8 @@ import { NavigationItem } from '../navigation-item/navigation-item.model'
     selector: 'ppw-left-sidenav',
     imports: [CommonModule, MatIconModule, MatListModule, TranslatePipe, NgOptimizedImage],
     templateUrl: './left-sidenav.component.html',
-    styleUrls: ['./left-sidenav.component.scss']
+    styleUrls: ['./left-sidenav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeftSidenavComponent implements OnChanges {
     // Inputs

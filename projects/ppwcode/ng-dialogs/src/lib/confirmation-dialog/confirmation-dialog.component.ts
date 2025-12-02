@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { ThemePalette } from '@angular/material/core'
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
@@ -35,7 +35,8 @@ export interface ConfirmationDialogData {
         DraggableDialogDirective,
         CdkDragHandle
     ],
-    styleUrls: ['./confirmation-dialog.component.scss']
+    styleUrls: ['./confirmation-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmationDialogComponent {
     public data: ConfirmationDialogData = inject(MAT_DIALOG_DATA)

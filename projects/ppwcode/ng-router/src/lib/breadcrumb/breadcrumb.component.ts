@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { TranslatePipe } from '@ngx-translate/core'
 import { BreadcrumbProviderOptions } from './breadcrumb-provider-options.model'
@@ -9,7 +9,8 @@ import { BREADCRUMB_PROVIDER_OPTIONS, BreadcrumbService } from './breadcrumb.ser
     selector: 'ppw-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     imports: [RouterLink, TranslatePipe],
-    styleUrls: ['./breadcrumb.component.scss']
+    styleUrls: ['./breadcrumb.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbComponent {
     #breadcrumbService: BreadcrumbService = inject(BreadcrumbService)

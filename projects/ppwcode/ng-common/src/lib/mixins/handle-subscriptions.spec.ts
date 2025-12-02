@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 import { interval } from 'rxjs'
 import { mixinHandleSubscriptions } from './handle-subscriptions'
@@ -44,6 +44,7 @@ describe('Handle subscriptions mixin', () => {
 @Component({
     template: '',
     /* eslint-disable @angular-eslint/prefer-standalone */
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestComponent extends mixinHandleSubscriptions() {}

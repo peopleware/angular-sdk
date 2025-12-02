@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, Signal, TemplateRef, viewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { DashboardItem, DashboardItemAction, DashboardItemsTableComponent } from '@ppwcode/ng-common-components'
 import { getFullRoutePath } from '@ppwcode/ng-router'
@@ -8,7 +8,8 @@ import { ROUTE_MAP } from '../app.routes'
     selector: 'ppw-dashboard-item-demo',
     imports: [DashboardItemsTableComponent],
     templateUrl: './dashboard-item-demo.component.html',
-    styleUrl: './dashboard-item-demo.component.scss'
+    styleUrl: './dashboard-item-demo.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardItemDemoComponent {
     #router: Router = inject(Router)

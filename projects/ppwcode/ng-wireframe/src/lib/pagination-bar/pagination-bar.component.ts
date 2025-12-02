@@ -1,4 +1,13 @@
-import { Component, computed, input, InputSignal, output, OutputEmitterRef, Signal } from '@angular/core'
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    input,
+    InputSignal,
+    output,
+    OutputEmitterRef,
+    Signal
+} from '@angular/core'
 
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'
 import { isAsyncResult, PagedAsyncResult, PagedEntities } from '@ppwcode/ng-async'
@@ -6,7 +15,8 @@ import { isAsyncResult, PagedAsyncResult, PagedEntities } from '@ppwcode/ng-asyn
 @Component({
     selector: 'ppw-pagination-bar',
     imports: [MatPaginatorModule],
-    templateUrl: './pagination-bar.component.html'
+    templateUrl: './pagination-bar.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationBarComponent {
     // Inputs

@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common'
-import { Component, inject, OnInit, Signal, viewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal, viewChild } from '@angular/core'
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatIconButton } from '@angular/material/button'
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card'
@@ -35,7 +35,8 @@ type TodosForm = {
         JsonPipe
     ],
     templateUrl: './editable-table.component.html',
-    styleUrl: './editable-table.component.scss'
+    styleUrl: './editable-table.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class EditableTableComponent implements OnInit {
     ppwTable: Signal<FormTableComponent<Todo>> = viewChild.required(FormTableComponent)
