@@ -13,10 +13,7 @@
                     }
                 } @else {
                     <ng-container
-                        *ngTemplateOutlet="
-                            successTemplate() ?? null;
-                            context: { $implicit: result, entity: result.entity }
-                        "
+                        *ngTemplateOutlet="successTemplate(); context: { $implicit: result, entity: result.entity }"
                     ></ng-container>
                 }
             }
