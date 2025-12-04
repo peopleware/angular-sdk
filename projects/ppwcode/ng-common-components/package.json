@@ -1,13 +1,13 @@
 {
     "name": "@ppwcode/ng-common-components",
-    "version": "20.6.0",
+    "version": "20.6.1",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
     "peerDependencies": {
         "@angular/common": "^20.3.15",
         "@angular/core": "^20.3.15",
-        "@ppwcode/ng-common": "^20.6.0"
+        "@ppwcode/ng-common": "^20.6.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
