@@ -1,4 +1,4 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common'
+import { NgOptimizedImage } from '@angular/common'
 import { Component, computed, inject, signal, Signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatCard, MatCardContent } from '@angular/material/card'
@@ -25,7 +25,6 @@ import LanguageSelectComponent from './language-select/language-select.component
         FormsModule,
         WireframeComponent,
         NgOptimizedImage,
-        AsyncPipe,
         RouterLink
     ]
 })
