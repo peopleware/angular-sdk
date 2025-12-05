@@ -1,5 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard'
-import { Component, inject, DOCUMENT } from '@angular/core'
+import { ChangeDetectionStrategy, Component, DOCUMENT, inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -10,7 +10,8 @@ import { GLOBAL_ERROR_DIALOG_OPTIONS, GlobalErrorDialogOptions } from './global-
     selector: 'ppw-global-error-dialog',
     templateUrl: './global-error-dialog.component.html',
     styleUrl: './global-error-dialog.component.scss',
-    imports: [MatDialogModule, TranslatePipe, MatExpansionModule, MatButtonModule]
+    imports: [MatDialogModule, TranslatePipe, MatExpansionModule, MatButtonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalErrorDialogComponent {
     #options: GlobalErrorDialogOptions = inject(GLOBAL_ERROR_DIALOG_OPTIONS)

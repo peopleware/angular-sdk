@@ -1,11 +1,12 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MessageBarComponent, Severity } from '@ppwcode/ng-common-components'
 
 @Component({
     selector: 'ppw-global-error-handler',
     imports: [MatButtonModule, MessageBarComponent],
-    templateUrl: './global-error-handler.component.html'
+    templateUrl: './global-error-handler.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalErrorHandlerComponent {
     protected readonly Severity = Severity

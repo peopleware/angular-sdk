@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 import { MessageBarComponent as PpwMessageBarComponent, Severity } from '@ppwcode/ng-common-components'
 
@@ -6,7 +6,8 @@ import { MessageBarComponent as PpwMessageBarComponent, Severity } from '@ppwcod
     selector: 'ppw-message-bar-demo',
     imports: [PpwMessageBarComponent],
     templateUrl: './message-bar.component.html',
-    styleUrls: ['./message-bar.component.scss']
+    styleUrls: ['./message-bar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class MessageBarComponent {
     public readonly severity: typeof Severity = Severity

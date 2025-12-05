@@ -1,5 +1,5 @@
 import { CommonModule, formatCurrency, formatPercent, getCurrencySymbol } from '@angular/common'
-import { Component, inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, LOCALE_ID, OnInit, signal, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -22,8 +22,8 @@ import {
     PpwTableModule,
     PpwTableOptions,
     SearchFilterComponent,
-    TableRecord,
-    SortChange
+    SortChange,
+    TableRecord
 } from '@ppwcode/ng-common-components'
 import { mixinPagination, mixinRelativeNavigation } from '@ppwcode/ng-router'
 import { PaginationBarComponent } from '@ppwcode/ng-wireframe'
@@ -140,7 +140,8 @@ type SearchPlayersForm = {
         TranslatePipe,
         MatTabGroup,
         MatTab
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class TableDemoComponent
     extends mixinPagination(mixinTrackPending(true, mixinRelativeNavigation()))

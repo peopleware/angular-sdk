@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common'
-import { Component, computed, inject, signal, Signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal, Signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatCard, MatCardContent } from '@angular/material/card'
 import { MatIcon } from '@angular/material/icon'
@@ -26,7 +26,8 @@ import LanguageSelectComponent from './language-select/language-select.component
         WireframeComponent,
         NgOptimizedImage,
         RouterLink
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent extends mixinResponsiveObservers() {
     readonly #translate: TranslateService = inject(TranslateService)

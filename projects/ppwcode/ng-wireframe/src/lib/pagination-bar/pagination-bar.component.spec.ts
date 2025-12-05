@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, Signal, viewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, input, InputSignal, Signal, viewChild } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { createEmptyPagedEntities, createSuccessAsyncResult, PagedAsyncResult, PagedEntities } from '@ppwcode/ng-async'
 import { PaginationBarComponent } from './pagination-bar.component'
@@ -38,7 +38,8 @@ describe('Pagination bar component', () => {
 @Component({
     template: '<ppw-pagination-bar [pagedAsyncResult]="value()"></ppw-pagination-bar>',
     /* eslint-disable @angular-eslint/prefer-standalone */
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestComponent {
     value: InputSignal<PagedAsyncResult<unknown, unknown> | PagedEntities<unknown>> = input.required()
