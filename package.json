@@ -33,7 +33,6 @@
         "@fortawesome/fontawesome-free": "7.1.0",
         "@ngx-translate/core": "17.0.0",
         "@ngx-translate/http-loader": "17.0.0",
-        "@ppwcode/js-ts-oddsandends": "1.4.2",
         "@types/luxon": "3.7.1",
         "file-saver-es": "2.0.5",
         "luxon": "3.7.1",

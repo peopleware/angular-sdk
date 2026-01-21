@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver-es'
-import { notNull } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { notNull } from '@ppwcode/ng-utils'
 import { AsyncResult } from '../models/async-result'
 import { FileDownload } from '../models/file-download'
 

@@ -6,7 +6,8 @@
     },
     "peerDependencies": {
         "@angular/common": "^21.0.2",
-        "@angular/core": "^21.0.2"
+        "@angular/core": "^21.0.2",
+        "@ppwcode/ng-utils": "^21.0.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"

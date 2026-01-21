@@ -10,7 +10,7 @@ import {
     Signal,
     TemplateRef
 } from '@angular/core'
-import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { notUndefined } from '@ppwcode/ng-utils'
 import { Column, ColumnType } from '../columns/column'
 import { DateColumn } from '../columns/date-column'
 import { NumberColumn } from '../columns/number-column'

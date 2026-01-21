@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http'
-import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { notUndefined } from '@ppwcode/ng-utils'
 
 export interface FileDownload {
     blob: Blob
