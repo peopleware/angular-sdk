@@ -199,6 +199,49 @@
                 }
             }
         },
+        "@ppwcode/ng-utils": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-utils",
+            "sourceRoot": "projects/ppwcode/ng-utils/src",
+            "prefix": "ppw",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-utils/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-utils/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-utils/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular/build:karma",
+                    "options": {
+                        "karmaConfig": "karma.conf.js",
+                        "tsConfig": "projects/ppwcode/ng-utils/tsconfig.spec.json",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/ppwcode/ng-utils/**/*.ts",
+                            "projects/ppwcode/ng-utils/**/*.html"
+                        ]
+                    }
+                }
+            }
+        },
         "@ppwcode/ng-wireframe": {
             "projectType": "library",
             "root": "projects/ppwcode/ng-wireframe",

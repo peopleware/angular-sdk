@@ -9,6 +9,7 @@ const projects = [
     '@ppwcode/ng-router',
     '@ppwcode/ng-state-management',
     '@ppwcode/ng-unit-testing',
+    '@ppwcode/ng-utils',
     '@ppwcode/ng-wireframe',
     'ppwcode'
 ]

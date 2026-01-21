@@ -1,0 +1,44 @@
+{
+    "extends": "../../../.eslintrc.json",
+    "ignorePatterns": ["!**/*"],
+    "rules": {
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "@ppwcode/ng-utils",
+                        "message": "Use a relative import instead. Importing from @ppwcode/ng-utils is not allowed inside this lib directory."
+                    }
+                ]
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "ppw",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "ppw",
+                        "style": "kebab-case"
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["*.html"],
+            "rules": {}
+        }
+    ]
+}

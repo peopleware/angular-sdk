@@ -39,6 +39,7 @@ jobs:
             - run: npm publish dist/ppwcode/ng-router --access public
             - run: npm publish dist/ppwcode/ng-state-management --access public
             - run: npm publish dist/ppwcode/ng-unit-testing --access public
+            - run: npm publish dist/ppwcode/ng-utils --access public
             - run: npm publish dist/ppwcode/ng-wireframe --access public
             - run: npm run ci:build
             - name: Copy index.html to 404.html # For GitHub Pages SPA support

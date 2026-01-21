@@ -1,0 +1,12 @@
+{
+    "name": "@ppwcode/ng-utils",
+    "version": "21.0.0",
+    "repository": {
+        "url": "https://github.com/peopleware/angular-sdk"
+    },
+    "peerDependencies": {},
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
+    "sideEffects": false
+}
