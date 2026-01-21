@@ -169,6 +169,15 @@ export default class TableDemoComponent
                 rowIndex: () => {
                     return { 'text-align': 'right' }
                 },
+                age: () => {
+                    return { 'text-align': 'right' }
+                },
+                income: () => {
+                    return { 'text-align': 'right' }
+                },
+                bonus: () => {
+                    return { 'text-align': 'right' }
+                },
                 active: () => {
                     return { 'text-align': 'center' }
                 }
