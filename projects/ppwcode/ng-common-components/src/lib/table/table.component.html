@@ -157,6 +157,7 @@
         <tr
             mat-row
             cdkDrag
+            [cdkDragDisabled]="!enableRowDrag()"
             *matRowDef="let row; columns: columnNames()"
             [class.ppw-table-row-enter]="!disableAnimations()"
             [class.highlight]="options()?.rows?.highlightOnHover"
