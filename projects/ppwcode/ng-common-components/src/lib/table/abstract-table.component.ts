@@ -123,6 +123,18 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     public dataSource: WritableSignal<MatTableDataSource<TableRecord<TRecord>>> = linkedSignal(() => {
         return new MatTableDataSource(this.localRecords())
     })
+    public arrowPositions = computed(() => {
+        const columns = this.columns()
+        const headerStyles = this.options()?.header?.styles
+        const textAlignConst = 'text-align'
+        const alignRightConst = 'right'
+
+        return columns.reduce<Record<string, 'before' | 'after'>>((positionsByColumn, column) => {
+            const textAlign = headerStyles?.[column.name]?.()?.[textAlignConst]
+            positionsByColumn[column.name] = textAlign === alignRightConst ? 'before' : 'after'
+            return positionsByColumn
+        }, {})
+    })
 
     public selection = new SelectionModel<TableRecord<TRecord>>(
         true,

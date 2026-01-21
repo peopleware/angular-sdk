@@ -65,6 +65,7 @@
                 <th
                     mat-header-cell
                     mat-sort-header
+                    [arrowPosition]="arrowPositions()[column.name]"
                     [disabled]="!column.sortable()"
                     [disableClear]="column.disableSortClear()"
                     [style.width]="options()?.columns?.widths?.[column.name]"
