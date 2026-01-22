@@ -12,6 +12,7 @@
           "@ppwcode/ng-router": ["projects/ppwcode/ng-router/src/public-api"],
           "@ppwcode/ng-state-management": ["projects/ppwcode/ng-state-management/src/public-api"],
           "@ppwcode/ng-unit-testing": ["projects/ppwcode/ng-unit-testing/src/public-api"],
+          "@ppwcode/ng-utils": ["projects/ppwcode/ng-utils/src/public-api"],
           "@ppwcode/ng-wireframe": ["projects/ppwcode/ng-wireframe/src/public-api"]
       }
   }

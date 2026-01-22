@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { ErrorHandler, inject, Injectable, Injector, NgZone } from '@angular/core'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { notUndefined } from '@ppwcode/ng-utils'
 import { GlobalErrorDialogComponent } from './global-error-dialog.component'
 
 /**

@@ -1,4 +1,4 @@
-import { notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { notUndefined } from '@ppwcode/ng-utils'
 
 export interface PagedEntitiesDto<T> {
     /** The current page number (1-based). */

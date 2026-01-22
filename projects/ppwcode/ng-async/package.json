@@ -9,8 +9,8 @@
         "@angular/core": "^21.0.2",
         "@ngx-translate/core": "^17.0.0",
         "file-saver-es": "^2.0.5",
-        "@ppwcode/js-ts-oddsandends": "^1.4.2",
-        "@ppwcode/ng-common-components": "^21.0.0"
+        "@ppwcode/ng-common-components": "^21.0.0",
+        "@ppwcode/ng-utils": "^21.0.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"

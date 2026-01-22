@@ -11,6 +11,7 @@
             "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
             "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
             "@ppwcode/ng-unit-testing": ["dist/ppwcode/ng-unit-testing"],
+            "@ppwcode/ng-utils": ["dist/ppwcode/ng-utils"],
             "@ppwcode/ng-wireframe": ["dist/ppwcode/ng-wireframe"]
         },
         "baseUrl": "./",

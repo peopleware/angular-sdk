@@ -1,14 +1,10 @@
 {
-    "name": "@ppwcode/ng-common",
+    "name": "@ppwcode/ng-utils",
     "version": "21.0.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
-    "peerDependencies": {
-        "@angular/common": "^21.0.2",
-        "@angular/core": "^21.0.2",
-        "@ppwcode/ng-utils": "^21.0.0"
-    },
+    "peerDependencies": {},
     "dependencies": {
         "tslib": "^2.3.0"
     },

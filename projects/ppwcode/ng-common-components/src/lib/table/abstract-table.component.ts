@@ -26,7 +26,7 @@ import {
 import { FormArray, FormGroup } from '@angular/forms'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
 import { Sort } from '@angular/material/sort'
-import { assert, notUndefined } from '@ppwcode/js-ts-oddsandends/lib/conditional-assert'
+import { assert, notUndefined } from '@ppwcode/ng-utils'
 import { mixinHandleSubscriptions } from '@ppwcode/ng-common'
 import { PpwColumnDirective } from './column-directives/ppw-column.directive'
 import { Column, ColumnType } from './columns/column'
