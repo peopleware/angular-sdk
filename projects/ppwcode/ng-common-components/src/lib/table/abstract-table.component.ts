@@ -131,7 +131,8 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
 
         return columns.reduce<Record<string, 'before' | 'after'>>((positionsByColumn, column) => {
             const textAlign = headerStyles?.[column.name]?.()?.[textAlignConst]
-            positionsByColumn[column.name] = textAlign === alignRightConst ? 'before' : 'after'
+            positionsByColumn[column.name] =
+                textAlign === alignRightConst || column.type === ColumnType.Number ? 'before' : 'after'
             return positionsByColumn
         }, {})
     })

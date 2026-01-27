@@ -1,14 +1,19 @@
 @use '@angular/material' as mat;
 
-:host ::ng-deep th[style*='text-align: right'] {
-    .mat-sort-header-container {
-        justify-content: end;
-    }
-}
+:host {
+    ::ng-deep {
+        th.ppw-column-type-number,
+        th[style*='text-align: right'] {
+            .mat-sort-header-container {
+                justify-content: end;
+            }
+        }
 
-:host ::ng-deep th[style*='text-align: center'] {
-    .mat-sort-header-container {
-        justify-content: center;
+        th[style*='text-align: center'] {
+            .mat-sort-header-container {
+                justify-content: center;
+            }
+        }
     }
 }
 
