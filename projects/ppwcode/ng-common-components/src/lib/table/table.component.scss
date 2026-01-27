@@ -2,6 +2,7 @@
 
 :host {
     ::ng-deep {
+        th.ppw-column-type-number,
         th[style*='text-align: right'] {
             .mat-sort-header-container {
                 justify-content: end;
