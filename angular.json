@@ -21,9 +21,6 @@
                         "outputPath": "dist/ppwcode",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
@@ -85,10 +82,6 @@
                     "builder": "@angular/build:karma",
                     "options": {
                         "karmaConfig": "karma.conf.js",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ],
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
@@ -139,10 +132,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-async/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -182,10 +171,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-common/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -225,10 +210,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-utils/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -268,10 +249,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -311,10 +288,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-router/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -354,10 +327,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -397,10 +366,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -440,10 +405,6 @@
                     "options": {
                         "karmaConfig": "karma.conf.js",
                         "tsConfig": "projects/ppwcode/ng-forms/tsconfig.spec.json",
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ]
                     }
                 },
                 "lint": {
@@ -483,10 +444,6 @@
               "options": {
                 "karmaConfig": "karma.conf.js",
                 "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json",
-                "polyfills": [
-                  "zone.js",
-                  "zone.js/testing"
-                ]
               }
             }
           }
@@ -517,10 +474,6 @@
               "options": {
                 "karmaConfig": "karma.conf.js",
                 "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.spec.json",
-                "polyfills": [
-                  "zone.js",
-                  "zone.js/testing"
-                ]
               }
             }
           }
