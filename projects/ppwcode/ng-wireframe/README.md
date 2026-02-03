@@ -59,21 +59,21 @@ You can hide the wireframe by adding a flag in the route configuration - In data
 
 #### Parameters
 
--   navigationItems: An array of `NavigationItem` objects.
--   sidebarOptions: The options for the sidebar.
--   toolbarHeightPx: The height of the toolbar in pixels.
--   hideSidenavWhenNoNavigationItems: If true, the sidenav will be hidden when there are no navigation items.
--   showBreadcrumb: If true, the breadcrumb will be shown.
+- navigationItems: An array of `NavigationItem` objects.
+- sidebarOptions: The options for the sidebar.
+- toolbarHeightPx: The height of the toolbar in pixels.
+- hideSidenavWhenNoNavigationItems: If true, the sidenav will be hidden when there are no navigation items.
+- showBreadcrumb: If true, the breadcrumb will be shown.
 
 #### Content
 
 Content can be added in 5 places:
 
--   The left side of the toolbar: `ppw-toolbar-left-content`
--   The right side of the toolbar: `ppw-toolbar-right-content`
--   Above the navigation menu items: `ppw-sidebar-top-content`
--   At the bottom of the drawer: `ppw-sidebar-bottom-content`
--   The breadcrumb home link: `ppw-breadcrumb-home`
+- The left side of the toolbar: `ppw-toolbar-left-content`
+- The right side of the toolbar: `ppw-toolbar-right-content`
+- Above the navigation menu items: `ppw-sidebar-top-content`
+- At the bottom of the drawer: `ppw-sidebar-bottom-content`
+- The breadcrumb home link: `ppw-breadcrumb-home`
 
 Complete example:
 

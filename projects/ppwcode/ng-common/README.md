@@ -37,8 +37,8 @@ Defines a constructable type.
 Mixin to extend the given constructable with functionality to manage subscriptions.
 Provides the following:
 
--   A function to wrap a stream with the PPW way of subscription handling.
--   An ngOnDestroy implementation to automatically unsubscribe to all known subscriptions.
+- A function to wrap a stream with the PPW way of subscription handling.
+- An ngOnDestroy implementation to automatically unsubscribe to all known subscriptions.
 
 #### Track pending
 

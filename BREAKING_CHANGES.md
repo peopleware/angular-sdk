@@ -10,7 +10,7 @@ Breaking changes are grouped by their major version number.
 
 The following have been removed:
 
--   `ppw-search-filter` output events `search` and `reset` have been removed. Use `performSearch` and `clear` as events instead.
+- `ppw-search-filter` output events `search` and `reset` have been removed. Use `performSearch` and `clear` as events instead.
 
 ## v20.0.0
 
@@ -20,9 +20,9 @@ The following have been removed:
 
 ### Peer dependency upgrades
 
--   ngx-translate should now be at least v17.
-    -   [Refer to their upgrade guide for v15 -> v16.](https://ngx-translate.org/v16/getting-started/migration-guide/)
-    -   [Refer to their upgrade guide for v16 -> v17.](https://ngx-translate.org/getting-started/migration-guide/)
+- ngx-translate should now be at least v17.
+    - [Refer to their upgrade guide for v15 -> v16.](https://ngx-translate.org/v16/getting-started/migration-guide/)
+    - [Refer to their upgrade guide for v16 -> v17.](https://ngx-translate.org/getting-started/migration-guide/)
 
 ### Opinionated margins from expandable-card have been removed
 
