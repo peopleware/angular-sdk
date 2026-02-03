@@ -66,6 +66,7 @@
         "karma-jasmine-html-reporter": "2.1.0",
         "karma-junit-reporter": "2.0.1",
         "ng-packagr": "21.0.0",
+        "oxfmt": "0.28.0",
         "prettier": "3.8.1",
         "prettier-config-standard": "7.0.0",
         "retire": "5.2.5",
