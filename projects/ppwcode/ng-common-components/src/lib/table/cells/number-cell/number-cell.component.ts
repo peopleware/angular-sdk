@@ -11,7 +11,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
  */
 @Component({
     selector: 'ppw-number-cell',
-    template: `{{ value() }}`,
+    template: '{{ value() }}',
     standalone: true
 })
 

@@ -4,14 +4,16 @@ import { By } from '@angular/platform-browser'
 import { PpwTableModule } from '../../table.module'
 
 @Component({
-    template: ` <ppw-table [data]="data()" [trackBy]="trackBy">
-        <ppw-column type="template" name="rowIndex">
-            <ng-template ppw-column-cell let-rowIndex="rowIndex" let-row>
-                <span class="row-id">Row id: {{ row.id }}</span>
-                <span class="row-index">Row index: {{ rowIndex }}</span>
-            </ng-template>
-        </ppw-column>
-    </ppw-table>`,
+    template: `
+        <ppw-table [data]="data()" [trackBy]="trackBy">
+            <ppw-column type="template" name="rowIndex">
+                <ng-template ppw-column-cell let-rowIndex="rowIndex" let-row>
+                    <span class="row-id">Row id: {{ row.id }}</span>
+                    <span class="row-index">Row index: {{ rowIndex }}</span>
+                </ng-template>
+            </ppw-column>
+        </ppw-table>
+    `,
     imports: [PpwTableModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -12,7 +12,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
  */
 @Component({
     selector: 'ppw-text-cell',
-    template: `{{ value() }}`,
+    template: '{{ value() }}',
     standalone: true
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
