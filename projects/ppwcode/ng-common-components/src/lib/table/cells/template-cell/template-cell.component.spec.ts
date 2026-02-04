@@ -1,10 +1,10 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { PpwTableModule } from '../../table.module'
 
 @Component({
-    template: ` <ppw-table [data]="data" [trackBy]="trackBy">
+    template: ` <ppw-table [data]="data()" [trackBy]="trackBy">
         <ppw-column type="template" name="rowIndex">
             <ng-template ppw-column-cell let-rowIndex="rowIndex" let-row>
                 <span class="row-id">Row id: {{ row.id }}</span>
@@ -12,10 +12,11 @@ import { PpwTableModule } from '../../table.module'
             </ng-template>
         </ppw-column>
     </ppw-table>`,
-    imports: [PpwTableModule]
+    imports: [PpwTableModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TemplateCellHostComponent {
-    public data: Array<{ id: number }> = [{ id: 128 }, { id: 129 }]
+    public data: WritableSignal<Array<{ id: number }>> = signal([{ id: 128 }, { id: 129 }])
 
     public readonly trackBy = (_index: number, item: { id: number }): number => item.id
 }
@@ -51,7 +52,9 @@ describe('TemplateCellComponent', () => {
         expect(rowIndexSpans[1].nativeElement.textContent).toBe('Row index: 1')
 
         // Switch data order to simulate a drag and drop reorder
-        component.data = [component.data[1], component.data[0]]
+        component.data.update((data) => {
+            return [data[1], data[0]]
+        })
         fixture.detectChanges()
 
         const updatedRowIdSpans = fixture.debugElement.queryAll(By.css('.row-id'))

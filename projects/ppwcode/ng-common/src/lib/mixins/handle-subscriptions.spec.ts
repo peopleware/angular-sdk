@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { interval } from 'rxjs'
 import { mixinHandleSubscriptions } from './handle-subscriptions'
 
@@ -8,6 +8,9 @@ describe('Handle subscriptions mixin', () => {
     let component: TestComponent
 
     beforeEach(() => {
+        jasmine.clock().install()
+        jasmine.clock().mockDate(new Date())
+
         TestBed.configureTestingModule({
             declarations: [TestComponent]
         })
@@ -16,29 +19,33 @@ describe('Handle subscriptions mixin', () => {
         component = fixture.componentInstance
     })
 
+    afterEach(() => {
+        jasmine.clock().uninstall()
+    })
+
     it('should extend the given class definitions', () => {
         expect(component.stopOnDestroy).toBeDefined()
     })
 
-    it('should stop listening to the stream when the class is destroyed', fakeAsync(() => {
+    it('should stop listening to the stream when the class is destroyed', () => {
         const interval$ = interval(1000)
         let subscriptionHits = 0
 
         const subscription = component.stopOnDestroy(interval$).subscribe(() => subscriptionHits++)
         expect(subscriptionHits).toBe(0)
 
-        tick(999)
+        jasmine.clock().tick(999)
         expect(subscriptionHits).toBe(0)
 
-        tick(2)
+        jasmine.clock().tick(2)
         expect(subscriptionHits).toBe(1)
 
         fixture.destroy()
-        tick(1000)
+        jasmine.clock().tick(1000)
         expect(subscriptionHits).toBe(1)
 
         subscription.unsubscribe()
-    }))
+    })
 })
 
 @Component({
