@@ -203,13 +203,13 @@ export class HttpCallTester<TRequestResponse, TStreamResult> {
         expectOneCallToUrl(this.url, response, this.expectRequestFn, this.responseOptions)
 
         subscription.unsubscribe()
-        expect(subscriptionHits)
-            .withContext(
-                `Expected ${expectedSubscriptionHits} successful http stream results but got ${subscriptionHits}`
-            )
-            .toEqual(expectedSubscriptionHits)
-        expect(failureHits)
-            .withContext(`Expected ${expectedFailureHits} failed http stream results but got ${failureHits}`)
-            .toEqual(expectedFailureHits)
+        expect(
+            subscriptionHits,
+            `Expected ${expectedSubscriptionHits} successful http stream results but got ${subscriptionHits}`
+        ).toEqual(expectedSubscriptionHits)
+        expect(
+            failureHits,
+            `Expected ${expectedFailureHits} failed http stream results but got ${failureHits}`
+        ).toEqual(expectedFailureHits)
     }
 }

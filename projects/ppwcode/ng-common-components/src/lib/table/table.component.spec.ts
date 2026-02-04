@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal, ViewChild, WritableSignal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
@@ -106,7 +105,7 @@ export function getJsDateFormatter(): (value: Date) => string {
             }
         </ppw-table>
     `,
-    standalone: false,
+    imports: [PpwTableModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestTableComponent {
@@ -136,8 +135,7 @@ describe('TableComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestTableComponent],
-            imports: [PpwTableModule, NoopAnimationsModule]
+            imports: [TestTableComponent]
         })
 
         fixture = TestBed.createComponent(TestTableComponent)
