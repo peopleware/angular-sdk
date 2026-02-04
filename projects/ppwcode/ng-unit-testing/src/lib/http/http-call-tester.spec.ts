@@ -58,7 +58,7 @@ describe('http-call-tester', () => {
 
     it('should verify a call to the fake backend', () => {
         const httpTestingController = TestBed.inject(HttpTestingController)
-        spyOn(httpTestingController, 'expectOne').and.callThrough()
+        vi.spyOn(httpTestingController, 'expectOne')
 
         const response: Array<string> = []
 
@@ -96,7 +96,7 @@ describe('http-call-tester', () => {
 
     it('should support failures', () => {
         const httpTestingController = TestBed.inject(HttpTestingController)
-        spyOn(httpTestingController, 'expectOne').and.callThrough()
+        vi.spyOn(httpTestingController, 'expectOne')
 
         const response: Array<string> = []
 
@@ -117,7 +117,7 @@ describe('http-call-tester', () => {
 
     it('should support checking the failure', () => {
         const httpTestingController = TestBed.inject(HttpTestingController)
-        spyOn(httpTestingController, 'expectOne').and.callThrough()
+        vi.spyOn(httpTestingController, 'expectOne')
 
         const response: Array<string> = []
 

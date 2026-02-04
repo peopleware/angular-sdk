@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest'
 import { natural } from './assertion'
 import {
     assert,
@@ -10,7 +11,7 @@ import {
     settings,
     violationMessage
 } from './conditional-assert'
-import Spy = jasmine.Spy
+import Spy = Mock
 
 interface Fixture {
     originalConditionalAssertEnabled: boolean
@@ -60,7 +61,10 @@ describe('Conditional Assert ', () => {
         const customMessages = ['custom message', undefined]
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const cases: Array<{ subject: any; customMessage?: string }> = subjects.reduce(
+        const cases: Array<{
+            subject: any
+            customMessage?: string
+        }> = subjects.reduce(
             (acc1, s) =>
                 customMessages.reduce((acc2, cm) => {
                     acc2.push({ subject: s, customMessage: cm })
@@ -139,7 +143,7 @@ describe('Conditional Assert ', () => {
 
             describe('log violations', () => {
                 beforeEach(function (this: Fixture): void {
-                    this.spy = spyOn(console, 'error') // spy released by Jasmine automatically
+                    this.spy = vi.spyOn(console, 'error') // spy released by Jasmine automatically
                 })
 
                 it('does not log violations to the console when requested', function (this: Fixture): void {
@@ -147,7 +151,7 @@ describe('Conditional Assert ', () => {
                     try {
                         assert(5, (t) => t === 3)
                         // should have failed and have written to console
-                        fail()
+                        throw new Error()
                     } catch (err) {
                         expect(err).toBeDefined()
                         expect(this.spy).not.toHaveBeenCalled()
@@ -159,7 +163,7 @@ describe('Conditional Assert ', () => {
                     try {
                         assert(5, (t) => t === 3)
                         // should have failed and have written to console
-                        fail()
+                        throw new Error()
                     } catch (err) {
                         expect(err).toBeDefined()
                         expect(this.spy).toHaveBeenCalledWith(err)

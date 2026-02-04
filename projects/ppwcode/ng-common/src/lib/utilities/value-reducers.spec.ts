@@ -1,13 +1,15 @@
 import { signal } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { combineLatest, firstValueFrom, Observable, of } from 'rxjs'
-import { first } from 'rxjs/operators'
 import { invert, ObservableConvertableValue, oneTrue } from './value-reducers'
 
 describe('Value combiners', () => {
     describe('invert', () => {
-        it('should invert boolean values', (done) => {
-            const testCases: Array<{ initialValue: ObservableConvertableValue<boolean>; inverted: boolean }> = [
+        it('should invert boolean values', async () => {
+            const testCases: Array<{
+                initialValue: ObservableConvertableValue<boolean>
+                inverted: boolean
+            }> = [
                 { initialValue: false, inverted: true },
                 { initialValue: signal(false), inverted: true },
                 { initialValue: of(false), inverted: true },
@@ -22,12 +24,8 @@ describe('Value combiners', () => {
                 observables = testCases.map((testCase) => invert(testCase.initialValue))
             })
 
-            combineLatest(observables)
-                .pipe(first())
-                .subscribe((result) => {
-                    expect(result).toEqual(testCases.map((testCase) => testCase.inverted))
-                    done()
-                })
+            const result = await firstValueFrom(combineLatest(observables))
+            expect(result).toEqual(testCases.map((testCase) => testCase.inverted))
         })
     })
 

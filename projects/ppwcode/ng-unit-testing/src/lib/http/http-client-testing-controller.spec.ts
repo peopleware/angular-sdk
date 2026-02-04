@@ -16,13 +16,12 @@ describe('http-client-testing-controller', () => {
         httpClient = TestBed.inject(HttpClient)
     })
 
-    it('should support expecting a call to a url and send a fake response', (done: DoneFn) => {
+    it('should support expecting a call to a url and send a fake response', async () => {
         const httpCall = httpClient.get('/api')
         const response = [{ id: 1 }]
 
         const subscription = httpCall.subscribe((callResponse) => {
             expect(callResponse).toBe(response)
-            done()
         })
 
         expectOneCallToUrl('/api', response)

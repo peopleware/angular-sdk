@@ -33,15 +33,13 @@ describe('default async result handling', () => {
             const httpErrorResponse = new HttpErrorResponse({ status: 400 })
             const source$ = throwError(() => httpErrorResponse)
 
-            await expectAsync(firstValueFrom(handleAsyncResult(source$, [409]))).toBeRejectedWith(httpErrorResponse)
+            await expect(firstValueFrom(handleAsyncResult(source$, [409]))).rejects.toEqual(httpErrorResponse)
         })
 
         it('should pass on unexpected errors', async () => {
             const source$ = throwError(() => new Error('ERROR_MESSAGE'))
 
-            await expectAsync(firstValueFrom(handleAsyncResult(source$, [409]))).toBeRejectedWith(
-                new Error('ERROR_MESSAGE')
-            )
+            await expect(firstValueFrom(handleAsyncResult(source$, [409]))).rejects.toEqual(new Error('ERROR_MESSAGE'))
         })
     })
 
@@ -73,7 +71,7 @@ describe('default async result handling', () => {
             const httpErrorResponse = new HttpErrorResponse({ status: 400 })
             const source$ = throwError(() => httpErrorResponse)
 
-            await expectAsync(firstValueFrom(handleAsyncResultIgnoreEntity(source$, [409]))).toBeRejectedWith(
+            await expect(firstValueFrom(handleAsyncResultIgnoreEntity(source$, [409]))).rejects.toEqual(
                 httpErrorResponse
             )
         })
@@ -81,7 +79,7 @@ describe('default async result handling', () => {
         it('should pass on unexpected errors', async () => {
             const source$ = throwError(() => new Error('ERROR_MESSAGE'))
 
-            await expectAsync(firstValueFrom(handleAsyncResultIgnoreEntity(source$, [409]))).toBeRejectedWith(
+            await expect(firstValueFrom(handleAsyncResultIgnoreEntity(source$, [409]))).rejects.toEqual(
                 new Error('ERROR_MESSAGE')
             )
         })
@@ -115,15 +113,13 @@ describe('default async result handling', () => {
             const httpErrorResponse = new HttpErrorResponse({ status: 400 })
             const source$ = throwError(() => httpErrorResponse)
 
-            await expectAsync(firstValueFrom(handlePagedAsyncResult(source$, [409]))).toBeRejectedWith(
-                httpErrorResponse
-            )
+            await expect(firstValueFrom(handlePagedAsyncResult(source$, [409]))).rejects.toEqual(httpErrorResponse)
         })
 
         it('should pass on unexpected errors', async () => {
             const source$ = throwError(() => new Error('ERROR_MESSAGE'))
 
-            await expectAsync(firstValueFrom(handlePagedAsyncResult(source$, [409]))).toBeRejectedWith(
+            await expect(firstValueFrom(handlePagedAsyncResult(source$, [409]))).rejects.toEqual(
                 new Error('ERROR_MESSAGE')
             )
         })
