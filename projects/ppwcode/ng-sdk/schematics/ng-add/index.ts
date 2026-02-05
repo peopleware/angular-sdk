@@ -1,11 +1,21 @@
-import { chain, Rule, Tree } from '@angular-devkit/schematics'
+import {
+    apply,
+    applyTemplates,
+    chain,
+    MergeStrategy,
+    mergeWith,
+    move,
+    Rule,
+    Tree,
+    url
+} from '@angular-devkit/schematics'
 import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies'
 import { dependencies, devDependencies } from './dependencies/dependencies'
 import { addAngularESLint } from './eslint/add'
 import { modifyESLintConfig } from './eslint/modify'
 
 export function ngAdd(): Rule {
-    return chain([addDependenciesToPackageJson(), addAngularESLint(), modifyESLintConfig()])
+    return chain([addDependenciesToPackageJson(), addAngularESLint(), modifyESLintConfig(), copyFilesToRoot()])
 }
 
 /**
@@ -32,4 +42,11 @@ const addDependenciesToPackageJson = () => {
 
         return host
     }
+}
+
+const copyFilesToRoot = () => {
+    return mergeWith(
+        apply(url('./files'), [applyTemplates({ dot: '.' }), move('/')]),
+        MergeStrategy.AllowCreationConflict
+    )
 }
