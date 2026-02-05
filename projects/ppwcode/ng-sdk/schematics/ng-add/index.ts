@@ -13,9 +13,16 @@ import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angula
 import { dependencies, devDependencies } from './dependencies/dependencies'
 import { addAngularESLint } from './eslint/add'
 import { modifyESLintConfig } from './eslint/modify'
+import { addAngularMaterial } from './angular-material/add'
 
 export function ngAdd(): Rule {
-    return chain([addDependenciesToPackageJson(), addAngularESLint(), modifyESLintConfig(), copyFilesToRoot()])
+    return chain([
+        addDependenciesToPackageJson(),
+        addAngularESLint(),
+        modifyESLintConfig(),
+        copyFilesToRoot(),
+        addAngularMaterial()
+    ])
 }
 
 /**
