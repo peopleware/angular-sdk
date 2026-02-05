@@ -79,20 +79,10 @@
                     }
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "tsconfig.spec.json",
-                        "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                          "@angular/material/prebuilt-themes/purple-green.css",
-                          "src/styles.scss"
-                        ],
-                        "scripts": []
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -128,10 +118,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-async/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-async/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -167,10 +157,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-common/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-common/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -206,10 +196,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-utils/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-utils/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -245,10 +235,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-wireframe/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -284,10 +274,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-router/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-router/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -323,10 +313,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-state-management/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -362,10 +352,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-dialogs/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -401,10 +391,10 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
+                    "builder": "@angular/build:unit-test",
                     "options": {
-                        "karmaConfig": "karma.conf.js",
-                        "tsConfig": "projects/ppwcode/ng-forms/tsconfig.spec.json",
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-forms/tsconfig.spec.json"
                     }
                 },
                 "lint": {
@@ -440,10 +430,10 @@
               "defaultConfiguration": "production"
             },
             "test": {
-              "builder": "@angular/build:karma",
+              "builder": "@angular/build:unit-test",
               "options": {
-                "karmaConfig": "karma.conf.js",
-                "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json",
+                "runnerConfig": "vitest.config.ts",
+                "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json"
               }
             }
           }
@@ -470,10 +460,10 @@
               "defaultConfiguration": "production"
             },
             "test": {
-              "builder": "@angular/build:karma",
+              "builder": "@angular/build:unit-test",
               "options": {
-                "karmaConfig": "karma.conf.js",
-                "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.spec.json",
+                "runnerConfig": "vitest.config.ts",
+                "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.spec.json"
               }
             }
           }

@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest'
 import { natural } from './assertion'
 import {
     assert,
@@ -10,23 +11,18 @@ import {
     settings,
     violationMessage
 } from './conditional-assert'
-import Spy = jasmine.Spy
-
-interface Fixture {
-    originalConditionalAssertEnabled: boolean
-    originalLogViolations: boolean
-    spy: Spy
-}
 
 describe('Conditional Assert ', () => {
-    beforeEach(function (this: Fixture): void {
-        this.originalConditionalAssertEnabled = settings.enabled
-        this.originalLogViolations = settings.logViolations
+    let originalConditionalAssertEnabled: boolean, originalLogViolations: boolean
+
+    beforeEach(() => {
+        originalConditionalAssertEnabled = settings.enabled
+        originalLogViolations = settings.logViolations
     })
 
-    afterEach(function (this: Fixture): void {
-        settings.enabled = this.originalConditionalAssertEnabled
-        settings.logViolations = this.originalLogViolations
+    afterEach(() => {
+        settings.enabled = originalConditionalAssertEnabled
+        settings.logViolations = originalLogViolations
     })
 
     describe('#violationMessage', () => {
@@ -126,43 +122,50 @@ describe('Conditional Assert ', () => {
 
             it('throws when the assertion fails, with the default message', () => {
                 const expectedMessage = violationMessage(subject, alwaysFalse)
-                expect(assert.bind(undefined, subject, alwaysFalse)).toThrowError(ConditionViolation, expectedMessage)
+                expect(assert.bind(undefined, subject, alwaysFalse)).toThrowError(ConditionViolation)
+                expect(assert.bind(undefined, subject, alwaysFalse)).toThrowError(expectedMessage)
             })
 
             it('throws when the assertion fails, with a custom message', () => {
                 const expectedMessage = violationMessage(subject, alwaysFalse, customMessage)
-                expect(assert.bind(undefined, subject, alwaysFalse, customMessage)).toThrowError(
-                    ConditionViolation,
-                    expectedMessage
-                )
+                expect(assert.bind(undefined, subject, alwaysFalse, customMessage)).toThrowError(ConditionViolation)
+                expect(assert.bind(undefined, subject, alwaysFalse, customMessage)).toThrowError(expectedMessage)
             })
 
             describe('log violations', () => {
-                beforeEach(function (this: Fixture): void {
-                    this.spy = spyOn(console, 'error') // spy released by Jasmine automatically
+                let spy: Mock
+                let originalConsoleError: Console['error']
+
+                beforeEach(() => {
+                    originalConsoleError = console.error
+                    spy = vi.spyOn(console, 'error').mockImplementation(() => {})
                 })
 
-                it('does not log violations to the console when requested', function (this: Fixture): void {
+                afterEach(() => {
+                    console.error = originalConsoleError
+                })
+
+                it('does not log violations to the console when requested', () => {
                     settings.logViolations = false
                     try {
                         assert(5, (t) => t === 3)
                         // should have failed and have written to console
-                        fail()
+                        throw new Error()
                     } catch (err) {
                         expect(err).toBeDefined()
-                        expect(this.spy).not.toHaveBeenCalled()
+                        expect(spy).not.toHaveBeenCalled()
                     }
                 })
 
-                it('logs violations to the console when requested', function (this: Fixture): void {
+                it('logs violations to the console when requested', () => {
                     settings.logViolations = true
                     try {
                         assert(5, (t) => t === 3)
                         // should have failed and have written to console
-                        fail()
+                        throw new Error()
                     } catch (err) {
                         expect(err).toBeDefined()
-                        expect(this.spy).toHaveBeenCalledWith(err)
+                        expect(spy).toHaveBeenCalledWith(err)
                     }
                 })
             })
@@ -211,8 +214,8 @@ describe('Conditional Assert ', () => {
 
             it('throws when t is undefined', () => {
                 const t: number | undefined = undefined
+                expect(notUndefined.bind(undefined, t)).toThrowError(ConditionViolation)
                 expect(notUndefined.bind(undefined, t)).toThrowError(
-                    ConditionViolation,
                     violationMessage(undefined, () => true, notUndefinedViolationMessage)
                 )
             })
@@ -257,10 +260,8 @@ describe('Conditional Assert ', () => {
 
             it('throws when t is null', () => {
                 const t: number | null = null
-                expect(notNull.bind(null, t)).toThrowError(
-                    ConditionViolation,
-                    violationMessage(null, () => true, notNullViolationMessage)
-                )
+                expect(notNull.bind(null, t)).toThrowError(ConditionViolation)
+                expect(notNull.bind(null, t)).toThrowError(violationMessage(null, () => true, notNullViolationMessage))
             })
         })
 

@@ -29,8 +29,8 @@ describe('executeAsyncOperation', () => {
     it('should execute success handler on successful async operation', async () => {
         const operation$ = new Subject<AsyncResult<string>>()
         const isExecuting$ = new BehaviorSubject<boolean>(false)
-        const onSuccess = jasmine.createSpy('onSuccess')
-        const onError = jasmine.createSpy('onError')
+        const onSuccess = vi.fn()
+        const onError = vi.fn()
         const operationValue = createSuccessAsyncResult('operation result')
 
         const promise = executeAsyncOperation(
@@ -42,11 +42,11 @@ describe('executeAsyncOperation', () => {
             isExecuting$
         )
 
-        expect(isExecuting$.value).toBeTrue()
+        expect(isExecuting$.value).toBe(true)
         operation$.next(operationValue)
         await promise
 
-        expect(isExecuting$.value).toBeFalse()
+        expect(isExecuting$.value).toBe(false)
         expect(onSuccess).toHaveBeenCalledWith(operationValue)
         expect(onError).not.toHaveBeenCalled()
     })
@@ -54,8 +54,8 @@ describe('executeAsyncOperation', () => {
     it('should execute error handler on failed async operation', async () => {
         const operation$ = new Subject<AsyncResult<string>>()
         const isExecuting$ = new BehaviorSubject<boolean>(false)
-        const onSuccess = jasmine.createSpy('onSuccess')
-        const onError = jasmine.createSpy('onError')
+        const onSuccess = vi.fn()
+        const onError = vi.fn()
 
         const operationValue: AsyncResult<string> = createFailedAsyncResult(new Error('operation failed'), 'it failed')
 
@@ -68,11 +68,11 @@ describe('executeAsyncOperation', () => {
             isExecuting$
         )
 
-        expect(isExecuting$.value).toBeTrue()
+        expect(isExecuting$.value).toBe(true)
         operation$.next(operationValue)
         await promise
 
-        expect(isExecuting$.value).toBeFalse()
+        expect(isExecuting$.value).toBe(false)
         expect(onError).toHaveBeenCalledWith(operationValue)
         expect(onSuccess).not.toHaveBeenCalled()
     })

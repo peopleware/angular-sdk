@@ -6,8 +6,7 @@ import { PaginationBarComponent } from './pagination-bar.component'
 describe('Pagination bar component', () => {
     const createTestComponent = async (value: PagedAsyncResult<unknown, unknown> | PagedEntities<unknown>) => {
         TestBed.configureTestingModule({
-            declarations: [TestComponent],
-            imports: [PaginationBarComponent]
+            imports: [TestComponent]
         })
         const fixture = TestBed.createComponent(TestComponent)
         fixture.componentRef.setInput('value', value)
@@ -37,8 +36,7 @@ describe('Pagination bar component', () => {
 
 @Component({
     template: '<ppw-pagination-bar [pagedAsyncResult]="value()"></ppw-pagination-bar>',
-    /* eslint-disable @angular-eslint/prefer-standalone */
-    standalone: false,
+    imports: [PaginationBarComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestComponent {

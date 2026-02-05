@@ -12,7 +12,7 @@ const constructErrorResponse = (status: number, error: unknown = null, statusTex
 
 describe('extractHttpError', () => {
     it('should run the global extractor when defined', () => {
-        window.ppwcodeHttpErrorExtractor = jasmine.createSpy('ppwcodeHttpErrorExtractor')
+        window.ppwcodeHttpErrorExtractor = vi.fn()
 
         const httpError = constructErrorResponse(400)
         extractHttpError(httpError)
@@ -23,7 +23,7 @@ describe('extractHttpError', () => {
     })
 
     it('should not run the global extractor when skipCustomExtractor is true', () => {
-        window.ppwcodeHttpErrorExtractor = jasmine.createSpy('ppwcodeHttpErrorExtractor')
+        window.ppwcodeHttpErrorExtractor = vi.fn()
 
         const httpError = constructErrorResponse(400)
         extractHttpError(httpError, true)
@@ -115,7 +115,7 @@ describe('extractHttpError', () => {
 
 describe('expectHttpError', () => {
     it('should pass on the received value', async () => {
-        const handler = jasmine.createSpy('handler', () => new Error()).and.callThrough()
+        const handler = vi.fn(() => new Error())
         const source$ = of('source value')
 
         const result = await firstValueFrom(source$.pipe(expectHttpError([409], handler)))
@@ -126,10 +126,10 @@ describe('expectHttpError', () => {
     })
 
     it('should pass on exceptions that are not an HttpErrorResponse', async () => {
-        const handler = jasmine.createSpy('handler', () => new Error()).and.callThrough()
+        const handler = vi.fn(() => new Error())
         const source$ = throwError(() => new Error('ERROR_MESSAGE'))
 
-        await expectAsync(firstValueFrom(source$.pipe(expectHttpError([409], handler)))).toBeRejectedWith(
+        await expect(firstValueFrom(source$.pipe(expectHttpError([409], handler)))).rejects.toEqual(
             new Error('ERROR_MESSAGE')
         )
 
@@ -137,10 +137,10 @@ describe('expectHttpError', () => {
     })
 
     it(`should pass on http errors that don't match the expected status code`, async () => {
-        const handler = jasmine.createSpy('handler', () => new Error()).and.callThrough()
+        const handler = vi.fn(() => new Error())
         const source$ = throwError(() => new HttpErrorResponse({ status: 400 }))
 
-        await expectAsync(firstValueFrom(source$.pipe(expectHttpError([409], handler)))).toBeRejectedWith(
+        await expect(firstValueFrom(source$.pipe(expectHttpError([409], handler)))).rejects.toEqual(
             new HttpErrorResponse({ status: 400 })
         )
 
@@ -148,7 +148,7 @@ describe('expectHttpError', () => {
     })
 
     it('should handle http errors with the expected status code', async () => {
-        const handler = jasmine.createSpy('handler', () => new Error()).and.callThrough()
+        const handler = vi.fn(() => new Error())
         const source$ = throwError(() => new HttpErrorResponse({ status: 409 }))
 
         const result = await firstValueFrom(source$.pipe(expectHttpError([409], handler)))

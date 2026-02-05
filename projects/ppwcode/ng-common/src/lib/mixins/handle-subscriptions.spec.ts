@@ -8,8 +8,8 @@ describe('Handle subscriptions mixin', () => {
     let component: TestComponent
 
     beforeEach(() => {
-        jasmine.clock().install()
-        jasmine.clock().mockDate(new Date())
+        vi.useFakeTimers()
+        vi.setSystemTime(new Date())
 
         TestBed.configureTestingModule({
             declarations: [TestComponent]
@@ -20,7 +20,7 @@ describe('Handle subscriptions mixin', () => {
     })
 
     afterEach(() => {
-        jasmine.clock().uninstall()
+        vi.useRealTimers()
     })
 
     it('should extend the given class definitions', () => {
@@ -34,14 +34,14 @@ describe('Handle subscriptions mixin', () => {
         const subscription = component.stopOnDestroy(interval$).subscribe(() => subscriptionHits++)
         expect(subscriptionHits).toBe(0)
 
-        jasmine.clock().tick(999)
+        vi.advanceTimersByTime(999)
         expect(subscriptionHits).toBe(0)
 
-        jasmine.clock().tick(2)
+        vi.advanceTimersByTime(2)
         expect(subscriptionHits).toBe(1)
 
         fixture.destroy()
-        jasmine.clock().tick(1000)
+        vi.advanceTimersByTime(1000)
         expect(subscriptionHits).toBe(1)
 
         subscription.unsubscribe()
