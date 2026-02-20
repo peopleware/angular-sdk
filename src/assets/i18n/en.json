@@ -12,7 +12,16 @@
         "confirmation-dialog-description": "A demo page showcasing the confirm dialog component",
         "expandable-card-description": "A demo page that shows all possibilities with the expandable card component",
         "global-error-handler-description": "A demo page that shows all possibilities with the global error handler",
-        "in-memory-logging-description": "A demo page that shows all possibilities with the in-memory logging provider"
+        "in-memory-logging-description": "A demo page that shows all possibilities with the in-memory logging provider",
+        "async-result-description": "AsyncResult states and factories from ng-async",
+        "file-download-description": "File download helpers saveDownloadedFile and saveFileDownload",
+        "draggable-dialog-description": "Draggable Material dialog with ppwDraggableDialog",
+        "forms-demo-description": "Form control generators createNonNullableControl and createNullableControl",
+        "route-map-description": "Type-safe routing with getRouteUrl and RouteMapRoutePipe",
+        "signal-store-description": "Signal-based state store with select and selectMany",
+        "utils-demo-description": "Assertion utilities notUndefined, notNull, natural, noDuplicates",
+        "subscription-handling-description": "mixinHandleSubscriptions and stopOnDestroy",
+        "local-storage-description": "LOCAL_STORAGE_TOKEN getItem/setItem/removeItem"
     },
     "global-error-dialog": {
         "copy-all-errors": "Copy All Errors",
@@ -35,7 +44,16 @@
         "global_error_handler": "Global Error Handler",
         "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar",
-        "peopleware_website": "PeopleWare Website"
+        "peopleware_website": "PeopleWare Website",
+        "async_result": "Async Result",
+        "file_download": "File Download",
+        "draggable_dialog": "Draggable Dialog",
+        "forms_demo": "Form Controls",
+        "route_map": "Route Map",
+        "signal_store": "Signal Store",
+        "utils_demo": "Assertion Utils",
+        "subscription_handling": "Subscription Handling",
+        "local_storage": "Local Storage"
     },
     "table": {
         "age": "Age",

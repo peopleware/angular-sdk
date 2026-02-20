@@ -1,0 +1,33 @@
+<div class="flex-column gap-16">
+    <p>Use the buttons below to switch between AsyncResult states. Demonstrates createSuccessAsyncResult, createFailedAsyncResult, executeAsyncOperation, and isAsyncResult.</p>
+    <div class="flex-row gap-8 flex-wrap">
+        <button mat-flat-button (click)="setInitial()">Initial</button>
+        <button mat-flat-button (click)="setSuccess()">Success</button>
+        <button mat-flat-button (click)="setEmpty()">Empty</button>
+        <button mat-flat-button (click)="setFailed()">Failed</button>
+        <button mat-flat-button (click)="simulateLoad()" [disabled]="isLoading$ | async">Simulate load</button>
+        <button mat-flat-button (click)="checkIsAsyncResult()">Check isAsyncResult</button>
+    </div>
+    @if (isAsyncResultGuardResult(); as msg) {
+        @if (msg) {
+            <p><strong>isAsyncResult guard:</strong> {{ msg }}</p>
+        }
+    }
+    <ppw-async-result [asyncResult]="asyncResult()" [pending]="isLoading$ | async">
+        <ng-template ppwAsyncResultInitial>
+            <p>Click a button above or "Simulate load" to see content.</p>
+        </ng-template>
+        <ng-template ppwAsyncResultSuccess [contextTyper]="asyncResult" let-data>
+            @if (data.entity; as items) {
+                <ul>
+                    @for (item of items; track item.id) {
+                        <li>{{ item.name }}</li>
+                    }
+                </ul>
+            }
+        </ng-template>
+        <ng-template ppwAsyncResultEmpty>
+            <p>No items.</p>
+        </ng-template>
+    </ppw-async-result>
+</div>
