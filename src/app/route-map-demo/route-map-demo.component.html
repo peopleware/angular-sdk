@@ -1,0 +1,8 @@
+<div class="flex-column gap-16">
+    <p>Type-safe routing with ng-router: getFullRoutePath(route) and ppwRouteMapRoute pipe for routerLink. Links below use the route map.</p>
+    <ul class="route-links">
+        <li><a routerLink="{{ getFullRoutePath(ROUTE_MAP.components.table) }}">Table (getFullRoutePath)</a></li>
+        <li><a [routerLink]="ROUTE_MAP.components.messageBar | ppwRouteMapRoute">Message bar (pipe)</a></li>
+        <li><a [routerLink]="ROUTE_MAP.components.asyncResult | ppwRouteMapRoute">Async Result (pipe)</a></li>
+    </ul>
+</div>

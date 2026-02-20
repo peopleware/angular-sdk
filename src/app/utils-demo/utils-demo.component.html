@@ -1,0 +1,36 @@
+<div class="flex-column gap-16">
+    <p>Assertion utilities from ng-utils: natural, noDuplicates, notUndefined, notNull.</p>
+    <div class="flex-column gap-8">
+        <h3>natural(n?)</h3>
+        <button mat-flat-button (click)="runNatural()">Run natural() examples</button>
+        @if (naturalResults(); as r) {
+            <ul>
+                @for (entry of r | keyvalue; track entry.key) {
+                    <li>{{ entry.key }} = {{ entry.value }}</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="flex-column gap-8">
+        <h3>noDuplicates(arr)</h3>
+        <button mat-flat-button (click)="runNoDuplicates()">Run noDuplicates() examples</button>
+        @if (noDuplicatesResults(); as r) {
+            <ul>
+                @for (entry of r | keyvalue; track entry.key) {
+                    <li>{{ entry.key }} = {{ entry.value }}</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="flex-column gap-8">
+        <h3>notUndefined / notNull</h3>
+        <button mat-flat-button (click)="runNotUndefined()">Run notUndefined</button>
+        <button mat-flat-button (click)="runNotNull()">Run notNull</button>
+        @if (notUndefinedResult()) {
+            <p>{{ notUndefinedResult() }}</p>
+                        }
+        @if (notNullResult()) {
+            <p>{{ notNullResult() }}</p>
+        }
+    </div>
+</div>

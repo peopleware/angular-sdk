@@ -1,0 +1,15 @@
+<div class="flex-column gap-16">
+    <p>SignalStore from ng-state-management: initialize, patch, select, selectMany. Load triggers async patch; filter uses selectMany.</p>
+    <button mat-flat-button (click)="store.loadItems()">Load items</button>
+    <mat-form-field appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input matInput (input)="onSearchTermChange($any($event.target).value)" placeholder="Search by name" />
+    </mat-form-field>
+    <ppw-loader [loading]="store.select('isLoading')()">
+        <ul>
+            @for (item of store.filteredItems(); track item.id) {
+                <li>{{ item.name }}</li>
+            }
+        </ul>
+    </ppw-loader>
+</div>

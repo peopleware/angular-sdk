@@ -38,6 +38,48 @@ const messageBarNavigationItem: NavigationItem = {
     fullRouterPath: getFullRoutePath(ROUTE_MAP.components.messageBar)
 }
 
+const asyncResultNavigationItem: NavigationItem = {
+    label: 'navigation.async_result',
+    icon: 'fa-solid fa-spinner',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.asyncResult)
+}
+
+const fileDownloadNavigationItem: NavigationItem = {
+    label: 'navigation.file_download',
+    icon: 'fa-solid fa-download',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.fileDownload)
+}
+
+const draggableDialogNavigationItem: NavigationItem = {
+    label: 'navigation.draggable_dialog',
+    icon: 'fa-solid fa-arrows-up-down-left-right',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.draggableDialog)
+}
+
+const formsDemoNavigationItem: NavigationItem = {
+    label: 'navigation.forms_demo',
+    icon: 'fa-solid fa-pen-to-square',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.formsDemo)
+}
+
+const routeMapNavigationItem: NavigationItem = {
+    label: 'navigation.route_map',
+    icon: 'fa-solid fa-route',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.routeMap)
+}
+
+const signalStoreNavigationItem: NavigationItem = {
+    label: 'navigation.signal_store',
+    icon: 'fa-solid fa-database',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.signalStore)
+}
+
+const utilsDemoNavigationItem: NavigationItem = {
+    label: 'navigation.utils_demo',
+    icon: 'fa-solid fa-wrench',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.components.utilsDemo)
+}
+
 const componentsNavigationItemContainer: NavigationItem = {
     label: 'navigation.components',
     icon: 'fa-solid fa-cubes',
@@ -46,7 +88,14 @@ const componentsNavigationItemContainer: NavigationItem = {
         expandableCardNavigationItem,
         tableNavigationItem,
         formTableNavigationItem,
-        messageBarNavigationItem
+        messageBarNavigationItem,
+        asyncResultNavigationItem,
+        fileDownloadNavigationItem,
+        draggableDialogNavigationItem,
+        formsDemoNavigationItem,
+        routeMapNavigationItem,
+        signalStoreNavigationItem,
+        utilsDemoNavigationItem
     ]
 }
 
@@ -62,6 +111,18 @@ const globalErrorHandlerNavigationItem: NavigationItem = {
     fullRouterPath: getFullRoutePath(ROUTE_MAP.globalErrorHandler)
 }
 
+const subscriptionHandlingNavigationItem: NavigationItem = {
+    label: 'navigation.subscription_handling',
+    icon: 'fa-solid fa-link-slash',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.subscriptionHandling)
+}
+
+const localStorageNavigationItem: NavigationItem = {
+    label: 'navigation.local_storage',
+    icon: 'fa-solid fa-hard-drive',
+    fullRouterPath: getFullRoutePath(ROUTE_MAP.localStorage)
+}
+
 const peoplewareWebsiteNavigationItem: NavigationItem = {
     label: 'navigation.peopleware_website',
     icon: 'fa-solid fa-earth-europe',
@@ -74,6 +135,8 @@ export const getNavigationItems = () => {
         dashboardNavigationItem,
         componentsNavigationItemContainer,
         inMemoryLoggingNavigationItem,
+        subscriptionHandlingNavigationItem,
+        localStorageNavigationItem,
         globalErrorHandlerNavigationItem,
         peoplewareWebsiteNavigationItem
     ]

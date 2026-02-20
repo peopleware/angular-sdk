@@ -13,7 +13,7 @@ import {
     PpwAsyncResultDefaultOptions,
     ppwHttpErrorExtractorWithTranslatedMessages
 } from '@ppwcode/ng-async'
-import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
+import { provideGlobalErrorHandler, provideLocalStorage, provideLogger } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
 import { provideBreadcrumbOptions, providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { AppComponent } from './app/app.component'
@@ -51,6 +51,8 @@ bootstrapApplication(AppComponent, {
             useValue: { emptyResultComponent: EmptyAsyncResultComponent } as PpwAsyncResultDefaultOptions
         },
         provideRouter(routes, withViewTransitions()),
+        provideLogger({ prefix: '[PPW Demo]', debug: true }),
+        provideLocalStorage(),
         provideGlobalErrorHandler({
             errorDialogOptions: {
                 allowIgnore: true,

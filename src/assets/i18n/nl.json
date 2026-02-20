@@ -12,7 +12,16 @@
         "confirmation-dialog-description": "Een demo pagina die de confirmation dialog component laat zien",
         "expandable-card-description": "Een demo pagina die alle mogelijkheden met de expandable card component laat zien",
         "global-error-handler-description": "Een demo pagina die alle mogelijkheden van de global error handler laat zien",
-        "in-memory-logging-description": "Een demo pagina die alle mogelijkheden van de in-memory logging provider laat zien"
+        "in-memory-logging-description": "Een demo pagina die alle mogelijkheden van de in-memory logging provider laat zien",
+        "async-result-description": "AsyncResult staten en factories van ng-async",
+        "file-download-description": "File download helpers saveDownloadedFile en saveFileDownload",
+        "draggable-dialog-description": "Versleepbare Material dialog met ppwDraggableDialog",
+        "forms-demo-description": "Form control generators createNonNullableControl en createNullableControl",
+        "route-map-description": "Type-veilige routing met getRouteUrl en RouteMapRoutePipe",
+        "signal-store-description": "Signal-based state store met select en selectMany",
+        "utils-demo-description": "Assertion utilities notUndefined, notNull, natural, noDuplicates",
+        "subscription-handling-description": "mixinHandleSubscriptions en stopOnDestroy",
+        "local-storage-description": "LOCAL_STORAGE_TOKEN getItem/setItem/removeItem"
     },
     "global-error-dialog": {
         "copy-all-errors": "Kopieer alle fouten",
@@ -35,7 +44,16 @@
         "global_error_handler": "Global Error Handler",
         "in_memory_logging": "In Memory Logging",
         "message_bar": "Message Bar",
-        "peopleware_website": "PeopleWare Website"
+        "peopleware_website": "PeopleWare Website",
+        "async_result": "Async Result",
+        "file_download": "File Download",
+        "draggable_dialog": "Draggable Dialog",
+        "forms_demo": "Form Controls",
+        "route_map": "Route Map",
+        "signal_store": "Signal Store",
+        "utils_demo": "Assertion Utils",
+        "subscription_handling": "Subscription Handling",
+        "local_storage": "Local Storage"
     },
     "table": {
         "age": "Leeftijd",

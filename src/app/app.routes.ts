@@ -12,11 +12,20 @@ export const ROUTE_MAP = {
         expandableCard: defineRoute('expandable-card'),
         table: defineRoute('table'),
         formTable: defineRoute('form-table'),
-        messageBar: defineRoute('message-bar')
+        messageBar: defineRoute('message-bar'),
+        asyncResult: defineRoute('async-result'),
+        fileDownload: defineRoute('file-download'),
+        draggableDialog: defineRoute('draggable-dialog'),
+        formsDemo: defineRoute('forms'),
+        routeMap: defineRoute('route-map'),
+        signalStore: defineRoute('signal-store'),
+        utilsDemo: defineRoute('utils')
     }),
     dashboardItem: defineRoute('dashboard-item'),
     globalErrorHandler: defineRoute('global-error-handler'),
-    inMemoryLogging: defineRoute('in-memory-logging')
+    inMemoryLogging: defineRoute('in-memory-logging'),
+    subscriptionHandling: defineRoute('subscription-handling'),
+    localStorage: defineRoute('local-storage')
 }
 
 export const routes: Routes = [
@@ -43,5 +52,17 @@ export const routes: Routes = [
         path: getRouteSegment(ROUTE_MAP.globalErrorHandler),
         component: GlobalErrorHandlerComponent,
         title: 'navigation.global_error_handler'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.subscriptionHandling),
+        loadComponent: () =>
+            import('./subscription-handling-demo/subscription-handling-demo.component').then((m) => m.SubscriptionHandlingDemoComponent),
+        title: 'navigation.subscription_handling'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.localStorage),
+        loadComponent: () =>
+            import('./local-storage-demo/local-storage-demo.component').then((m) => m.LocalStorageDemoComponent),
+        title: 'navigation.local_storage'
     }
 ]

@@ -1,0 +1,13 @@
+<div class="flex-column gap-16">
+    <p>Demonstrates LOCAL_STORAGE_TOKEN from ng-common: getItem, setItem, removeItem. Uses provideLocalStorage() from app config.</p>
+    <mat-form-field appearance="outline">
+        <mat-label>Value to store</mat-label>
+        <input matInput [formControl]="value" placeholder="Enter text" />
+    </mat-form-field>
+    <div class="flex-row gap-8 flex-wrap">
+        <button mat-flat-button (click)="save()">Save to localStorage</button>
+        <button mat-flat-button (click)="read()">Read from localStorage</button>
+        <button mat-flat-button (click)="clear()">Clear</button>
+    </div>
+    <p><strong>Last read value:</strong> {{ lastRead() ?? '(empty)' }}</p>
+</div>

@@ -30,5 +30,41 @@ export const componentsRoutes: Routes = [
         path: getRouteSegment(ROUTE_MAP.components.messageBar),
         component: MessageBarComponent,
         title: 'navigation.message_bar'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.asyncResult),
+        loadComponent: () => import('./async-result-demo/async-result-demo.component').then((m) => m.AsyncResultDemoComponent),
+        title: 'navigation.async_result'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.fileDownload),
+        loadComponent: () => import('./file-download-demo/file-download-demo.component').then((m) => m.FileDownloadDemoComponent),
+        title: 'navigation.file_download'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.draggableDialog),
+        loadComponent: () =>
+            import('./draggable-dialog-demo/draggable-dialog-demo.component').then((m) => m.DraggableDialogDemoComponent),
+        title: 'navigation.draggable_dialog'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.formsDemo),
+        loadComponent: () => import('./forms-demo/forms-demo.component').then((m) => m.FormsDemoComponent),
+        title: 'navigation.forms_demo'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.routeMap),
+        loadComponent: () => import('./route-map-demo/route-map-demo.component').then((m) => m.RouteMapDemoComponent),
+        title: 'navigation.route_map'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.signalStore),
+        loadComponent: () => import('./signal-store-demo/signal-store-demo.component').then((m) => m.SignalStoreDemoComponent),
+        title: 'navigation.signal_store'
+    },
+    {
+        path: getRouteSegment(ROUTE_MAP.components.utilsDemo),
+        loadComponent: () => import('./utils-demo/utils-demo.component').then((m) => m.UtilsDemoComponent),
+        title: 'navigation.utils_demo'
     }
 ]
