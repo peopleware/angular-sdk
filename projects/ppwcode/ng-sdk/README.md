@@ -1,64 +1,28 @@
-# NgSdk
+# @ppwcode/ng-sdk
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+This project contains the ppwcode Angular schematics to add our Angular SDK to a project.
 
-## Code scaffolding
+## ng-add
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+`ng add @ppwcode/ng-sdk`
 
-```bash
-ng generate component component-name
-```
+Adds the Angular SDK to a project:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+-   Add dependencies
+-   Add Angular ESLint
+-   Add Angular Material
+-   Configure Angular Vitest runner
+-   Modify package.json scripts
 
-```bash
-ng generate --help
-```
+## Development
 
-## Building
+Development of this schematic is straightforward. Use the following steps to verify changes made to the schematics:
 
-To build the library, run:
+1. In a terminal, make sure you are in the root of the project (not the workspace!)
+2. Run `npm run build` - This will build the project and place the artifacts in the `dist/ppwcode/ng-sdk` directory
+3. In a second terminal, generate a new Angular project using the following command:
+    > `ng new [name] --skip-install --ssr=false --style=scss --ai-config=none`
+4. cd into the new project
+5. Execute the schematic: `ng add [relative-path-to-dist]/dist/ppwcode/ng-sdk`
 
-```bash
-ng build ng-sdk
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-    ```bash
-    cd dist/ng-sdk
-    ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-    ```bash
-    npm publish
-    ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Repeat these steps every time you make changes to the schematics.
