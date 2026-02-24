@@ -7,6 +7,7 @@ import {
     mergeWith,
     move,
     Rule,
+    SchematicsException,
     Tree,
     url
 } from '@angular-devkit/schematics'
@@ -26,7 +27,8 @@ export function ngAdd(): Rule {
         modifyESLintConfig(),
         copyFilesToRoot(),
         addAngularMaterial(),
-        addVitestConfig()
+        addVitestConfig(),
+        updatePackageJsonScripts()
     ])
 }
 
@@ -82,5 +84,32 @@ const addVitestConfig = () => {
         })
 
         await workspaces.writeWorkspace(workspace, workspaceHost)
+    }
+}
+
+const updatePackageJsonScripts = () => {
+    return (host: Tree) => {
+        const path = '/package.json'
+        const file = host.read(path)
+        if (!file) {
+            throw new SchematicsException(`Could not find ${path} to update scripts.`)
+        }
+
+        const packageJson = JSON.parse(file.toString('utf-8'))
+        const scriptsToDelete = ['build', 'watch', 'test', 'lint']
+        scriptsToDelete.forEach((script) => delete packageJson.scripts[script])
+
+        packageJson.scripts = {
+            ...packageJson.scripts,
+            'ci:build': 'ng build',
+            'ci:lint': 'npm run lint:prettier && npm run lint:lint',
+            'ci:test': 'ng test --watch=false',
+            'lint:lint': 'ng lint',
+            'lint:prettier': 'cross-env prettier --check "**/*.{ts,js,json,md,html,scss}"',
+            'format:lint': 'ng lint --fix',
+            'format:prettier': 'cross-env prettier --write "**/*.{ts,js,json,md,html,scss}"'
+        }
+
+        host.overwrite(path, JSON.stringify(packageJson, null, 2))
     }
 }
