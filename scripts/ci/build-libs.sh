@@ -20,4 +20,8 @@ for library in ${LIBRARIES_LIST[@]}; do
   fi
 done
 
+echo 'Building schematics'
+cd projects/ppwcode/ng-sdk
+time npm run build
+
 wait
