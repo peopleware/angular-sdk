@@ -18,11 +18,15 @@ export default class ConfirmationDialogDemoComponent {
             data: {
                 titleKey: 'confirmation-dialog.title',
                 bodyKey: 'confirmation-dialog.body',
-
-                confirmationKey: 'OK',
-                cancelKey: 'Cancel',
-
-                confirmationThemePalette: 'primary'
+                bodyParams: {},
+                titleParams: {},
+                confirm: {
+                    key: 'OK',
+                    color: 'primary'
+                },
+                cancel: {
+                    key: 'Cancel'
+                }
             } as ConfirmationDialogData
         })
     }
@@ -33,13 +37,13 @@ export default class ConfirmationDialogDemoComponent {
                 titleKey: 'Something happened',
                 bodyKey:
                     'This is just to ensure that you have been notified of something. You can click OK to close this dialog but not cancel.',
-
-                confirmationKey: 'OK',
-                cancelKey: 'Cancel',
-
-                allowConfirmOnly: true,
-
-                confirmationThemePalette: 'primary'
+                bodyParams: {},
+                titleParams: {},
+                confirm: {
+                    key: 'OK',
+                    color: 'primary'
+                },
+                allowConfirmOnly: true
             } as ConfirmationDialogData
         })
     }

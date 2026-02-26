@@ -8,17 +8,27 @@
     ></mat-dialog-content>
     <mat-dialog-actions align="end">
         @if (!data.allowConfirmOnly) {
-            <button mat-stroked-button class="ppw-confirmation-dialog__action" [mat-dialog-close]="false">
-                <i class="fa-solid fa-ban"></i> {{ data.cancelKey | translate }}
+            <button
+                [matButton]="cancelButtonAppearance"
+                class="ppw-confirmation-dialog__action"
+                [mat-dialog-close]="false"
+            >
+                @if (!hideCancelIcon) {
+                    <i [class]="cancelIcon"></i>
+                }
+                {{ cancelKey | translate }}
             </button>
         }
         <button
-            mat-raised-button
+            [matButton]="confirmationButtonAppearance"
             class="ppw-confirmation-dialog__action"
             [mat-dialog-close]="true"
             [color]="confirmationThemePalette"
         >
-            <i class="fa-solid fa-check"></i> {{ data.confirmationKey | translate }}
+            @if (!hideConfirmIcon) {
+                <i [class]="confirmationIcon"></i>
+            }
+            {{ confirmationKey | translate }}
         </button>
     </mat-dialog-actions>
 </div>
