@@ -1,13 +1,13 @@
 {
     "name": "@ppwcode/ng-wireframe",
-    "version": "21.1.1",
+    "version": "21.2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
     "peerDependencies": {
         "@angular/common": "^21.0.2",
         "@angular/core": "^21.0.2",
-        "@ppwcode/ng-async": "^21.1.1"
+        "@ppwcode/ng-async": "^21.2.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"

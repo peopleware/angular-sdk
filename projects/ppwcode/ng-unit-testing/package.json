@@ -1,14 +1,14 @@
 {
     "name": "@ppwcode/ng-unit-testing",
-    "version": "21.1.1",
+    "version": "21.2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
     "peerDependencies": {
         "@angular/common": "^21.0.2",
         "@angular/core": "^21.0.2",
-        "@ppwcode/ng-async": "^21.1.1",
-        "@ppwcode/ng-utils": "^21.1.1",
+        "@ppwcode/ng-async": "^21.2.0",
+        "@ppwcode/ng-utils": "^21.2.0",
         "jasmine-core": "^3.9.0 || ^4.0.0 || ^5.0.0"
     },
     "dependencies": {

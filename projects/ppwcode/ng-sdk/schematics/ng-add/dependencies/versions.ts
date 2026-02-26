@@ -6,5 +6,5 @@ export const versions = {
     ngxTranslateHttpLoader: '17.0.0',
     prettier: '3.8.1',
     prettierConfigStandard: '7.0.0',
-    ppwcode: '21.1.1'
+    ppwcode: '21.2.0'
 }
