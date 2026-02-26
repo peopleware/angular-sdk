@@ -1,7 +1,7 @@
 #!/bin/bash
 export NODE_ENV="ci"
 
-declare -a LIBRARIES_LIST=("ng-utils" "ng-common" "ng-common-components" "ng-async" "ng-dialogs" "ng-forms" "ng-router" "ng-state-management" "ng-unit-testing" "ng-wireframe")
+declare -a LIBRARIES_LIST=("ng-utils" "ng-common" "ng-common-components" "ng-async" "ng-dialogs" "ng-forms" "ng-router" "ng-state-management" "ng-unit-testing" "ng-wireframe" "ng-sdk")
 declare -a LIBRARIES_COUNT=${#LIBRARIES_LIST[@]}
 
 # Loop over libs
@@ -19,5 +19,9 @@ for library in ${LIBRARIES_LIST[@]}; do
     exit 1
   fi
 done
+
+echo 'Building schematics'
+cd projects/ppwcode/ng-sdk
+time npm run build
 
 wait

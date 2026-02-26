@@ -37,6 +37,7 @@ jobs:
             - run: npm publish dist/ppwcode/ng-dialogs --access public
             - run: npm publish dist/ppwcode/ng-forms --access public
             - run: npm publish dist/ppwcode/ng-router --access public
+            - run: npm publish dist/ppwcode/ng-sdk --access public
             - run: npm publish dist/ppwcode/ng-state-management --access public
             - run: npm publish dist/ppwcode/ng-unit-testing --access public
             - run: npm publish dist/ppwcode/ng-utils --access public
