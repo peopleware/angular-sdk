@@ -11,6 +11,9 @@ declare global {
     }
 }
 
+// Required for the above global to work with ng-packagr
+export {}
+
 export const extractHttpError = (httpError: HttpErrorResponse, skipCustomExtractor: boolean = false): Error => {
     // When a global error handler has been defined in the application itself, we should use that one instead of the
     // default implementation that we provided here in the SDK.
