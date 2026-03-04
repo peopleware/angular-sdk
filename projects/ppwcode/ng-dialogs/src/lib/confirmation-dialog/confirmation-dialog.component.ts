@@ -30,18 +30,18 @@ export interface ConfirmationDialogData {
     /* eslint-enable */
 
     /**
-     * @deprecated Use confirm.key instead.
+     * @deprecated Use confirm.key instead. Will be removed in v23.
      */
     confirmationKey?: string
     /**
-     * @deprecated Use cancel.key instead.
+     * @deprecated Use cancel.key instead. Will be removed in v23.
      */
     cancelKey?: string
 
     allowConfirmOnly?: boolean
 
     /**
-     * @deprecated Use confirm.color instead.
+     * @deprecated Use confirm.color instead. Will be removed in v23.
      */
     confirmationThemePalette?: ThemePalette
 
