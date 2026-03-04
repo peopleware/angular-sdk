@@ -6,6 +6,10 @@ Breaking changes are grouped by their major version number.
 
 ## v21.0.0
 
+> :warning: **21.3.0** :warning:
+>
+> To account for vulnerabilities in Angular, starting version 21.3.0, ppwcode Angular SDK requires at least Angular 21.2.0.
+
 ### Removal of deprecations
 
 The following have been removed:
