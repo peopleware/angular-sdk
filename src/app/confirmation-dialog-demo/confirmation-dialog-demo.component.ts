@@ -42,8 +42,7 @@ export default class ConfirmationDialogDemoComponent {
                 confirm: {
                     key: 'OK',
                     color: 'primary'
-                },
-                allowConfirmOnly: true
+                }
             } as ConfirmationDialogData
         })
     }

@@ -38,6 +38,9 @@ export interface ConfirmationDialogData {
      */
     cancelKey?: string
 
+    /**
+     * @deprecated Use absence of cancel options to hide the cancel button instead. Will be removed in v23.
+     */
     allowConfirmOnly?: boolean
 
     /**
@@ -67,6 +70,12 @@ export interface ConfirmationDialogData {
 })
 export class ConfirmationDialogComponent {
     public data: ConfirmationDialogData = inject(MAT_DIALOG_DATA)
+
+    get showCancelButton(): boolean {
+        return (
+            (this.data.cancel !== undefined || this.data.cancelKey !== undefined) && this.data.allowConfirmOnly !== true
+        )
+    }
 
     get confirmationThemePalette(): ThemePalette {
         return this.data.confirm?.color ?? this.data.confirmationThemePalette ?? 'primary'

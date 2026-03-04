@@ -7,7 +7,7 @@
         [translateParams]="data.bodyParams"
     ></mat-dialog-content>
     <mat-dialog-actions align="end">
-        @if (!data.allowConfirmOnly) {
+        @if (showCancelButton) {
             <button
                 [matButton]="cancelButtonAppearance"
                 class="ppw-confirmation-dialog__action"

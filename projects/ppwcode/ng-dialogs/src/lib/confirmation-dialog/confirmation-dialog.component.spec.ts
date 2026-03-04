@@ -117,7 +117,14 @@ describe('Confirmation dialog component', () => {
             expect(buttons.length).toBe(2)
         })
 
-        it('should hide cancel button when allowConfirmOnly is true', () => {
+        it('should hide cancel button when cancel data is not provided', () => {
+            createComponent({ cancel: undefined, cancelKey: undefined })
+            const buttons = fixture.debugElement.queryAll(By.css('button'))
+            expect(buttons.length).toBe(1)
+            expect(buttons[0].nativeElement.textContent).toContain('Confirm')
+        })
+
+        it('should hide cancel button when allowConfirmOnly is true (deprecated behavior)', () => {
             createComponent({ allowConfirmOnly: true })
             const buttons = fixture.debugElement.queryAll(By.css('button'))
             expect(buttons.length).toBe(1)
