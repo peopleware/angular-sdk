@@ -11,6 +11,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 The src folder contains a demo project to showcase the components offered in the various projects.
 
+# Demo project
+
+[peopleware.github.io/angular-sdk](https://peopleware.github.io/angular-sdk/)
+
 ## Development server
 
 Run `npm run start` for a dev server running the demo project. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
