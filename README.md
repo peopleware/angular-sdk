@@ -15,6 +15,23 @@ The src folder contains a demo project to showcase the components offered in the
 
 [peopleware.github.io/angular-sdk](https://peopleware.github.io/angular-sdk/)
 
+# Documentation
+
+Documentation is available on a per-project basis.
+
+-   ng-async: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-async
+-   ng-common-components: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-common-components
+-   ng-common: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-common
+-   ng-dialogs: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-dialogs
+-   ng-forms: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-forms
+-   ng-router: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-router
+-   ng-router: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-router
+-   ng-sdk: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-sdk
+-   ng-state-management: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-state-management
+-   ng-unit-testing: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-unit-testing
+-   ng-utils: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-utils
+-   ng-wireframe: https://github.com/peopleware/angular-sdk/tree/master/projects/ppwcode/ng-wireframe
+
 ## Development server
 
 Run `npm run start` for a dev server running the demo project. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
