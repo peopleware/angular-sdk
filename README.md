@@ -1,3 +1,11 @@
+![license badge](https://badgen.net/badge/license/apache%202.0/blue)
+![Latest version on npmjs](https://badge.fury.io/js/%40ppwcode%2Fng-async.svg)
+![NPM Downloads](https://img.shields.io/npm/dm/ng-async)
+![GitHub Repo stars](https://img.shields.io/github/stars/peopleware/angular-sdk)
+
+[![Build & Test](https://github.com/peopleware/angular-sdk/actions/workflows/ci.yaml/badge.svg)](https://github.com/peopleware/angular-sdk/actions/workflows/ci.yaml)
+[![Publish New Release to NPM](https://github.com/peopleware/angular-sdk/actions/workflows/publish-npmjs.yaml/badge.svg)](https://github.com/peopleware/angular-sdk/actions/workflows/publish-npmjs.yaml)
+
 # Ppwcode/angular-sdk
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
