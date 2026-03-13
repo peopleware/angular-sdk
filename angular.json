@@ -93,6 +93,34 @@
                             "src/**/*.html"
                         ]
                     }
+                },
+                "storybook": {
+                    "builder": "@storybook/angular:start-storybook",
+                    "options": {
+                        "configDir": "projects/ppwcode/.storybook",
+                        "browserTarget": "ppwcode:build",
+                        "compodoc": false,
+                        "port": 6006,
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+                        ]
+                    }
+                },
+                "build-storybook": {
+                    "builder": "@storybook/angular:build-storybook",
+                    "options": {
+                        "configDir": "projects/ppwcode/.storybook",
+                        "browserTarget": "ppwcode:build",
+                        "compodoc": false,
+                        "outputDir": "dist/storybook",
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+                        ]
+                    }
                 }
             }
         },
