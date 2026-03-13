@@ -249,6 +249,34 @@
                             "projects/ppwcode/ng-wireframe/**/*.html"
                         ]
                     }
+                },
+                "storybook": {
+                    "builder": "@storybook/angular:start-storybook",
+                    "options": {
+                        "configDir": "projects/ppwcode/ng-wireframe/.storybook",
+                        "browserTarget": "@ppwcode/ng-wireframe:build",
+                        "compodoc": false,
+                        "port": 6006,
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+                        ]
+                    }
+                },
+                "build-storybook": {
+                    "builder": "@storybook/angular:build-storybook",
+                    "options": {
+                        "configDir": "projects/ppwcode/ng-wireframe/.storybook",
+                        "browserTarget": "@ppwcode/ng-wireframe:build",
+                        "compodoc": false,
+                        "outputDir": "dist/storybook/@ppwcode/ng-wireframe",
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+                        ]
+                    }
                 }
             }
         },

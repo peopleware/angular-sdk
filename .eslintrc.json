@@ -1,7 +1,7 @@
 {
     "root": true,
     "ignorePatterns": ["projects/**/*"],
-    "extends": ["plugin:depend/recommended"],
+    "extends": ["plugin:depend/recommended", "plugin:storybook/recommended"],
     "overrides": [
         {
             "files": ["*.ts"],
