@@ -8,6 +8,14 @@
 
 # Ppwcode/angular-sdk
 
+## Install the AI Skill
+
+Developers can install the `ppwcode-angular-sdk` skill from this repository with:
+
+```bash
+npx skills add https://github.com/peopleware/angular-sdk
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 The src folder contains a demo project to showcase the components offered in the various projects.
 
