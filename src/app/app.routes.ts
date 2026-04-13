@@ -42,6 +42,9 @@ export const routes: Routes = [
     {
         path: getRouteSegment(ROUTE_MAP.globalErrorHandler),
         component: GlobalErrorHandlerComponent,
-        title: 'navigation.global_error_handler'
+        title: 'navigation.global_error_handler',
+        data: {
+            showToolbar: false
+        }
     }
 ]
