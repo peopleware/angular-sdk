@@ -84,15 +84,11 @@ export class WireframeComponent {
 
     // Computed properties
     public showWireframe: Signal<boolean> = computed(() => {
-        // This acts as a trigger for the computed property.
-        this.#navigationEnd()
+        return this.#getCurrentRouteSnapshot().data['showWireframe'] ?? true
+    })
 
-        let child: ActivatedRouteSnapshot = this.#router.routerState.snapshot.root
-        while (child.firstChild) {
-            child = child.firstChild
-        }
-
-        return child.data['showWireframe'] ?? true
+    public showToolbar: Signal<boolean> = computed(() => {
+        return this.#getCurrentRouteSnapshot().data['showToolbar'] ?? true
     })
 
     public sidenavMode: Signal<'over' | 'side'> = computed(() => {
@@ -135,5 +131,17 @@ export class WireframeComponent {
             this.#breakpointChange()
             return this.#observer.isMatched(breakpoints)
         })
+    }
+
+    #getCurrentRouteSnapshot(): ActivatedRouteSnapshot {
+        // This acts as a trigger for the computed properties that depend on the active route snapshot.
+        this.#navigationEnd()
+
+        let child: ActivatedRouteSnapshot = this.#router.routerState.snapshot.root
+        while (child.firstChild) {
+            child = child.firstChild
+        }
+
+        return child
     }
 }

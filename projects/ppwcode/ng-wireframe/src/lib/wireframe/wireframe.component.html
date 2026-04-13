@@ -35,7 +35,7 @@
         "
     >
         <div class="ppw-page-container">
-            @if (showWireframe()) {
+            @if (showWireframe() && showToolbar()) {
                 <ppw-toolbar
                     (toggleSidebar)="toggleSidebar()"
                     [isSidenavOpen]="sidebarIsOpen"
@@ -56,7 +56,7 @@
                     </ng-container>
                 </ppw-toolbar>
             }
-            @if (showBreadcrumb()) {
+            @if (showBreadcrumb() && showToolbar()) {
                 <ppw-breadcrumb>
                     <ng-container ppw-breadcrumb-home>
                         <ng-content select="[ppw-breadcrumb-home]">
