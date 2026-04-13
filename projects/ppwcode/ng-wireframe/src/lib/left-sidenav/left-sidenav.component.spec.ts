@@ -55,6 +55,19 @@ describe('Left sidenav component', () => {
         fixture.detectChanges()
     })
 
+    function getNavigationItemButton(label: string): HTMLButtonElement {
+        const navigationItemButtons: Array<HTMLButtonElement> = Array.from(
+            fixture.nativeElement.querySelectorAll('.ppw-sidenav-navigation-item')
+        )
+        const navigationItemButton = navigationItemButtons.find((button) => button.textContent?.includes(label))
+
+        if (!navigationItemButton) {
+            throw new Error(`Could not find navigation item button with label "${label}".`)
+        }
+
+        return navigationItemButton
+    }
+
     it('should do nothing when clicking disabled navigation items', () => {
         expect(component.navigationItemIsOpened(disabledNavigationItem)).toBe(false)
 
@@ -103,6 +116,36 @@ describe('Left sidenav component', () => {
 
         component.onClickNavigationItem(childrenNavigationItem)
         expect(component.navigationItemIsOpened(childrenNavigationItem)).toBe(false)
+    })
+
+    it('should mark the active navigation item', () => {
+        vi.spyOn(router, 'isActive').mockImplementation((url) => url === '/item-2')
+
+        fixture.componentRef.setInput('navigationItems', [...navigationItems])
+        fixture.detectChanges()
+
+        expect(getNavigationItemButton('Navigation item 2').classList).toContain('ppw-sidenav-navigation-item-active')
+        expect(getNavigationItemButton('Navigation item 3').classList).not.toContain(
+            'ppw-sidenav-navigation-item-active'
+        )
+    })
+
+    it('should keep parents with an active child opened', () => {
+        vi.spyOn(router, 'isActive').mockImplementation((url) => url === '/item-2')
+
+        fixture.componentRef.setInput('navigationItems', [...navigationItems])
+        fixture.detectChanges()
+
+        expect(getNavigationItemButton('Navigation item 2')).toBeTruthy()
+    })
+
+    it('should not call the active route helper when unrelated template state changes', () => {
+        const navigationItemIsActiveSpy = vi.spyOn(component, 'navigationItemIsActive')
+
+        fixture.componentRef.setInput('showMenuCloseButton', false)
+        fixture.detectChanges()
+
+        expect(navigationItemIsActiveSpy).not.toHaveBeenCalled()
     })
 
     it('should throw when an external link navigation item contains children', () => {

@@ -62,7 +62,7 @@
     align-items: center;
     justify-content: space-between;
     margin: var(--ppw-sidenav-navigation-item-margin, 4px);
-    border: none;
+    border: var(--ppw-sidenav-navigation-item-border, none);
     border-radius: var(--ppw-sidenav-navigation-item-radius, 8px);
 
     .ppw-sidenav-navigation-item-text {
@@ -96,6 +96,14 @@
     &:hover {
         background: var(--ppw-sidenav-navigation-item-hover-background-color, rgba(255, 255, 255, 0.15));
         cursor: pointer;
+    }
+
+    &.ppw-sidenav-navigation-item-active {
+        background: var(
+            --ppw-sidenav-navigation-item-active-background-color,
+            var(--ppw-sidenav-navigation-item-hover-background-color, rgba(255, 255, 255, 0.15))
+        );
+        border: var(--ppw-sidenav-navigation-item-active-border, var(--ppw-sidenav-navigation-item-border, none));
     }
 
     $defaultLeftMargin: 12px;
