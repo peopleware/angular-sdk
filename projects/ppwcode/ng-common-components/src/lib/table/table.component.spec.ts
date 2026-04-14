@@ -92,7 +92,13 @@ export function getJsDateFormatter(): (value: Date) => string {
 
 @Component({
     template: `
-        <ppw-table [data]="data()" [trackBy]="trackBy">
+        <ppw-table
+            [data]="data()"
+            [trackBy]="trackBy"
+            [footerData]="footerData()"
+            [expandable]="expandable()"
+            [expandableTemplate]="expandableTemplate"
+        >
             @for (column of columns(); track column) {
                 <ppw-column
                     [name]="column.name"
@@ -103,6 +109,10 @@ export function getJsDateFormatter(): (value: Date) => string {
                     [disableSortClear]="column.disableSortClear"
                 ></ppw-column>
             }
+
+            <ng-template #expandableTemplate let-record>
+                <div class="expanded-content">Expanded {{ record.name }}</div>
+            </ng-template>
         </ppw-table>
     `,
     imports: [PpwTableModule],
@@ -126,6 +136,8 @@ class TestTableComponent {
     ])
     public data: WritableSignal<Array<PeriodicElement>> = signal(MOCK_ELEMENT_DATA)
     public trackBy = (index: number, record: PeriodicElement) => record.position
+    public footerData: WritableSignal<Record<string, unknown> | undefined> = signal(undefined)
+    public expandable: WritableSignal<boolean> = signal(false)
 }
 
 describe('TableComponent', () => {
@@ -149,6 +161,22 @@ describe('TableComponent', () => {
         expect(tableComponent.dataSource().data[3].initialRecord).toBe(testData)
         expect(tableComponent.dataSource().data[3].mappedValues['elementName']).toBe('Beryllium')
         expect(tableComponent.dataSource().data[3].mappedValues['symbol']).toBe('Be')
+    })
+
+    it('should not crash when both expandable and footerData are enabled', async () => {
+        fixture.componentInstance.expandable.set(true)
+        fixture.componentInstance.footerData.set({
+            elementName: 'Total',
+            symbol: 'ALL'
+        })
+        fixture.detectChanges()
+        await fixture.whenStable()
+
+        expect(tableComponent.columnNames()).toContain('expand')
+        const table = fixture.nativeElement.querySelector('table')
+        expect(table).toBeTruthy()
+        const rows = fixture.nativeElement.querySelectorAll('tr')
+        expect(rows.length).toBeGreaterThan(0)
     })
 
     it('should detect column changes', async () => {
