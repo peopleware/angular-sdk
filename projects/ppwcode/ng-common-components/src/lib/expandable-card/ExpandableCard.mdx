@@ -1,0 +1,40 @@
+import { Meta, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as ExpandableCardStories from './expandable-card.stories';
+
+<Meta of={ExpandableCardStories} />
+
+# Expandable Card
+
+The `ExpandableCardComponent` is a wrapper around Angular Material's Expansion Panel, designed to provide a consistent look and feel for cards that can be collapsed or expanded.
+
+## When to use
+- To hide secondary information and reduce visual clutter.
+- To group related content that doesn't all need to be visible at once.
+- In dashboards where space is at a premium.
+
+## Basic Usage
+
+The most common usage is providing a `cardTitle` and `cardDescription`.
+
+<Canvas of={ExpandableCardStories.Default} />
+
+## Properties
+<Controls />
+
+## Advanced: Content Projection
+
+Instead of simple strings, you can use content projection for the title and description to include icons or custom styling.
+
+```html
+<ppw-expandable-card>
+  <span ppw-expandable-card-title>
+    <mat-icon>star</mat-icon> Custom Title
+  </span>
+  <span ppw-expandable-card-description>
+    <i>Italicized description</i>
+  </span>
+  <p>Main content goes here.</p>
+</ppw-expandable-card>
+```
+
+<Canvas of={ExpandableCardStories.ContentProjection} />
