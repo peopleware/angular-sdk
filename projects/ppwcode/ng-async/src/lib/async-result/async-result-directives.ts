@@ -18,6 +18,7 @@ export class PpwAsyncResultInitialDirective<TResult, TFilters> {
     > = input.required()
 
     static ngTemplateContextGuard<TResult, TFilters>(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         dir: PpwAsyncResultSuccessDirective<TResult, TFilters>,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ctx: unknown
@@ -38,6 +39,7 @@ export class PpwAsyncResultSuccessDirective<T, U> {
     > = input.required()
 
     static ngTemplateContextGuard<TResult, TFilters>(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         dir: PpwAsyncResultSuccessDirective<TResult, TFilters>,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ctx: unknown
