@@ -1,0 +1,51 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks';
+import * as ConfirmationDialogStories from './confirmation-dialog.stories';
+
+<Meta of={ConfirmationDialogStories} />
+
+# Confirmation Dialog
+
+The `ConfirmationDialogComponent` provides a flexible and reusable dialog for standard "confirm/cancel" workflows. It is built on top of Angular Material's `MatDialog`.
+
+## When to use
+- To confirm a destructive action (e.g., deleting a record).
+- To notify the user about an important event that requires acknowledgement.
+- To ask a simple "Yes/No" or "Confirm/Cancel" question.
+
+## Basic Usage
+
+The dialog is typically opened using `MatDialog.open` with `ConfirmationDialogComponent` and the necessary data.
+
+<Canvas of={ConfirmationDialogStories.Default} />
+
+## Properties
+The dialog data (`ConfirmationDialogData`) supports the following properties:
+
+<Controls />
+
+## Variants
+
+### Confirm Only
+Use this for simple notifications where only an acknowledgement is needed.
+
+<Canvas of={ConfirmationDialogStories.ConfirmOnly} />
+
+### Custom Colors and Types
+You can customize the button colors (e.g., `warn` for dangerous actions) and types (`filled`, `outlined`).
+
+<Canvas of={ConfirmationDialogStories.CustomColors} />
+
+### Using Translation Parameters
+The `bodyParams` property allows you to pass dynamic values to the translation keys.
+
+<Canvas of={ConfirmationDialogStories.WithParams} />
+
+### Without Icons
+You can configure buttons without icons.
+
+<Canvas of={ConfirmationDialogStories.WithoutIcons} />
+
+### Automatically Open Dialog
+Dialogs can be automatically opened by setting the `autoOpen` property to `true`.
+
+<Canvas of={ConfirmationDialogStories.AutoOpen} />
