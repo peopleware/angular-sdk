@@ -56,7 +56,7 @@
                     </ng-container>
                 </ppw-toolbar>
             }
-            @if (showBreadcrumb() && showToolbar()) {
+            @if (resolvedShowBreadcrumb()) {
                 <ppw-breadcrumb>
                     <ng-container ppw-breadcrumb-home>
                         <ng-content select="[ppw-breadcrumb-home]">

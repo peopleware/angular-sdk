@@ -16,6 +16,7 @@ import {
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
 import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
 import { provideBreadcrumbOptions, providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
+import { provideWireframeOptions } from '@ppwcode/ng-wireframe'
 import { AppComponent } from './app/app.component'
 import { routes } from './app/app.routes'
 import { EmptyAsyncResultComponent } from './app/table/empty-async-result.component'
@@ -78,7 +79,8 @@ bootstrapApplication(AppComponent, {
                 suffix: '.json'
             })
         }),
-        provideBreadcrumbOptions()
+        provideBreadcrumbOptions(),
+        provideWireframeOptions()
     ]
 }).catch((err) => console.error(err))
 
