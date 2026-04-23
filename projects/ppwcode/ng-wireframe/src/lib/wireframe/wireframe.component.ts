@@ -18,6 +18,7 @@ import { BreadcrumbComponent } from '@ppwcode/ng-router'
 import { filter } from 'rxjs'
 import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { SidebarOptions } from '../model/sidebar-options'
+import { WIREFRAME_OPTIONS, WireframeOptions } from '../model/wireframe-options'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 import { ToolbarComponent } from '../toolbar/toolbar.component'
 
@@ -40,6 +41,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component'
 export class WireframeComponent {
     #observer: BreakpointObserver = inject(BreakpointObserver)
     #router: Router = inject(Router)
+    #wireframeOptions: WireframeOptions = inject(WIREFRAME_OPTIONS)
 
     #breakpointChange = toSignal(
         this.#observer.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(takeUntilDestroyed())
@@ -88,7 +90,11 @@ export class WireframeComponent {
     })
 
     public showToolbar: Signal<boolean> = computed(() => {
-        return this.#getCurrentRouteSnapshot().data['showToolbar'] ?? true
+        return this.#getCurrentRouteSnapshot().data['showToolbar'] ?? this.#wireframeOptions.showToolbar ?? true
+    })
+
+    public resolvedShowBreadcrumb: Signal<boolean> = computed(() => {
+        return this.showWireframe() && (this.#getCurrentRouteSnapshot().data['showBreadcrumb'] ?? this.showBreadcrumb())
     })
 
     public sidenavMode: Signal<'over' | 'side'> = computed(() => {
