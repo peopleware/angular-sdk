@@ -525,6 +525,29 @@
             }
           }
         },
+        "@ppwcode/ng-e2e-testing": {
+          "projectType": "library",
+          "root": "projects/ppwcode/ng-e2e-testing",
+          "sourceRoot": "projects/ppwcode/ng-e2e-testing/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular/build:ng-packagr",
+              "options": {
+                "project": "projects/ppwcode/ng-e2e-testing/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/ppwcode/ng-e2e-testing/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/ppwcode/ng-e2e-testing/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            }
+          }
+        },
         "@ppwcode/ng-ppw-ds": {
             "projectType": "library",
             "root": "projects/ppwcode/ng-ppw-ds",
