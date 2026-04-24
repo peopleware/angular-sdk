@@ -1,13 +1,13 @@
 {
     "name": "@ppwcode/ng-router",
-    "version": "21.4.1",
+    "version": "21.5.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
     "peerDependencies": {
         "@angular/common": "^21.2.0",
         "@angular/core": "^21.2.0",
-        "@ppwcode/ng-common": "^21.4.1"
+        "@ppwcode/ng-common": "^21.5.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
