@@ -28,10 +28,10 @@
                             "src/assets"
                         ],
                         "styles": [
-                          "@angular/material/prebuilt-themes/purple-green.css",
-                          "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
-                          "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                          "src/styles.scss"
+                            "@angular/material/prebuilt-themes/purple-green.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                            "src/styles.scss"
                         ],
                         "scripts": []
                     },
@@ -64,10 +64,10 @@
                     "builder": "@angular/build:dev-server",
                     "configurations": {
                         "production": {
-                          "buildTarget": "ppwcode:build:production"
+                            "buildTarget": "ppwcode:build:production"
                         },
                         "development": {
-                          "buildTarget": "ppwcode:build:development"
+                            "buildTarget": "ppwcode:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
                 "extract-i18n": {
                     "builder": "@angular/build:extract-i18n",
                     "options": {
-                      "buildTarget": "ppwcode:build"
+                        "buildTarget": "ppwcode:build"
                     }
                 },
                 "test": {
@@ -409,124 +409,147 @@
             }
         },
         "@ppwcode/ng-common-components": {
-          "projectType": "library",
-          "root": "projects/ppwcode/ng-common-components",
-          "sourceRoot": "projects/ppwcode/ng-common-components/src",
-          "prefix": "lib",
-          "architect": {
-            "build": {
-              "builder": "@angular/build:ng-packagr",
-              "options": {
-                "project": "projects/ppwcode/ng-common-components/ng-package.json"
-              },
-              "configurations": {
-                "production": {
-                  "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.prod.json"
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-common-components",
+            "sourceRoot": "projects/ppwcode/ng-common-components/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-common-components/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
                 },
-                "development": {
-                  "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.lib.json"
+                "test": {
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json"
+                    }
                 }
-              },
-              "defaultConfiguration": "production"
-            },
-            "test": {
-              "builder": "@angular/build:unit-test",
-              "options": {
-                "runnerConfig": "vitest.config.ts",
-                "tsConfig": "projects/ppwcode/ng-common-components/tsconfig.spec.json"
-              }
             }
-          }
         },
         "@ppwcode/ng-unit-testing": {
-          "projectType": "library",
-          "root": "projects/ppwcode/ng-unit-testing",
-          "sourceRoot": "projects/ppwcode/ng-unit-testing/src",
-          "prefix": "lib",
-          "architect": {
-            "build": {
-              "builder": "@angular/build:ng-packagr",
-              "options": {
-                "project": "projects/ppwcode/ng-unit-testing/ng-package.json"
-              },
-              "configurations": {
-                "production": {
-                  "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.lib.prod.json"
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-unit-testing",
+            "sourceRoot": "projects/ppwcode/ng-unit-testing/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-unit-testing/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
                 },
-                "development": {
-                  "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.lib.json"
+                "test": {
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "runnerConfig": "vitest.config.ts",
+                        "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.spec.json"
+                    }
                 }
-              },
-              "defaultConfiguration": "production"
-            },
-            "test": {
-              "builder": "@angular/build:unit-test",
-              "options": {
-                "runnerConfig": "vitest.config.ts",
-                "tsConfig": "projects/ppwcode/ng-unit-testing/tsconfig.spec.json"
-              }
             }
-          }
         },
         "@ppwcode/ng-sdk": {
-          "projectType": "library",
-          "root": "projects/ppwcode/ng-sdk",
-          "sourceRoot": "projects/ppwcode/ng-sdk/src",
-          "prefix": "lib",
-          "architect": {
-            "build": {
-              "builder": "@angular/build:ng-packagr",
-              "configurations": {
-                "production": {
-                  "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.lib.prod.json"
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-sdk",
+            "sourceRoot": "projects/ppwcode/ng-sdk/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
                 },
-                "development": {
-                  "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.lib.json"
+                "test": {
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.spec.json"
+                    }
                 }
-              },
-              "defaultConfiguration": "production"
-            },
-            "test": {
-              "builder": "@angular/build:unit-test",
-              "options": {
-                "tsConfig": "projects/ppwcode/ng-sdk/tsconfig.spec.json"
-              }
             }
-          }
+        },
+        "@ppwcode/ng-e2e-testing": {
+            "projectType": "library",
+            "root": "projects/ppwcode/ng-e2e-testing",
+            "sourceRoot": "projects/ppwcode/ng-e2e-testing/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "options": {
+                        "project": "projects/ppwcode/ng-e2e-testing/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ppwcode/ng-e2e-testing/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ppwcode/ng-e2e-testing/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                }
+            }
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     },
     "schematics": {
-      "@schematics/angular:component": {
-        "type": "component"
-      },
-      "@schematics/angular:directive": {
-        "type": "directive"
-      },
-      "@schematics/angular:service": {
-        "type": "service"
-      },
-      "@schematics/angular:guard": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:interceptor": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:module": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:pipe": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:resolver": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular": {
-        "component": {
-          "changeDetection": "OnPush"
+        "@schematics/angular:component": {
+            "type": "component"
+        },
+        "@schematics/angular:directive": {
+            "type": "directive"
+        },
+        "@schematics/angular:service": {
+            "type": "service"
+        },
+        "@schematics/angular:guard": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular": {
+            "component": {
+                "changeDetection": "OnPush"
+            }
         }
-      }
     }
 }
