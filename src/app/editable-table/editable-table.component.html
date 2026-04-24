@@ -12,12 +12,12 @@
                 </ppw-column>
                 <ppw-column name="actions" type="template">
                     <ng-template ppw-column-cell let-record>
-                        <button mat-icon-button (click)="removeItem(record)">
+                        <button mat-icon-button aria-label="delete" (click)="removeItem(record)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </ng-template>
                     <ng-template ppw-column-header>
-                        <button mat-icon-button (click)="addItem()">
+                        <button mat-icon-button aria-label="add" (click)="addItem()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </ng-template>
