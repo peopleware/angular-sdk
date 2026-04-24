@@ -49,6 +49,8 @@
         "@angular/build": "21.2.3",
         "@angular/cli": "21.2.3",
         "@angular/compiler-cli": "21.2.5",
+        "@axe-core/playwright": "4.11.2",
+        "@playwright/test": "1.59.1",
         "@schematics/angular": "21.2.3",
         "@types/file-saver-es": "2.0.1",
         "@types/node": "22.13.14",
