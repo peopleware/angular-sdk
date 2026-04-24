@@ -13,6 +13,7 @@ export class ExpandableCardComponent implements OnInit {
     // Inputs
     cardTitle: InputSignal<string | undefined> = input()
     cardDescription: InputSignal<string | undefined> = input()
+    headerAriaLabel: InputSignal<string | undefined> = input()
     canBeCollapsed: InputSignal<boolean> = input(true)
     openAsExpanded: InputSignal<boolean> = input(true)
 

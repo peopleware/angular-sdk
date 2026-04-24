@@ -54,6 +54,7 @@
         "@types/node": "22.13.14",
         "@typescript-eslint/eslint-plugin": "8.58.2",
         "@typescript-eslint/parser": "8.58.2",
+        "axe-core": "4.11.3",
         "concurrently": "8.2.1",
         "copyfiles": "2.4.1",
         "cross-env": "7.0.3",
