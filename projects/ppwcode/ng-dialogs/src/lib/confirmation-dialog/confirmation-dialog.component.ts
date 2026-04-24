@@ -24,10 +24,8 @@ export interface ConfirmationDialogData {
     titleKey: string
     bodyKey: string
 
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    bodyParams: any
-    titleParams: any
-    /* eslint-enable */
+    bodyParams?: Record<string, unknown>
+    titleParams?: Record<string, unknown>
 
     /**
      * @deprecated Use confirm.key instead. Will be removed in v23.
@@ -111,5 +109,13 @@ export class ConfirmationDialogComponent {
 
     get confirmationIcon(): string {
         return this.data.confirm?.icon ?? 'fa-solid fa-check'
+    }
+
+    get titleParams(): Record<string, unknown> {
+        return this.data.titleParams ?? {}
+    }
+
+    get bodyParams(): Record<string, unknown> {
+        return this.data.bodyParams ?? {}
     }
 }
