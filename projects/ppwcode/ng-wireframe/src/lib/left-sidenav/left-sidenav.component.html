@@ -15,7 +15,7 @@
             <ng-content select="[ppw-sidebar-top]"></ng-content>
         </div>
         <div class="ppw-sidenav-navigation-wrapper flex-column">
-            @for (navigationItem of navigationItems(); track trackNavigationItem(navigationItem)) {
+            @for (navigationItem of navigationItemsWithActiveState(); track trackNavigationItem(navigationItem)) {
                 <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
             }
         </div>
@@ -30,6 +30,7 @@
         type="button"
         class="ppw-sidenav-navigation-item ppw-sidenav-navigation-item-level-{{ level ?? 1 }}"
         [class.navigation-item-disabled]="navigationItem.isEnabled === false"
+        [class.ppw-sidenav-navigation-item-active]="navigationItem.isActive"
         (click)="onClickNavigationItem(navigationItem)"
     >
         <span class="ppw-sidenav-navigation-item-link">
