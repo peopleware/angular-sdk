@@ -54,6 +54,7 @@ export class LeftSidenavComponent implements OnChanges {
         )
     )
     private _openedNavigationItems: Array<string> = []
+    private _closedNavigationItems: Array<string> = []
 
     protected navigationItemsWithActiveState = computed<Array<NavigationItemWithActiveState>>(() =>
         this.addActiveStateToNavigationItems(this.navigationItems() ?? [], this._currentUrl())
@@ -66,9 +67,12 @@ export class LeftSidenavComponent implements OnChanges {
     }
 
     public navigationItemIsOpened(navigationItem: NavigationItem): boolean {
+        const navigationItemKey = this.getNavigationItemKey(navigationItem)
+
         return (
-            this._openedNavigationItems.includes(this.getNavigationItemKey(navigationItem)) ||
-            this.navigationItemHasActiveChild(navigationItem)
+            !this._closedNavigationItems.includes(navigationItemKey) &&
+            (this._openedNavigationItems.includes(navigationItemKey) ||
+                this.navigationItemHasActiveChild(navigationItem))
         )
     }
 
@@ -119,13 +123,17 @@ export class LeftSidenavComponent implements OnChanges {
     }
 
     private closeNavigationItem(navigationItem: NavigationItem): void {
-        this._openedNavigationItems = this._openedNavigationItems.filter(
-            (ni) => ni !== this.getNavigationItemKey(navigationItem)
-        )
+        const navigationItemKey = this.getNavigationItemKey(navigationItem)
+
+        this._openedNavigationItems = this._openedNavigationItems.filter((ni) => ni !== navigationItemKey)
+        this._closedNavigationItems.push(navigationItemKey)
     }
 
     private openNavigationItem(navigationItem: NavigationItem): void {
-        this._openedNavigationItems.push(this.getNavigationItemKey(navigationItem))
+        const navigationItemKey = this.getNavigationItemKey(navigationItem)
+
+        this._closedNavigationItems = this._closedNavigationItems.filter((ni) => ni !== navigationItemKey)
+        this._openedNavigationItems.push(navigationItemKey)
     }
 
     private validateNavigationItems(navigationItems: Array<NavigationItem> | null): void {

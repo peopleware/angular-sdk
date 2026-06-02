@@ -139,6 +139,19 @@ describe('Left sidenav component', () => {
         expect(getNavigationItemButton('Navigation item 2')).toBeTruthy()
     })
 
+    it('should collapse parents with an active child when explicitly closed', () => {
+        vi.spyOn(router, 'isActive').mockImplementation((url) => url === '/item-2')
+
+        fixture.componentRef.setInput('navigationItems', [...navigationItems])
+        fixture.detectChanges()
+
+        expect(component.navigationItemIsOpened(childrenNavigationItem)).toBe(true)
+
+        component.onClickNavigationItem(childrenNavigationItem)
+
+        expect(component.navigationItemIsOpened(childrenNavigationItem)).toBe(false)
+    })
+
     it('should not call the active route helper when unrelated template state changes', () => {
         const navigationItemIsActiveSpy = vi.spyOn(component, 'navigationItemIsActive')
 
