@@ -7,7 +7,7 @@
 <div class="ppw-sidenav-content-wrapper">
     <div class="ppw-sidenav-top-content-wrapper">
         @if (logoUrl()) {
-            <div class="flex-column logo-wrapper" [ngClass]="{ 'align-items-center': centerLogo() }">
+            <div class="logo-wrapper" [class.logo-wrapper--centered]="centerLogo()">
                 <img [ngSrc]="logoUrl()!" alt="Logo" [height]="logoHeight()" [width]="logoWidth()" priority="eager" />
             </div>
         }
@@ -53,7 +53,7 @@
         }
     </button>
     @if (navigationItemIsOpened(navigationItem) && navigationItem.children && !navigationItem.isExternalLink) {
-        <div class="ppw-sidenav-navigation-item-children-wrapper flex-column">
+        <div class="ppw-sidenav-navigation-item-children-wrapper">
             @for (child of navigationItem.children; track trackNavigationItem(child)) {
                 <ng-container
                     *ngTemplateOutlet="
