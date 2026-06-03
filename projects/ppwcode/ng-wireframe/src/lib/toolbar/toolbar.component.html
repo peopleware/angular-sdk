@@ -1,5 +1,5 @@
 <div class="ppw-toolbar" [style.height.px]="toolbarHeightPx()">
-    <div class="ppw-toolbar-left-section align-items-center">
+    <div class="ppw-toolbar-left-section">
         @if (showMenuToggle()) {
             <button class="ppw-toolbar-button" (click)="toggleSidebar.emit()">
                 @if (!isSidenavOpen()) {
