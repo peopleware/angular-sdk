@@ -27,6 +27,11 @@
                     align-items: center;
                 }
             }
+
+            .ppw-sidenav-navigation-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         .ppw-sidenav-bottom-content-wrapper {
