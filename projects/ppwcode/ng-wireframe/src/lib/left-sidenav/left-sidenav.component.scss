@@ -5,6 +5,31 @@
     flex-direction: column;
     height: 100%;
 
+    // This ensures that the navigation wrapper is the only element scrolling.
+    // The class is applied when the sidebar configuration option is set to true.
+    &.ppw-sidenav-scroll-navigation-wrapper-only {
+        min-height: 0;
+
+        .ppw-sidenav-content-wrapper,
+        .ppw-sidenav-top-content-wrapper {
+            min-height: 0;
+        }
+
+        .ppw-sidenav-top-content-wrapper {
+            flex-grow: 0;
+            flex-shrink: 1;
+        }
+
+        .ppw-sidenav-navigation-wrapper {
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .ppw-sidenav-bottom-content-wrapper {
+            flex-shrink: 0;
+        }
+    }
+
     .ppw-sidenav-content-wrapper {
         display: flex;
         flex-direction: column;

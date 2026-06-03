@@ -68,6 +68,21 @@ describe('Left sidenav component', () => {
         return navigationItemButton
     }
 
+    function getNavigationWrapper(): HTMLElement {
+        return fixture.nativeElement.querySelector('.ppw-sidenav-navigation-wrapper')
+    }
+
+    it('should not scroll only the navigation wrapper by default', () => {
+        expect(getNavigationWrapper().classList).not.toContain('ppw-sidenav-navigation-wrapper--scroll-only')
+    })
+
+    it('should scroll only the navigation wrapper when enabled', () => {
+        fixture.componentRef.setInput('scrollNavigationWrapperOnly', true)
+        fixture.detectChanges()
+
+        expect(getNavigationWrapper().classList).toContain('ppw-sidenav-navigation-wrapper--scroll-only')
+    })
+
     it('should do nothing when clicking disabled navigation items', () => {
         expect(component.navigationItemIsOpened(disabledNavigationItem)).toBe(false)
 

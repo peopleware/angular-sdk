@@ -14,7 +14,10 @@
         <div class="ppw-sidenav-top-content">
             <ng-content select="[ppw-sidebar-top]"></ng-content>
         </div>
-        <div class="ppw-sidenav-navigation-wrapper">
+        <div
+            class="ppw-sidenav-navigation-wrapper"
+            [class.ppw-sidenav-navigation-wrapper--scroll-only]="scrollNavigationWrapperOnly()"
+        >
             @for (navigationItem of navigationItemsWithActiveState(); track trackNavigationItem(navigationItem)) {
                 <ng-container *ngTemplateOutlet="navigationItemTemplate; context: { navigationItem }"></ng-container>
             }
