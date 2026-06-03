@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { By } from '@angular/platform-browser'
 import { provideRouter, Route, Router } from '@angular/router'
 import { provideTranslateService } from '@ngx-translate/core'
 import { provideBreadcrumbOptions } from '@ppwcode/ng-router'
+import { LeftSidenavComponent } from '../left-sidenav/left-sidenav.component'
 import { provideWireframeOptions, WireframeOptions } from '../model/wireframe-options'
 import { WireframeComponent } from './wireframe.component'
 
@@ -129,6 +131,29 @@ describe('WireframeComponent', () => {
 
         expect(component.showToolbar()).toBe(true)
         expect(fixture.nativeElement.querySelector('ppw-toolbar')).toBeTruthy()
+    })
+
+    it('should not scroll only the navigation wrapper by default', async () => {
+        await setup()
+        await router.navigateByUrl('/visible')
+        fixture.detectChanges()
+
+        const leftSidenav = fixture.debugElement.query(By.directive(LeftSidenavComponent))
+            .componentInstance as LeftSidenavComponent
+
+        expect(leftSidenav.scrollNavigationWrapperOnly()).toBe(false)
+    })
+
+    it('should pass the navigation wrapper only scroll option to the left sidenav', async () => {
+        await setup()
+        fixture.componentRef.setInput('sidebarOptions', { scrollNavigationWrapperOnly: true })
+        await router.navigateByUrl('/visible')
+        fixture.detectChanges()
+
+        const leftSidenav = fixture.debugElement.query(By.directive(LeftSidenavComponent))
+            .componentInstance as LeftSidenavComponent
+
+        expect(leftSidenav.scrollNavigationWrapperOnly()).toBe(true)
     })
 
     it('should keep the breadcrumb visible when the toolbar is hidden by route data', async () => {

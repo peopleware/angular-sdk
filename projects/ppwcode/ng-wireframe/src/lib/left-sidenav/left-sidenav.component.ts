@@ -30,6 +30,9 @@ interface NavigationItemWithActiveState extends NavigationItem {
     imports: [CommonModule, MatIconModule, MatListModule, TranslatePipe, NgOptimizedImage],
     templateUrl: './left-sidenav.component.html',
     styleUrls: ['./left-sidenav.component.scss'],
+    host: {
+        '[class.ppw-sidenav-scroll-navigation-wrapper-only]': 'scrollNavigationWrapperOnly()'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeftSidenavComponent implements OnChanges {
@@ -40,6 +43,7 @@ export class LeftSidenavComponent implements OnChanges {
     public logoHeight: InputSignal<number> = input(100)
     public logoWidth: InputSignal<number> = input(100)
     public centerLogo: InputSignal<boolean> = input(true)
+    public scrollNavigationWrapperOnly: InputSignal<boolean> = input(false)
 
     // Outputs
     public closeSidebar: OutputEmitterRef<void> = output()

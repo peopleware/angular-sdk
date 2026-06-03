@@ -44,7 +44,8 @@ export class AppComponent extends mixinResponsiveObservers() {
             logoUrl: './assets/ppwcode_logo.png',
             centerLogo: false,
             closedByDefaultOnLargerDevice: this.closedByDefaultOnLargerDevice(),
-            showPageTitle: this.showPageTitle()
+            showPageTitle: this.showPageTitle(),
+            scrollNavigationWrapperOnly: true
         }
     })
 

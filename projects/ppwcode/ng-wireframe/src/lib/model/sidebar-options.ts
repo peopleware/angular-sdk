@@ -5,4 +5,5 @@ export interface SidebarOptions {
     centerLogo?: boolean
     showPageTitle?: boolean
     closedByDefaultOnLargerDevice?: boolean
+    scrollNavigationWrapperOnly?: boolean
 }
