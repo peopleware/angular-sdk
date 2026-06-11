@@ -14,10 +14,6 @@ export interface PagedEntitiesDto<T> {
 }
 
 export interface PagedEntities<T> {
-    /**
-     * @deprecated Use `page` instead. The value is 1-based, but the naming suggested 0-based. Will be removed in v22.
-     */
-    pageIndex: number
     /** The current page number (1-based). */
     page: number
     pageSize: number
@@ -36,7 +32,6 @@ export const pagedEntitiesFromDto = <TDto, TModel>(
     const page = notUndefined(pagedEntitiesDto.page ?? pagedEntitiesDto.pageIndex)
     return {
         page,
-        pageIndex: page, // deprecated
         pageSize: pagedEntitiesDto.pageSize,
         totalCount: pagedEntitiesDto.totalCount,
         totalPages: pagedEntitiesDto.totalPages,
@@ -48,7 +43,6 @@ export const pagedEntitiesFromDto = <TDto, TModel>(
 
 export const createEmptyPagedEntities = <T>(): PagedEntities<T> => {
     return {
-        pageIndex: 1, // deprecated
         page: 1,
         pageSize: 20,
         totalCount: 0,
