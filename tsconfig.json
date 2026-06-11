@@ -15,13 +15,5 @@
             "@ppwcode/ng-utils": ["./projects/ppwcode/ng-utils/src/public-api"],
             "@ppwcode/ng-wireframe": ["./projects/ppwcode/ng-wireframe/src/public-api"]
         }
-    },
-    "angularCompilerOptions": {
-        "extendedDiagnostics": {
-            "checks": {
-                "nullishCoalescingNotNullable": "suppress",
-                "optionalChainNotNullable": "suppress"
-            }
-        }
     }
 }

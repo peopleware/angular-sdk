@@ -281,6 +281,18 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
         })
     }
 
+    protected getHeaderStyles(columnName: string): { [key: string]: unknown } | undefined {
+        return this.options()?.header?.styles?.[columnName]?.()
+    }
+
+    protected getColumnStyles(columnName: string, record: TRecord): { [key: string]: unknown } | undefined {
+        return this.options()?.columns?.styles?.[columnName]?.(record)
+    }
+
+    protected getFooterStyles(columnName: string): { [key: string]: unknown } | undefined {
+        return this.options()?.footer?.styles?.[columnName]?.()
+    }
+
     /**
      * Maps the given items into a local key-value pair to be used within
      * the template. The original record is left intact so that it can still
