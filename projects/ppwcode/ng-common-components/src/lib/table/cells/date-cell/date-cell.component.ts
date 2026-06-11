@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { Constructor } from '@ppwcode/ng-common'
 import { DateColumn } from '../../columns/date-column'
 import { mixinCellComponent } from '../mixins/cell-component.mixin'
@@ -12,6 +12,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
 @Component({
     selector: 'ppw-date-cell',
     template: `{{ value() }}`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

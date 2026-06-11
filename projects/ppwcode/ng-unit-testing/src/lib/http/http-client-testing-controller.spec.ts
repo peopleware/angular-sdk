@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { HttpClient, HttpResponse, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http'
 import { provideHttpClientTesting, TestRequest } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 
@@ -10,7 +10,7 @@ describe('http-client-testing-controller', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+            providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
         })
 
         httpClient = TestBed.inject(HttpClient)

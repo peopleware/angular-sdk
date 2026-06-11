@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
+import { Component, input, InputSignal, output, OutputEmitterRef, ChangeDetectionStrategy } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 
@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card'
     selector: 'ppw-search-filter',
     templateUrl: './search-filter.component.html',
     styleUrls: ['./search-filter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatCardModule, MatButtonModule]
 })
 export class SearchFilterComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { Constructor } from '@ppwcode/ng-common'
 
 import { TextColumn } from '../../columns/text-column'
@@ -13,6 +13,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
 @Component({
     selector: 'ppw-text-cell',
     template: `{{ value() }}`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

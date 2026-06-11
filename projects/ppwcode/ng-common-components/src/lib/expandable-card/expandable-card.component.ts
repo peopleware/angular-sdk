@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, ViewEncapsulation, OnInit } from '@angular/core'
+import { Component, input, InputSignal, ViewEncapsulation, OnInit, ChangeDetectionStrategy } from '@angular/core'
 
 import { MatExpansionModule } from '@angular/material/expansion'
 
@@ -7,6 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
     templateUrl: './expandable-card.component.html',
     styleUrls: ['./expandable-card.component.scss', './expandable-card.component.theme.scss'],
     imports: [MatExpansionModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ExpandableCardComponent implements OnInit {

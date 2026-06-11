@@ -14,7 +14,7 @@
                 (navigated)="onNavigate()"
                 [navigationItems]="navigationItems()"
                 [centerLogo]="!!sidebarOptions()?.centerLogo"
-                [logoUrl]="sidebarOptions()?.logoUrl"
+                [logoUrl]="$safeNavigationMigration(sidebarOptions()?.logoUrl)"
                 [logoHeight]="sidebarOptions()?.logoHeight ?? 100"
                 [logoWidth]="sidebarOptions()?.logoWidth ?? 100"
                 [showMenuCloseButton]="isXSmallDevice() || !!sidebarOptions()?.closedByDefaultOnLargerDevice"

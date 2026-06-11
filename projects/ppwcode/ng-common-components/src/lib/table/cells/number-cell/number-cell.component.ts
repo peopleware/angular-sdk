@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { Constructor } from '@ppwcode/ng-common'
 import { NumberColumn } from '../../columns/number-column'
 import { mixinCellComponent } from '../mixins/cell-component.mixin'
@@ -12,6 +12,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
 @Component({
     selector: 'ppw-number-cell',
     template: `{{ value() }}`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 

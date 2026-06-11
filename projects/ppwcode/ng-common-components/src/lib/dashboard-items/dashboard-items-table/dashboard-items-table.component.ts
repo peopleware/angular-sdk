@@ -1,5 +1,5 @@
 import { NgTemplateOutlet, UpperCasePipe } from '@angular/common'
-import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core'
+import { Component, input, InputSignal, output, OutputEmitterRef, ChangeDetectionStrategy } from '@angular/core'
 import { MatBadge } from '@angular/material/badge'
 import { MatButton } from '@angular/material/button'
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card'
@@ -25,6 +25,7 @@ import { DashboardOptions } from '../models/dashboard-options.model'
         MatButton
     ],
     templateUrl: './dashboard-items-table.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './dashboard-items-table.component.scss'
 })
 export class DashboardItemsTableComponent {
