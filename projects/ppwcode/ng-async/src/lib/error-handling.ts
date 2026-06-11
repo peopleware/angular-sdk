@@ -49,7 +49,6 @@ export const extractHttpError = (httpError: HttpErrorResponse, skipCustomExtract
     return new Error(httpError.error ?? STATUS_CODE_MAP.get(httpError.status) ?? httpError.statusText)
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const expectAsyncResultHttpError = <TEntity>(
     statusCodes: Array<number>,
     fallbackValue: TEntity,
