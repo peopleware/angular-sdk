@@ -69,7 +69,7 @@
                     [disabled]="!column.sortable()"
                     [disableClear]="column.disableSortClear()"
                     [style.width]="options()?.columns?.widths?.[column.name]"
-                    [ngStyle]="$safeNavigationMigration(options()?.header?.styles?.[column.name]?.())"
+                    [ngStyle]="options()?.header?.styles?.[column.name]?.()"
                     *matHeaderCellDef
                     class="ppw-column-type-{{ column.type }}"
                 >
@@ -85,9 +85,7 @@
                     mat-cell
                     [style.width]="options()?.columns?.widths?.[column.name]"
                     [class.ppw-table-sticky-column]="column.sticky"
-                    [ngStyle]="
-                        $safeNavigationMigration(options()?.columns?.styles?.[column.name]?.(record.initialRecord))
-                    "
+                    [ngStyle]="options()?.columns?.styles?.[column.name]?.(record.initialRecord)"
                     *matCellDef="let record; let idx = index"
                     (click)="executeRowClick($event, record.initialRecord, column.name)"
                     class="ppw-column-type-{{ column.type }}"
@@ -105,10 +103,10 @@
                         mat-footer-cell
                         *matFooterCellDef="let record"
                         [style.width]="options()?.columns?.widths?.[column.name]"
-                        [ngStyle]="$safeNavigationMigration(options()?.footer?.styles?.[column.name]?.())"
+                        [ngStyle]="options()?.footer?.styles?.[column.name]?.()"
                         class="ppw-column-type-{{ column.type }}"
                     >
-                        @if ($safeNavigationMigration(footerData()?.[column.name]) !== undefined) {
+                        @if (footerData()?.[column.name] !== undefined) {
                             <ng-container
                                 ppwDynamicCell
                                 [rowIndex]="0"
