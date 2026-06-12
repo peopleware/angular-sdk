@@ -3,18 +3,17 @@
     "compileOnSave": false,
     "compilerOptions": {
         "paths": {
-            "@ppwcode/ng-async": ["dist/ppwcode/ng-async"],
-            "@ppwcode/ng-common": ["dist/ppwcode/ng-common"],
-            "@ppwcode/ng-common-components": ["dist/ppwcode/ng-common-components"],
-            "@ppwcode/ng-dialogs": ["dist/ppwcode/ng-dialogs"],
-            "@ppwcode/ng-forms": ["dist/ppwcode/ng-forms"],
-            "@ppwcode/ng-router": ["dist/ppwcode/ng-router"],
-            "@ppwcode/ng-state-management": ["dist/ppwcode/ng-state-management"],
-            "@ppwcode/ng-unit-testing": ["dist/ppwcode/ng-unit-testing"],
-            "@ppwcode/ng-utils": ["dist/ppwcode/ng-utils"],
-            "@ppwcode/ng-wireframe": ["dist/ppwcode/ng-wireframe"]
+            "@ppwcode/ng-async": ["./dist/ppwcode/ng-async"],
+            "@ppwcode/ng-common": ["./dist/ppwcode/ng-common"],
+            "@ppwcode/ng-common-components": ["./dist/ppwcode/ng-common-components"],
+            "@ppwcode/ng-dialogs": ["./dist/ppwcode/ng-dialogs"],
+            "@ppwcode/ng-forms": ["./dist/ppwcode/ng-forms"],
+            "@ppwcode/ng-router": ["./dist/ppwcode/ng-router"],
+            "@ppwcode/ng-state-management": ["./dist/ppwcode/ng-state-management"],
+            "@ppwcode/ng-unit-testing": ["./dist/ppwcode/ng-unit-testing"],
+            "@ppwcode/ng-utils": ["./dist/ppwcode/ng-utils"],
+            "@ppwcode/ng-wireframe": ["./dist/ppwcode/ng-wireframe"]
         },
-        "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,

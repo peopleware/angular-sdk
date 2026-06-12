@@ -6,7 +6,11 @@
         "declaration": true,
         "declarationMap": true,
         "inlineSources": true,
-        "types": ["vitest/globals"]
+        "types": [
+            "vitest/globals"
+        ]
     },
-    "exclude": ["**/*.spec.ts"]
+    "exclude": [
+        "**/*.spec.ts"
+    ]
 }

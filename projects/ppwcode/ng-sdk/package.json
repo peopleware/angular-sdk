@@ -11,8 +11,8 @@
         "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../../dist/ppwcode/ng-sdk"
     },
     "peerDependencies": {
-        "@angular/common": "^21.0.0",
-        "@angular/core": "^21.0.0"
+        "@angular/common": "^22.0.0",
+        "@angular/core": "^22.0.0"
     },
     "devDependencies": {
         "copyfiles": "file:../../../node_modules/copyfiles",

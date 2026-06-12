@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http'
 import localeEn from '@angular/common/locales/en-BE'
 import localeNl from '@angular/common/locales/nl-BE'
 import { LOCALE_ID, provideZonelessChangeDetection } from '@angular/core'
@@ -71,7 +71,7 @@ bootstrapApplication(AppComponent, {
             skipLocationChange: false,
             replaceUrl: true
         }),
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideTranslateService({
             fallbackLang: 'en',
             loader: provideTranslateHttpLoader({

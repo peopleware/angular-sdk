@@ -1,10 +1,11 @@
-import { Component, input, InputSignal } from '@angular/core'
+import { Component, input, InputSignal, ChangeDetectionStrategy } from '@angular/core'
 import { MatProgressBar } from '@angular/material/progress-bar'
 
 @Component({
     selector: 'ppw-loader',
     imports: [MatProgressBar],
     templateUrl: './loader.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './loader.component.scss'
 })
 export class LoaderComponent {

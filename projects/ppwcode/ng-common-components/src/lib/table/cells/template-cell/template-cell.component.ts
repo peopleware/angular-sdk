@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, computed, TemplateRef } from '@angular/core'
+import { Component, computed, TemplateRef, ChangeDetectionStrategy } from '@angular/core'
 import { Constructor } from '@ppwcode/ng-common'
 import { TemplateColumn } from '../../columns/template-column'
 import { mixinCellComponent } from '../mixins/cell-component.mixin'
@@ -7,6 +7,7 @@ import { mixinCellComponent } from '../mixins/cell-component.mixin'
 @Component({
     selector: 'ppw-template-cell',
     template: `<ng-container *ngTemplateOutlet="value(); context: context()"></ng-container>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CommonModule]
 })
 export class TemplateCellComponent extends mixinCellComponent<

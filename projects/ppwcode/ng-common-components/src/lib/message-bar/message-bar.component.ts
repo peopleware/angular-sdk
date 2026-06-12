@@ -1,4 +1,4 @@
-import { Component, input, InputSignal } from '@angular/core'
+import { Component, input, InputSignal, ChangeDetectionStrategy } from '@angular/core'
 
 import { MatCardModule } from '@angular/material/card'
 import { Severity } from '../enum/severity'
@@ -7,6 +7,7 @@ import { Severity } from '../enum/severity'
     selector: 'ppw-message-bar',
     templateUrl: './message-bar.component.html',
     styleUrls: ['./message-bar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatCardModule]
 })
 export class MessageBarComponent {
