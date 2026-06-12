@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-state-management",
-    "version": "21.6.0",
+    "version": "22.0.0",
     "license": "Apache-2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"

@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-common-components",
-    "version": "21.6.0",
+    "version": "22.0.0",
     "license": "Apache-2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
@@ -8,8 +8,8 @@
     "peerDependencies": {
         "@angular/common": "^22.0.0",
         "@angular/core": "^22.0.0",
-        "@ppwcode/ng-common": "^21.6.0",
-        "@ppwcode/ng-utils": "^21.6.0"
+        "@ppwcode/ng-common": "^22.0.0",
+        "@ppwcode/ng-utils": "^22.0.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
