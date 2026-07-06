@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
-import type { Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
+import type { Locator, Page } from '@playwright/test'
 import type { AxeResults } from 'axe-core'
 
 /**
@@ -17,8 +18,14 @@ export const WCAG_2_2_AA_TAGS: readonly string[] = ['wcag2a', 'wcag2aa', 'wcag21
  *   const results = await analyzePage(page)
  *   expectNoViolations(results)
  */
-export function analyzePage(page: Page): Promise<AxeResults> {
-    return new AxeBuilder({ page }).withTags([...WCAG_2_2_AA_TAGS]).analyze()
+export function analyzePage(page: Page, options: { includeSelector?: string } = {}): Promise<AxeResults> {
+    let builder = new AxeBuilder({ page }).withTags([...WCAG_2_2_AA_TAGS])
+
+    if (options.includeSelector) {
+        builder = builder.include(options.includeSelector)
+    }
+
+    return builder.analyze()
 }
 
 /**
@@ -42,4 +49,25 @@ export function expectNoViolations(results: AxeResults): void {
         .join('\n\n')
 
     throw new Error(`Expected no accessibility violations but found ${results.violations.length}:\n\n${details}`)
+}
+
+/**
+ * Defines a Playwright test that opens a route, waits until the page is ready,
+ * and fails when axe reports WCAG 2.2 AA accessibility violations.
+ */
+export function verifyE2eA11y(options: {
+    name?: string
+    path: string
+    includeSelector: string
+    readyLocator: (page: Page) => Locator
+}): void {
+    test(options.name ?? `${options.path} has no WCAG 2.2 AA violations`, async ({ page }) => {
+        await page.goto(options.path)
+
+        await expect(options.readyLocator(page)).toBeVisible()
+
+        const results = await analyzePage(page, { includeSelector: options.includeSelector })
+
+        expectNoViolations(results)
+    })
 }

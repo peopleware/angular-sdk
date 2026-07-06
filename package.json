@@ -12,6 +12,8 @@
         "lint:lint": "ng lint",
         "format:lint": "ng lint --fix",
         "ci:test-libs": "node ./scripts/ci/test-libs.js",
+        "ci:test-e2e": "node ./scripts/ci/test-e2e.js",
+        "e2e:ui": "node ./scripts/ci/test-e2e.js --ui",
         "ci:lint": "npm run lint:prettier && npm run lint:lint",
         "ci:build": "ng build ppwcode --base-href /angular-sdk/ --deploy-url /angular-sdk/",
         "ci:build-libs": "./scripts/ci/build-libs.sh",
