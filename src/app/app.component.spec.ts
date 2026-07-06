@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { provideTranslateService } from '@ngx-translate/core'
 import { provideBreadcrumbOptions } from '@ppwcode/ng-router'
 import { WireframeComponent } from '@ppwcode/ng-wireframe'
+import { expectNoA11yViolations, runA11yChecks } from '@ppwcode/ng-unit-testing'
 import { AppComponent } from './app.component'
 import LanguageSelectComponent from './language-select/language-select.component'
 
@@ -31,5 +32,12 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent)
         const app = fixture.componentInstance
         expect(app).toBeTruthy()
+    })
+
+    it('should have no accessibility violations in its default state', async () => {
+        const fixture = TestBed.createComponent(AppComponent)
+        fixture.detectChanges()
+        const results = await runA11yChecks(fixture.nativeElement)
+        expectNoA11yViolations(results)
     })
 })
