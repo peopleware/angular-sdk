@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, inject, Signal, TemplateR
 import { MatIcon } from '@angular/material/icon'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { Router } from '@angular/router'
+import { TranslatePipe } from '@ngx-translate/core'
 import { DashboardItem, DashboardItemAction, DashboardItemsTableComponent } from '@ppwcode/ng-common-components'
 import { getFullRoutePath } from '@ppwcode/ng-router'
 import { ROUTE_MAP } from '../app.routes'
 
 @Component({
     selector: 'ppw-components-dashboard-demo',
-    imports: [DashboardItemsTableComponent, MatIcon, MatProgressSpinner],
+    imports: [DashboardItemsTableComponent, MatIcon, MatProgressSpinner, TranslatePipe],
     templateUrl: './components-dashboard-demo.component.html',
     styleUrl: './components-dashboard-demo.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

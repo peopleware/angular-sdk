@@ -14,6 +14,7 @@ import { TableComponent } from './table.component'
 import { FormTableComponent } from './form-table.component'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSortModule } from '@angular/material/sort'
+import { TranslatePipe } from '@ngx-translate/core'
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { MatSortModule } from '@angular/material/sort'
         NgTemplateOutlet,
         CdkDragPlaceholder,
         NgComponentOutlet,
-        MatSortModule
+        MatSortModule,
+        TranslatePipe
     ],
     exports: [
         TableComponent,
