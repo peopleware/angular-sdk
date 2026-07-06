@@ -1,3 +1,5 @@
+import type { Type } from '@angular/core'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import axe from 'axe-core'
 
 // `axe-core` ships a single namespace export (`export = axe`), so both the
@@ -7,6 +9,24 @@ import axe from 'axe-core'
 export type AxeResults = axe.AxeResults
 export type ElementContext = axe.ElementContext
 export type RunOptions = axe.RunOptions
+
+export interface VerifyA11yOptions<TComponent> {
+    /**
+     * The generated test name.
+     */
+    readonly description?: string
+
+    /**
+     * Optional hook for setting inputs or interacting with the fixture before
+     * running axe.
+     */
+    readonly prepare?: (fixture: ComponentFixture<TComponent>) => void | Promise<void>
+
+    /**
+     * Additional axe-core options.
+     */
+    readonly runOptions?: RunOptions
+}
 
 /**
  * The WCAG 2.0 A/AA, WCAG 2.1 A/AA and WCAG 2.2 A/AA rule tags — the accessibility compliance
@@ -49,4 +69,19 @@ export function expectNoA11yViolations(results: AxeResults): void {
         .join('\n\n')
 
     throw new Error(`Expected no accessibility violations but found ${results.violations.length}:\n\n${details}`)
+}
+
+/**
+ * Registers a default accessibility spec for the given component.
+ */
+export function verifyA11y<TComponent>(component: Type<TComponent>, options: VerifyA11yOptions<TComponent> = {}): void {
+    it(options.description ?? 'should have no accessibility violations in its default state', async () => {
+        const fixture = TestBed.createComponent(component)
+        fixture.detectChanges()
+        await options.prepare?.(fixture)
+        fixture.detectChanges()
+
+        const results = await runA11yChecks(fixture.nativeElement, options.runOptions)
+        expectNoA11yViolations(results)
+    })
 }
