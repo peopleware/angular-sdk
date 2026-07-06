@@ -128,7 +128,12 @@
                         (click)="toggleExpand(record.initialRecord); $event.stopPropagation()"
                         class="ppw-table-expand-toggle-button"
                         [class.ppw-table-expand-toggle-button--expanded]="isExpanded(record.initialRecord)"
-                        [aria-label]="isExpanded(record.initialRecord) ? 'Collapse row' : 'Expand row'"
+                        [aria-label]="
+                            (isExpanded(record.initialRecord)
+                                ? 'common-components.table.collapse-row'
+                                : 'common-components.table.expand-row'
+                            ) | translate
+                        "
                     >
                         <mat-icon>keyboard_arrow_down</mat-icon>
                     </button>

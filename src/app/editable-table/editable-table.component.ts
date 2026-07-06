@@ -6,6 +6,7 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
 import { MatFormField, MatLabel } from '@angular/material/form-field'
 import { MatIcon } from '@angular/material/icon'
 import { MatInput } from '@angular/material/input'
+import { TranslatePipe } from '@ngx-translate/core'
 import { AsyncResultModule } from '@ppwcode/ng-async'
 import { FormTableComponent, PpwTableModule, PpwTableOptions } from '@ppwcode/ng-common-components'
 
@@ -32,7 +33,8 @@ type TodosForm = {
         MatIconButton,
         MatCardHeader,
         MatCardTitle,
-        JsonPipe
+        JsonPipe,
+        TranslatePipe
     ],
     templateUrl: './editable-table.component.html',
     styleUrl: './editable-table.component.scss',

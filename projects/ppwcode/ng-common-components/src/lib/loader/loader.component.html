@@ -1,6 +1,10 @@
 <div class="ppw-loader">
     @if (loading()) {
-        <mat-progress-bar mode="indeterminate" type="progressbar" aria-label="Loading"></mat-progress-bar>
+        <mat-progress-bar
+            mode="indeterminate"
+            type="progressbar"
+            [aria-label]="'common-components.loader.loading' | translate"
+        ></mat-progress-bar>
     } @else {
         <div class="ppw-no-loader">&nbsp;</div>
     }
