@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./",
+        "types": ["node"]
+    },
+    "files": [],
+    "include": ["src/app/**/*.e2e-spec.ts", "playwright.config.ts"]
+}
