@@ -1,6 +1,10 @@
 <div id="language-selector">
     <mat-form-field>
-        <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="changeSelectedLanguage()">
+        <mat-select
+            aria-label="Language selector"
+            [(ngModel)]="selectedLanguage"
+            (selectionChange)="changeSelectedLanguage()"
+        >
             <mat-select-trigger>
                 <div class="ppw-language-option-container">
                     <span class="ppw-language-code">{{ selectedLanguage }}</span>
