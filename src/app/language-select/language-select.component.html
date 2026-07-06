@@ -1,7 +1,7 @@
 <div id="language-selector">
     <mat-form-field>
         <mat-select
-            aria-label="Language selector"
+            [aria-label]="'language-select.aria-label' | translate"
             [(ngModel)]="selectedLanguage"
             (selectionChange)="changeSelectedLanguage()"
         >

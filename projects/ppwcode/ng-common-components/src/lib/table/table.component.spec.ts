@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, ViewChild, WritableSignal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideTranslateService } from '@ngx-translate/core'
 import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
@@ -147,7 +148,8 @@ describe('TableComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TestTableComponent]
+            imports: [TestTableComponent],
+            providers: [provideTranslateService({})]
         })
 
         fixture = TestBed.createComponent(TestTableComponent)

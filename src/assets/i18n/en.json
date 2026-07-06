@@ -1,18 +1,33 @@
 {
     "APP_TITLE": "PPW Code",
     "button": {
+        "add": "Add",
+        "delete": "Delete",
         "open": "Open"
     },
     "confirmation-dialog": {
         "body": "Are you sure you want to execute this action?\n\nThis action cannot be undone.",
         "title": "Confirm execution?"
     },
+    "common-components": {
+        "loader": {
+            "loading": "Loading"
+        },
+        "table": {
+            "collapse-row": "Collapse row",
+            "expand-row": "Expand row"
+        }
+    },
     "dashboard": {
         "components-description": "Opens the dashboard page for the PPW components",
         "confirmation-dialog-description": "A demo page showcasing the confirm dialog component",
         "expandable-card-description": "A demo page that shows all possibilities with the expandable card component",
         "global-error-handler-description": "A demo page that shows all possibilities with the global error handler",
-        "in-memory-logging-description": "A demo page that shows all possibilities with the in-memory logging provider"
+        "in-memory-logging-description": "A demo page that shows all possibilities with the in-memory logging provider",
+        "loading-spinner": "Loading spinner"
+    },
+    "language-select": {
+        "aria-label": "Language selector"
     },
     "global-error-dialog": {
         "copy-all-errors": "Copy All Errors",
@@ -23,6 +38,9 @@
         "reload": "Reload",
         "single-error-details": "Error Details",
         "title": "Unexpected error"
+    },
+    "expandable-card": {
+        "card-without-visible-title": "Card without visible title"
     },
     "navigation": {
         "components": "Components",

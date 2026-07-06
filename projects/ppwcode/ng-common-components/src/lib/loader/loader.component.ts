@@ -1,9 +1,10 @@
 import { Component, input, InputSignal, ChangeDetectionStrategy } from '@angular/core'
 import { MatProgressBar } from '@angular/material/progress-bar'
+import { TranslatePipe } from '@ngx-translate/core'
 
 @Component({
     selector: 'ppw-loader',
-    imports: [MatProgressBar],
+    imports: [MatProgressBar, TranslatePipe],
     templateUrl: './loader.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './loader.component.scss'
