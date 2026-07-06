@@ -13,7 +13,7 @@ $ppw-primary-palette: (
     200: #80cd9f,
     300: #4db978,
     400: #26aa5b,
-    500: #009b3e,
+    500: #007f28,
     600: #009338,
     700: #008930,
     800: #007f28,
@@ -86,12 +86,13 @@ body {
     --ppw-confirmation-dialog-header-text-color: #{mat.m2-get-contrast-color-from-palette($ppw-primary-palette, 500)};
 
     --ppw-expandable-card-header-text-color: white;
-    --ppw-expandable-card-header-background-color: #6eb343;
+    --ppw-expandable-card-header-background-color: #007f28;
     --ppw-expandable-card-header-indicator-color: white;
 
     --ppw-loader-content-padding: 16px;
 
     --ppw-message-bar-warning-text-color: black;
+    --ppw-message-bar-success-background-color: #007f28;
 
     --ppw-sidenav-background-color: #18428c;
     --ppw-sidenav-navigation-item-icon-color: #6eb343;
@@ -107,7 +108,7 @@ body {
 
     --ppw-dashboard-items-table-width: 750px;
     --ppw-dashboard-items-table-primary-color: #18428c;
-    --ppw-dashboard-items-table-background-color: #6eb343;
+    --ppw-dashboard-items-table-background-color: #d9ead3;
     --ppw-dashboard-wrapper-container-vertical-margin: 32px;
     --ppw-dashboard-items-card-margin: 8px;
 
