@@ -22,3 +22,5 @@ jobs:
             - run: npm run ci:lint
             - run: npm run ci:build-libs
             - run: npm run ci:test-libs
+            - run: npx playwright install --with-deps chromium
+            - run: npm run ci:test-e2e
