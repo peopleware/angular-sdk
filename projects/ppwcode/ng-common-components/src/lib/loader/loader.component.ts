@@ -1,6 +1,7 @@
-import { Component, input, InputSignal, ChangeDetectionStrategy } from '@angular/core'
+import { Component, input, InputSignal, ChangeDetectionStrategy, inject } from '@angular/core'
 import { MatProgressBar } from '@angular/material/progress-bar'
 import { TranslatePipe } from '@ngx-translate/core'
+import { PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS, PpwcodeCommonComponentsTranslationKeys } from '../providers'
 
 @Component({
     selector: 'ppw-loader',
@@ -11,4 +12,5 @@ import { TranslatePipe } from '@ngx-translate/core'
 })
 export class LoaderComponent {
     public loading: InputSignal<boolean | null> = input<boolean | null>(false)
+    public translationKeys: PpwcodeCommonComponentsTranslationKeys = inject(PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS)
 }

@@ -5,6 +5,7 @@ import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
 import { PpwTableModule } from './table.module'
+import { providePpwcodeCommonComponentsTranslations } from '../providers'
 
 export interface PeriodicElement extends Record<string, unknown> {
     name: string
@@ -179,6 +180,16 @@ describe('TableComponent', () => {
         expect(table).toBeTruthy()
         const rows = fixture.nativeElement.querySelectorAll('tr')
         expect(rows.length).toBeGreaterThan(0)
+    })
+
+    it('should use the default expand row translation', async () => {
+        fixture.componentInstance.expandable.set(true)
+        fixture.detectChanges()
+        await fixture.whenStable()
+
+        const expandButton = fixture.nativeElement.querySelector('.ppw-table-expand-toggle-button')
+
+        expect(expandButton.getAttribute('aria-label')).toBe('Expand row')
     })
 
     it('should detect column changes', async () => {
@@ -422,5 +433,39 @@ describe('TableComponent', () => {
 
         expect(tableComponent.columnNames()).toEqual(['elementName', 'symbol', 'jsDate'])
         expect(tableComponent.dataSource().data[3].mappedValues['jsDate']).toBe('Tue Aug 01 2023')
+    })
+})
+
+describe('TableComponent with custom translation keys', () => {
+    let fixture: ComponentFixture<TestTableComponent>
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TestTableComponent],
+            providers: [
+                provideTranslateService({}),
+                providePpwcodeCommonComponentsTranslations({
+                    translationKeys: {
+                        table: {
+                            collapseRow: 'ppwcode.common-components.table.collapse-row',
+                            expandRow: 'ppwcode.common-components.table.expand-row'
+                        }
+                    }
+                })
+            ]
+        })
+
+        fixture = TestBed.createComponent(TestTableComponent)
+        fixture.componentInstance.data.set([...MOCK_ELEMENT_DATA])
+        fixture.componentInstance.expandable.set(true)
+        fixture.detectChanges()
+    })
+
+    it('should use the provided expand row translation key', async () => {
+        await fixture.whenStable()
+
+        const expandButton = fixture.nativeElement.querySelector('.ppw-table-expand-toggle-button')
+
+        expect(expandButton.getAttribute('aria-label')).toBe('ppwcode.common-components.table.expand-row')
     })
 })
