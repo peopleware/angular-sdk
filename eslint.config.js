@@ -52,7 +52,7 @@ module.exports = tseslint.config(
     {
         ignores: ['dist/**/*', 'node_modules/**/*']
     },
-    ...compat.extends('plugin:depend/recommended'),
+    ...compat.extends('plugin:depend/recommended', 'plugin:storybook/recommended'),
     {
         files: ['**/*.ts'],
         extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended],
