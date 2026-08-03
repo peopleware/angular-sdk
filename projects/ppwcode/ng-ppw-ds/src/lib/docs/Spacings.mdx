@@ -1,0 +1,20 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as SpacingsStories from '../stories/spacings.stories'
+
+<Meta of={SpacingsStories} />
+
+# Spacing
+
+Spacing defines the consistent use of whitespace throughout the design system. Spacing tokens provide a standardized scale for margins, padding, gaps, and layout dimensions, creating balanced, readable, and predictable interfaces. By using spacing tokens instead of hardcoded values, layouts remain consistent, responsive, and easy to maintain across all components and applications.
+
+## Usage
+
+The ppwcode design system provides linear and explicit CSS tokens that can be used for consistent spacing in your application.
+
+The CSS tokens follow the syntax `--ppw-ds-spacing-[level]`, where `[level]` indicates a spacing level.
+
+A linear spacing level is the multiplication of 4. Level 0 thus means 0px, where level 5 means 20px.
+
+<Canvas of={SpacingsStories.AllLevels} />
+
+The tokens `--ppw-ds-spacing-1px` and `--ppw-ds-spacing-2px` are explicit and intended for usage where space is limited and decreasing density would otherwise bring visual items far too close to each other.
