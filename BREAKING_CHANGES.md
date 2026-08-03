@@ -4,6 +4,14 @@ This file describes the steps to take when a breaking change is introduced in th
 
 Breaking changes are grouped by their major version number.
 
+## v22.0.0
+
+### Removal of deprecations
+
+The following have been removed:
+
+-   `PagedEntities`'s `pageIndex` property has been removed. Use `page` instead.
+
 ## v21.0.0
 
 > :warning: **21.3.0** :warning:
