@@ -20,15 +20,18 @@ description: Use when preparing a PPWCode Angular SDK release version bump by up
 
 Use `scripts/bump-version.js` for deterministic version updates. The script updates:
 
--   `version` fields in `projects/ppwcode/*/package.json`.
--   Internal `@ppwcode/*` dependency ranges in those package files to `^<version>`.
+-   `version` fields in release-managed `projects/ppwcode/*/package.json` files.
+-   Internal `@ppwcode/*` dependency ranges in release-managed package files to `^<version>`.
 -   `versions.ppwcode` in `projects/ppwcode/ng-sdk/schematics/ng-add/dependencies/versions.ts`.
 -   The displayed `v<version>` in `src/app/app.component.html` inside the `.version-info` block.
+
+Packages whose current version is `0.x.x` are ignored. They are pre-release packages and are released manually, so their package versions, dependency ranges, and consistency do not participate in the SDK release bump.
 
 ## Error Handling
 
 -   If the user did not provide a version, ask for a SemVer-style version such as `21.5.1`.
 -   If `scripts/bump-version.js` reports an invalid or lower version, stop without formatting or committing.
+-   If release-managed library package versions are inconsistent, stop and report the versions found. `0.x.x` packages do not count toward this consistency check.
 -   If formatting or linting fails, stop and report the failing command.
 -   If unrelated changes are present before committing, do not include them; ask the user how to proceed if the release bump cannot be committed cleanly.
 -   If the commit fails, report the Git error and leave the changed files in place.

@@ -128,7 +128,7 @@ const readPackageJson = (packageJsonPath) => {
     }
 }
 
-const updatePpwcodeDependencyRanges = (packageJson, newVersion) => {
+const updatePpwcodeDependencyRanges = (packageJson, newVersion, ignoredPackageNames) => {
     for (const dependencySection of ['dependencies', 'peerDependencies', 'devDependencies']) {
         const dependencies = packageJson[dependencySection]
 
@@ -137,7 +137,7 @@ const updatePpwcodeDependencyRanges = (packageJson, newVersion) => {
         }
 
         for (const dependencyName of Object.keys(dependencies)) {
-            if (dependencyName.startsWith('@ppwcode/')) {
+            if (dependencyName.startsWith('@ppwcode/') && !ignoredPackageNames.has(dependencyName)) {
                 dependencies[dependencyName] = `^${newVersion}`
             }
         }
@@ -187,11 +187,24 @@ const packageJsonEntries = packageJsonFiles.map((packageJsonPath) => ({
     path: packageJsonPath,
     packageJson: readPackageJson(packageJsonPath)
 }))
-const currentVersions = [...new Set(packageJsonEntries.map((entry) => entry.packageJson.version))]
 
-if (currentVersions.some((version) => !version)) {
+if (packageJsonEntries.some((entry) => !entry.packageJson.version)) {
     fail('One or more library package.json files are missing a version field.')
 }
+
+const parsedPackageJsonEntries = packageJsonEntries.map((entry) => ({
+    ...entry,
+    parsedVersion: parseVersion(entry.packageJson.version)
+}))
+const ignoredPackageJsonEntries = parsedPackageJsonEntries.filter((entry) => entry.parsedVersion.major === 0)
+const releasePackageJsonEntries = parsedPackageJsonEntries.filter((entry) => entry.parsedVersion.major !== 0)
+const ignoredPackageNames = new Set(ignoredPackageJsonEntries.map((entry) => entry.packageJson.name))
+
+if (!releasePackageJsonEntries.length) {
+    fail('No release-managed library package.json files were found.')
+}
+
+const currentVersions = [...new Set(releasePackageJsonEntries.map((entry) => entry.packageJson.version))]
 
 if (currentVersions.length !== 1) {
     fail(`Library package versions are inconsistent: ${currentVersions.join(', ')}`)
@@ -204,16 +217,19 @@ if (compareVersions(parsedNewVersion, parsedCurrentVersion) < 0) {
     fail(`New version ${newVersion} is lower than current version ${currentVersion}. Release bump stopped.`)
 }
 
-for (const entry of packageJsonEntries) {
+for (const entry of releasePackageJsonEntries) {
     entry.packageJson.version = newVersion
-    updatePpwcodeDependencyRanges(entry.packageJson, newVersion)
+    updatePpwcodeDependencyRanges(entry.packageJson, newVersion, ignoredPackageNames)
     fs.writeFileSync(entry.path, JSON.stringify(entry.packageJson, null, 4) + '\n')
 }
 
 updateVersionsFile(newVersion)
 updateAppComponentHtml(newVersion)
 
-console.log(`Updated ${packageJsonEntries.length} library package.json files to ${newVersion}.`)
+console.log(`Updated ${releasePackageJsonEntries.length} library package.json files to ${newVersion}.`)
+console.log(
+    `Ignored ${ignoredPackageJsonEntries.length} manually released library package.json files with 0.x.x versions.`
+)
 console.log(`Updated internal @ppwcode/* dependency ranges to ^${newVersion}.`)
 console.log(`Updated ${path.relative(repoRoot, versionsFile)}.`)
 console.log(`Updated ${path.relative(repoRoot, appComponentHtml)}.`)
