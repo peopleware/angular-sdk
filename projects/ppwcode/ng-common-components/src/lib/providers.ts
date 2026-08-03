@@ -1,7 +1,7 @@
 import { InjectionToken, ValueProvider } from '@angular/core'
 
 export interface PpwcodeCommonComponentsProviderOptions {
-    translationKeys?: PartialPpwcodeCommonComponentsTranslationKeys
+    translationKeys: PpwcodeCommonComponentsTranslationKeys
 }
 
 export interface PpwcodeCommonComponentsTranslationKeys {
@@ -19,6 +19,10 @@ export type PartialPpwcodeCommonComponentsTranslationKeys = {
     table?: Partial<PpwcodeCommonComponentsTranslationKeys['table']>
 }
 
+export type PartialPpwcodeCommonComponentsProviderOptions = {
+    translationKeys?: PartialPpwcodeCommonComponentsTranslationKeys
+}
+
 export const DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS: PpwcodeCommonComponentsTranslationKeys = {
     loader: {
         loading: 'Loading'
@@ -29,26 +33,31 @@ export const DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS: PpwcodeCommonCo
     }
 }
 
-export const PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS = new InjectionToken<PpwcodeCommonComponentsTranslationKeys>(
-    'PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS',
+export const PPWCODE_COMMON_COMPONENTS_OPTIONS = new InjectionToken<PpwcodeCommonComponentsProviderOptions>(
+    'PPWCODE_COMMON_COMPONENTS_OPTIONS',
     {
         providedIn: 'root',
-        factory: () => DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS
+        factory: () => ({
+            translationKeys: DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS
+        })
     }
 )
 
-export const providePpwcodeCommonComponentsTranslations = (
-    options?: PpwcodeCommonComponentsProviderOptions
+export const providePpwcodeCommonComponents = (
+    options?: PartialPpwcodeCommonComponentsProviderOptions
 ): ValueProvider => ({
-    provide: PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS,
+    provide: PPWCODE_COMMON_COMPONENTS_OPTIONS,
     useValue: {
-        loader: {
-            ...DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS.loader,
-            ...options?.translationKeys?.loader
-        },
-        table: {
-            ...DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS.table,
-            ...options?.translationKeys?.table
+        ...options,
+        translationKeys: {
+            loader: {
+                ...DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS.loader,
+                ...options?.translationKeys?.loader
+            },
+            table: {
+                ...DEFAULT_PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS.table,
+                ...options?.translationKeys?.table
+            }
         }
     }
 })

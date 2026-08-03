@@ -38,7 +38,7 @@ import { PpwEmptyTablePageDirective } from './empty-page/ppw-empty-table-page.di
 import { TableRecord } from './models/table-record.model'
 import { PpwTableOptions } from './options/table-options'
 import { PPW_TABLE_DEFAULT_OPTIONS, PpwTableDefaultOptions } from './providers'
-import { PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS, PpwcodeCommonComponentsTranslationKeys } from '../providers'
+import { PPWCODE_COMMON_COMPONENTS_OPTIONS, PpwcodeCommonComponentsTranslationKeys } from '../providers'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { map } from 'rxjs'
 import { SortChange } from './models/sort-change.model'
@@ -174,9 +174,8 @@ export abstract class AbstractTableComponent<TRecord, TData = FormArray<FormGrou
     })
 
     protected readonly notUndefined = notUndefined
-    public readonly translationKeys: PpwcodeCommonComponentsTranslationKeys = inject(
-        PPWCODE_COMMON_COMPONENTS_TRANSLATION_KEYS
-    )
+    public readonly translationKeys: PpwcodeCommonComponentsTranslationKeys = inject(PPWCODE_COMMON_COMPONENTS_OPTIONS)
+        .translationKeys
     #elementRef: ElementRef = inject(ElementRef)
     #tableDefaultOptions: PpwTableDefaultOptions | null = inject(PPW_TABLE_DEFAULT_OPTIONS, { optional: true })
     #expandedRecord: WritableSignal<TRecord | undefined> = signal(undefined)

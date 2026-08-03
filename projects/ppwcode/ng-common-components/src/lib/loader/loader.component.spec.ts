@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { provideTranslateService } from '@ngx-translate/core'
 
 import { LoaderComponent } from './loader.component'
-import { providePpwcodeCommonComponentsTranslations } from '../providers'
+import { providePpwcodeCommonComponents } from '../providers'
 
 describe('LoaderComponent', () => {
     let component: LoaderComponent
@@ -41,7 +41,7 @@ describe('LoaderComponent with custom translation keys', () => {
             imports: [LoaderComponent],
             providers: [
                 provideTranslateService({}),
-                providePpwcodeCommonComponentsTranslations({
+                providePpwcodeCommonComponents({
                     translationKeys: {
                         loader: {
                             loading: 'ppwcode.common-components.loader.loading'
