@@ -5,7 +5,7 @@ import { ColumnType } from './columns/column'
 
 import { TableComponent } from './table.component'
 import { PpwTableModule } from './table.module'
-import { providePpwcodeCommonComponentsTranslations } from '../providers'
+import { providePpwcodeCommonComponents } from '../providers'
 
 export interface PeriodicElement extends Record<string, unknown> {
     name: string
@@ -444,7 +444,7 @@ describe('TableComponent with custom translation keys', () => {
             imports: [TestTableComponent],
             providers: [
                 provideTranslateService({}),
-                providePpwcodeCommonComponentsTranslations({
+                providePpwcodeCommonComponents({
                     translationKeys: {
                         table: {
                             collapseRow: 'ppwcode.common-components.table.collapse-row',
