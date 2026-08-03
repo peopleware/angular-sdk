@@ -14,7 +14,7 @@ import {
     ppwHttpErrorExtractorWithTranslatedMessages
 } from '@ppwcode/ng-async'
 import { provideGlobalErrorHandler } from '@ppwcode/ng-common'
-import { PPW_TABLE_DEFAULT_OPTIONS } from '@ppwcode/ng-common-components'
+import { PPW_TABLE_DEFAULT_OPTIONS, providePpwcodeCommonComponentsTranslations } from '@ppwcode/ng-common-components'
 import { provideBreadcrumbOptions, providePaginationOptions, TranslatedPageTitleStrategy } from '@ppwcode/ng-router'
 import { provideWireframeOptions } from '@ppwcode/ng-wireframe'
 import { AppComponent } from './app/app.component'
@@ -80,7 +80,18 @@ bootstrapApplication(AppComponent, {
             })
         }),
         provideBreadcrumbOptions(),
-        provideWireframeOptions()
+        provideWireframeOptions(),
+        providePpwcodeCommonComponentsTranslations({
+            translationKeys: {
+                loader: {
+                    loading: 'common-components.loader.loading'
+                },
+                table: {
+                    collapseRow: 'common-components.table.collapse-row',
+                    expandRow: 'common-components.table.expand-row'
+                }
+            }
+        })
     ]
 }).catch((err) => console.error(err))
 
