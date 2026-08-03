@@ -1,7 +1,7 @@
 #!/bin/bash
 export NODE_ENV="ci"
 
-declare -a LIBRARIES_LIST=("ng-ppw-ds" "ng-utils" "ng-common" "ng-common-components" "ng-async" "ng-dialogs" "ng-forms" "ng-router" "ng-state-management" "ng-unit-testing" "ng-wireframe" "ng-sdk")
+declare -a LIBRARIES_LIST=("ng-ppw-ds" "ng-e2e-testing" "ng-utils" "ng-common" "ng-common-components" "ng-async" "ng-dialogs" "ng-forms" "ng-router" "ng-state-management" "ng-unit-testing" "ng-wireframe" "ng-sdk")
 declare -a LIBRARIES_COUNT=${#LIBRARIES_LIST[@]}
 
 # Loop over libs
