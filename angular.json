@@ -33,7 +33,10 @@
                           "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
                           "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["projects/ppwcode/ng-ppw-ds/src"]
+                        }
                     },
                     "configurations": {
                         "production": {
