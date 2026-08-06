@@ -24,8 +24,8 @@ export interface ConfirmationDialogData {
     titleKey: string
     bodyKey: string
 
-    bodyParams?: Record<string, unknown>
-    titleParams?: Record<string, unknown>
+    bodyParams?: object
+    titleParams?: object
 
     /**
      * @deprecated Use confirm.key instead. Will be removed in v23.
@@ -111,11 +111,11 @@ export class ConfirmationDialogComponent {
         return this.data.confirm?.icon ?? 'fa-solid fa-check'
     }
 
-    get titleParams(): Record<string, unknown> {
+    get titleParams(): object {
         return this.data.titleParams ?? {}
     }
 
-    get bodyParams(): Record<string, unknown> {
+    get bodyParams(): object {
         return this.data.bodyParams ?? {}
     }
 }
