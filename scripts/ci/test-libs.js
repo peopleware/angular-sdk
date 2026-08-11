@@ -6,6 +6,7 @@ const projects = [
     '@ppwcode/ng-common-components',
     '@ppwcode/ng-dialogs',
     '@ppwcode/ng-forms',
+    '@ppwcode/ng-resource',
     '@ppwcode/ng-router',
     '@ppwcode/ng-state-management',
     '@ppwcode/ng-unit-testing',
