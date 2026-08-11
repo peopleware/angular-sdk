@@ -5,6 +5,7 @@
         "entryFile": "src/public-api.ts"
     },
     "assets": [
+        "src/lib/scss/*.scss",
         "ppw-ds.scss"
     ]
 }
