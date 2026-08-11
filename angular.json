@@ -573,6 +573,33 @@
                     }
                 }
             }
+        },
+        "@ppwcode/ng-resource": {
+          "projectType": "library",
+          "root": "projects/ppwcode/ng-resource",
+          "sourceRoot": "projects/ppwcode/ng-resource/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular/build:ng-packagr",
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/ppwcode/ng-resource/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/ppwcode/ng-resource/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular/build:unit-test",
+              "options": {
+                "runnerConfig": "vitest.config.ts",
+                "tsConfig": "projects/ppwcode/ng-resource/tsconfig.spec.json"
+              }
+            }
+          }
         }
     },
     "cli": {

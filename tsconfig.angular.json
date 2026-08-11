@@ -9,6 +9,7 @@
             "@ppwcode/ng-dialogs": ["./dist/ppwcode/ng-dialogs"],
             "@ppwcode/ng-forms": ["./dist/ppwcode/ng-forms"],
             "@ppwcode/ng-ppw-ds": ["./dist/ppwcode/ng-ppw-ds"],
+            "@ppwcode/ng-resource": ["./dist/ppwcode/ng-resource"],
             "@ppwcode/ng-router": ["./dist/ppwcode/ng-router"],
             "@ppwcode/ng-state-management": ["./dist/ppwcode/ng-state-management"],
             "@ppwcode/ng-unit-testing": ["./dist/ppwcode/ng-unit-testing"],
