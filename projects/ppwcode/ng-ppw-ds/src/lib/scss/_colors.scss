@@ -1,0 +1,53 @@
+@use 'sass:map';
+
+/*
+Mixin that generates the ppwcode design system tokens for the given name, Material palette and tone mapping.
+ */
+@mixin _ppw-color-scale($name, $palette, $tones) {
+    @each $token, $tone in $tones {
+        --ppw-ds-#{$name}-#{$token}: #{map.get($palette, $tone)};
+    }
+}
+
+/*
+Mixin that generates the ppwcode design system color tokens for primary, secondary, tertiary, error, success and neutral
+color schemes based on the given Material design primary and tertiary palettes.
+ */
+@mixin ppw-ds-material-color-tokens($primary-palette, $tertiary-palette) {
+    // Default mapping for tones from our levels (100-600) and their corresponding values in the Material palette.
+    $standard-tones: (
+        100: 95,
+        200: 90,
+        300: 80,
+        400: 60,
+        500: 40,
+        600: 30
+    );
+
+    @include _ppw-color-scale('primary', $primary-palette, $standard-tones);
+    @include _ppw-color-scale('secondary', map.get($primary-palette, 'secondary'), $standard-tones);
+    @include _ppw-color-scale('tertiary', $tertiary-palette, $standard-tones);
+    @include _ppw-color-scale('error', map.get($primary-palette, 'error'), $standard-tones);
+
+    // Neutral uses a different tone mapping because the standard mapping has no clear differences between the values.
+    @include _ppw-color-scale(
+        'neutral',
+        map.get($primary-palette, 'neutral'),
+        (
+            100: 100,
+            200: 98,
+            300: 90,
+            400: 80,
+            500: 60,
+            600: 30
+        )
+    );
+
+    // Material theming provides an error palette, but no success palette, so these are hardcoded for now.
+    --ppw-ds-success-100: #b5e7cf;
+    --ppw-ds-success-200: #92dcb8;
+    --ppw-ds-success-300: #60cc97;
+    --ppw-ds-success-400: #41c283;
+    --ppw-ds-success-500: #11b364;
+    --ppw-ds-success-600: #0fa35b;
+}
