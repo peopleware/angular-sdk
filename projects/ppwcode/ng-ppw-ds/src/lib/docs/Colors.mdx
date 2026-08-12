@@ -1,0 +1,35 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ColorsStories from '../stories/colors.stories'
+
+<Meta of={ColorsStories} />
+
+# Colors
+
+Color tokens provide a consistent set of shades for brand, supporting, status, and neutral colors. Use these tokens instead of hardcoded color values so applications can share a coherent palette and update it centrally.
+
+## Setup
+
+Generate the color tokens from Angular Material M3 primary and tertiary palettes in a global selector. The other scales are derived from the primary palette.
+
+```scss
+@use '@angular/material' as mat;
+@use '@ppwcode/ng-ppw-ds' as ppwDs;
+
+:root {
+    @include ppwDs.ppw-ds-material-color-tokens(mat.$azure-palette, mat.$green-palette);
+}
+```
+
+## Usage
+
+Tokens follow the syntax `--ppw-ds-[scheme]-[level]`.
+
+The available schemes are `primary`, `secondary`, `tertiary`, `error`, `success`, and `neutral`; each scheme provides levels from `100` through `600`, progressively darkening.
+
+```scss
+.call-to-action {
+    background-color: var(--ppw-ds-primary-500);
+}
+```
+
+<Canvas of={ColorsStories.AllColors} />

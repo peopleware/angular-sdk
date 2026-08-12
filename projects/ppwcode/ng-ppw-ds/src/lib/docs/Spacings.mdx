@@ -18,3 +18,18 @@ A linear spacing level is the multiplication of 4. Level 0 thus means 0px, where
 <Canvas of={SpacingsStories.AllLevels} />
 
 The tokens `--ppw-ds-spacing-1px` and `--ppw-ds-spacing-2px` are explicit and intended for usage where space is limited and decreasing density would otherwise bring visual items far too close to each other.
+
+### Semantic tokens
+
+Use the semantic spacing tokens when the required spacing corresponds to a named size. These tokens reference the linear scale, so their values remain consistent with the rest of the spacing system.
+
+| Token                       | Linear token           | Value |
+| --------------------------- | ---------------------- | ----- |
+| `--ppw-ds-spacing-small`    | `--ppw-ds-spacing-2`   | 8px   |
+| `--ppw-ds-spacing-medium`   | `--ppw-ds-spacing-4`   | 16px  |
+| `--ppw-ds-spacing-large`    | `--ppw-ds-spacing-6`   | 24px  |
+| `--ppw-ds-spacing-xlarge`   | `--ppw-ds-spacing-8`   | 32px  |
+
+### Layout tokens
+
+Use `--ppw-ds-spacing-gutter` for the spacing between layout elements. It currently references `--ppw-ds-spacing-small` (8px).

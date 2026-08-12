@@ -11,4 +11,11 @@ $_base-spacing: 4px;
     @for $i from 0 through 20 {
         --ppw-ds-spacing-#{$i}: #{$i * $_base-spacing};
     }
+
+    --ppw-ds-spacing-small: var(--ppw-ds-spacing-2);
+    --ppw-ds-spacing-medium: var(--ppw-ds-spacing-4);
+    --ppw-ds-spacing-large: var(--ppw-ds-spacing-6);
+    --ppw-ds-spacing-xlarge: var(--ppw-ds-spacing-8);
+
+    --ppw-ds-spacing-gutter: var(--ppw-ds-spacing-small);
 }
