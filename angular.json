@@ -404,7 +404,7 @@
             "projectType": "library",
             "root": "projects/ppwcode/ng-forms",
             "sourceRoot": "projects/ppwcode/ng-forms/src",
-            "prefix": "lib",
+            "prefix": "ppw",
             "architect": {
                 "build": {
                     "builder": "@angular/build:ng-packagr",
