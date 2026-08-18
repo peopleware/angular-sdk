@@ -1,0 +1,7 @@
+@use '@angular/material' as mat;
+@use 'ppw-ds' as ppwDs;
+@use './theme-colors' as themeColors;
+
+:root {
+    @include ppwDs.ppw-ds-material-color-tokens(themeColors.$primary-palette, themeColors.$tertiary-palette);
+}
