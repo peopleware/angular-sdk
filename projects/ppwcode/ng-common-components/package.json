@@ -11,6 +11,9 @@
         "@ppwcode/ng-common": "^22.2.1",
         "@ppwcode/ng-utils": "^22.2.1"
     },
+    "optionalDependencies": {
+        "@ppwcode/ng-ppw-ds": "0.0.4"
+    },
     "dependencies": {
         "tslib": "^2.3.0"
     },
