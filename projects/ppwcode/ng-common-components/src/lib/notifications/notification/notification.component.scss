@@ -1,0 +1,109 @@
+@use '@angular/material' as mat;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--ppw-ds-radius-small);
+    width: 100%;
+    min-height: 49px;
+    background: var(--ppw-ds-neutral-100);
+    @include mat.elevation(1);
+
+    --status-icon-color: var(--ppw-ds-neutral-600);
+    --status-icon-background-color: var(--ppw-ds-neutral-300);
+
+    &.notification--info {
+        --status-icon-color: var(--ppw-ds-neutral-600);
+        --status-icon-background-color: var(--ppw-ds-neutral-300);
+    }
+
+    &.notification--warning {
+        --status-icon-color: var(--ppw-ds-warning-600);
+        --status-icon-background-color: var(--ppw-ds-warning-300);
+    }
+
+    &.notification--success {
+        --status-icon-color: var(--ppw-ds-success-600);
+        --status-icon-background-color: var(--ppw-ds-success-300);
+    }
+
+    &.notification--error {
+        --status-icon-color: var(--ppw-ds-error-600);
+        --status-icon-background-color: var(--ppw-ds-error-300);
+    }
+}
+
+.ppw-notification-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.ppw-notification-content__status-icon-wrapper {
+    padding: var(--ppw-ds-spacing-4);
+    border-top-left-radius: var(--ppw-ds-radius-small);
+    color: var(--status-icon-color);
+    background-color: var(--status-icon-background-color);
+    font-size: 2em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+
+    &:not(&--with-timer) {
+        border-bottom-left-radius: var(--ppw-ds-radius-small);
+    }
+}
+
+.ppw-notification-content__message {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+
+    padding: var(--ppw-ds-spacing-4);
+    word-break: break-word;
+}
+
+.ppw-notification-content__message__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ppw-ds-spacing-2);
+    flex: 1;
+}
+
+.ppw-notification-content__message__close-button {
+    cursor: pointer;
+}
+
+.ppw-notification-timer {
+    height: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-bottom-right-radius: var(--ppw-ds-radius-small);
+    border-bottom-left-radius: var(--ppw-ds-radius-small);
+    background-color: var(--ppw-ds-neutral-200);
+
+    &::after {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: var(--status-icon-background-color);
+        content: '';
+        transform: scaleX(1);
+        transform-origin: left;
+        animation: ppw-notification-timer var(--ppw-notification-timeout) linear forwards;
+    }
+}
+
+:host(:hover) .ppw-notification-timer::after {
+    animation-play-state: paused;
+}
+
+@keyframes ppw-notification-timer {
+    to {
+        transform: scaleX(0);
+    }
+}

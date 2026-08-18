@@ -1,0 +1,7 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ppw-ds-spacing-gutter);
+    width: min(500px, 80vw);
+}

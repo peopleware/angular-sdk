@@ -43,11 +43,18 @@ color schemes based on the given Material design primary and tertiary palettes.
         )
     );
 
-    // Material theming provides an error palette, but no success palette, so these are hardcoded for now.
-    --ppw-ds-success-100: #b5e7cf;
-    --ppw-ds-success-200: #92dcb8;
-    --ppw-ds-success-300: #60cc97;
-    --ppw-ds-success-400: #41c283;
-    --ppw-ds-success-500: #11b364;
-    --ppw-ds-success-600: #0fa35b;
+    // Material theming provides an error palette, but no success or warning palette, so these are hardcoded for now.
+    // values copied from: https://tw-elements.com/docs/standard/content-styles/colors/
+    --ppw-ds-success-100: #d6fae4;
+    --ppw-ds-success-200: #acf5c9;
+    --ppw-ds-success-300: #83f0ae;
+    --ppw-ds-success-400: #59ea93;
+    --ppw-ds-success-500: #1ce26b;
+    --ppw-ds-success-600: #118c42;
+    --ppw-ds-warning-100: #fbf2de;
+    --ppw-ds-warning-200: #f7e4be;
+    --ppw-ds-warning-300: #f4d79d;
+    --ppw-ds-warning-400: #f0c97d;
+    --ppw-ds-warning-500: #eab54c;
+    --ppw-ds-warning-600: #c48a17;
 }
