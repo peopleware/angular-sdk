@@ -5,7 +5,7 @@ on:
         types: [published]
 
 permissions:
-    id-token: write  # Required for OIDC
+    id-token: write # Required for OIDC
     contents: read
 
 jobs:
@@ -42,14 +42,12 @@ jobs:
             - run: npm publish dist/ppwcode/ng-unit-testing --access public
             - run: npm publish dist/ppwcode/ng-utils --access public
             - run: npm publish dist/ppwcode/ng-wireframe --access public
-            - run: npm run ci:build
-            - name: Copy index.html to 404.html # For GitHub Pages SPA support
-              run: cp dist/ppwcode/browser/index.html dist/ppwcode/browser/404.html
+            - run: npx ng run ppwcode:build-storybook
             - name: 'Upload static docs as artifact'
               id: deployment
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: dist/ppwcode/browser
+                  path: dist/storybook
     # Deployment job
     deploy:
         permissions:
