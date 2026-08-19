@@ -1,0 +1,10 @@
+@for (notification of notifications(); track notification.id) {
+    <ppw-notification
+        [type]="notification.type"
+        [body]="notification.body"
+        [timeout]="notification.timeout"
+        (pointerenter)="pause(notification)"
+        (pointerleave)="resume(notification)"
+        (closeNotification)="close(notification)"
+    />
+}

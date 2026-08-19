@@ -1,0 +1,34 @@
+<div class="ppw-notification-content">
+    <aside
+        class="ppw-notification-content__status-icon-wrapper"
+        [class.ppw-notification-content__status-icon-wrapper--with-timer]="timeout() > 0"
+    >
+        <mat-icon
+            class="ppw-notification-content__status-icon-wrapper__status-icon"
+            data-testid="ppw-notification__icon"
+            >{{ icon() }}</mat-icon
+        >
+    </aside>
+
+    <div class="ppw-notification-content__message">
+        <div class="ppw-notification-content__message__content" data-testid="ppw-notification__content">
+            <span [innerHTML]="body().messageKey | translate: body().messageParams"></span>
+        </div>
+
+        <mat-icon
+            class="ppw-notification-content__message__close-button"
+            data-testid="ppw-notification__close-button"
+            (click)="closeNotification.emit()"
+            >close</mat-icon
+        >
+    </div>
+</div>
+
+@if (timeout() > 0) {
+    <div
+        class="ppw-notification-timer"
+        data-testid="ppw-notification__timer"
+        aria-hidden="true"
+        [style.--ppw-notification-timeout]="timeout() + 'ms'"
+    ></div>
+}
