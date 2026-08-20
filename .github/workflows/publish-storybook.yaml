@@ -36,6 +36,7 @@ jobs:
             - run: npm install
             - run: npm run ci:build-libs
             - run: npx ng run ppwcode:build-storybook
+            - run: perl -i -p -e 's#<head>#<head>\n\t\t<base href='/angular-sdk/'>#' ./dist/storybook/index.html
             - name: Upload static docs as artifact
               id: deployment
               uses: actions/upload-pages-artifact@v3
