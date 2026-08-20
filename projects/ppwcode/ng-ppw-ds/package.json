@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-ppw-ds",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "peerDependencies": {
         "@angular/common": "^22.0.0",
         "@angular/core": "^22.0.0"
