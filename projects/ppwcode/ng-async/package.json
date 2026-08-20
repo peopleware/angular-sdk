@@ -1,6 +1,6 @@
 {
     "name": "@ppwcode/ng-async",
-    "version": "22.2.1",
+    "version": "22.3.0",
     "license": "Apache-2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
@@ -10,8 +10,8 @@
         "@angular/core": "^22.0.0",
         "@ngx-translate/core": "^17.0.0",
         "file-saver-es": "^2.0.5",
-        "@ppwcode/ng-common-components": "^22.2.1",
-        "@ppwcode/ng-utils": "^22.2.1"
+        "@ppwcode/ng-common-components": "^22.3.0",
+        "@ppwcode/ng-utils": "^22.3.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
