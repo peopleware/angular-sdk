@@ -1,0 +1,58 @@
+name: Publish Storybook to GitHub Pages
+
+on:
+    workflow_dispatch:
+    workflow_run:
+        workflows:
+            - Publish New Release to NPM
+        types:
+            - completed
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        if: >-
+            ${{
+                (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master') ||
+                (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+            }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: '24.16.0'
+                  cache: 'npm'
+            - name: Cache node modules
+              uses: actions/cache@v5
+              with:
+                  path: node_modules
+                  key: node_modules-${{ hashFiles('package-lock.json') }}
+                  restore-keys: node_modules-
+            - run: npm install
+            - run: npm run ci:build-libs
+            - run: npx ng run ppwcode:build-storybook
+            - name: Upload static docs as artifact
+              id: deployment
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: dist/storybook
+
+    deploy:
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build
+        if: needs.build.result == 'success'
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
