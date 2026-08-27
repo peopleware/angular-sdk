@@ -159,6 +159,37 @@ export class PpwResourceExecution<TResult> {
     }
 
     /**
+     * Converts the current operation into a Promise that resolves or rejects
+     * based on the operation's completion state.
+     *
+     * @return {Promise<TResult>} A Promise that resolves with the result of
+     * the operation if successful, or rejects with the error if it fails.
+     */
+    public toPromise(): Promise<TResult> {
+        // Start by instantiating a new Promise to be returned at the end, so we can capture the resolve and reject callbacks.
+        let resolve: (value: TResult) => void
+        let reject: (reason?: unknown) => void
+
+        const promise = new Promise<TResult>((res, rej) => {
+            resolve = res
+            reject = rej
+        })
+
+        // Register a completion handler that will be triggered when the resource state changes to resolved or error.
+        // This handler will be invoked with a boolean indicating whether the call was successful, allowing us to
+        // invoke the captured resolve or reject Promise callbacks with either the resource value or error.
+        this.#completionHandlers.add((hasFailed) => {
+            if (hasFailed) {
+                reject(this.error())
+            } else {
+                resolve(this.value())
+            }
+        })
+
+        return promise
+    }
+
+    /**
      * Starts a set of optional executions and reports their aggregate result.
      *
      * Factories are invoked inside this method so no request starts before the group lifecycle begins. A factory can
