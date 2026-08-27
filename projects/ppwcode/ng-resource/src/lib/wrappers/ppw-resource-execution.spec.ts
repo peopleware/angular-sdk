@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http'
-import { ResourceSnapshot, resourceFromSnapshots, signal } from '@angular/core'
+import { resourceFromSnapshots, ResourceSnapshot, signal } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { PPW_RESOURCE_ERROR_EXTRACTOR } from '../error-handling/extractor'
 import { PpwResourceExecution, PpwResourceExecutionOptions } from './ppw-resource-execution'
@@ -201,6 +201,33 @@ describe('PpwResourceExecution state', () => {
         TestBed.tick()
 
         expect(() => vi.runOnlyPendingTimers()).not.toThrow()
+    })
+
+    it('should resolve the promise with the resource value after a successful execution', async () => {
+        const { resource, snapshot } = createFakeHttpResource(idleSnapshot())
+        const execution = createExecution(resource)
+        const promise = execution.toPromise()
+
+        snapshot.set(resolvedSnapshot('result'))
+        TestBed.tick()
+
+        vi.runOnlyPendingTimers()
+
+        await expect(promise).resolves.toBe('result')
+    })
+
+    it('should reject the promise with the resource error after a failed execution', async () => {
+        const { resource, snapshot } = createFakeHttpResource(idleSnapshot())
+        const execution = createExecution(resource)
+        const error = new Error('Failed')
+        const promise = execution.toPromise()
+
+        snapshot.set(errorSnapshot(error))
+        TestBed.tick()
+
+        vi.runOnlyPendingTimers()
+
+        await expect(promise).rejects.toBe(error)
     })
 
     it('should not rerun success callbacks when only the exposed value changes', () => {
