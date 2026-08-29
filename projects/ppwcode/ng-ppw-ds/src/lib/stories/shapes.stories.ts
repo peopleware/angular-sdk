@@ -1,4 +1,4 @@
-import { Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { Component } from '@angular/core'
 
 const shapes = ['none', 'small', 'medium', 'large', 'full']

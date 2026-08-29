@@ -1,4 +1,4 @@
-import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { WireframeComponent } from './wireframe.component'
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router'
 import { of } from 'rxjs'

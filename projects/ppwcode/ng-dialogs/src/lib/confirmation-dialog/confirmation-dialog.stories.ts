@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, Injectable, input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import {
     MissingTranslationHandler,
     MissingTranslationHandlerParams,

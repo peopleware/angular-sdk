@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/angular'
-import { applicationConfig } from '@storybook/angular'
+import type { Preview } from '@storybook/angular-vite'
+import { applicationConfig } from '@storybook/angular-vite'
 import { provideZonelessChangeDetection } from '@angular/core'
 import { provideNoopAnimations } from '@angular/platform-browser/animations'
 import { provideTranslateService } from '@ngx-translate/core'

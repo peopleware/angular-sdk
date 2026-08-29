@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/angular'
+import { Meta, StoryObj } from '@storybook/angular-vite'
 import { createPagedEntitiesMock } from '@ppwcode/ng-async'
 import { PaginationBarComponent } from './pagination-bar.component'
 

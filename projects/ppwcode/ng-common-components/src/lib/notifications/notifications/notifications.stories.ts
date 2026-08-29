@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { GlobalPositionStrategy, OverlayModule } from '@angular/cdk/overlay'
 import { MatButtonModule } from '@angular/material/button'
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { provideTranslateService } from '@ngx-translate/core'
 import { NotificationType } from '../notification'
 import { NotificationsService } from '../notifications.service'

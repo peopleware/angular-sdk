@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { ExpandableCardComponent } from './expandable-card.component'
 import { provideNoopAnimations } from '@angular/platform-browser/animations'
 import { MatExpansionModule } from '@angular/material/expansion'
