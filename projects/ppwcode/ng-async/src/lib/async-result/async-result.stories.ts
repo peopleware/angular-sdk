@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core'
 import { JsonPipe } from '@angular/common'
 import { AsyncResultModule } from './async-result.module'

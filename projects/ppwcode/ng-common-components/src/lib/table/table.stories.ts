@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { ChangeDetectionStrategy, Component, input, output, TrackByFunction } from '@angular/core'
 import { DatePipe } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'

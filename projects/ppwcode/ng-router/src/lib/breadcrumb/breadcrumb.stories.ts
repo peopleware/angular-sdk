@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { BreadcrumbComponent } from './breadcrumb.component'
 import { provideRouter } from '@angular/router'
 import { provideTranslateService } from '@ngx-translate/core'

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 import { form, FormField, minLength, required, ValidationError } from '@angular/forms/signals'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { providePpwcodeNgForms } from '../provider/provider'
 import { FieldErrorsComponent } from './field-errors.component'
 
