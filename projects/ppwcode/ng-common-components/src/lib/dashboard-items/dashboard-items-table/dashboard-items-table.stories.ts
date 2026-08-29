@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { DashboardItemsTableComponent } from './dashboard-items-table.component'
 import { provideTranslateService } from '@ngx-translate/core'
 import { provideNoopAnimations } from '@angular/platform-browser/animations'

@@ -1,4 +1,4 @@
-import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { CommonModule } from '@angular/common'
 import { LeftSidenavComponent } from './left-sidenav.component'
 import { NavigationItem } from '../navigation-item/navigation-item.model'

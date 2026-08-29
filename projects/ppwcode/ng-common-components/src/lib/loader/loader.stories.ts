@@ -1,4 +1,4 @@
-import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { LoaderComponent } from './loader.component'
 import { provideNoopAnimations } from '@angular/platform-browser/animations'
 import { MatProgressBarModule } from '@angular/material/progress-bar'

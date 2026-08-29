@@ -1,4 +1,4 @@
-import { Meta, moduleMetadata, StoryObj } from '@storybook/angular'
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { Component } from '@angular/core'
 
 const spacings = Array.from({ length: 21 }, (_, i) => i)
