@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/angular-vite'
 import { fileURLToPath } from 'node:url'
 import { resolve as resolvePath } from 'node:path'
 import { mergeConfig, type UserConfig } from 'vite'
+import remarkGfm from 'remark-gfm'
 
 const workspaceRoot = fileURLToPath(new URL('../../../', import.meta.url))
 const workspaceAliases = {
@@ -31,7 +32,16 @@ const config: StorybookConfig = {
     addons: [
         '@storybook/addon-themes',
         '@storybook/addon-a11y',
-        '@storybook/addon-docs',
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                mdxPluginOptions: {
+                    mdxCompileOptions: {
+                        remarkPlugins: [remarkGfm]
+                    }
+                }
+            }
+        },
         '@storybook/addon-onboarding'
     ],
     framework: {

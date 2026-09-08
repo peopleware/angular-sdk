@@ -83,6 +83,7 @@
         "ng-packagr": "22.0.0",
         "prettier": "3.1.1",
         "prettier-config-standard": "7.0.0",
+        "remark-gfm": "4.0.1",
         "retire": "5.2.5",
         "storybook": "10.5.5",
         "typescript": "6.0.3",
