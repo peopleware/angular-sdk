@@ -83,7 +83,7 @@ export class TableWrapperComponent {
 }
 
 const meta: Meta<TableWrapperComponent> = {
-    title: 'ng-common-components/Table',
+    title: 'ng-common-components/Table/Read',
     component: TableWrapperComponent,
     decorators: [
         moduleMetadata({
