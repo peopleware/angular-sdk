@@ -38,3 +38,31 @@ Instead of simple strings, you can use content projection for the title and desc
 ```
 
 <Canvas of={ExpandableCardStories.ContentProjection} />
+
+
+## Accessible header without visible text
+
+When neither title nor description is visible, provide `headerAriaLabel` so keyboard and screen-reader users can identify the header. This example uses the demo application's existing English translation.
+
+<Canvas of={ExpandableCardStories.WithoutVisibleHeader} />
+
+## Title-only and description-only layouts
+
+A single header slot can use the available width. Projected content uses the application's `flex-grow-1` utility; string inputs demonstrate the equivalent title-only and description-only layouts.
+
+<Canvas of={ExpandableCardStories.ProjectedTitleOnly} />
+<Canvas of={ExpandableCardStories.ProjectedDescriptionOnly} />
+<Canvas of={ExpandableCardStories.TitleOnly} />
+<Canvas of={ExpandableCardStories.DescriptionOnly} />
+
+## Custom header heights
+
+Set `--ppw-expandable-card-header-height-collapsed` and `--ppw-expandable-card-header-height-expanded` on an individual card. This example matches the app: 48px collapsed and 64px expanded.
+
+<Canvas of={ExpandableCardStories.CustomHeaderHeights} />
+
+## Reading expansion state
+
+Use a template reference to read the card's `panelOpenState`. The projected description below updates when the panel opens or closes; `openAsExpanded` supplies its initial state.
+
+<Canvas of={ExpandableCardStories.ExpansionState} />
