@@ -31,12 +31,13 @@ import { PpwTableOptions } from './options/table-options'
             <ppw-column name="name" label="Name" type="text" [sortable]="true"></ppw-column>
             <ppw-column name="age" label="Age" type="number" [sortable]="true"></ppw-column>
             <ppw-column name="city" label="City" type="template" [sortable]="true">
-                <ng-template ppw-column-cell let-record="record">
+                <ng-template ppw-column-cell let-record>
                     <span style="color: blue; font-weight: bold;">
                         <i class="fa-solid fa-location-dot"></i> {{ record.city }}
                     </span>
                 </ng-template>
             </ppw-column>
+            <ppw-column name="status" label="Status" type="text"></ppw-column>
 
             <ng-template ppw-empty-page>
                 <div style="padding: 40px; text-align: center; background: #fffbe6; border: 1px dashed #ffe58f;">
