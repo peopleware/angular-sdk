@@ -1,3 +1,7 @@
+import { provideHttpClient } from '@angular/common/http'
+import { provideRouter, withDisabledInitialNavigation } from '@angular/router'
+import { provideTranslateService, TranslateModule } from '@ngx-translate/core'
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader'
 import { applicationConfig, Meta, moduleMetadata, StoryObj } from '@storybook/angular-vite'
 import { ExpandableCardComponent } from './expandable-card.component'
 import { provideNoopAnimations } from '@angular/platform-browser/animations'
@@ -8,13 +12,28 @@ const meta: Meta<ExpandableCardComponent> = {
     component: ExpandableCardComponent,
     decorators: [
         moduleMetadata({
-            imports: [ExpandableCardComponent, MatExpansionModule]
+            imports: [ExpandableCardComponent, MatExpansionModule, TranslateModule]
         }),
         applicationConfig({
-            providers: [provideNoopAnimations()]
+            providers: [
+                provideNoopAnimations(),
+                provideRouter([], withDisabledInitialNavigation()),
+                provideHttpClient(),
+                provideTranslateService({
+                    lang: 'en',
+                    fallbackLang: 'en',
+                    loader: provideTranslateHttpLoader({ prefix: '/assets/i18n/', suffix: '.json' })
+                })
+            ]
         })
     ],
+    args: { headerAriaLabel: undefined },
     argTypes: {
+        headerAriaLabel: {
+            description: 'Accessible name for the header, especially when it has no visible title or description.',
+            control: 'text',
+            table: { category: 'Inputs' }
+        },
         cardTitle: {
             description: 'The title displayed in the card header.',
             control: 'text',
@@ -52,6 +71,7 @@ export const Default: Story = {
         props: args,
         template: `
             <ppw-expandable-card
+                [headerAriaLabel]="headerAriaLabel"
                 [cardTitle]="cardTitle"
                 [cardDescription]="cardDescription"
                 [openAsExpanded]="openAsExpanded"
@@ -73,6 +93,7 @@ export const InitiallyCollapsed: Story = {
         props: args,
         template: `
             <ppw-expandable-card
+                [headerAriaLabel]="headerAriaLabel"
                 [cardTitle]="cardTitle"
                 [cardDescription]="cardDescription"
                 [openAsExpanded]="openAsExpanded"
@@ -94,6 +115,7 @@ export const NotCollapsible: Story = {
         props: args,
         template: `
             <ppw-expandable-card
+                [headerAriaLabel]="headerAriaLabel"
                 [cardTitle]="cardTitle"
                 [cardDescription]="cardDescription"
                 [openAsExpanded]="openAsExpanded"
@@ -113,6 +135,7 @@ export const ContentProjection: Story = {
         props: args,
         template: `
             <ppw-expandable-card
+                [headerAriaLabel]="headerAriaLabel"
                 [openAsExpanded]="openAsExpanded"
                 [canBeCollapsed]="canBeCollapsed">
                 <span ppw-expandable-card-title style="color: #009b3e; font-weight: bold;">
@@ -125,6 +148,105 @@ export const ContentProjection: Story = {
                     <h4>Rich Content</h4>
                     <p>This story demonstrates using <b>content projection</b> for the title and description slots instead of simple string inputs.</p>
                 </div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const WithoutVisibleHeader: Story = {
+    args: { headerAriaLabel: 'expandable-card.card-without-visible-title', openAsExpanded: true, canBeCollapsed: true },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel ? (headerAriaLabel | translate) : undefined"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div>this is a card without a title or description in the header</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const ProjectedTitleOnly: Story = {
+    args: { openAsExpanded: false, canBeCollapsed: true },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div ppw-expandable-card-title class="flex-grow-1"><span>Demo card which can be opened with full-width title</span></div><div>card contents</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const ProjectedDescriptionOnly: Story = {
+    args: { openAsExpanded: false, canBeCollapsed: true },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div ppw-expandable-card-description class="flex-grow-1"><span>Demo card which can be opened with full-width description</span></div><div>card contents</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const TitleOnly: Story = {
+    args: {
+        cardTitle: 'Demo card which can be opened with a full-width title passed as parameter',
+        openAsExpanded: false,
+        canBeCollapsed: true
+    },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel" [cardTitle]="cardTitle"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div>card contents</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const DescriptionOnly: Story = {
+    args: {
+        cardDescription: 'Demo card which can be opened with a full-width description passed as parameter',
+        openAsExpanded: false,
+        canBeCollapsed: true
+    },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel" [cardDescription]="cardDescription"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div>card contents</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const CustomHeaderHeights: Story = {
+    args: { openAsExpanded: true, canBeCollapsed: true },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card [headerAriaLabel]="headerAriaLabel" style="--ppw-expandable-card-header-height-collapsed: 48px; --ppw-expandable-card-header-height-expanded: 64px;"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div ppw-expandable-card-title><span>Demo card which can be collapsed and has a specific height</span></div><div ppw-expandable-card-description class="flex-grow-1 flex-row justify-content-end"><span>Description as content</span></div><div>card contents</div>
+            </ppw-expandable-card>
+        `
+    })
+}
+
+export const ExpansionState: Story = {
+    args: { cardTitle: 'Card with expansion state information', openAsExpanded: false, canBeCollapsed: true },
+    render: (args) => ({
+        props: args,
+        template: `
+            <ppw-expandable-card #conditionalCard [headerAriaLabel]="headerAriaLabel" [cardTitle]="cardTitle"
+                [openAsExpanded]="openAsExpanded" [canBeCollapsed]="canBeCollapsed">
+                <div ppw-expandable-card-description class="flex-grow-1 flex-row justify-content-end"><span>Is expanded: {{ conditionalCard.panelOpenState }}</span></div><div>card contents</div>
             </ppw-expandable-card>
         `
     })
