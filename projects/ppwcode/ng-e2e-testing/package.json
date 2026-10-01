@@ -1,6 +1,7 @@
 {
     "name": "@ppwcode/ng-e2e-testing",
     "version": "0.0.1",
+    "license": "Apache-2.0",
     "repository": {
         "url": "https://github.com/peopleware/angular-sdk"
     },
