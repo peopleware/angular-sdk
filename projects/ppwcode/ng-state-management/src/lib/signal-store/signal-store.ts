@@ -1,5 +1,5 @@
 // Copied from https://stackblitz.com/edit/stackblitz-starters-8wuadn?file=src%2Fcomponents%2Fsmart%2Fmodels%2Fmodels.component.ts
-import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core'
+import { computed, effect, Injectable, Signal, signal, untracked, WritableSignal } from '@angular/core'
 
 type Signals<T> = { [P in keyof T]: WritableSignal<T[P]> }
 type SpecificKeysOfObj<T> = { [P in keyof T]: T[P] }
@@ -108,16 +108,17 @@ export class SignalStore<T extends Record<string, unknown>> {
     /**
      * Returns the state as a signal
      */
-    public state = computed(() => {
-        this.throwOrReturnSignals()
-        return this.snapshot
-    })
+    public state = computed(() => this.readState())
 
     /**
-     * Returns the state as a snapshot
-     * This will read through all the signals
+     * Returns the current state without registering reactive dependencies.
+     * Use state, select, or selectMany for reactive reads.
      */
     public get snapshot(): T {
+        return untracked(() => this.readState())
+    }
+
+    private readState(): T {
         const signals = this.throwOrReturnSignals()
         return Object.keys(signals).reduce((obj, key: keyof T) => {
             obj[key] = signals[key]()
