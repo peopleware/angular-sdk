@@ -1,5 +1,13 @@
 # Changelog
 
+## 22.5.0 - 2026-10-02
+
+[Compare changes](https://github.com/peopleware/angular-sdk/compare/22.4.0...22.5.0)
+
+### Fixes
+
+-   **state-management:** Make SignalStore snapshots non-reactive ([9e033f5](https://github.com/peopleware/angular-sdk/commit/9e033f5adaaf6e53598e70a07e5d2b570633a022))
+
 ## 22.4.0 - 2026-09-01
 
 [Compare changes](https://github.com/peopleware/angular-sdk/compare/22.3.0...22.4.0)
