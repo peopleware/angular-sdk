@@ -6,6 +6,10 @@ Breaking changes are grouped by their major version number.
 
 ## v22.0.0
 
+> :warning: **22.5.0** :warning:
+>
+> To account for vulnerabilities in Angular, starting with version 22.5.0, ppwcode Angular SDK requires an Angular peer dependency of at least 22.2.0.
+
 ### Removal of deprecations
 
 The following have been removed:
