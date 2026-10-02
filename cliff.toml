@@ -1,0 +1,54 @@
+# Shared SDK release history; tags in this repository have no "v" prefix.
+[changelog]
+header = """
+# Changelog
+
+"""
+body = """
+{% if version %}
+## {{ version }} - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}
+## Unreleased
+{% endif %}
+{% if previous.version %}
+[Compare changes](https://github.com/peopleware/angular-sdk/compare/{{ previous.version }}...{% if version %}{{ version }}{% else %}HEAD{% endif %})
+{% endif %}
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim }}
+{% for commit in commits %}
+- {% if commit.scope %}**{{ commit.scope | replace(from="*", to="all") }}:** {% endif %}{{ commit.message | split(pat="\n") | first | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/peopleware/angular-sdk/commit/{{ commit.id }}))
+{% if commit.breaking_description %}
+  > {{ commit.breaking_description | replace(from="\n", to="\n  > ") }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+"""
+trim = true
+
+[git]
+conventional_commits = true
+# Existing releases contain useful free-form commits; do not silently discard them.
+filter_unconventional = false
+split_commits = false
+protect_breaking_commits = true
+filter_commits = false
+tag_pattern = '^[0-9]+\.[0-9]+\.[0-9]+$'
+topo_order = false
+sort_commits = "oldest"
+commit_parsers = [
+    # First match wins: breaking changes must precede every skip rule.
+    { field = "breaking", pattern = "true", group = "<!-- 0 -->Breaking changes" },
+    { message = '^Bump .*version to ', skip = true },
+    { message = '^Bump (ng-|version )', skip = true },
+    { message = '^Merge (pull request|branch|remote-tracking branch) ', skip = true },
+    { message = '^chore\(release\)', skip = true },
+    { message = '^feat[(:!]', group = "<!-- 1 -->Features" },
+    { message = '^fix[(:!]', group = "<!-- 2 -->Fixes" },
+    { message = '^perf[(:!]', group = "<!-- 3 -->Performance" },
+    { message = '^(chore|build)\((dependencies|deps)\)', skip = true },
+    { message = '^docs?[(:!]', skip = true },
+    { message = '^revert[(:!]', group = "<!-- 6 -->Reverts" },
+    { message = '^(chore|build|ci|test|style)[(:!]', skip = true },
+    { message = '^refactor[(:!]', group = "<!-- 7 -->Refactoring" },
+    { message = '.*', group = "<!-- 8 -->Other changes" },
+]

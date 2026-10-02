@@ -5,6 +5,8 @@
         "url": "https://github.com/peopleware/angular-sdk"
     },
     "scripts": {
+        "changelog": "git-cliff --config cliff.toml --output CHANGELOG.md && prettier --write CHANGELOG.md",
+        "changelog:preview": "git-cliff --config cliff.toml --unreleased",
         "start": "ng serve",
         "start:remote": "ng serve --host 0.0.0.0",
         "lint:prettier": "cross-env prettier --check \"**/*.{ts,js,md,html,scss}\"",
@@ -78,6 +80,7 @@
         "eslint-plugin-depend": "1.2.0",
         "eslint-plugin-no-secrets": "2.2.1",
         "eslint-plugin-storybook": "10.5.5",
+        "git-cliff": "2.14.2",
         "jasmine-core": "4.6.0",
         "jsdom": "28.0.0",
         "ng-packagr": "22.2.4",
