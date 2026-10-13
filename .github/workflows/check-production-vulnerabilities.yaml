@@ -1,0 +1,20 @@
+name: Check Production Vulnerabilities
+
+on:
+    schedule:
+        - cron: '0 9 * * 1,4'
+          timezone: 'Europe/Brussels'
+
+permissions:
+    contents: read
+
+jobs:
+    audit:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: '24.16.0'
+                  cache: 'npm'
+            - run: npm run ci:check-production-vulnerabilities
