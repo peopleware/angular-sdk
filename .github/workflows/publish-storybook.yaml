@@ -20,15 +20,15 @@ jobs:
             }}
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
               with:
                   ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
-            - uses: actions/setup-node@v5
+            - uses: actions/setup-node@v7
               with:
                   node-version: '24.16.0'
                   cache: 'npm'
             - name: Cache node modules
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: node_modules
                   key: node_modules-${{ hashFiles('package-lock.json') }}
@@ -39,7 +39,7 @@ jobs:
             - run: perl -i -p -e 's#<head>#<head>\n\t\t<base href='/angular-sdk/'>#' ./dist/storybook/index.html
             - name: Upload static docs as artifact
               id: deployment
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v5
               with:
                   path: dist/storybook
 
@@ -56,4 +56,4 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@v5
