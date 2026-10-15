@@ -1,6 +1,7 @@
 name: Check Production Vulnerabilities
 
 on:
+    workflow_dispatch:
     schedule:
         - cron: '0 9 * * 1,4'
           timezone: 'Europe/Brussels'
