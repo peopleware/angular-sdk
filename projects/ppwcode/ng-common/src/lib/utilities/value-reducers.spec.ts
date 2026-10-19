@@ -1,6 +1,6 @@
 import { signal } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
-import { combineLatest, firstValueFrom, Observable, of } from 'rxjs'
+import { combineLatest, firstValueFrom, Observable, of, toArray } from 'rxjs'
 import { invert, ObservableConvertableValue, oneTrue } from './value-reducers'
 
 describe('Value combiners', () => {
@@ -30,6 +30,11 @@ describe('Value combiners', () => {
     })
 
     describe('oneTrue', () => {
+        it('should complete without emitting when called without arguments', async () => {
+            const result = await firstValueFrom(oneTrue().pipe(toArray()))
+            expect(result).toEqual([])
+        })
+
         it('should emit true if at least one of the values emits true', async () => {
             const testCases = [
                 { values: [false, signal(false), of(false)], expected: false },
