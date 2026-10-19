@@ -16,7 +16,7 @@ export const httpResponseToFileDownload = (response: HttpResponse<Blob>): FileDo
 }
 
 export const getFileNameFromContentDisposition = (contentDisposition?: string | null): string | undefined => {
-    if (!(contentDisposition && contentDisposition.length && contentDisposition.indexOf('filename=') > -1)) {
+    if (!(contentDisposition && contentDisposition.indexOf('filename=') > -1)) {
         return undefined
     }
     const filenameStart = contentDisposition.split('filename=')[1]
