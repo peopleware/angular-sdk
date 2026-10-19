@@ -55,7 +55,7 @@ export class BreadcrumbService {
                     label: detailTitle,
                     url: URL_SEGMENT_SEPARATOR + routeUrl.join(URL_SEGMENT_SEPARATOR)
                 })
-            } else if (route.pathFromRoot.length > 1 && breadcrumbLabel && (!breadcrumbs || !isSameLabel)) {
+            } else if (route.pathFromRoot.length > 1 && breadcrumbLabel && !isSameLabel) {
                 breadcrumbs.push({
                     url: URL_SEGMENT_SEPARATOR + routeUrl.join(URL_SEGMENT_SEPARATOR),
                     label: breadcrumbLabel
