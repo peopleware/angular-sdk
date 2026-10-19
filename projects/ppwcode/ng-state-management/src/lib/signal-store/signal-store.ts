@@ -130,6 +130,6 @@ export class SignalStore<T extends Record<string, unknown>> {
         if (!this.signals) {
             throw new Error(this.notInitializedError)
         }
-        return this.signals as Signals<T>
+        return this.signals
     }
 }
