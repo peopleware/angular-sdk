@@ -8,11 +8,7 @@ export const invert = (observable$: ObservableConvertableValue<boolean>) =>
     ensureObservable(observable$).pipe(map((value) => !value))
 
 export const oneTrue = (...observables$: ObservableConvertableValue<boolean>[]) =>
-    combineLatest(ensureObservables(observables$)).pipe(map((values) => values.some((value) => value)))
+    combineLatest(observables$.map(ensureObservable)).pipe(map((values) => values.some((value) => value)))
 
 const ensureObservable = <T>(value: ObservableConvertableValue<T>): Observable<T> =>
     isObservable(value) ? value : isSignal(value) ? toObservable(value).pipe(startWith(value())) : of(value)
-
-const ensureObservables = <T>(
-    values: ObservableConvertableValue<T> | Array<ObservableConvertableValue<T>>
-): Observable<T>[] => (Array.isArray(values) ? values.map(ensureObservable) : [ensureObservable(values)])
