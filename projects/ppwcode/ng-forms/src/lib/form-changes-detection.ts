@@ -79,9 +79,7 @@ export const mixinDetectFormChanges = <T extends Constructor<object>>(base?: T):
                         }
                         return [key, value]
                     })
-                    .filter(
-                        ([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined')
-                    )
+                    .filter(([, v]) => v !== '' && v !== null && typeof v !== 'undefined')
             ) as V
         }
     }

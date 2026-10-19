@@ -70,3 +70,34 @@ describe('detectFormChanges', () => {
         expect(tracker.invalidOrNoChanges()).toBe(true)
     })
 })
+
+describe('detectFormChanges value comparison', () => {
+    type Value = string | number | boolean | null | undefined
+
+    const createTracker = () => {
+        const model = signal<{ value: Value; nested: { value: Value } }>({ value: null, nested: { value: null } })
+        const testForm = TestBed.runInInjectionContext(() => form(model))
+        return { model, tracker: detectFormChanges(testForm) }
+    }
+
+    it.each(['', null, undefined])('should ignore %s in top-level and nested fields', (value) => {
+        const { model, tracker } = createTracker()
+
+        model.set({ value, nested: { value } })
+
+        expect(tracker.hasChanges()).toBe(false)
+    })
+
+    it.each([0, false])('should retain %s in top-level and nested fields', (value) => {
+        const { model, tracker } = createTracker()
+
+        model.set({ value, nested: { value: null } })
+        expect(tracker.hasChanges()).toBe(true)
+
+        model.set({ value: null, nested: { value } })
+        expect(tracker.hasChanges()).toBe(true)
+
+        model.set({ value: null, nested: { value: null } })
+        expect(tracker.hasChanges()).toBe(false)
+    })
+})

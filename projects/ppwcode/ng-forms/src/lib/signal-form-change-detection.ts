@@ -64,5 +64,5 @@ const getValuable = <T extends object, V = Valuable<T>>(obj: T): V =>
                 }
                 return [key, value]
             })
-            .filter(([, v]) => !((typeof v === 'string' && !v.length) || v === null || typeof v === 'undefined'))
+            .filter(([, v]) => v !== '' && v !== null && typeof v !== 'undefined')
     ) as V
