@@ -1,4 +1,4 @@
-import { ComponentRef, Directive, input, InputSignal, OnInit, Type, ViewContainerRef } from '@angular/core'
+import { ComponentRef, Directive, input, InputSignal, OnInit, ViewContainerRef } from '@angular/core'
 
 import { Column, ColumnType } from '../../columns/column'
 import { DateCellComponent } from '../date-cell/date-cell.component'
@@ -31,18 +31,13 @@ export class DynamicCellDirective<TRecord> implements OnInit {
     public constructor(private _viewContainerRef: ViewContainerRef) {}
 
     public ngOnInit(): void {
-        this._instantiateComponent(this._componentTypeMap[this.column().type ?? ColumnType.Text])
+        this.componentRef = this._viewContainerRef.createComponent<any>(
+            this._componentTypeMap[this.column().type ?? ColumnType.Text]
+        )
 
         this.componentRef.instance.rowIndex = this.rowIndex
         this.componentRef.instance.column = this.column
         this.componentRef.instance.record = this.record
         this.componentRef.instance.value = this.value
-    }
-
-    /**
-     * Creates a new instance of the component on the view container.
-     */
-    private _instantiateComponent(component: Type<any>): void {
-        this.componentRef = this._viewContainerRef.createComponent(component)
     }
 }
