@@ -126,19 +126,24 @@ describe('Left sidenav component', () => {
         }
     )
 
-    it('should preserve imperative external navigation for direct calls', () => {
-        const item = { ...enabledNavigationItem, fullRouterPath: 'https://peopleware.be', isExternalLink: true }
-        const open = vi.spyOn(window, 'open').mockReturnValue(null)
-        const navigate = vi.spyOn(router, 'navigateByUrl')
-        const navigated = vi.fn()
-        component.navigated.subscribe(navigated)
+    it.each([false, true])(
+        'should prioritize external navigation over children in direct calls with useNativeLinks=%s',
+        (useNativeLinks) => {
+            fixture.componentRef.setInput('useNativeLinks', useNativeLinks)
+            const item = { ...childrenNavigationItem, fullRouterPath: 'https://peopleware.be', isExternalLink: true }
+            const open = vi.spyOn(window, 'open').mockReturnValue(null)
+            const navigate = vi.spyOn(router, 'navigateByUrl')
+            const navigated = vi.fn()
+            component.navigated.subscribe(navigated)
 
-        component.onClickNavigationItem(item)
+            component.onClickNavigationItem(item)
 
-        expect(open).toHaveBeenCalledExactlyOnceWith(item.fullRouterPath, '_blank')
-        expect(navigate).not.toHaveBeenCalled()
-        expect(navigated).toHaveBeenCalledExactlyOnceWith(item)
-    })
+            expect(open).toHaveBeenCalledExactlyOnceWith(item.fullRouterPath, '_blank')
+            expect(navigate).not.toHaveBeenCalled()
+            expect(navigated).toHaveBeenCalledExactlyOnceWith(item)
+            expect(component.navigationItemIsOpened(item)).toBe(false)
+        }
+    )
 
     it('should render legacy buttons by default', () => {
         expect(component.useNativeLinks()).toBe(false)
@@ -260,46 +265,51 @@ describe('Left sidenav component', () => {
             }
         )
 
-        it('should use native external links with secure new-tab attributes', () => {
-            const item: NavigationItem = {
-                label: 'External',
-                icon: 'fa-solid fa-globe',
-                fullRouterPath: 'https://peopleware.be',
-                isExternalLink: true
-            }
-            fixture.componentRef.setInput('navigationItems', [item])
-            fixture.detectChanges()
-            const link = getNavigationItemButton('External')
-            const navigate = vi.spyOn(router, 'navigateByUrl')
-            const open = vi.spyOn(window, 'open')
-            const navigated = vi.fn()
-            component.navigated.subscribe(navigated)
+        it.each([{ children: undefined }, { children: childrenNavigationItem.children }])(
+            'should use native external links with secure new-tab attributes with children=$children',
+            ({ children }) => {
+                const item: NavigationItem = {
+                    label: 'External',
+                    icon: 'fa-solid fa-globe',
+                    fullRouterPath: 'https://peopleware.be',
+                    isExternalLink: true,
+                    children
+                }
+                fixture.componentRef.setInput('navigationItems', [item])
+                fixture.detectChanges()
+                const link = getNavigationItemButton('External')
+                const navigate = vi.spyOn(router, 'navigateByUrl')
+                const open = vi.spyOn(window, 'open')
+                const navigated = vi.fn()
+                component.navigated.subscribe(navigated)
 
-            expect(link.tagName).toBe('A')
-            expect(link.getAttribute('href')).toBe(item.fullRouterPath)
-            expect(link.getAttribute('target')).toBe('_blank')
-            expect(link.getAttribute('rel')).toBe('noopener noreferrer')
-            for (const modifiers of [
-                { ctrlKey: true },
-                { metaKey: true },
-                { shiftKey: true },
-                { altKey: true },
-                { button: 1 },
-                { button: 2 }
-            ]) {
-                const modified = new MouseEvent('click', { bubbles: true, cancelable: true, ...modifiers })
-                link.dispatchEvent(modified)
-                expect(modified.defaultPrevented).toBe(false)
-            }
-            expect(navigated).not.toHaveBeenCalled()
+                expect(link.tagName).toBe('A')
+                expect(link.getAttribute('href')).toBe(item.fullRouterPath)
+                expect(link.getAttribute('target')).toBe('_blank')
+                expect(link.getAttribute('rel')).toBe('noopener noreferrer')
+                for (const modifiers of [
+                    { ctrlKey: true },
+                    { metaKey: true },
+                    { shiftKey: true },
+                    { altKey: true },
+                    { button: 1 },
+                    { button: 2 }
+                ]) {
+                    const modified = new MouseEvent('click', { bubbles: true, cancelable: true, ...modifiers })
+                    link.dispatchEvent(modified)
+                    expect(modified.defaultPrevented).toBe(false)
+                }
+                expect(navigated).not.toHaveBeenCalled()
 
-            const ordinary = new MouseEvent('click', { bubbles: true, cancelable: true })
-            link.dispatchEvent(ordinary)
-            expect(ordinary.defaultPrevented).toBe(false)
-            expect(navigated).toHaveBeenCalledTimes(1)
-            expect(navigate).not.toHaveBeenCalled()
-            expect(open).not.toHaveBeenCalled()
-        })
+                const ordinary = new MouseEvent('click', { bubbles: true, cancelable: true })
+                link.dispatchEvent(ordinary)
+                expect(ordinary.defaultPrevented).toBe(false)
+                expect(navigated).toHaveBeenCalledTimes(1)
+                expect(navigate).not.toHaveBeenCalled()
+                expect(open).not.toHaveBeenCalled()
+                expect(component.navigationItemIsOpened(item)).toBe(false)
+            }
+        )
 
         it.each([false, true])('should keep disabled entries inert with useNativeLinks=%s', (useNativeLinks) => {
             fixture.componentRef.setInput('useNativeLinks', useNativeLinks)
@@ -310,7 +320,8 @@ describe('Left sidenav component', () => {
                     icon: 'fa-solid fa-globe',
                     fullRouterPath: 'https://peopleware.be',
                     isExternalLink: true,
-                    isEnabled: false
+                    isEnabled: false,
+                    children: childrenNavigationItem.children
                 },
                 { ...childrenNavigationItem, label: 'Disabled parent', isEnabled: false }
             ])
@@ -542,45 +553,54 @@ describe('Left sidenav component', () => {
         expect(navigationItemIsActiveSpy).not.toHaveBeenCalled()
     })
 
-    it('should throw when an external link navigation item contains children', () => {
-        const navigationItemsWithExternalLink: Array<NavigationItem> = [
-            ...navigationItems,
-            {
-                icon: 'fa-solid fa-globe',
-                label: 'external',
-                fullRouterPath: 'https://peopleware.be',
-                isExternalLink: true,
-                children: [...navigationItems]
-            }
-        ]
-
-        expect(() => {
-            fixture.componentRef.setInput('navigationItems', navigationItemsWithExternalLink)
-            fixture.detectChanges()
-        }).toThrowError('External link navigation items cannot have children.')
-    })
-
-    it('should throw when an external link navigation item as a child contains children on itself', () => {
-        const navigationItemsWithExternalLink: Array<NavigationItem> = [...navigationItems].map((item, index) =>
-            index === 0
-                ? {
-                      ...item,
-                      children: [
-                          {
-                              icon: 'fa-solid fa-globe',
-                              label: 'external',
-                              fullRouterPath: 'https://peopleware.be',
-                              isExternalLink: true,
-                              children: [...navigationItems]
-                          }
-                      ]
-                  }
-                : { ...item }
+    it.each([
+        { useNativeLinks: false, nested: false },
+        { useNativeLinks: false, nested: true },
+        { useNativeLinks: true, nested: false },
+        { useNativeLinks: true, nested: true }
+    ])('should navigate external parents without toggling children: %o', ({ useNativeLinks, nested }) => {
+        const item: NavigationItem = {
+            label: 'External parent',
+            icon: 'fa-solid fa-globe',
+            fullRouterPath: 'https://peopleware.be',
+            isExternalLink: true,
+            children: childrenNavigationItem.children
+        }
+        fixture.componentRef.setInput('useNativeLinks', useNativeLinks)
+        fixture.componentRef.setInput(
+            'navigationItems',
+            nested ? [{ label: 'Parent', icon: 'fa-solid fa-folder', children: [item] }] : [item]
         )
-
-        expect(() => {
-            fixture.componentRef.setInput('navigationItems', navigationItemsWithExternalLink)
+        fixture.detectChanges()
+        if (nested) {
+            getNavigationItemButton('Parent').click()
             fixture.detectChanges()
-        }).toThrowError('External link navigation items cannot have children.')
+        }
+        const open = vi.spyOn(window, 'open').mockReturnValue(null)
+        const navigate = vi.spyOn(router, 'navigateByUrl')
+        const navigated = vi.fn()
+        component.navigated.subscribe(navigated)
+        const element = getNavigationItemButton(item.label)
+
+        expect(element.tagName).toBe(useNativeLinks ? 'A' : 'BUTTON')
+        expect(element.hasAttribute('aria-expanded')).toBe(false)
+        element.click()
+        fixture.detectChanges()
+
+        expect(component.navigationItemIsOpened(item)).toBe(false)
+        expect(fixture.nativeElement.querySelectorAll('.ppw-sidenav-navigation-item').length).toBe(nested ? 2 : 1)
+        expect(navigate).not.toHaveBeenCalled()
+        expect(navigated).toHaveBeenCalledExactlyOnceWith(
+            expect.objectContaining({
+                ...item,
+                children: item.children!.map((child) => expect.objectContaining(child))
+            })
+        )
+        if (useNativeLinks) {
+            expect(element.getAttribute('href')).toBe(item.fullRouterPath)
+            expect(open).not.toHaveBeenCalled()
+        } else {
+            expect(open).toHaveBeenCalledExactlyOnceWith(item.fullRouterPath, '_blank')
+        }
     })
 })
