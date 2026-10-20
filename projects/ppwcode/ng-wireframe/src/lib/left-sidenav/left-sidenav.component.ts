@@ -6,10 +6,8 @@ import {
     inject,
     input,
     InputSignal,
-    OnChanges,
     output,
-    OutputEmitterRef,
-    SimpleChanges
+    OutputEmitterRef
 } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
@@ -36,7 +34,7 @@ interface NavigationItemWithActiveState extends NavigationItem {
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LeftSidenavComponent implements OnChanges {
+export class LeftSidenavComponent {
     // Inputs
     public navigationItems: InputSignal<Array<NavigationItem> | null> = input.required()
     public showMenuCloseButton: InputSignal<boolean> = input(true)
@@ -45,7 +43,7 @@ export class LeftSidenavComponent implements OnChanges {
     public logoWidth: InputSignal<number> = input(100)
     public centerLogo: InputSignal<boolean> = input(true)
     public scrollNavigationWrapperOnly: InputSignal<boolean> = input(false)
-    /** Opt in to native leaf links with hrefs and browser new-tab gestures instead of legacy buttons. */
+    /** Opt in to native leaf and external links with hrefs and browser new-tab gestures instead of legacy buttons. */
     public useNativeLinks: InputSignal<boolean> = input(false)
 
     // Outputs
@@ -66,12 +64,6 @@ export class LeftSidenavComponent implements OnChanges {
     protected navigationItemsWithActiveState = computed<Array<NavigationItemWithActiveState>>(() =>
         this.addActiveStateToNavigationItems(this.navigationItems() ?? [], this._currentUrl())
     )
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['navigationItems']) {
-            this.validateNavigationItems(this.navigationItems())
-        }
-    }
 
     public navigationItemIsOpened(navigationItem: NavigationItem): boolean {
         const navigationItemKey = this.getNavigationItemKey(navigationItem)
@@ -107,11 +99,11 @@ export class LeftSidenavComponent implements OnChanges {
             return
         }
 
-        if ((navigationItem.children?.length ?? 0) > 0) {
-            this.toggleNavigationItemOpened(navigationItem)
-        } else if (navigationItem.isExternalLink) {
+        if (navigationItem.isExternalLink) {
             window.open(navigationItem.fullRouterPath, '_blank')
             this.navigated.emit(navigationItem)
+        } else if ((navigationItem.children?.length ?? 0) > 0) {
+            this.toggleNavigationItemOpened(navigationItem)
         } else if (navigationItem.fullRouterPath) {
             this._router.navigateByUrl(navigationItem.fullRouterPath)
             this.navigated.emit(navigationItem)
@@ -134,7 +126,7 @@ export class LeftSidenavComponent implements OnChanges {
         if (
             navigationItem.isEnabled !== false &&
             navigationItem.fullRouterPath &&
-            !navigationItem.children?.length &&
+            (navigationItem.isExternalLink || !navigationItem.children?.length) &&
             event.button === 0 &&
             !event.ctrlKey &&
             !event.metaKey &&
@@ -169,17 +161,6 @@ export class LeftSidenavComponent implements OnChanges {
 
         this._closedNavigationItems = this._closedNavigationItems.filter((ni) => ni !== navigationItemKey)
         this._openedNavigationItems.push(navigationItemKey)
-    }
-
-    private validateNavigationItems(navigationItems: Array<NavigationItem> | null): void {
-        navigationItems ??= []
-        navigationItems.forEach((item: NavigationItem) => {
-            if (item.isExternalLink && (item.children?.length ?? 0) > 0) {
-                throw new Error('External link navigation items cannot have children.')
-            }
-
-            this.validateNavigationItems(item.children ?? [])
-        })
     }
 
     private addActiveStateToNavigationItems(
