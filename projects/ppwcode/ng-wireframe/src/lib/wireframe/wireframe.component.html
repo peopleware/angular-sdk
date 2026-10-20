@@ -19,6 +19,7 @@
                 [logoWidth]="sidebarOptions()?.logoWidth ?? 100"
                 [showMenuCloseButton]="isXSmallDevice() || !!sidebarOptions()?.closedByDefaultOnLargerDevice"
                 [scrollNavigationWrapperOnly]="!!sidebarOptions()?.scrollNavigationWrapperOnly"
+                [useNativeLinks]="!!sidebarOptions()?.useNativeLinks"
             >
                 <div ppw-sidebar-top class="ppw-sidebar-top-content">
                     <ng-content select="[ppw-sidebar-top-content]"></ng-content>
