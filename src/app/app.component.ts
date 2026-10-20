@@ -38,6 +38,7 @@ export class AppComponent extends mixinResponsiveObservers() {
     protected readonly showBreadcrumb = signal(true)
     protected readonly flatWireframeStyle = signal(true)
     protected readonly closedByDefaultOnLargerDevice = signal(false)
+    protected readonly useNativeLinks = signal(false)
 
     protected readonly sidebarOptions: Signal<SidebarOptions> = computed(() => {
         return {
@@ -45,7 +46,8 @@ export class AppComponent extends mixinResponsiveObservers() {
             centerLogo: false,
             closedByDefaultOnLargerDevice: this.closedByDefaultOnLargerDevice(),
             showPageTitle: this.showPageTitle(),
-            scrollNavigationWrapperOnly: true
+            scrollNavigationWrapperOnly: true,
+            useNativeLinks: this.useNativeLinks()
         }
     })
 
