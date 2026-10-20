@@ -32,7 +32,7 @@
     @if (
         useNativeLinks() &&
         navigationItem.isEnabled !== false &&
-        !navigationItem.children?.length &&
+        (navigationItem.isExternalLink || !navigationItem.children?.length) &&
         navigationItem.fullRouterPath
     ) {
         @if (navigationItem.isExternalLink) {
@@ -62,7 +62,11 @@
             [class.navigation-item-disabled]="navigationItem.isEnabled === false"
             [class.ppw-sidenav-navigation-item-active]="navigationItem.isActive"
             [attr.aria-disabled]="navigationItem.isEnabled === false ? 'true' : null"
-            [attr.aria-expanded]="navigationItem.children?.length ? navigationItemIsOpened(navigationItem) : null"
+            [attr.aria-expanded]="
+                !navigationItem.isExternalLink && navigationItem.children?.length
+                    ? navigationItemIsOpened(navigationItem)
+                    : null
+            "
             (click)="onClickNavigationButton(navigationItem)"
         >
             <ng-container *ngTemplateOutlet="navigationItemContent; context: { navigationItem }"></ng-container>
