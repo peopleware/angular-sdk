@@ -89,6 +89,12 @@
 }
 
 .ppw-sidenav-navigation-item {
+    // Keep native links and buttons identical despite browser button font and box-sizing defaults.
+    font: inherit;
+    letter-spacing: inherit;
+    box-sizing: border-box;
+    text-decoration: none;
+    padding: 2px 6px;
     background: transparent;
     color: var(--ppw-sidenav-navigation-item-text-color, white);
     display: flex;

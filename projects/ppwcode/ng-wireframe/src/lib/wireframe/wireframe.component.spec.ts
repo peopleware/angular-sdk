@@ -156,6 +156,41 @@ describe('WireframeComponent', () => {
         expect(leftSidenav.scrollNavigationWrapperOnly()).toBe(true)
     })
 
+    it('should use legacy navigation buttons when sidebar options are omitted', async () => {
+        await setup()
+        await router.navigateByUrl('/visible')
+        fixture.detectChanges()
+
+        const leftSidenav = fixture.debugElement.query(By.directive(LeftSidenavComponent))
+            .componentInstance as LeftSidenavComponent
+
+        expect(leftSidenav.useNativeLinks()).toBe(false)
+    })
+
+    it('should forward native link changes and default to false when the option is omitted', async () => {
+        await setup()
+        fixture.componentRef.setInput('sidebarOptions', { useNativeLinks: true })
+        await router.navigateByUrl('/visible')
+        fixture.detectChanges()
+
+        const leftSidenav = fixture.debugElement.query(By.directive(LeftSidenavComponent))
+            .componentInstance as LeftSidenavComponent
+
+        expect(leftSidenav.useNativeLinks()).toBe(true)
+
+        fixture.componentRef.setInput('sidebarOptions', { useNativeLinks: false })
+        fixture.detectChanges()
+        expect(leftSidenav.useNativeLinks()).toBe(false)
+
+        fixture.componentRef.setInput('sidebarOptions', { useNativeLinks: true })
+        fixture.detectChanges()
+        expect(leftSidenav.useNativeLinks()).toBe(true)
+
+        fixture.componentRef.setInput('sidebarOptions', {})
+        fixture.detectChanges()
+        expect(leftSidenav.useNativeLinks()).toBe(false)
+    })
+
     it('should keep the breadcrumb visible when the toolbar is hidden by route data', async () => {
         await setup()
         await router.navigateByUrl('/hidden-toolbar')

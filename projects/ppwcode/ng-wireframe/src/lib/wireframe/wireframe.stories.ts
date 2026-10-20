@@ -39,7 +39,8 @@ Use the Wireframe component as the primary layout for your application. It is id
             table: { category: 'Inputs' }
         },
         sidebarOptions: {
-            description: 'Configuration for the sidebar (logo, title, defaults).',
+            description:
+                'Configuration for the sidebar (logo, title, defaults). Set useNativeLinks to true for native leaf links; defaults to false.',
             control: 'object',
             table: { category: 'Inputs' }
         },

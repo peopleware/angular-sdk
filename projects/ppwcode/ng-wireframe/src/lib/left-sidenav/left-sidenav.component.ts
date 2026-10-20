@@ -14,7 +14,7 @@ import {
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
 import { toSignal } from '@angular/core/rxjs-interop'
-import { NavigationEnd, Router } from '@angular/router'
+import { NavigationEnd, Router, RouterLink, UrlTree } from '@angular/router'
 import { TranslatePipe } from '@ngx-translate/core'
 import { filter, map, startWith } from 'rxjs'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
@@ -23,11 +23,12 @@ interface NavigationItemWithActiveState extends NavigationItem {
     children?: Array<NavigationItemWithActiveState>
     isActive: boolean
     hasActiveChild: boolean
+    urlTree: UrlTree | null
 }
 
 @Component({
     selector: 'ppw-left-sidenav',
-    imports: [CommonModule, MatIconModule, MatListModule, TranslatePipe, NgOptimizedImage],
+    imports: [CommonModule, MatIconModule, MatListModule, TranslatePipe, NgOptimizedImage, RouterLink],
     templateUrl: './left-sidenav.component.html',
     styleUrls: ['./left-sidenav.component.scss'],
     host: {
@@ -44,6 +45,8 @@ export class LeftSidenavComponent implements OnChanges {
     public logoWidth: InputSignal<number> = input(100)
     public centerLogo: InputSignal<boolean> = input(true)
     public scrollNavigationWrapperOnly: InputSignal<boolean> = input(false)
+    /** Opt in to native leaf links with hrefs and browser new-tab gestures instead of legacy buttons. */
+    public useNativeLinks: InputSignal<boolean> = input(false)
 
     // Outputs
     public closeSidebar: OutputEmitterRef<void> = output()
@@ -96,21 +99,49 @@ export class LeftSidenavComponent implements OnChanges {
         })
     }
 
+    /**
+     * Handles legacy button activation and programmatic navigation, regardless of useNativeLinks.
+     */
     public onClickNavigationItem(navigationItem: NavigationItem): void {
         if (navigationItem.isEnabled === false) {
             return
         }
 
-        if (navigationItem.isExternalLink) {
+        if ((navigationItem.children?.length ?? 0) > 0) {
+            this.toggleNavigationItemOpened(navigationItem)
+        } else if (navigationItem.isExternalLink) {
             window.open(navigationItem.fullRouterPath, '_blank')
             this.navigated.emit(navigationItem)
-        } else if ((navigationItem.children?.length ?? 0) > 0) {
-            this.toggleNavigationItemOpened(navigationItem)
         } else if (navigationItem.fullRouterPath) {
             this._router.navigateByUrl(navigationItem.fullRouterPath)
             this.navigated.emit(navigationItem)
         } else {
             throw new Error('Could not handle navigation item with no children or router path.')
+        }
+    }
+
+    protected onClickNavigationButton(navigationItem: NavigationItem): void {
+        // Native pathless leaves have no href and must remain inert, unlike legacy activation.
+        if (this.useNativeLinks() && !navigationItem.children?.length && !navigationItem.fullRouterPath) {
+            return
+        }
+
+        this.onClickNavigationItem(navigationItem)
+    }
+
+    protected onActivateNavigationLink(navigationItem: NavigationItem, event: MouseEvent): void {
+        // RouterLink or the browser owns navigation; only ordinary activation closes overlays.
+        if (
+            navigationItem.isEnabled !== false &&
+            navigationItem.fullRouterPath &&
+            !navigationItem.children?.length &&
+            event.button === 0 &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            !event.shiftKey &&
+            !event.altKey
+        ) {
+            this.navigated.emit(navigationItem)
         }
     }
 
@@ -170,6 +201,14 @@ export class LeftSidenavComponent implements OnChanges {
         return {
             ...navigationItem,
             children,
+            urlTree:
+                this.useNativeLinks() &&
+                navigationItem.isEnabled !== false &&
+                !navigationItem.isExternalLink &&
+                !children?.length &&
+                navigationItem.fullRouterPath
+                    ? this._router.parseUrl(navigationItem.fullRouterPath)
+                    : null,
             isActive,
             hasActiveChild:
                 children?.some(
