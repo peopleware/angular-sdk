@@ -103,3 +103,11 @@ A logo can be added to the sidebar using the `sidebarOptions`.
 #### Navigation items
 
 Navigation links can be added using `navigationItems`.
+
+Set `sidebarOptions.useNativeLinks` to `true` to render leaf navigation items as native links with hrefs and browser new-tab gestures:
+
+```html
+<ppw-wireframe [navigationItems]="navigationItems" [sidebarOptions]="{ useNativeLinks: true }"></ppw-wireframe>
+```
+
+This optional setting defaults to `false`, preserving the existing button-based navigation. It can be changed at runtime.

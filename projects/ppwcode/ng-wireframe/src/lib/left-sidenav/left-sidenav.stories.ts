@@ -17,11 +17,22 @@ Use the Left Sidenav for the primary vertical navigation of the application. It 
 - Organizing hierarchical navigation links with support for nested children.
 - Displaying the main application logo and branding.
 - Providing a slide-out navigation menu for mobile or compact layouts.
+
+By default, items are legacy buttons using imperative navigation. Set useNativeLinks to true to opt in
+to native leaf links: internal URLs use Angular RouterLink and external URLs open in a new tab
+with noopener/noreferrer. Links support keyboard focus, copying their address and browser new-tab gestures.
+Parents remain expansion buttons; disabled items are focusable, aria-disabled buttons without an href.
                 `
             }
         }
     },
     argTypes: {
+        useNativeLinks: {
+            description:
+                'Opt in to native leaf links and browser new-tab gestures. Defaults to false (legacy buttons).',
+            control: 'boolean',
+            table: { category: 'Inputs', defaultValue: { summary: 'false' } }
+        },
         navigationItems: {
             description: 'The hierarchical list of navigation items to display.',
             control: 'object',
@@ -58,7 +69,8 @@ Use the Left Sidenav for the primary vertical navigation of the application. It 
             table: { category: 'Outputs' }
         },
         navigated: {
-            description: 'Emitted when a navigation item is clicked.',
+            description:
+                'Emitted on legacy leaf navigation. With useNativeLinks, emitted only on ordinary primary/keyboard link activation, not modified or middle clicks. Never emitted for parent toggles; does not indicate navigation success.',
             action: 'navigated',
             table: { category: 'Outputs' }
         }
@@ -109,6 +121,7 @@ const navigationItems: Array<NavigationItem> = [
 
 export const Default: Story = {
     args: {
+        useNativeLinks: false,
         navigationItems,
         showMenuCloseButton: true,
         logoUrl: '/assets/ppwcode_logo.png',
@@ -157,7 +170,37 @@ export const WithDisabledItems: Story = {
                 icon: 'fa-solid fa-ban',
                 fullRouterPath: '/disabled',
                 isEnabled: false
+            },
+            {
+                label: 'Disabled External Link',
+                icon: 'fa-solid fa-ban',
+                fullRouterPath: 'https://storybook.js.org',
+                isExternalLink: true,
+                isEnabled: false
             }
+        ],
+        showMenuCloseButton: true
+    }
+}
+
+export const BrowserLinks: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Tab to focus links, inspect or copy their href, or use Ctrl/Cmd-click, Shift-click or middle-click. These gestures do not emit navigated, so overlay consumers stay open. Internal hrefs include the application base href; query, matrix parameters and fragments are preserved.'
+            }
+        }
+    },
+    args: {
+        useNativeLinks: true,
+        navigationItems: [
+            { label: 'Application root', icon: 'fa-solid fa-house', fullRouterPath: '/' },
+            {
+                label: 'Filtered dashboard',
+                icon: 'fa-solid fa-filter',
+                fullRouterPath: '/dashboard;view=summary?period=week#overview'
+            },
+            ...navigationItems
         ],
         showMenuCloseButton: true
     }
