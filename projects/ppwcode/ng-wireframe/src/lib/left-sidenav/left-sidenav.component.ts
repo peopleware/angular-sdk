@@ -17,6 +17,8 @@ import { TranslatePipe } from '@ngx-translate/core'
 import { filter, map, startWith } from 'rxjs'
 import { NavigationItem } from '../navigation-item/navigation-item.model'
 
+const PRIMARY_MOUSE_BUTTON = 0
+
 interface NavigationItemWithActiveState extends NavigationItem {
     children?: Array<NavigationItemWithActiveState>
     isActive: boolean
@@ -127,7 +129,7 @@ export class LeftSidenavComponent {
             navigationItem.isEnabled !== false &&
             navigationItem.fullRouterPath &&
             (navigationItem.isExternalLink || !navigationItem.children?.length) &&
-            event.button === 0 &&
+            event.button === PRIMARY_MOUSE_BUTTON &&
             !event.ctrlKey &&
             !event.metaKey &&
             !event.shiftKey &&
