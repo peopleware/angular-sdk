@@ -1,5 +1,33 @@
 # Changelog
 
+## 22.6.0 - 2026-10-27
+
+[Compare changes](https://github.com/peopleware/angular-sdk/compare/22.5.0...22.6.0)
+
+### Features
+
+-   **ng-wireframe:** Add support for native hrefs in the sidenav. Defaults to off ([f7d4b3a](https://github.com/peopleware/angular-sdk/commit/f7d4b3a86e319fbb976868b9b5fb59463ff19583))
+
+### Refactoring
+
+-   **ng-async:** Simplify download header guard ([42d540a](https://github.com/peopleware/angular-sdk/commit/42d540a8918ba8ccbe2317759aee9a79df465053))
+
+-   **ng-common:** Simplify oneTrue observable conversion ([4426181](https://github.com/peopleware/angular-sdk/commit/4426181841b6834d83aaf510b39069d1526b259d))
+
+-   **ng-common-components:** Inline dynamic cell component creation ([0fd07f6](https://github.com/peopleware/angular-sdk/commit/0fd07f69d2b7f80aa9bded4d4b773df8e2639668))
+
+-   **ng-forms:** Simplify form value filters ([0600271](https://github.com/peopleware/angular-sdk/commit/0600271267246862bde0f1fdca3faa427978ce9e))
+
+-   **ng-router:** Simplify breadcrumb label guard ([178e352](https://github.com/peopleware/angular-sdk/commit/178e35291c96d4b89796770fc282ada5a7f76ae8))
+
+-   **ng-state-management:** Remove redundant signal-store return cast ([1bc85d0](https://github.com/peopleware/angular-sdk/commit/1bc85d0102ffa02420fbe759fe387b96faa10511))
+
+### Other changes
+
+-   Upgrade Node.js to 24.22.1 ([0154dbe](https://github.com/peopleware/angular-sdk/commit/0154dbe2a784944de728b36a98544ebe42a6f077))
+
+-   Fix Zod via Angular CLI patch update ([cded0d6](https://github.com/peopleware/angular-sdk/commit/cded0d6c7853e9faa93639d6dab8c1f68c693065))
+
 ## 22.5.0 - 2026-10-02
 
 [Compare changes](https://github.com/peopleware/angular-sdk/compare/22.4.0...22.5.0)
@@ -7,6 +35,10 @@
 ### Fixes
 
 -   **state-management:** Make SignalStore snapshots non-reactive ([9e033f5](https://github.com/peopleware/angular-sdk/commit/9e033f5adaaf6e53598e70a07e5d2b570633a022))
+
+### Other changes
+
+-   Document Angular minimum for 22.5.0 ([489ce9d](https://github.com/peopleware/angular-sdk/commit/489ce9d3105b0aabc5008bfb6b7cb20b76cbdbcb))
 
 ## 22.4.0 - 2026-09-01
 
