@@ -12,7 +12,7 @@
         "@ppwcode/ng-utils": "^22.6.0"
     },
     "optionalDependencies": {
-        "@ppwcode/ng-ppw-ds": "0.0.5"
+        "@ppwcode/ng-ppw-ds": "0.0.6"
     },
     "dependencies": {
         "tslib": "^2.3.0"
