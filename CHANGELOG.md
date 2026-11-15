@@ -1,30 +1,50 @@
 # Changelog
 
+## 22.6.1 - 2026-11-15
+
+[Compare changes](https://github.com/peopleware/angular-sdk/compare/22.6.0...22.6.1)
+
+### Other changes
+
+-   Bump optional dependency version from main packages to ng-ppw-ds and ng-resource ([93f1a90](https://github.com/peopleware/angular-sdk/commit/93f1a90db2dded7d0a8243cde37e900c1d96cd85))
+
 ## 22.6.0 - 2026-10-27
 
 [Compare changes](https://github.com/peopleware/angular-sdk/compare/22.5.0...22.6.0)
 
-### Features
-
--   **ng-wireframe:** Add support for native hrefs in the sidenav. Defaults to off ([f7d4b3a](https://github.com/peopleware/angular-sdk/commit/f7d4b3a86e319fbb976868b9b5fb59463ff19583))
-
 ### Refactoring
-
--   **ng-async:** Simplify download header guard ([42d540a](https://github.com/peopleware/angular-sdk/commit/42d540a8918ba8ccbe2317759aee9a79df465053))
 
 -   **ng-common:** Simplify oneTrue observable conversion ([4426181](https://github.com/peopleware/angular-sdk/commit/4426181841b6834d83aaf510b39069d1526b259d))
 
--   **ng-common-components:** Inline dynamic cell component creation ([0fd07f6](https://github.com/peopleware/angular-sdk/commit/0fd07f69d2b7f80aa9bded4d4b773df8e2639668))
-
--   **ng-forms:** Simplify form value filters ([0600271](https://github.com/peopleware/angular-sdk/commit/0600271267246862bde0f1fdca3faa427978ce9e))
+-   Remove redundant signal-store return cast ([1bc85d0](https://github.com/peopleware/angular-sdk/commit/1bc85d0102ffa02420fbe759fe387b96faa10511))
 
 -   **ng-router:** Simplify breadcrumb label guard ([178e352](https://github.com/peopleware/angular-sdk/commit/178e35291c96d4b89796770fc282ada5a7f76ae8))
 
--   **ng-state-management:** Remove redundant signal-store return cast ([1bc85d0](https://github.com/peopleware/angular-sdk/commit/1bc85d0102ffa02420fbe759fe387b96faa10511))
+-   **ng-forms:** Simplify form value filters ([0600271](https://github.com/peopleware/angular-sdk/commit/0600271267246862bde0f1fdca3faa427978ce9e))
+
+-   **ng-async:** Simplify download header guard ([42d540a](https://github.com/peopleware/angular-sdk/commit/42d540a8918ba8ccbe2317759aee9a79df465053))
 
 ### Other changes
 
+-   Add scheduled production vulnerability checks ([c0086ff](https://github.com/peopleware/angular-sdk/commit/c0086ffba75edb213652b3e94487a00c30f85e01))
+
+-   Update workflow actions to latest major versions ([18ef902](https://github.com/peopleware/angular-sdk/commit/18ef90245d96d91c20585eed754b935ade7c6750))
+
+-   Allow manual production vulnerability checks ([17570aa](https://github.com/peopleware/angular-sdk/commit/17570aa9d5b81c40ce0601e6267c3fda43a1bcfc))
+
+-   Schedule vulnerability checks at 11:48 Brussels ([a8ba207](https://github.com/peopleware/angular-sdk/commit/a8ba207c10423e53bd178ced22536730a1d5ea0f))
+
+-   Inline dynamic cell component creation ([0fd07f6](https://github.com/peopleware/angular-sdk/commit/0fd07f69d2b7f80aa9bded4d4b773df8e2639668))
+
 -   Upgrade Node.js to 24.22.1 ([0154dbe](https://github.com/peopleware/angular-sdk/commit/0154dbe2a784944de728b36a98544ebe42a6f077))
+
+-   Add support for native hrefs in the sidenav. Defaults to off ([f7d4b3a](https://github.com/peopleware/angular-sdk/commit/f7d4b3a86e319fbb976868b9b5fb59463ff19583))
+
+-   Add demo native links to the showcase app ([41901a4](https://github.com/peopleware/angular-sdk/commit/41901a49da2a536a357582e64bdec0299c14e389))
+
+-   Fix edge case where external link with children (unlikely in practice) would expand instead of opening the link ([0c57e7a](https://github.com/peopleware/angular-sdk/commit/0c57e7a91ac40486c91294b12dccf8ae1154e15d))
+
+-   Define constant for primary mouse button to make check more readable ([e217ef0](https://github.com/peopleware/angular-sdk/commit/e217ef0cdb974051af07efea5036e409617b9399))
 
 -   Fix Zod via Angular CLI patch update ([cded0d6](https://github.com/peopleware/angular-sdk/commit/cded0d6c7853e9faa93639d6dab8c1f68c693065))
 
