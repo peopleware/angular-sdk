@@ -1,0 +1,5 @@
+interface:
+    display_name: "Software factory"
+
+policy:
+    allow_implicit_invocation: false
