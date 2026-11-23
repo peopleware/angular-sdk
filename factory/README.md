@@ -29,7 +29,9 @@ python -X utf8 factory/bin/job summary
 python -m http.server 8000 --bind 127.0.0.1 --directory factory
 ```
 
-Open [the local dashboard](http://127.0.0.1:8000/dashboard.html) with the server running. Jobs, role artifacts and Codex event logs live in the ignored `factory/jobs/` directory. Token counts cover input and output from standalone Codex CLI workers. Input totals include cached input.
+Open [the local dashboard](http://127.0.0.1:8000/dashboard.html) with the server running. Jobs, role artifacts and Codex event logs live in the ignored `factory/jobs/` directory. The summary and dashboard display an API-equivalent estimate for recorded usage with a known model. The standalone runner captures usage automatically. For native subagents, use `job usage <id> <turn-id> <model>` when the client reports exact per-turn counts. Pass the usage JSON on stdin. It contains `input_tokens` and `output_tokens`, and optionally `cached_input_tokens` and `cache_write_input_tokens`, both included in the input total. Use the stable turn ID so a retry keeps the same record.
+
+The estimate uses the [OpenAI Standard API rates](https://developers.openai.com/api/docs/pricing?latest-pricing-expanded=true) for normal context and 30-minute cache writes. It covers recorded, priced turns and can be partial. Older CLI events without a known model count toward tokens only. The USD estimate is separate from Codex subscription usage.
 
 The gate runs lint, library builds, unit tests and Playwright. Each job has an isolated worktree under `.worktrees/`, with separate ports for the builder, browser reviewers and gate. Run `python factory/checks.py --setup` from the relevant checkout after dependency or browser changes.
 

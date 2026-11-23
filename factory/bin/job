@@ -16,6 +16,7 @@ Usage:
   job reject <job>               needs-info or needs-human → rejected, with your reason (stdin) as rejection.md
   job agents <job> <json>        record the routed agent set (called by factory/bin/route)
   job sync <job>                 refresh reviews, gate and cost from the job's files
+  job usage <job> <turn-id> <model>  record native subagent usage (JSON on stdin)
   job summary [<job>...]         table of jobs: issue, stage, PR, cost, time
 
 <job> is a job id (004-dark-mode) or an issue number (12).
@@ -28,7 +29,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from runtime import BIN, FACTORY, JOBS, REPO, locked, worktree
+from runtime import BIN, FACTORY, JOBS, REPO, locked, reviewer_profile, worktree
 
 CONFIG = json.loads((FACTORY / "config.json").read_text(encoding="utf-8"))
 LABELS = CONFIG["labels"]
@@ -238,20 +239,43 @@ def label(kind, number, add=None, remove=None):
     gh(*args)
 
 
+USAGE_KEYS = ("input_tokens", "cached_input_tokens", "cache_write_input_tokens", "output_tokens")
+
+
+def usage_cost(usage, prices):
+    cached = usage.get("cached_input_tokens", 0)
+    written = usage.get("cache_write_input_tokens", 0)
+    uncached = usage["input_tokens"] - cached - written
+    return (
+        uncached * prices["input"]
+        + cached * prices["cached_input"]
+        + written * prices["cache_write_30m"]
+        + usage["output_tokens"] * prices["output"]
+    ) / 1_000_000
+
+
 def token_usage(job):
-    """Sum completed Codex turns from the job's worker event logs."""
-    usage = dict(input_tokens=0, cached_input_tokens=0, output_tokens=0)
+    """Sum completed turns and price only usage with a known model."""
+    usage = dict.fromkeys(USAGE_KEYS, 0)
+    prices = CONFIG["prices_usd_per_mtok"]
+    cost = None
     for path in (job_dir(job["id"]) / "codex").glob("*.jsonl"):
+        log_model = path.stem.partition("--")[2]
         with path.open(encoding="utf-8") as events:
             for line in events:
                 try:
                     event = json.loads(line)
                 except json.JSONDecodeError:
                     continue
-                if event.get("type") == "turn.completed":
-                    for key in usage:
-                        usage[key] += event["usage"].get(key, 0)
-    return usage
+                if event.get("type") != "turn.completed":
+                    continue
+                counts = event["usage"]
+                for key in usage:
+                    usage[key] += counts.get(key, 0)
+                model = event.get("model") or log_model
+                if model in prices:
+                    cost = (cost or 0) + usage_cost(counts, prices[model])
+    return usage, cost
 
 
 # ---- Sync: fields derived from files ---------------------------------------
@@ -279,7 +303,11 @@ def sync(job):
                 line = first_line(rd / f"review-{r}.md")
                 m = re.fullmatch(r"VERDICT:\s*(PASS|CHANGES)", line or "")
                 job["reviews"][r] = m.group(1) if m else ("pending" if line is None else "invalid")
-    job["token_usage"] = token_usage(job)
+    if job.get("agents"):
+        job["agents"]["reviewers"] = {
+            reviewer: reviewer_profile(job, CONFIG, reviewer) for reviewer in reviewers(job)
+        }
+    job["token_usage"], job["api_cost_usd"] = token_usage(job)
     return job
 
 
@@ -500,7 +528,7 @@ def cmd_create(number):
         "worktree": str(REPO / ".worktrees" / job_id),
         "stage": "intake", "round": 0, "round_limit": CONFIG["max_rounds"],
         "intake": None, "agents": None, "gate": None, "reviews": {},
-        "cost_usd": 0.0, "started": now(), "ended": None,
+        "api_cost_usd": None, "started": now(), "ended": None,
     }
     write_issue_md(job)
     save(job)
@@ -657,17 +685,47 @@ def tokens(job):
     return usage["input_tokens"] + usage["output_tokens"]
 
 
+def cmd_usage(job, turn_id, model, raw_usage):
+    require(re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,127}", turn_id), "invalid usage turn ID")
+    require(model in CONFIG["prices_usd_per_mtok"], f"no configured price for {model}")
+    try:
+        data = json.loads(raw_usage)
+    except json.JSONDecodeError as error:
+        raise Refused(f"invalid usage JSON: {error.msg}") from error
+    require(isinstance(data, dict) and {"input_tokens", "output_tokens"} <= data.keys(),
+            "usage requires input_tokens and output_tokens")
+    usage = {key: data.get(key, 0) for key in USAGE_KEYS}
+    require(all(type(count) is int and count >= 0 for count in usage.values()),
+            "usage counts must be non-negative integers")
+    require(usage["cached_input_tokens"] + usage["cache_write_input_tokens"] <= usage["input_tokens"],
+            "cached and written tokens cannot exceed total input tokens")
+    folder = job_dir(job["id"]) / "codex"
+    folder.mkdir(exist_ok=True)
+    path = folder / f"native-{turn_id}.jsonl"
+    event = json.dumps({"type": "turn.completed", "model": model, "usage": usage}) + "\n"
+    if path.exists():
+        require(path.read_text(encoding="utf-8") == event, f"usage already recorded for {turn_id}")
+    else:
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text(event, encoding="utf-8")
+        tmp.replace(path)
+    save(sync(job))
+
+
 def cmd_summary(args):
     jobs = [resolve(a) for a in args] if args else all_jobs()
-    rows = [("job", "issue", "stage", "round", "pr", "tokens", "time")]
+    rows = [("job", "issue", "stage", "round", "pr", "tokens", "API est.", "time")]
     for j in jobs:
         sync(j)  # for display only; the orchestrator owns the saved state
+        estimate = "-" if j["api_cost_usd"] is None else f"${j['api_cost_usd']:.4f}"
         rows.append((j["id"], f"#{j['issue']}", j["stage"], str(j["round"]),
-                     f"#{j['pr']}" if j["pr"] else "-", f"{tokens(j):,}", elapsed(j)))
+                     f"#{j['pr']}" if j["pr"] else "-", f"{tokens(j):,}", estimate, elapsed(j)))
     widths = [max(len(r[i]) for r in rows) for i in range(len(rows[0]))]
     for r in rows:
         print("  ".join(c.ljust(w) for c, w in zip(r, widths)).rstrip())
-    print(f"total {sum(tokens(j) for j in jobs):,} Codex tokens (input + output)")
+    total = sum(j["api_cost_usd"] or 0 for j in jobs)
+    estimate = f" · ${total:.4f} API-equivalent for recorded usage" if any(j["api_cost_usd"] is not None for j in jobs) else ""
+    print(f"total {sum(tokens(j) for j in jobs):,} Codex tokens (input + output){estimate}")
 
 
 def main(argv):
@@ -699,6 +757,8 @@ def main(argv):
             save(job)
             reviews = " ".join(f"{k}:{v}" for k, v in job["reviews"].items())
             print(f"{job['id']}: {job['stage']} round {job['round']} gate {job['gate'] or '-'} {reviews}".rstrip())
+        elif cmd == "usage" and len(args) == 3:
+            cmd_usage(resolve(args[0]), args[1], args[2], sys.stdin.read())
         elif cmd == "summary":
             cmd_summary(args)
         else:

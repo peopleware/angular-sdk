@@ -18,6 +18,17 @@ def worktree(job_id):
     return REPO / ".worktrees" / job_id
 
 
+def reviewer_profile(job, config, reviewer):
+    profile = job["agents"]["reviewers"][reviewer]
+    if profile.startswith("reviewer-"):
+        return profile
+
+    # Jobs routed before models were pinned store only effort or a Claude alias.
+    if reviewer == "code":
+        return config["routing"][job["intake"]["risk"]][reviewer]
+    return f"reviewer-{reviewer}"
+
+
 def port(job_id, config, offset):
     return config["ports"]["base"] + int(job_id.split("-", 1)[0]) * config["ports"]["step"] + offset
 

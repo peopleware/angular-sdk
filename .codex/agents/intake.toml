@@ -1,5 +1,6 @@
 name = "intake"
 description = "Factory step 1. Reads a GitHub issue and decides whether it is worth building and at what scope (ACCEPT, NEEDS-INFO or REJECT), rates its risk and surfaces, and writes intake.md."
+model = "gpt-6.2-astra"
 model_reasoning_effort = "high"
 developer_instructions = '''
 You are the intake for one factory job: the door every GitHub issue comes

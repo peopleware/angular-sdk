@@ -9,7 +9,7 @@ import sys
 import tomllib
 from datetime import datetime, timezone
 
-from runtime import FACTORY, JOBS, REPO, locked, port, worktree
+from runtime import FACTORY, JOBS, REPO, locked, port, reviewer_profile, worktree
 
 ROLE_ARTIFACTS = {
     "intake": ("intake", "intake.md"),
@@ -18,7 +18,6 @@ ROLE_ARTIFACTS = {
     "approver": ("approve", "decision.md"),
 }
 REVIEW_OFFSETS = {"code": None, "security": None, "ux": 1, "ui": 2}
-LEGACY_EFFORT = {"haiku": "low", "sonnet": "medium", "opus": "high"}
 
 
 def run(job_id, role):
@@ -27,25 +26,31 @@ def run(job_id, role):
     with locked(logs / f".{role}.lock", wait=False):
         config = json.loads((FACTORY / "config.json").read_text(encoding="utf-8"))
         job = json.loads((folder / "job.json").read_text(encoding="utf-8"))
-        instructions = tomllib.loads((REPO / ".codex" / "agents" / f"{role}.toml").read_text(encoding="utf-8"))
+        profile = role
         checkout = worktree(job_id)
         branch = job["branch"]
         round_number = job["round"]
         stage, artifact = ROLE_ARTIFACTS.get(role, ("review", f"round-{round_number}/{role.replace('reviewer-', 'review-')}.md"))
         if job["stage"] != stage:
             raise ValueError(f"{role} requires stage {stage}; {job_id} is in {job['stage']}")
-        effort = instructions["model_reasoning_effort"]
         offset = None
         if stage == "review":
             reviewer = role.removeprefix("reviewer-")
             reviewers = job["agents"]["reviewers"]
             if reviewer not in reviewers:
                 raise ValueError(f"{role} was not routed for {job_id}")
-            effort = LEGACY_EFFORT.get(reviewers[reviewer], reviewers[reviewer])
+            profile = reviewer_profile(job, config, reviewer)
             offset = REVIEW_OFFSETS[reviewer]
         elif role == "builder":
             offset = 0
             subprocess.run([sys.executable, str(FACTORY / "checks.py"), "--setup"], cwd=checkout, check=True)
+        profiles = REPO / ".codex" / "agents"
+        settings = tomllib.loads((profiles / f"{profile}.toml").read_text(encoding="utf-8"))
+        instructions = settings["developer_instructions"]
+        if profile != role:
+            instructions = tomllib.loads((profiles / f"{role}.toml").read_text(encoding="utf-8"))["developer_instructions"]
+        model = settings["model"]
+        effort = settings["model_reasoning_effort"]
         output = folder / artifact
         prior_mtime = output.stat().st_mtime_ns if output.is_file() else None
         prompt = (
@@ -61,14 +66,13 @@ def run(job_id, role):
                    "-c", f"model_reasoning_effort={json.dumps(effort)}"]
         if role == "builder":
             command.extend(["--add-dir", str(folder)])
-        if instructions.get("model"):
-            command.extend(["--model", instructions["model"]])
+        command.extend(["--model", model])
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
-        event_log = logs / f"{timestamp}-{role}.jsonl"
+        event_log = logs / f"{timestamp}-{role}--{model}.jsonl"
         failure_log = logs / f"{timestamp}-{role}.log"
         with event_log.open("xb") as events, failure_log.open("xb") as errors:
             result = subprocess.run([*command, "-"],
-                                    input=f"{prompt}\n\n{instructions['developer_instructions']}",
+                                    input=f"{prompt}\n\n{instructions}",
                                     encoding="utf-8", stdout=events, stderr=errors)
         if result.returncode:
             raise ValueError(f"Codex exited with {result.returncode}; see {event_log} and {failure_log}")

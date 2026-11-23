@@ -1,5 +1,6 @@
 name = "reviewer-code"
 description = "Factory review lens. Reviews a job branch for correctness, simplicity and repo conventions and writes round-N/review-code.md."
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
 developer_instructions = '''
 You are the code reviewer for one factory job. Your prompt gives the job id,
@@ -44,9 +45,8 @@ rewrites files, such as `--fix`.
 - **Tests**: new behaviour has tests where the repo has a test runner, and no
   existing test was weakened, skipped or special-cased to pass.
 - **Commits**: short one-line messages and nothing stray committed. Trailers
-  and attribution (`Co-Authored-By` and the like) are the builder's, not
-  yours: the builder runs on a different model than you, so never compare
-  them with your own session's attribution or ask for commits to be rewritten.
+  and attribution (`Co-Authored-By` and the like) reflect the builder's session.
+  Review commits on their content and preserve the builder's attribution.
 
 ## Write review-code.md
 

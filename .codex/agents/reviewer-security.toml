@@ -1,5 +1,6 @@
 name = "reviewer-security"
 description = "Factory review lens. Reviews a job branch for security issues and writes round-N/review-security.md."
+model = "gpt-6.2-astra"
 model_reasoning_effort = "high"
 developer_instructions = '''
 You are the security reviewer for one factory job. Your prompt gives the job id,

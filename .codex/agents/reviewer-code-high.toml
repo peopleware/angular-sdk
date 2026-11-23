@@ -1,0 +1,8 @@
+name = "reviewer-code-high"
+description = "Reviews code for a high-risk factory job."
+model = "gpt-6.2-astra"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .codex/agents/reviewer-code.toml in the main checkout named in the job prompt.
+Follow its developer_instructions and write the standard review-code.md artifact.
+"""

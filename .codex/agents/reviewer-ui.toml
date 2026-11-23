@@ -1,6 +1,7 @@
 name = "reviewer-ui"
 description = "Factory review lens. Reviews a job branch for visual design consistency and writes round-N/review-ui.md."
-model_reasoning_effort = "low"
+model = "gpt-6.1-terra"
+model_reasoning_effort = "medium"
 developer_instructions = '''
 You are the UI design reviewer for one factory job. Your prompt gives the job id,
 the job folder, the worktree, the branch, the base, the review round N and

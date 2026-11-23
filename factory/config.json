@@ -9,13 +9,13 @@
         "needs_human": "factory:needs-human"
     },
     "routing": {
-        "low": { "code": "low" },
-        "medium": { "code": "medium" },
-        "high": { "code": "high" }
+        "low": { "code": "reviewer-code-low" },
+        "medium": { "code": "reviewer-code" },
+        "high": { "code": "reviewer-code-high" }
     },
     "surface_reviewers": {
-        "ui": { "ux": "medium", "ui": "low" },
-        "security": { "security": "high" }
+        "ui": { "ux": "reviewer-ux", "ui": "reviewer-ui" },
+        "security": { "security": "reviewer-security" }
     },
     "protected_paths": [
         "factory/checks.py",
@@ -24,5 +24,10 @@
         ".codex/agents/*",
         ".agents/skills/factory/*"
     ],
-    "ports": { "base": 5100, "step": 10 }
+    "ports": { "base": 5100, "step": 10 },
+    "prices_usd_per_mtok": {
+        "gpt-6.2-astra": { "input": 8, "cached_input": 0.4, "cache_write_30m": 10, "output": 40 },
+        "gpt-6.2-sol": { "input": 2, "cached_input": 0.1, "cache_write_30m": 2.5, "output": 10 },
+        "gpt-6.1-terra": { "input": 1, "cached_input": 0.05, "cache_write_30m": 1.25, "output": 5 }
+    }
 }

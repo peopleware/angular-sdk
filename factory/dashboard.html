@@ -837,6 +837,11 @@
                 return (job.token_usage?.input_tokens ?? 0) + (job.token_usage?.output_tokens ?? 0)
             }
 
+            function usageLabel(job) {
+                const tokenLabel = `${tokens(job).toLocaleString()} tokens`
+                return job.api_cost_usd == null ? tokenLabel : `${tokenLabel} · $${job.api_cost_usd.toFixed(4)} est.`
+            }
+
             function card(job, rounds) {
                 const live = LIVE.has(job.stage)
                 const human = job.stage === 'needs-human'
@@ -852,7 +857,7 @@
                 const risk = job.intake?.risk
                 const meta = [
                     risk ? `<span class="risk-${esc(risk)}">${esc(risk)}</span>` : '',
-                    `<span>${tokens(job).toLocaleString()} tokens</span>`,
+                    `<span>${usageLabel(job)}</span>`,
                     `<span>${elapsed(job)}</span>`
                 ].join('')
                 return `
@@ -908,7 +913,10 @@
                 }
                 const running = jobs.filter((j) => LIVE.has(j.stage)).length
                 const totalTokens = jobs.reduce((sum, job) => sum + tokens(job), 0)
-                $('totals').textContent = `${running} running · ${totalTokens.toLocaleString()} Codex tokens`
+                const pricedJobs = jobs.filter((job) => job.api_cost_usd != null)
+                const totalCost = pricedJobs.reduce((sum, job) => sum + job.api_cost_usd, 0)
+                const estimate = pricedJobs.length ? ` · $${totalCost.toFixed(4)} API est.` : ''
+                $('totals').textContent = `${running} running · ${totalTokens.toLocaleString()} Codex tokens${estimate}`
             }
 
             async function poll() {
@@ -988,7 +996,7 @@
                 if (!job) return
                 $('d-num').textContent = `${job.id} · ${job.stage}${
                     job.round ? ` · round ${job.round}` : ''
-                } · ${tokens(job).toLocaleString()} tokens · ${elapsed(job)}`
+                } · ${usageLabel(job)} · ${elapsed(job)}`
                 $('d-title').textContent = job.title
                 $('d-links').innerHTML = links(job)
 

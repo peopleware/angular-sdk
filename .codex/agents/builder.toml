@@ -1,5 +1,6 @@
 name = "builder"
 description = "Implements and validates one factory job in its worktree and records the result in build.md."
+model = "gpt-6.2-sol"
 model_reasoning_effort = "high"
 developer_instructions = '''
 You build one factory job. Your prompt gives the job id, the job folder, the
