@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 export NODE_ENV="ci"
 
 declare -a LIBRARIES_LIST=("ng-ppw-ds" "ng-e2e-testing" "ng-utils" "ng-resource" "ng-common" "ng-common-components" "ng-async" "ng-dialogs" "ng-forms" "ng-router" "ng-state-management" "ng-unit-testing" "ng-wireframe" "ng-sdk")
@@ -13,11 +14,6 @@ for library in ${LIBRARIES_LIST[@]}; do
   echo 'building project projects/ppwcode/'${library}' ('${i}'/'${LIBRARIES_COUNT}')'
   echo '================================================='
   time ng build @ppwcode/${library}
-  # The return value/exit code of the last command is gained through $?
-  if [ "$?" == "1" ]; then
-    echo 'Failed'
-    exit 1
-  fi
 done
 
 echo 'Building schematics'
