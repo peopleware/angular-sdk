@@ -1,0 +1,28 @@
+{
+    "concurrency": 3,
+    "max_rounds": 3,
+    "base_branch": "master",
+    "merge_method": "merge",
+    "labels": {
+        "queue": "factory",
+        "needs_info": "factory:needs-info",
+        "needs_human": "factory:needs-human"
+    },
+    "routing": {
+        "low": { "code": "low" },
+        "medium": { "code": "medium" },
+        "high": { "code": "high" }
+    },
+    "surface_reviewers": {
+        "ui": { "ux": "medium", "ui": "low" },
+        "security": { "security": "high" }
+    },
+    "protected_paths": [
+        "factory/checks.py",
+        "factory/config.json",
+        "factory/bin/*",
+        ".codex/agents/*",
+        ".agents/skills/factory/*"
+    ],
+    "ports": { "base": 5100, "step": 10 }
+}

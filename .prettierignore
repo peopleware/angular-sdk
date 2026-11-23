@@ -12,3 +12,6 @@ dist/
 
 # assets
 src/assets/fontawesome/
+
+/factory/jobs/
+/.worktrees/

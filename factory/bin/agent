@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Run one factory role with Codex CLI and log its JSON events."""
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+import tomllib
+from datetime import datetime, timezone
+
+from runtime import FACTORY, JOBS, REPO, locked, port, worktree
+
+ROLE_ARTIFACTS = {
+    "intake": ("intake", "intake.md"),
+    "spec-writer": ("spec", "spec.md"),
+    "builder": ("build", "build.md"),
+    "approver": ("approve", "decision.md"),
+}
+REVIEW_OFFSETS = {"code": None, "security": None, "ux": 1, "ui": 2}
+LEGACY_EFFORT = {"haiku": "low", "sonnet": "medium", "opus": "high"}
+
+
+def run(job_id, role):
+    folder = JOBS / job_id
+    logs = folder / "codex"
+    with locked(logs / f".{role}.lock", wait=False):
+        config = json.loads((FACTORY / "config.json").read_text(encoding="utf-8"))
+        job = json.loads((folder / "job.json").read_text(encoding="utf-8"))
+        instructions = tomllib.loads((REPO / ".codex" / "agents" / f"{role}.toml").read_text(encoding="utf-8"))
+        checkout = worktree(job_id)
+        branch = job["branch"]
+        round_number = job["round"]
+        stage, artifact = ROLE_ARTIFACTS.get(role, ("review", f"round-{round_number}/{role.replace('reviewer-', 'review-')}.md"))
+        if job["stage"] != stage:
+            raise ValueError(f"{role} requires stage {stage}; {job_id} is in {job['stage']}")
+        effort = instructions["model_reasoning_effort"]
+        offset = None
+        if stage == "review":
+            reviewer = role.removeprefix("reviewer-")
+            reviewers = job["agents"]["reviewers"]
+            if reviewer not in reviewers:
+                raise ValueError(f"{role} was not routed for {job_id}")
+            effort = LEGACY_EFFORT.get(reviewers[reviewer], reviewers[reviewer])
+            offset = REVIEW_OFFSETS[reviewer]
+        elif role == "builder":
+            offset = 0
+            subprocess.run([sys.executable, str(FACTORY / "checks.py"), "--setup"], cwd=checkout, check=True)
+        output = folder / artifact
+        prior_mtime = output.stat().st_mtime_ns if output.is_file() else None
+        prompt = (
+            f"Job: {job_id}. Job folder: {folder.as_posix()}/. Main checkout: {REPO}. "
+            f"Worktree: {checkout}. Branch: {branch}. Base: origin/{config['base_branch']}. "
+            f"Issue: #{job['issue']}. Round: {round_number}. PR: {job['pr']}."
+        )
+        if offset is not None:
+            prompt += f" Port: {port(job_id, config, offset)}."
+        command = ["codex", "--ask-for-approval", "never", "exec", "--json", "--ephemeral", "--cd",
+                   str(checkout if role == "builder" else folder),
+                   "--sandbox", "workspace-write",
+                   "-c", f"model_reasoning_effort={json.dumps(effort)}"]
+        if role == "builder":
+            command.extend(["--add-dir", str(folder)])
+        if instructions.get("model"):
+            command.extend(["--model", instructions["model"]])
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
+        event_log = logs / f"{timestamp}-{role}.jsonl"
+        failure_log = logs / f"{timestamp}-{role}.log"
+        with event_log.open("xb") as events, failure_log.open("xb") as errors:
+            result = subprocess.run([*command, "-"],
+                                    input=f"{prompt}\n\n{instructions['developer_instructions']}",
+                                    encoding="utf-8", stdout=events, stderr=errors)
+        if result.returncode:
+            raise ValueError(f"Codex exited with {result.returncode}; see {event_log} and {failure_log}")
+        if not output.is_file() or output.stat().st_mtime_ns == prior_mtime:
+            raise ValueError(f"Codex did not write {output}; see {event_log} and {failure_log}")
+        print(f"{job_id}: {role} finished; events in {event_log}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("job_id")
+    parser.add_argument("role", choices=[*ROLE_ARTIFACTS, *(f"reviewer-{r}" for r in REVIEW_OFFSETS)])
+    args = parser.parse_args()
+    if not re.fullmatch(r"[0-9]+-[a-z0-9-]+", args.job_id):
+        parser.error("invalid job id")
+    if not (JOBS / args.job_id / "job.json").is_file():
+        parser.error(f"no job {args.job_id}")
+    try:
+        run(args.job_id, args.role)
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        parser.exit(1, f"agent: {error}\n")
+
+
+if __name__ == "__main__":
+    main()

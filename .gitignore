@@ -45,3 +45,7 @@ Thumbs.db
 
 *storybook.log
 storybook-static
+
+/factory/jobs/
+/.worktrees/
+/factory/bin/__pycache__/
