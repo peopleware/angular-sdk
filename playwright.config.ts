@@ -11,7 +11,7 @@ export default defineConfig({
     workers: process.env['CI'] ? 1 : undefined,
     reporter: process.env['CI'] ? 'github' : 'list',
     use: {
-        baseURL: 'http://127.0.0.1:4200/angular-sdk/',
+        baseURL: `http://127.0.0.1:${process.env['PPW_E2E_PORT'] ?? '4200'}/angular-sdk/`,
         trace: 'retain-on-failure'
     },
     projects: [

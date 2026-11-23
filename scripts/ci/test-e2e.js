@@ -3,7 +3,8 @@ const http = require('http')
 const path = require('path')
 
 const isWindows = process.platform === 'win32'
-const serverUrl = 'http://127.0.0.1:4200/angular-sdk/'
+const serverPort = process.env.PPW_E2E_PORT ?? '4200'
+const serverUrl = `http://127.0.0.1:${serverPort}/angular-sdk/`
 const commandExtension = isWindows ? '.cmd' : ''
 const nodeBinPath = path.join(__dirname, '..', '..', 'node_modules', '.bin')
 
@@ -95,7 +96,7 @@ const killProcessTree = (processId) =>
     })
 
 const run = async () => {
-    const serverSpawnOptions = getSpawnOptions(ngCommand, ['serve', '--host', '127.0.0.1', '--port', '4200'])
+    const serverSpawnOptions = getSpawnOptions(ngCommand, ['serve', '--host', '127.0.0.1', '--port', serverPort])
     const serverProcess = spawn(serverSpawnOptions.command, serverSpawnOptions.args, {
         detached: !isWindows,
         shell: serverSpawnOptions.shell,
