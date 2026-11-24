@@ -1,0 +1,23 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks'
+import * as BorderThicknessStories from '../stories/border-thickness.stories'
+
+<Meta of={BorderThicknessStories} />
+
+# Border Thickness
+
+Use a border width token to control the visual weight of a border. Set the border style and color independently.
+
+| Token                       | Width |
+| --------------------------- | ----- |
+| `--ppw-ds-border-width-1px` | 1px   |
+| `--ppw-ds-border-width-2px` | 2px   |
+| `--ppw-ds-border-width-3px` | 3px   |
+
+```css
+.panel {
+    border-style: solid;
+    border-width: var(--ppw-ds-border-width-1px);
+}
+```
+
+<Canvas of={BorderThicknessStories.AllWidths} />
