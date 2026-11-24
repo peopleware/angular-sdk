@@ -1,0 +1,43 @@
+@use 'ppw-ds' as ppwDs;
+
+:host {
+    color-scheme: light;
+}
+
+:host-context(.dark-theme) {
+    color-scheme: dark;
+}
+
+.samples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 144px), 1fr));
+    gap: var(--ppw-ds-spacing-xlarge);
+    margin: 0;
+    padding: var(--ppw-ds-spacing-xlarge);
+    list-style: none;
+    border-radius: var(--ppw-ds-radius-medium);
+    background: light-dark(var(--ppw-ds-neutral-200), var(--ppw-ds-neutral-600));
+}
+
+.sample {
+    padding: var(--ppw-ds-spacing-large) var(--ppw-ds-spacing-small);
+    border: 1px solid var(--ppw-ds-neutral-400);
+    border-radius: var(--ppw-ds-radius-small);
+    background: light-dark(var(--ppw-ds-neutral-100), var(--ppw-ds-neutral-400));
+    color: var(--ppw-ds-neutral-600);
+    text-align: center;
+}
+
+@for $level from 0 through 15 {
+    .sample--#{$level} {
+        @include ppwDs.ppw-ds-elevation($level);
+    }
+}
+
+.sample--flat {
+    @include ppwDs.ppw-ds-elevation(flat);
+}
+
+.sample--default-raised {
+    @include ppwDs.ppw-ds-elevation(default-raised);
+}

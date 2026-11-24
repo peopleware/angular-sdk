@@ -1,0 +1,26 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+
+$_semantic-levels: (
+    'flat': 0,
+    'default-raised': 1
+);
+
+@mixin ppw-ds-elevation($level) {
+    @if map.has-key($_semantic-levels, $level) {
+        $level: map.get($_semantic-levels, $level);
+    }
+
+    $is-unitless-number: meta.type-of($level) == 'number' and math.is-unitless($level);
+
+    @if not $is-unitless-number or $level < 0 or $level > 15 or $level != math.floor($level) {
+        @error 'Elevation must be a unitless integer from 0 through 15, flat, or default-raised.';
+    }
+
+    @if $level == 0 {
+        box-shadow: none;
+    } @else {
+        box-shadow: 0 ($level * 1px) ($level * 2px) rgb(0 0 0 / 24%);
+    }
+}

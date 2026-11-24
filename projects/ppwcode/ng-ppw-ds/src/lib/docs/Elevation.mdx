@@ -1,0 +1,28 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ElevationStories from '../stories/elevation.stories'
+
+<Meta of={ElevationStories} />
+
+# Elevation
+
+Use `ppw-ds-elevation` to give a surface a consistent shadow. The mixin accepts unitless integer levels from 0 through 15. Level 0 has no shadow. Each raised level adds the same amount of downward offset and blur.
+
+`flat` selects level 0, and `default-raised` selects level 1.
+
+```scss
+@use '@ppwcode/ng-ppw-ds' as ppwDs;
+
+.inline-panel {
+    @include ppwDs.ppw-ds-elevation(flat);
+}
+
+.card {
+    @include ppwDs.ppw-ds-elevation(default-raised);
+}
+
+.popover {
+    @include ppwDs.ppw-ds-elevation(6);
+}
+```
+
+<Canvas of={ElevationStories.AllLevels} sourceState="none" />
