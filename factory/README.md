@@ -5,8 +5,8 @@ The factory turns GitHub issues labeled `factory` into reviewed pull requests. C
 ## First run
 
 -   Use Codex with subagents, Python 3.11+, Git, GitHub CLI and the Node version in the root `.node-version`. For the standalone worker option, use a current Codex CLI signed in with `codex login` and a workspace-write sandbox that can access the job folders. On Windows, use Git for Windows for the library build. On Linux, install Playwright's Chromium system dependencies with `npm exec -- playwright install-deps chromium` if needed.
--   Run `gh auth login` with an account that can manage issues, push branches and merge eligible PRs. Configure Git credentials for the checkout's `origin` transport.
--   Land this installation on `master` before running jobs. Check the merge method in [config.json](config.json) against the repository's settings. Job worktrees are created from `origin/master`.
+-   Run `gh auth login` with an account that can manage issues and prepare PRs for review. Configure Git credentials for pushing to the checkout's `origin` transport.
+-   Land this installation on `master` before running jobs. Job worktrees are created from `origin/master`.
 -   Create any missing GitHub labels:
 
     ```sh
@@ -15,7 +15,7 @@ The factory turns GitHub issues labeled `factory` into reviewed pull requests. C
     gh label create factory:needs-human --color D93F0B --description "The factory needs a human decision on the PR"
     ```
 
--   Label an issue, then invoke `$factory run <issue>` in Codex from the main checkout. Invoke `$factory run` to drain the queue. The approver can merge an approved PR after the gate passes again. Escalated PRs are marked ready for a person to decide.
+-   Label an issue, then invoke `$factory run <issue>` in Codex from the main checkout. Invoke `$factory run` to drain the queue. After approval and a second gate pass, the factory marks the PR ready for manual merge. Escalated PRs are marked ready for a person to decide.
 
 ## Commands
 

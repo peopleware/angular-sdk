@@ -3,7 +3,7 @@
 
 Usage:
   gate <job-id>            write round-N/checks.md; exit 0 on PASS, 1 on FAIL
-  gate <job-id> --merge    same, as round-N/merge-checks.md (job merge runs it)
+  gate <job-id> --merge    same, as round-N/merge-checks.md (job handoff runs it)
 
 The gate runs the main checkout's factory/checks.py inside the job's worktree,
 so a branch can't change the checks it is judged by. It also fails when the
@@ -75,7 +75,7 @@ def gate(job_id, merge):
     summary = [
         f"checks.py {'passed' if code == 0 else f'failed with exit {code}'} in {seconds}s",
         f"Protected paths: {'changed: ' + ', '.join(protected) if protected else 'none changed'}",
-        f"Commit {commit[:7]}" + (", synced with the latest base before merging" if merge else ""),
+        f"Commit {commit[:7]}" + (", synced with the latest base for manual merge" if merge else ""),
     ]
     (round_dir / f"{name}.md").write_text(
         f"GATE: {verdict}\nCOMMIT: {commit}\n\n"

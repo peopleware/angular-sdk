@@ -2,7 +2,6 @@
     "concurrency": 3,
     "max_rounds": 3,
     "base_branch": "master",
-    "merge_method": "merge",
     "labels": {
         "queue": "factory",
         "needs_info": "factory:needs-info",

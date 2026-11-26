@@ -731,12 +731,12 @@
                 { label: 'Spec', who: 'spec-writer · opus', stages: ['spec'] },
                 { label: 'Build', who: 'builder · gate', stages: ['build', 'gate'] },
                 { label: 'Review', who: 'routed reviewers', stages: ['review'] },
-                { label: 'Approve', who: 'approver · merge', stages: ['approve', 'merging'] },
+                { label: 'Approve', who: 'approver · handoff', stages: ['approve', 'handoff', 'merging'] },
                 { label: 'Needs human', who: 'you', stages: ['needs-human'], cls: 'human' },
                 { label: 'Done', who: 'merged · rejected', stages: ['merged', 'rejected'], cls: 'merged-col' }
             ]
             const STAGES = new Set(COLUMNS.flatMap((c) => c.stages))
-            const LIVE = new Set(['intake', 'spec', 'build', 'gate', 'review', 'approve', 'merging'])
+            const LIVE = new Set(['intake', 'spec', 'build', 'gate', 'review', 'approve', 'handoff', 'merging'])
             const SHORT = { code: 'code', ux: 'ux', ui: 'ui', security: 'sec' }
 
             const $ = (id) => document.getElementById(id)

@@ -3,7 +3,7 @@
 
 Every stage change goes through `advance`, which checks the files that justify
 it and refuses anything else. GitHub side effects that belong to a transition
-(labels, comments, the worktree, the merge) happen here too, so the
+(labels, comments, and worktree changes) happen here too, so the
 orchestrator never improvises them.
 
 Usage:
@@ -11,7 +11,7 @@ Usage:
   job create <issue>             new job for an open `factory` issue; prints the job id
   job advance <job> <stage>      move a job to <stage>, or refuse
   job publish <job>              push a committed build and open its draft PR
-  job merge <job>                APPROVE → sync with the base branch, gate, merge the PR
+  job handoff <job>              APPROVE → sync with the base branch, gate, ready the PR for manual merge
   job feedback <job>             needs-human → build, with your feedback (stdin) as feedback-<k>.md
   job reject <job>               needs-info or needs-human → rejected, with your reason (stdin) as rejection.md
   job agents <job> <json>        record the routed agent set (called by factory/bin/route)
@@ -43,7 +43,8 @@ TRANSITIONS = {
     "build": {"gate", "needs-human"},
     "gate": {"review", "build", "needs-human"},
     "review": {"approve", "build", "needs-human"},
-    "approve": {"merging", "needs-human"},
+    "approve": {"handoff", "needs-human"},
+    "handoff": {"needs-human"},
     "merging": {"needs-human"},
     "needs-human": {"build", "rejected"},
 }
@@ -297,7 +298,7 @@ def sync(job):
         rd = round_dir(job)
         gate = header(rd / "checks.md").get("GATE") if (rd / "checks.md").exists() else None
         job["gate"] = gate
-        if job["agents"] and job["stage"] in {"review", "approve", "merging", "merged", "needs-human"}:
+        if job["agents"] and job["stage"] in {"review", "approve", "handoff", "merging", "merged", "needs-human"}:
             job["reviews"] = {}
             for r in reviewers(job):
                 line = first_line(rd / f"review-{r}.md")
@@ -460,7 +461,7 @@ def advance(job, stage):
                 next_round(job)
 
     elif old == "approve":
-        want = "APPROVE" if stage == "merging" else "ESCALATE"
+        want = "APPROVE" if stage == "handoff" else "ESCALATE"
         line = first_line(d / "decision.md")
         require(line == want, f"decision.md starts with {line!r}, not {want}")
 
@@ -474,8 +475,17 @@ def advance(job, stage):
         label("issue", job["issue"], remove=LABELS["needs_human"])
 
     if stage == "needs-human":
-        decision = (d / "decision.md").read_text(encoding="utf-8").partition("\n")[2].strip()
-        body = f"### Factory: needs a human\n\n{decision}"
+        if first_line(d / "decision.md") == "APPROVE":
+            checks_path = round_dir(job) / "merge-checks.md"
+            checks = header(checks_path) if checks_path.exists() else {}
+            require(checks.get("GATE") == "PASS" and
+                    checks.get("COMMIT") == git(job, "rev-parse", "HEAD").stdout.strip(),
+                    "run job handoff to validate the approved commit")
+            body = ("### Factory: ready for manual merge\n\n"
+                    "The factory approved this PR and the gate passed after syncing with the base branch.")
+        else:
+            decision = (d / "decision.md").read_text(encoding="utf-8").partition("\n")[2].strip()
+            body = f"### Factory: needs a human\n\n{decision}"
         if job["pr"]:
             if gh_json("pr", "view", str(job["pr"]), "--json", "isDraft")["isDraft"]:
                 gh("pr", "ready", str(job["pr"]))
@@ -599,16 +609,22 @@ def cmd_publish(job):
     print(f"{job['id']}: published {job['branch']}")
 
 
-def cmd_merge(job):
+def cmd_handoff(job):
     sync(job)
     if job["stage"] == "approve":
-        save(advance(job, "merging"))
-    if job["stage"] != "merging":
-        die(f"{job['id']} is in {job['stage']}, not approve or merging")
+        save(advance(job, "handoff"))
+    require(job["stage"] in {"handoff", "merging"},
+            f"{job['id']} is in {job['stage']}, not ready for handoff")
     if job["pr"] and pr_state(job) == "MERGED":
         save(advance(sync(job), "merged"))
         print(f"{job['id']}: merged PR #{job['pr']}")
         return
+    decision = first_line(job_dir(job["id"]) / "decision.md")
+    if decision == "ESCALATE":
+        save(advance(job, "needs-human"))
+        print(f"{job['id']}: needs-human")
+        return
+    require(decision == "APPROVE", "handoff requires an approval decision")
 
     def fail(why):
         escalate(job, why)
@@ -629,16 +645,10 @@ def cmd_merge(job):
                     f"See round-{job['round']}/merge-checks.md.\n\n{(gate.stderr or gate.stdout).strip()}")
     try:
         git(job, "push", "origin", job["branch"])
-        if gh_json("pr", "view", str(job["pr"]), "--json", "isDraft")["isDraft"]:
-            gh("pr", "ready", str(job["pr"]))
-        head = git(job, "rev-parse", "HEAD").stdout.strip()
-        gh("pr", "merge", str(job["pr"]), f"--{CONFIG['merge_method']}", "--match-head-commit", head)
     except Refused as e:
-        return fail(f"The merge failed:\n\n```\n{e}\n```")
-    # GitHub may already have deleted the branch on merge.
-    run(["git", "push", "origin", "--delete", job["branch"]], check=False)
-    save(advance(sync(job), "merged"))
-    print(f"{job['id']}: merged PR #{job['pr']}")
+        return fail(f"The approved branch could not be published:\n\n```\n{e}\n```")
+    save(advance(sync(job), "needs-human"))
+    print(f"{job['id']}: PR #{job['pr']} ready for manual merge")
 
 
 def cmd_feedback(job, text):
@@ -744,8 +754,8 @@ def main(argv):
             print(f"{job['id']}: {job['stage']} (round {job['round']})")
         elif cmd == "publish" and len(args) == 1:
             cmd_publish(resolve(args[0]))
-        elif cmd == "merge" and len(args) == 1:
-            cmd_merge(resolve(args[0]))
+        elif cmd == "handoff" and len(args) == 1:
+            cmd_handoff(resolve(args[0]))
         elif cmd == "feedback" and len(args) == 1:
             cmd_feedback(resolve(args[0]), sys.stdin.read())
         elif cmd == "reject" and len(args) == 1:
