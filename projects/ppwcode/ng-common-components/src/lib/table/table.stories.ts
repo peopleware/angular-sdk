@@ -80,7 +80,7 @@ export class TableWrapperComponent {
     public readonly disableAnimations = input(false)
     public readonly footerData = input<Record<string, unknown> | undefined>(undefined)
     public readonly options = input<PpwTableOptions<Record<string, unknown>> | undefined>(undefined)
-    sortChanged = output<unknown>()
+    public readonly sortChanged = output<unknown>()
 }
 
 const meta: Meta<TableWrapperComponent> = {
