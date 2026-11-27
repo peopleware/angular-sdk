@@ -4,7 +4,9 @@
 
 export * from './lib/async-result/async-result.component'
 export * from './lib/async-result/async-result.module'
-export * from './lib/async-result/async-result-directives'
+export * from './lib/async-result/ppw-async-result-empty.directive'
+export * from './lib/async-result/ppw-async-result-initial.directive'
+export * from './lib/async-result/ppw-async-result-success.directive'
 export * from './lib/constants/error-codes'
 export * from './lib/downloads/save-downloaded-file'
 export * from './lib/models/async-result'

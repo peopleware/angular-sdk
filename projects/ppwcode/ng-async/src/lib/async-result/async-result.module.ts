@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { TranslateDirective, TranslatePipe } from '@ngx-translate/core'
 import { LoaderComponent, MessageBarComponent } from '@ppwcode/ng-common-components'
-import {
-    PpwAsyncResultEmptyDirective,
-    PpwAsyncResultInitialDirective,
-    PpwAsyncResultSuccessDirective
-} from './async-result-directives'
 import { AsyncResultComponent } from './async-result.component'
+import { PpwAsyncResultEmptyDirective } from './ppw-async-result-empty.directive'
+import { PpwAsyncResultInitialDirective } from './ppw-async-result-initial.directive'
+import { PpwAsyncResultSuccessDirective } from './ppw-async-result-success.directive'
 
 @NgModule({
     declarations: [

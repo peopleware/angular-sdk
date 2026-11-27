@@ -15,11 +15,9 @@ import {
     PPW_ASYNC_RESULT_DEFAULT_OPTIONS,
     PpwAsyncResultDefaultOptions
 } from '../options/ppw-async-result-default-options'
-import {
-    PpwAsyncResultEmptyDirective,
-    PpwAsyncResultInitialDirective,
-    PpwAsyncResultSuccessDirective
-} from './async-result-directives'
+import { PpwAsyncResultEmptyDirective } from './ppw-async-result-empty.directive'
+import { PpwAsyncResultInitialDirective } from './ppw-async-result-initial.directive'
+import { PpwAsyncResultSuccessDirective } from './ppw-async-result-success.directive'
 
 @Component({
     selector: 'ppw-async-result',
