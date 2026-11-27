@@ -7,9 +7,11 @@
     </mat-card-content>
     <mat-card-actions align="end" class="gap-8">
         @if (allowReset()) {
-            <button mat-button (click)="executeClear()" [disabled]="clearDisabled()">{{ resetLabel() }}</button>
+            <button type="submit" mat-button (click)="executeClear()" [disabled]="clearDisabled()">
+                {{ resetLabel() }}
+            </button>
         }
-        <button mat-raised-button color="primary" (click)="executeSearch()" [disabled]="submitDisabled()">
+        <button type="submit" mat-raised-button color="primary" (click)="executeSearch()" [disabled]="submitDisabled()">
             {{ searchLabel() }}
         </button>
     </mat-card-actions>

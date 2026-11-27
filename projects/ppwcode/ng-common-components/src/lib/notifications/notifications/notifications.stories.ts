@@ -19,10 +19,10 @@ const bottomCenterPositionConfigurator = (strategy: GlobalPositionStrategy): Glo
         <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
             <p>Notifications are displayed using the configured viewport position.</p>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
-                <button mat-flat-button (click)="showNotification('success')">Success</button>
-                <button mat-flat-button (click)="showNotification('error')">Error</button>
-                <button mat-flat-button (click)="showNotification('warning')">Warning</button>
-                <button mat-flat-button (click)="showNotification('info')">Info</button>
+                <button type="button" mat-flat-button (click)="showNotification('success')">Success</button>
+                <button type="button" mat-flat-button (click)="showNotification('error')">Error</button>
+                <button type="button" mat-flat-button (click)="showNotification('warning')">Warning</button>
+                <button type="button" mat-flat-button (click)="showNotification('info')">Info</button>
             </div>
         </div>
     `

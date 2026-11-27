@@ -9,6 +9,7 @@
     <mat-dialog-actions align="end">
         @if (showCancelButton) {
             <button
+                type="button"
                 [matButton]="cancelButtonAppearance"
                 class="ppw-confirmation-dialog__action"
                 [mat-dialog-close]="false"
@@ -20,6 +21,7 @@
             </button>
         }
         <button
+            type="button"
             [matButton]="confirmationButtonAppearance"
             class="ppw-confirmation-dialog__action"
             [mat-dialog-close]="true"

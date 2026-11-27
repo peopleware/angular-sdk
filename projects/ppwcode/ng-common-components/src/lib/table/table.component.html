@@ -124,6 +124,7 @@
                 <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
                 <td mat-cell *matCellDef="let record" [style.width]="'48px'">
                     <button
+                        type="button"
                         mat-icon-button
                         (click)="toggleExpand(record.initialRecord); $event.stopPropagation()"
                         class="ppw-table-expand-toggle-button"

@@ -54,7 +54,7 @@ class StorybookMissingTranslationHandler implements MissingTranslationHandler {
     imports: [MatButtonModule],
     template: `
         <div style="display: flex; justify-content: center; padding: 32px;">
-            <button mat-flat-button color="primary" (click)="open()">Open Confirmation Dialog</button>
+            <button type="button" mat-flat-button color="primary" (click)="open()">Open Confirmation Dialog</button>
         </div>
     `
 })

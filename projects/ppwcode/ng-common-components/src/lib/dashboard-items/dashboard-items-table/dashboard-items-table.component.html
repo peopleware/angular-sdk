@@ -42,7 +42,7 @@
                     }} ppw-dashboard-item-actions-alignment--{{ item.actionsAlignment ?? 'end' }}"
                 >
                     @for (action of item.actions; track action) {
-                        <button mat-button color="primary" (click)="executeAction.emit(action)">
+                        <button type="button" mat-button color="primary" (click)="executeAction.emit(action)">
                             {{ action.labelKey | translate | uppercase }}
                         </button>
                     }

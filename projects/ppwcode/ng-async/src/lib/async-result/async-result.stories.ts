@@ -36,9 +36,9 @@ export class AsyncResultWrapperComponent {
     template: `
         <div style="display: flex; flex-direction: column; gap: 16px;">
             <div style="display: flex; gap: 8px;">
-                <button mat-raised-button color="primary" (click)="runSuccess()">Simulate Success</button>
-                <button mat-raised-button color="warn" (click)="runError()">Simulate Error</button>
-                <button mat-button (click)="reset()">Reset</button>
+                <button type="button" mat-raised-button color="primary" (click)="runSuccess()">Simulate Success</button>
+                <button type="button" mat-raised-button color="warn" (click)="runError()">Simulate Error</button>
+                <button type="button" mat-button (click)="reset()">Reset</button>
             </div>
             <div style="border: 1px solid #ddd; padding: 16px; min-height: 150px;">
                 <ppw-async-result [asyncResult]="state()" [pending]="pending()">

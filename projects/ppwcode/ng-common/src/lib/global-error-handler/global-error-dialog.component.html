@@ -14,7 +14,7 @@
                         <p>{{ error.message }}</p>
                     }
                     @if (canCopySingleError && messages.copySingleError) {
-                        <button mat-stroked-button color="warn" (click)="copyError(error)">
+                        <button type="button" mat-stroked-button color="warn" (click)="copyError(error)">
                             {{ messages.copySingleError | translate }}
                         </button>
                     }
@@ -36,22 +36,22 @@
 </mat-dialog-content>
 <mat-dialog-actions class="global-error-dialog-actions" align="end">
     @if (canIgnore && messages.ignore) {
-        <button mat-button color="accent" mat-dialog-close>
+        <button type="button" mat-button color="accent" mat-dialog-close>
             {{ messages.ignore | translate }}
         </button>
     }
     @if (canGoHome && messages.goHome) {
-        <button mat-stroked-button color="accent" (click)="toHome()">
+        <button type="button" mat-stroked-button color="accent" (click)="toHome()">
             {{ messages.goHome | translate }}
         </button>
     }
     @if (canCopyAllErrors && messages.copyAllErrors) {
-        <button mat-stroked-button color="warn" (click)="copyAllErrors()">
+        <button type="button" mat-stroked-button color="warn" (click)="copyAllErrors()">
             {{ messages.copyAllErrors | translate }}
         </button>
     }
     @if (canReload && messages.reload) {
-        <button mat-raised-button color="primary" (click)="reloadPage()">
+        <button type="button" mat-raised-button color="primary" (click)="reloadPage()">
             {{ messages.reload | translate }}
         </button>
     }

@@ -16,11 +16,11 @@
     <h2>Demo</h2>
     <div class="flex-row gap-16">
         <div class="flex-column gap-8">
-            <button mat-stroked-button (click)="addLogLine('debug')">Add debug line</button>
-            <button mat-stroked-button (click)="addLogLine('info')">Add info line</button>
-            <button mat-stroked-button (click)="addLogLine('log')">Add log line</button>
-            <button mat-stroked-button (click)="addLogLine('warn')">Add warning line</button>
-            <button mat-stroked-button (click)="addLogLine('error')">Add error line</button>
+            <button type="button" mat-stroked-button (click)="addLogLine('debug')">Add debug line</button>
+            <button type="button" mat-stroked-button (click)="addLogLine('info')">Add info line</button>
+            <button type="button" mat-stroked-button (click)="addLogLine('log')">Add log line</button>
+            <button type="button" mat-stroked-button (click)="addLogLine('warn')">Add warning line</button>
+            <button type="button" mat-stroked-button (click)="addLogLine('error')">Add error line</button>
         </div>
         <mat-divider [vertical]="true"></mat-divider>
         <div class="flex-column flex-grow-1 gap-16">
@@ -29,7 +29,7 @@
                 <ppw-column type="text" label="message" name="message"></ppw-column>
             </ppw-table>
             <div class="flex-row">
-                <button mat-stroked-button (click)="clear()">Clear log</button>
+                <button type="button" mat-stroked-button (click)="clear()">Clear log</button>
             </div>
         </div>
     </div>
