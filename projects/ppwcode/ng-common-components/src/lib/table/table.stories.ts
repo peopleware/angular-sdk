@@ -70,16 +70,16 @@ import { PpwTableOptions } from './options/table-options'
     standalone: true
 })
 export class TableWrapperComponent {
-    data = input<Record<string, unknown>[]>([])
-    trackByFn = input<TrackByFunction<Record<string, unknown>>>(
+    public readonly data = input<Record<string, unknown>[]>([])
+    public readonly trackByFn = input<TrackByFunction<Record<string, unknown>>>(
         (index: number, item: Record<string, unknown>) => item['id']
     )
-    enableRowSelection = input(false)
-    enableRowDrag = input(false)
-    expandable = input(false)
-    disableAnimations = input(false)
-    footerData = input<Record<string, unknown> | undefined>(undefined)
-    options = input<PpwTableOptions<Record<string, unknown>> | undefined>(undefined)
+    public readonly enableRowSelection = input(false)
+    public readonly enableRowDrag = input(false)
+    public readonly expandable = input(false)
+    public readonly disableAnimations = input(false)
+    public readonly footerData = input<Record<string, unknown> | undefined>(undefined)
+    public readonly options = input<PpwTableOptions<Record<string, unknown>> | undefined>(undefined)
     sortChanged = output<unknown>()
 }
 

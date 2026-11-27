@@ -59,11 +59,11 @@ class StorybookMissingTranslationHandler implements MissingTranslationHandler {
     `
 })
 class ConfirmationDialogLauncherComponent {
-    titleKey = input('')
-    bodyKey = input('')
-    bodyParams = input<Record<string, unknown>>({})
-    confirm = input<ConfirmationDialogButtonOptions | undefined>(undefined)
-    cancel = input<ConfirmationDialogButtonOptions | undefined>(undefined)
+    public readonly titleKey = input('')
+    public readonly bodyKey = input('')
+    public readonly bodyParams = input<Record<string, unknown>>({})
+    public readonly confirm = input<ConfirmationDialogButtonOptions | undefined>(undefined)
+    public readonly cancel = input<ConfirmationDialogButtonOptions | undefined>(undefined)
 
     private dialog = inject(MatDialog)
 

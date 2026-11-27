@@ -27,8 +27,8 @@ import { MatButtonModule } from '@angular/material/button'
     standalone: true
 })
 export class AsyncResultWrapperComponent {
-    asyncResult = input<AsyncResult<unknown, unknown> | null>(null)
-    pending = input<boolean | null>(null)
+    public readonly asyncResult = input<AsyncResult<unknown, unknown> | null>(null)
+    public readonly pending = input<boolean | null>(null)
 }
 
 @Component({

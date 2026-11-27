@@ -22,8 +22,8 @@ import { Breadcrumb } from './breadcrumb.model'
     standalone: true
 })
 export class BreadcrumbWrapperComponent {
-    showHome = input<boolean>(true)
-    enableAnimations = input<boolean>(true)
+    public readonly showHome = input<boolean>(true)
+    public readonly enableAnimations = input<boolean>(true)
 }
 
 const meta: Meta<BreadcrumbWrapperComponent> = {
