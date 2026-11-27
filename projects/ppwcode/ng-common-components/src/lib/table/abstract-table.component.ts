@@ -320,7 +320,7 @@ export function getPossibleNestedValue<TValue>(record: never, selector: string):
     const a = selector.split('.')
     for (let i = 0, n = a.length; i < n; ++i) {
         const k = a[i]
-        if (record != null && k in record) {
+        if (record !== null && k in record) {
             record = record[k]
         } else {
             return

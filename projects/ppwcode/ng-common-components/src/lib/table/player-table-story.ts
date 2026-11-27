@@ -253,9 +253,9 @@ export class PlayerTableStoryComponent {
     protected readonly trackBy = (_index: number, player: StoryPlayer): number => player.id
     protected readonly formatDate = (value: DateTime): string => value?.setLocale('en').toFormat('dd/MM/yyyy') ?? ''
     protected readonly formatIncome = (value: number): string =>
-        value == null ? '' : formatCurrency(value, 'en-US', '€', 'EUR', '3.2-2')
+        value === null ? '' : formatCurrency(value, 'en-US', '€', 'EUR', '3.2-2')
     protected readonly formatBonus = (value: number): string =>
-        value == null ? '' : formatPercent(value / 100, 'en-US', '1.2-2')
+        value === null ? '' : formatPercent(value / 100, 'en-US', '1.2-2')
 
     protected select(records: TableRecord<StoryPlayer>[]): void {
         this.selectedIds.set(records.map((record) => record.initialRecord.id))
