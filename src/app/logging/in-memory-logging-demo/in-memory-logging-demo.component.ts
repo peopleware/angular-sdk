@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatListModule } from '@angular/material/list'
 import { InMemoryLogger, PPW_LOGGER, provideInMemoryLogger } from '@ppwcode/ng-common'
@@ -19,6 +19,7 @@ export interface LogLine extends Record<string, unknown> {
 })
 export class InMemoryLoggingDemoComponent {
     #logger: InMemoryLogger = inject(PPW_LOGGER) as InMemoryLogger
+    #loglines = signal<Array<LogLine>>([])
 
     protected readonly Severity = Severity
 
@@ -31,12 +32,7 @@ export class InMemoryLoggingDemoComponent {
         }
     }
 
-    protected get logLines(): Array<LogLine> {
-        return this.#logger.logLines.map((ll) => ({
-            type: ll.type,
-            message: ll.message
-        }))
-    }
+    protected readonly logLines = this.#loglines.asReadonly()
 
     protected addLogLine(type: 'debug' | 'info' | 'log' | 'warn' | 'error'): void {
         switch (type) {
@@ -56,10 +52,13 @@ export class InMemoryLoggingDemoComponent {
                 this.#logger.error('This is an error message')
                 break
         }
+
+        this.#updateLogLines()
     }
 
     protected clear(): void {
         this.#logger.clear()
+        this.#updateLogLines()
     }
 
     protected trackLogLine(index: number, logLine: LogLine): string {
@@ -79,5 +78,14 @@ export class InMemoryLoggingDemoComponent {
             default:
                 return {}
         }
+    }
+
+    #updateLogLines(): void {
+        this.#loglines.set(
+            this.#logger.logLines.map((ll) => ({
+                type: ll.type,
+                message: ll.message
+            }))
+        )
     }
 }

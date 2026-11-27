@@ -24,7 +24,7 @@
         </div>
         <mat-divider [vertical]="true"></mat-divider>
         <div class="flex-column flex-grow-1 gap-16">
-            <ppw-table [data]="logLines" [options]="options" [trackBy]="trackLogLine">
+            <ppw-table [data]="logLines()" [options]="options" [trackBy]="trackLogLine">
                 <ppw-column type="text" label="type" name="type"></ppw-column>
                 <ppw-column type="text" label="message" name="message"></ppw-column>
             </ppw-table>
