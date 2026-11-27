@@ -1,4 +1,4 @@
-import { ComponentRef, Directive, input, InputSignal, OnInit, ViewContainerRef } from '@angular/core'
+import { ComponentRef, Directive, inject, input, InputSignal, OnInit, ViewContainerRef } from '@angular/core'
 
 import { Column, ColumnType } from '../../columns/column'
 import { DateCellComponent } from '../date-cell/date-cell.component'
@@ -12,6 +12,8 @@ import { TextCellComponent } from '../text-cell/text-cell.component'
     standalone: true
 })
 export class DynamicCellDirective<TRecord> implements OnInit {
+    private _viewContainerRef: ViewContainerRef = inject(ViewContainerRef)
+
     // Inputs
     public column: InputSignal<Column<TRecord, any>> = input.required()
     public record: InputSignal<Record<string, unknown>> = input.required()
@@ -27,8 +29,6 @@ export class DynamicCellDirective<TRecord> implements OnInit {
         [ColumnType.Number]: NumberCellComponent,
         [ColumnType.Template]: TemplateCellComponent
     }
-
-    public constructor(private _viewContainerRef: ViewContainerRef) {}
 
     public ngOnInit(): void {
         this.componentRef = this._viewContainerRef.createComponent<any>(
